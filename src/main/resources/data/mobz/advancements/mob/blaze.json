@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/started",
+    "display": {
+        "icon": {
+            "item": "mobz:blazehead"
+        },
+        "title": {
+            "translate": "mobz.advancements.blaze.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.blaze.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "blazeing": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:frost_entity"
+                }
+            }
+        }
+    }
+}

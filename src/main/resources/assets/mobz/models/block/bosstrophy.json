@@ -1,0 +1,1105 @@
+{
+  "textures": {
+    "particle": "block/soul_sand",
+    "bosstrophy": "mobz:block/bosstrophy"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        140,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        1,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        4,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        4,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        360,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        8,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            4,
+            4,
+            8,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            4,
+            4,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            12,
+            4,
+            16,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            8,
+            4,
+            12,
+            8
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            4,
+            0,
+            8,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#bosstrophy",
+          "uv": [
+            8,
+            0,
+            12,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        8,
+        4
+      ],
+      "to": [
+        5,
+        9,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            10,
+            4,
+            11
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            8,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            8,
+            11
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            8,
+            2,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        11,
+        8,
+        4
+      ],
+      "to": [
+        12,
+        9,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            8,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            15,
+            8,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            2,
+            8,
+            3,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        5,
+        8,
+        4
+      ],
+      "to": [
+        11,
+        9,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            11,
+            7,
+            12
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            12,
+            7,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            13,
+            7,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        5,
+        8,
+        11
+      ],
+      "to": [
+        11,
+        9,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            10,
+            7,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            14,
+            7,
+            15
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            12,
+            7,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        9,
+        11
+      ],
+      "to": [
+        6,
+        10,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            2,
+            12
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            11,
+            4,
+            12
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            2,
+            12,
+            4,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            5,
+            13,
+            7,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#bosstrophy",
+          "uv": [
+            2,
+            12,
+            4,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        10,
+        9,
+        11
+      ],
+      "to": [
+        12,
+        10,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            13,
+            2,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            4,
+            13,
+            5,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            4,
+            12,
+            6,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            2,
+            12,
+            3,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            2,
+            9,
+            4,
+            10
+          ]
+        },
+        "down": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            12,
+            3,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        7,
+        9,
+        11
+      ],
+      "to": [
+        9,
+        10,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            2,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            2,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            5,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        7,
+        9,
+        4
+      ],
+      "to": [
+        9,
+        10,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            2,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            2,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            5,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        10,
+        9,
+        4
+      ],
+      "to": [
+        12,
+        10,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            2,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            2,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            5,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            15,
+            3,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        9,
+        4
+      ],
+      "to": [
+        6,
+        10,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            2,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            2,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            5,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#bosstrophy",
+          "uv": [
+            1,
+            15,
+            3,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        9,
+        7
+      ],
+      "to": [
+        5,
+        10,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            1,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            2,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            2,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            4,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        11,
+        9,
+        7
+      ],
+      "to": [
+        12,
+        10,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            1,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            2,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            2,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            4,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        11,
+        9,
+        10
+      ],
+      "to": [
+        12,
+        10,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            1,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            4,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        9,
+        10
+      ],
+      "to": [
+        5,
+        10,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            9,
+            1,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            4,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        9,
+        5
+      ],
+      "to": [
+        5,
+        10,
+        6
+      ],
+      "faces": {
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            4,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        11,
+        9,
+        5
+      ],
+      "to": [
+        12,
+        10,
+        6
+      ],
+      "faces": {
+        "east": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            10,
+            1,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            11,
+            1,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#bosstrophy",
+          "uv": [
+            0,
+            12,
+            1,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#bosstrophy",
+          "uv": [
+            3,
+            13,
+            4,
+            14
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mobz:block/totemtop",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mobz:block/totemtop",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "mobz:block/totemtop"
+    },
+    "facing=west": {
+      "model": "mobz:block/totemtop",
+      "y": 90
+    }
+  }
+}

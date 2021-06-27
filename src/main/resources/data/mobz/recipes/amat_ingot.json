@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "fof",
+    "ede",
+    "fof"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:nether_brick"
+    },
+    "e": {
+      "item": "mobz:withermeal"
+    },
+    "f": {
+      "item": "minecraft:blaze_powder"
+    },
+    "o": {
+      "item": "minecraft:magma_cream"
+    }
+  },
+  "result": {
+    "item": "mobz:amat_ingot"
+  }
+}

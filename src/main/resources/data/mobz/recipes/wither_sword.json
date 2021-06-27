@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "efe",
+        "odo",
+        "efe"
+    ],
+    "key": {
+        "d": {
+            "item": "minecraft:iron_sword"
+        },
+        "e": {
+            "item": "mobz:withermeal"
+        },
+        "f": {
+            "item": "minecraft:end_crystal"
+        },
+        "o": {
+            "item": "minecraft:dragon_breath"
+        }
+    },
+    "result": {
+        "item": "mobz:wither_sword"
+    }
+}

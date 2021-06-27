@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "d",
+      "d",
+      "e"
+   
+    ],
+    "key": {
+      "e": {
+        "item": "minecraft:stick"
+      },
+      "d":{
+          "item": "mobz:boss_ingot"
+      }
+    },
+    "result": {
+      "item": "mobz:boss_sword"
+    }
+  }

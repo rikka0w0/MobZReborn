@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:withermeal",
+      "mobz:wither_sword"
+    ]
+  },
+  "criteria": {
+    "got_the_withermeal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:withermeal"
+          }
+        ]
+      }
+    }
+  }
+}

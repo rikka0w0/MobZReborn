@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="[28,)" #mandatory (28 is current forge version)
+issueTrackerURL="https://github.com/RoyalAliceAcademyOfSciences/SimElectricity/issues" #optional
+license="MIT License"
+
+[[mods]] #mandatory
+modId="mobz"
+version="${file.jarVersion}"
+displayName="MobZ"
+# updateJSONURL="http://myurl.me/" #optional
+displayURL="https://github.com/rikka0w0/MobZ"
+logoFile="mobz_logo.png" #optional
+credits="Chinese Institution of Scientific Minecraft Mod (CISM)"
+authors="Rikka0_0"
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+MobZ port for Minecraft Forge
+'''
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.mobz]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[28,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+    
+[[dependencies.mobz]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3,)"
+    ordering="NONE"
+    side="BOTH"

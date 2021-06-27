@@ -1,0 +1,32 @@
+{
+    "parent": "mobz:mob/armored",
+    "display": {
+        "icon": {
+            "item": "mobz:bosshead"
+        },
+        "title": {
+            "translate": "mobz.advancements.boss.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.boss.description"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "bossing": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:boss_entity"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "experience": 50,
+        "function": "mobz:loot/boss_loot"
+    }
+}

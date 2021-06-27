@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/started",
+    "display": {
+        "icon": {
+            "item": "mobz:fasthead"
+        },
+        "title": {
+            "translate": "mobz.advancements.fast.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.fast.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "fasting": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:fast_entity"
+                }
+            }
+        }
+    }
+}

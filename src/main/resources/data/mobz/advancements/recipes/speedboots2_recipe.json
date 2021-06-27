@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:speed2_boots"
+    ]
+  },
+  "criteria": {
+    "got_the_speedboots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:speed_boots"
+          }
+        ]
+      }
+    }
+  }
+}

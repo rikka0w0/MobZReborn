@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "d d",
+    "ddd",
+    "ddd"
+ 
+  ],
+  "key": {
+    "d":{
+        "item": "mobz:boss_ingot"
+    }
+  },
+  "result": {
+    "item": "mobz:boss_chestplate"
+  }
+}

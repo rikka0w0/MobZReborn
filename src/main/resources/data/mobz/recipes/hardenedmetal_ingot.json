@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "mobz:hardenedmetal_ingot"
+  },
+  "result": "minecraft:iron_ingot",
+  "experience": 0.4,
+  "cookingtime": 400
+}

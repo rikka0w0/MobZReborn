@@ -1,0 +1,28 @@
+{
+  "parent": "mobz:mob/islandknightspecial",
+  "display": {
+    "icon": {
+      "item": "mobz:islandknightspecial2head"
+    },
+    "title": {
+      "translate": "mobz.advancements.islandknightspecial2.title"
+    },
+    "description": {
+      "translate": "mobz.advancements.islandknightspecial2.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "criping": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "mobz:islandknightspecial2_entity"
+        }
+      }
+    }
+  }
+}

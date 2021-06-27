@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:amat_boots",
+      "mobz:amat_chestplate",
+      "mobz:amat_helmet",
+      "mobz:amat_leggings",
+      "mobz:amat_block",
+      "mobz:amat_block2",
+      "mobz:sbow"
+    ]
+  },
+  "criteria": {
+    "got_the_amat_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:amat_ingot"
+          }
+        ]
+      }
+    }
+  }
+}

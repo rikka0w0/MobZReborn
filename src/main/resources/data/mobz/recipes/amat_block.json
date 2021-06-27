@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ddd",
+    "ddd",
+    "ddd"
+  ],
+  "key": {
+    "d": {
+      "item": "mobz:amat_ingot"
+    }
+  },
+  "result": {
+    "item": "mobz:amat_block"
+  }
+}

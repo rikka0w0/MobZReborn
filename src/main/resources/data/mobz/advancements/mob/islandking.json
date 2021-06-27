@@ -1,0 +1,32 @@
+{
+  "parent": "mobz:mob/islandknightspecial2",
+  "display": {
+    "icon": {
+      "item": "mobz:islandkinghead"
+    },
+    "title": {
+      "translate": "mobz.advancements.islandking.title"
+    },
+    "description": {
+      "translate": "mobz.advancements.islandking.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "criping": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "mobz:islandking_entity"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 40,
+    "function": "mobz:loot/bigboss_loot"
+  }
+}

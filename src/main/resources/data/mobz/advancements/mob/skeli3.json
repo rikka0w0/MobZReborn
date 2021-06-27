@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/skeli4",
+    "display": {
+        "icon": {
+            "item": "mobz:skelihead3"
+        },
+        "title": {
+            "translate": "mobz.advancements.skeli3.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.skeli3.description"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "skeliing3": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:skeli1_entity"
+                }
+            }
+        }
+    }
+}

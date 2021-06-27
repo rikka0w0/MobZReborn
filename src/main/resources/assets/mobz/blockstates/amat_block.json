@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mobz:block/amat_block"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/steve",
+    "display": {
+        "icon": {
+            "item": "mobz:friendhead"
+        },
+        "title": {
+            "translate": "mobz.advancements.friend.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.friend.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "friending": {
+            "trigger": "minecraft:player_hurt_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:friend_entity"
+                }
+            }
+        }
+    }
+}

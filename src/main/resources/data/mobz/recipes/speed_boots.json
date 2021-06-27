@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "d d",
+    "d d"
+  ],
+  "key": {
+    "d": {
+      "item": "mobz:bearleather"
+    }
+  },
+  "result": {
+    "item": "mobz:speed_boots"
+  }
+}

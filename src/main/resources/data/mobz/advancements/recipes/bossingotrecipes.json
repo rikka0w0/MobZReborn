@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:boss_block",
+      "mobz:boss_block2",
+      "mobz:hardenedmetal_ingot",
+      "mobz:boss_boots",
+      "mobz:boss_chestplate",
+      "mobz:boss_helmet",
+      "mobz:boss_leggings",
+      "mobz:boss_sword"
+    ]
+  },
+  "criteria": {
+    "got_the_boss_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:hardenedmetal_ingot"
+          }
+        ]
+      }
+    }
+  }
+}

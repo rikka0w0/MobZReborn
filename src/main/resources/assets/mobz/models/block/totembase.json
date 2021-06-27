@@ -1,0 +1,2569 @@
+{
+    "textures": {
+        "particle": "block/stripped_oak_log",
+        "totembase": "mobz:block/totemstripped"
+    },
+    "display": {
+        "gui": {
+            "rotation": [
+                30,
+                45,
+                0
+            ],
+            "translation": [
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                0.625,
+                0.625,
+                0.625
+            ]
+        },
+        "ground": {
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "translation": [
+                0,
+                3,
+                0
+            ],
+            "scale": [
+                0.25,
+                0.25,
+                0.25
+            ]
+        },
+        "fixed": {
+            "rotation": [
+                0,
+                180,
+                0
+            ],
+            "translation": [
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                1,
+                1,
+                1
+            ]
+        },
+        "head": {
+            "rotation": [
+                0,
+                180,
+                0
+            ],
+            "translation": [
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                1,
+                1,
+                1
+            ]
+        },
+        "firstperson_righthand": {
+            "rotation": [
+                0,
+                315,
+                0
+            ],
+            "translation": [
+                0,
+                2.5,
+                0
+            ],
+            "scale": [
+                0.4,
+                0.4,
+                0.4
+            ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [
+                75,
+                315,
+                0
+            ],
+            "translation": [
+                0,
+                2.5,
+                0
+            ],
+            "scale": [
+                0.375,
+                0.375,
+                0.375
+            ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [
+                1,
+                0,
+                1
+            ],
+            "to": [
+                15,
+                1,
+                15
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        5,
+                        16,
+                        6
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        0,
+                        11,
+                        14,
+                        12
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        1,
+                        9,
+                        15,
+                        10
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        9,
+                        16,
+                        10
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        1,
+                        2,
+                        15,
+                        16
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        1,
+                        0,
+                        15,
+                        14
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                2,
+                1,
+                2
+            ],
+            "to": [
+                14,
+                2,
+                14
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        0,
+                        7,
+                        12,
+                        8
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        15,
+                        8
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        8,
+                        15,
+                        9
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        0,
+                        0,
+                        12,
+                        1
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        4,
+                        16,
+                        16
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                2,
+                4
+            ],
+            "to": [
+                12,
+                16,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        0,
+                        2,
+                        8,
+                        16
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        0,
+                        2,
+                        8,
+                        16
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        8,
+                        0,
+                        16,
+                        14
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        8,
+                        0,
+                        16,
+                        14
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        8,
+                        6,
+                        16,
+                        14
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                3,
+                5,
+                4
+            ],
+            "to": [
+                4,
+                8,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        10
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        7,
+                        13,
+                        10
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        5,
+                        14,
+                        8
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        6,
+                        13,
+                        7
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        8,
+                        4,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                3,
+                5,
+                11
+            ],
+            "to": [
+                4,
+                8,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        5,
+                        4,
+                        8
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        8
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        10,
+                        6,
+                        13
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        5,
+                        13,
+                        6
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        7
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                2,
+                6,
+                4
+            ],
+            "to": [
+                3,
+                9,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        10
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        10
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        9
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        2,
+                        13,
+                        5
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        7,
+                        13,
+                        8
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        4,
+                        14,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                1,
+                8,
+                4
+            ],
+            "to": [
+                2,
+                11,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        10
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        6,
+                        4,
+                        9
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        9,
+                        5,
+                        12
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        11
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        6,
+                        3,
+                        7
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        5,
+                        6,
+                        6
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                2,
+                6,
+                11
+            ],
+            "to": [
+                3,
+                9,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        3,
+                        4,
+                        6
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        10
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        6,
+                        12,
+                        9
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        10
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        4,
+                        6,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                1,
+                8,
+                11
+            ],
+            "to": [
+                2,
+                11,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        5,
+                        4,
+                        8
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        8,
+                        4,
+                        11
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        8
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        9,
+                        4,
+                        12
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        8
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        8
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                5,
+                3
+            ],
+            "to": [
+                5,
+                8,
+                4
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        8
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        9,
+                        5,
+                        12
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        9
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        8
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        7,
+                        13,
+                        8
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                6,
+                2
+            ],
+            "to": [
+                5,
+                9,
+                3
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        11
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        8,
+                        4,
+                        11
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        6,
+                        12,
+                        9
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        7,
+                        14,
+                        10
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        13,
+                        5,
+                        14
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        10,
+                        6,
+                        11
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                8,
+                1
+            ],
+            "to": [
+                5,
+                11,
+                2
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        9,
+                        6,
+                        12
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        10,
+                        6,
+                        13
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        12,
+                        6,
+                        15
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        9,
+                        5,
+                        12
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        9,
+                        6,
+                        10
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        5,
+                        13,
+                        6
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                5,
+                3
+            ],
+            "to": [
+                12,
+                8,
+                4
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        8,
+                        6,
+                        11
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        9,
+                        4,
+                        12
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        11,
+                        5,
+                        14
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        11
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        11
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                6,
+                2
+            ],
+            "to": [
+                12,
+                9,
+                3
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        9,
+                        5,
+                        12
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        14,
+                        9,
+                        15,
+                        12
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        8,
+                        13,
+                        11
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        4,
+                        13,
+                        7
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        9,
+                        5,
+                        10
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        10,
+                        4,
+                        11
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                8,
+                1
+            ],
+            "to": [
+                12,
+                11,
+                2
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        11
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        6,
+                        13,
+                        9
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        10,
+                        14,
+                        13
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        7,
+                        13,
+                        10
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        8,
+                        14,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        10,
+                        6,
+                        11
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                5,
+                12
+            ],
+            "to": [
+                12,
+                8,
+                13
+            ],
+            "faces": {
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        9,
+                        4,
+                        12
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        12,
+                        4,
+                        15
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        13,
+                        5,
+                        16
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        6,
+                        3,
+                        7
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        8,
+                        6,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                6,
+                13
+            ],
+            "to": [
+                12,
+                9,
+                14
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        13
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        10,
+                        4,
+                        13
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        13,
+                        4,
+                        16
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        13,
+                        5,
+                        16
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        13,
+                        5,
+                        14
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        7,
+                        13,
+                        8
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                8,
+                14
+            ],
+            "to": [
+                12,
+                11,
+                15
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        10,
+                        4,
+                        13
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        8,
+                        13,
+                        11
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        9,
+                        13,
+                        12
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        8,
+                        13,
+                        11
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        12,
+                        5,
+                        13
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        12,
+                        5,
+                        13
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                5,
+                12
+            ],
+            "to": [
+                5,
+                8,
+                13
+            ],
+            "faces": {
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        11,
+                        4,
+                        14
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        13,
+                        3,
+                        16
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        13
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        9,
+                        13,
+                        10
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        9,
+                        12,
+                        10
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                6,
+                13
+            ],
+            "to": [
+                5,
+                9,
+                14
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        9,
+                        4,
+                        12
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        9
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        12,
+                        4,
+                        15
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        6,
+                        13,
+                        9
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        8,
+                        13,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        11,
+                        14,
+                        12
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                8,
+                14
+            ],
+            "to": [
+                5,
+                11,
+                15
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        11,
+                        5,
+                        14
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        13
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        13,
+                        5,
+                        16
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        5,
+                        14,
+                        8
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        4,
+                        13,
+                        5
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        5,
+                        12,
+                        6
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                12,
+                5,
+                11
+            ],
+            "to": [
+                13,
+                8,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        9
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        8
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        12,
+                        6,
+                        15
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        6,
+                        4,
+                        7
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        3,
+                        5,
+                        4
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                13,
+                6,
+                11
+            ],
+            "to": [
+                14,
+                9,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        10
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        13
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        11
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        11,
+                        5,
+                        14
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        8,
+                        6,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        10,
+                        4,
+                        11
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                14,
+                8,
+                11
+            ],
+            "to": [
+                15,
+                11,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        3,
+                        13,
+                        6
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        4,
+                        13,
+                        7
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        8,
+                        13,
+                        11
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        11,
+                        13,
+                        14
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        4,
+                        14,
+                        5
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        14,
+                        4,
+                        15,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                12,
+                5,
+                4
+            ],
+            "to": [
+                13,
+                8,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        10,
+                        4,
+                        13
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        0,
+                        4,
+                        3
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        0,
+                        0,
+                        1,
+                        3
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        8,
+                        6,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        8
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                13,
+                6,
+                4
+            ],
+            "to": [
+                14,
+                9,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        10
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        13
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        11
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        11,
+                        5,
+                        14
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        5,
+                        4,
+                        6
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        4,
+                        5,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                14,
+                8,
+                4
+            ],
+            "to": [
+                15,
+                11,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        12,
+                        4,
+                        13,
+                        7
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        9
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        10
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        6,
+                        4,
+                        9
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        8,
+                        4,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        10,
+                        4,
+                        11
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                14,
+                3
+            ],
+            "to": [
+                5,
+                16,
+                4
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        9
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        7,
+                        12,
+                        9
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        6,
+                        4,
+                        8
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        8
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                14,
+                3
+            ],
+            "to": [
+                12,
+                16,
+                4
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        7,
+                        12,
+                        9
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        14,
+                        8,
+                        15,
+                        10
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        11,
+                        6,
+                        13
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        8
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                12,
+                14,
+                4
+            ],
+            "to": [
+                13,
+                16,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        13,
+                        6,
+                        14,
+                        8
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        9,
+                        4,
+                        11
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        9
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        7,
+                        3,
+                        8
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        8,
+                        6,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                12,
+                14,
+                11
+            ],
+            "to": [
+                13,
+                16,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        7,
+                        3,
+                        9
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        10,
+                        5,
+                        12
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        9
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                11,
+                14,
+                12
+            ],
+            "to": [
+                12,
+                16,
+                13
+            ],
+            "faces": {
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        1,
+                        7,
+                        2,
+                        9
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        6,
+                        6,
+                        8
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        5,
+                        4,
+                        7
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        6
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                4,
+                14,
+                12
+            ],
+            "to": [
+                5,
+                16,
+                13
+            ],
+            "faces": {
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        7
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        9
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        4,
+                        12,
+                        6
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        6
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        4,
+                        5,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                3,
+                14,
+                11
+            ],
+            "to": [
+                4,
+                16,
+                12
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        7,
+                        5,
+                        9
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        5,
+                        5,
+                        7
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        6,
+                        6,
+                        8
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        5,
+                        6,
+                        6
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                3,
+                14,
+                4
+            ],
+            "to": [
+                4,
+                16,
+                5
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        10
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        6,
+                        6,
+                        8
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        9,
+                        5,
+                        11
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        8,
+                        5,
+                        9
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        6,
+                        5,
+                        7
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                3,
+                15,
+                3
+            ],
+            "to": [
+                4,
+                16,
+                4
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        6,
+                        4,
+                        7
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        5,
+                        6,
+                        6
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        7,
+                        3,
+                        8
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                12,
+                15,
+                3
+            ],
+            "to": [
+                13,
+                16,
+                4
+            ],
+            "faces": {
+                "north": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        5,
+                        4,
+                        6
+                    ]
+                },
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        8
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                12,
+                15,
+                12
+            ],
+            "to": [
+                13,
+                16,
+                13
+            ],
+            "faces": {
+                "east": {
+                    "texture": "#totembase",
+                    "uv": [
+                        11,
+                        4,
+                        12,
+                        5
+                    ]
+                },
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        9,
+                        4,
+                        10
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        5,
+                        5,
+                        6,
+                        6
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        2,
+                        8,
+                        3,
+                        9
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [
+                3,
+                15,
+                12
+            ],
+            "to": [
+                4,
+                16,
+                13
+            ],
+            "faces": {
+                "south": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        7,
+                        4,
+                        8
+                    ]
+                },
+                "west": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                },
+                "up": {
+                    "texture": "#totembase",
+                    "uv": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ]
+                },
+                "down": {
+                    "texture": "#totembase",
+                    "uv": [
+                        4,
+                        4,
+                        5,
+                        5
+                    ]
+                }
+            }
+        }
+    ]
+}

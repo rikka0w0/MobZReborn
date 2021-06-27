@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "d",
+    "e"
+  ],
+  "key": {
+    "d": {
+      "item": "mobz:hardenedmetal_ingot"
+    },
+    "e": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "mobz:sacrificeknife"
+  }
+}

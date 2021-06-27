@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:frozen_sword"
+    ]
+  },
+  "criteria": {
+    "got_the_frozenmeal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:frozenmeal"
+          }
+        ]
+      }
+    }
+  }
+}

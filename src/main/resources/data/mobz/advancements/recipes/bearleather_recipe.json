@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:bearleather",
+      "mobz:speed_boots"
+    ]
+  },
+  "criteria": {
+    "got_the_bearleather": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:bearleather"
+          }
+        ]
+      }
+    }
+  }
+}

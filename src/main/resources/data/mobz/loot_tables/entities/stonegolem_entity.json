@@ -1,0 +1,81 @@
+{
+	"type": "minecraft:entity",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"n": 2,
+								"p": 0.5,
+								"type": "minecraft:binomial"
+							}
+						}
+					],
+					"name": "minecraft:stone"
+				}
+			]
+		},
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"n": 1,
+								"p": 0.2,
+								"type": "minecraft:binomial"
+							}
+						}
+					],
+					"name": "minecraft:coal_ore"
+				}
+			]
+		},
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"n": 1,
+								"p": 0.2,
+								"type": "minecraft:binomial"
+							}
+						}
+					],
+					"name": "minecraft:iron_ore"
+				}
+			]
+		},
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"n": 1,
+								"p": 0.1,
+								"type": "minecraft:binomial"
+							}
+						}
+					],
+					"name": "minecraft:gold_ore"
+				}
+			]
+		}
+	]
+}

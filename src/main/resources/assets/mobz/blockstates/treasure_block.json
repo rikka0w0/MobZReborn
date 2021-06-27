@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mobz:block/treasure_block"
+    }
+  }
+}

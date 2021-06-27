@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/knight",
+    "display": {
+        "icon": {
+            "item": "mobz:enderknighthead"
+        },
+        "title": {
+            "translate": "mobz.advancements.enderknight.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.enderknight.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "enderknighting": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:knight3_entity"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ded",
+    "efe",
+    "ded"
+  ],
+  "key": {
+    "d": {
+      "item": "mobz:hardenedmetal_ingot"
+    },
+    "e": {
+      "tag": "minecraft:planks"
+    },
+    "f": {
+      "item": "mobz:bearleather"
+    }
+  },
+  "result": {
+    "item": "mobz:shield"
+  }
+}

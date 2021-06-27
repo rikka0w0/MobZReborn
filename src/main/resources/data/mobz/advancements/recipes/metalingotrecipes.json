@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mobz:hardenedmetal_block",
+      "mobz:hardenedmetal_block2",
+      "mobz:hardenedmetal_ingot",
+      "mobz:shield",
+      "mobz:life_boots",
+      "mobz:life_chestplate",
+      "mobz:life_helmet",
+      "mobz:life_leggings",
+      "mobz:sacrificeknife"
+    ]
+  },
+  "criteria": {
+    "got_the_metal_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mobz:hardenedmetal_ingot"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "minecraft:wither_skeleton_skull"
+    },
+    "result": "mobz:withermeal",
+    "experience": 1.0,
+    "cookingtime": 800
+}

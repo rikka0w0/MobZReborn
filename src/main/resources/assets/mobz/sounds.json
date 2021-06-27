@@ -1,0 +1,428 @@
+{
+  "ambienttank": {
+    "sounds": [
+      "mobz:ambienttank",
+      "mobz:ambienttank2",
+      "mobz:ambienttank3"
+    ]
+  },
+  "deathtank": {
+    "sounds": [
+      "mobz:deathtank"
+    ]
+  },
+  "hurttank": {
+    "sounds": [
+      "mobz:hurttank",
+      "mobz:hurttank2"
+    ]
+  },
+  "steptank": {
+    "sounds": [
+      "mobz:steptank1",
+      "mobz:steptank2",
+      "mobz:steptank3",
+      "mobz:steptank4",
+      "mobz:steptank5"
+    ]
+  },
+  "creepdeath": {
+    "sounds": [
+      "mobz:creepdeath"
+    ]
+  },
+  "creepsay": {
+    "sounds": [
+      "mobz:creepsay1",
+      "mobz:creepsay2",
+      "mobz:creepsay3",
+      "mobz:creepsay4"
+    ]
+  },
+  "cripdeath": {
+    "sounds": [
+      "mobz:cripdeath"
+    ]
+  },
+  "cripsay": {
+    "sounds": [
+      "mobz:cripsay1",
+      "mobz:cripsay2",
+      "mobz:cripsay3",
+      "mobz:cripsay4"
+    ]
+  },
+  "pigsay": {
+    "sounds": [
+      "mobz:pigsay1",
+      "mobz:pigsay2",
+      "mobz:pigsay3",
+      "mobz:pigsay4"
+    ]
+  },
+  "pighurt": {
+    "sounds": [
+      "mobz:zpighurt1",
+      "mobz:zpighurt2"
+    ]
+  },
+  "pigdeath": {
+    "sounds": [
+      "mobz:zpigdeath"
+    ]
+  },
+  "enddeath": {
+    "sounds": [
+      "mobz:endzombiedeath"
+    ]
+  },
+  "endhurt": {
+    "sounds": [
+      "mobz:endzombiehurt1",
+      "mobz:endzombiehurt2"
+    ]
+  },
+  "endsay": {
+    "sounds": [
+      "mobz:endzombiesay1",
+      "mobz:endzombiesay2",
+      "mobz:endzombiesay3"
+    ]
+  },
+  "speedsay": {
+    "sounds": [
+      "mobz:speedsay1",
+      "mobz:speedsay2",
+      "mobz:speedsay3"
+    ]
+  },
+  "speedstep": {
+    "sounds": [
+      "mobz:speedstep1",
+      "mobz:speedstep2",
+      "mobz:speedstep3",
+      "mobz:speedstep4",
+      "mobz:speedstep5"
+    ]
+  },
+  "golemhit": {
+    "sounds": [
+      "mobz:golemhit1",
+      "mobz:golemhit2",
+      "mobz:golemhit3",
+      "mobz:golemhit4"
+    ]
+  },
+  "golemwalk": {
+    "sounds": [
+      "mobz:golemwalk1",
+      "mobz:golemwalk2",
+      "mobz:golemwalk3",
+      "mobz:golemwalk4"
+    ]
+  },
+  "golemdeath": {
+    "sounds": [
+      "mobz:golemdeath"
+    ]
+  },
+  "skelideath": {
+    "sounds": [
+      "mobz:skelideath"
+    ]
+  },
+  "skelihurt": {
+    "sounds": [
+      "mobz:skelihurt1",
+      "mobz:skelihurt2",
+      "mobz:skelihurt3",
+      "mobz:skelihurt4"
+    ]
+  },
+  "skelisay": {
+    "sounds": [
+      "mobz:skelisay1",
+      "mobz:skelisay2",
+      "mobz:skelisay3"
+    ]
+  },
+  "skelistep": {
+    "sounds": [
+      "mobz:skelistep1",
+      "mobz:skelistep2",
+      "mobz:skelistep3",
+      "mobz:skelistep4"
+    ]
+  },
+  "skeladeath": {
+    "sounds": [
+      "mobz:skeladeath"
+    ]
+  },
+  "skelahurt": {
+    "sounds": [
+      "mobz:skelahurt1",
+      "mobz:skelahurt2",
+      "mobz:skelahurt3",
+      "mobz:skelahurt4"
+    ]
+  },
+  "skelasay": {
+    "sounds": [
+      "mobz:skelasay1",
+      "mobz:skelasay2",
+      "mobz:skelasay3"
+    ]
+  },
+  "skelastep": {
+    "sounds": [
+      "mobz:skelastep1",
+      "mobz:skelastep2",
+      "mobz:skelastep3",
+      "mobz:skelastep4"
+    ]
+  },
+  "nothing": {
+    "sounds": [
+      "mobz:nothing"
+    ]
+  },
+  "angrybattlehorn": {
+    "sounds": [
+      "mobz:angrybattlehorn"
+    ]
+  },
+  "medivealsound": {
+    "sounds": [
+      {
+        "name": "mobz:medivealsound",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "medivealsound2": {
+    "sounds": [
+      {
+        "name": "mobz:medivealsound2",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "evadeath": {
+    "sounds": [
+      "mobz:evadeath1",
+      "mobz:evadeath2"
+    ]
+  },
+  "evahurt": {
+    "sounds": [
+      "mobz:evahurt1",
+      "mobz:evahurt2"
+    ]
+  },
+  "evaidle": {
+    "sounds": [
+      "mobz:evaidle1",
+      "mobz:evaidle2",
+      "mobz:evaidle3",
+      "mobz:evaidle4"
+    ]
+  },
+  "evedeath": {
+    "sounds": [
+      "mobz:evedeath1",
+      "mobz:evedeath2"
+    ]
+  },
+  "evehurt": {
+    "sounds": [
+      "mobz:evehurt1",
+      "mobz:evehurt2"
+    ]
+  },
+  "eveidle": {
+    "sounds": [
+      "mobz:eveidle1",
+      "mobz:eveidle2",
+      "mobz:eveidle3",
+      "mobz:eveidle4"
+    ]
+  },
+  "illuidle": {
+    "sounds": [
+      "mobz:illuidle1",
+      "mobz:illuidle2",
+      "mobz:illuidle3",
+      "mobz:illuidle4"
+    ]
+  },
+  "illudeath": {
+    "sounds": [
+      "mobz:illudeath1",
+      "mobz:illudeath2"
+    ]
+  },
+  "illuhurt": {
+    "sounds": [
+      "mobz:illuhurt1",
+      "mobz:illuhurt2",
+      "mobz:illuhurt3"
+    ]
+  },
+  "pbite": {
+    "sounds": [
+      "mobz:pbite1",
+      "mobz:pbite2",
+      "mobz:pbite3"
+    ]
+  },
+  "boarsay": {
+    "sounds": [
+      "mobz:boarsay1",
+      "mobz:boarsay2",
+      "mobz:boarsay3"
+    ]
+  },
+  "boardeath": {
+    "sounds": [
+      "mobz:boardeath"
+    ]
+  },
+  "withdeath": {
+    "sounds": [
+      "mobz:withdeath"
+    ]
+  },
+  "withhurt": {
+    "sounds": [
+      "mobz:withhurt1",
+      "mobz:withhurt2",
+      "mobz:withhurt3",
+      "mobz:withhurt4"
+    ]
+  },
+  "withidle": {
+    "sounds": [
+      "mobz:withidle1",
+      "mobz:withidle2",
+      "mobz:withidle3",
+      "mobz:withidle4"
+    ]
+  },
+  "darkidle": {
+    "sounds": [
+      "mobz:darkidle1",
+      "mobz:darkidle2",
+      "mobz:darkidle3",
+      "mobz:darkidle4"
+    ]
+  },
+  "darkdeath": {
+    "sounds": [
+      "mobz:darkdeath"
+    ]
+  },
+  "darkhit": {
+    "sounds": [
+      "mobz:darkhit1",
+      "mobz:darkhit2",
+      "mobz:darkhit3",
+      "mobz:darkhit4"
+    ]
+  },
+  "whurt": {
+    "sounds": [
+      "mobz:whurt1",
+      "mobz:whurt2",
+      "mobz:whurt3"
+    ]
+  },
+  "wdeath": {
+    "sounds": [
+      "mobz:wdeath"
+    ]
+  },
+  "wgrowl": {
+    "sounds": [
+      "mobz:wgrowl1",
+      "mobz:wgrowl2",
+      "mobz:wgrowl3"
+    ]
+  },
+  "armorwalk": {
+    "sounds": [
+      "mobz:armorwalk1",
+      "mobz:armorwalk2",
+      "mobz:armorwalk3"
+    ]
+  },
+  "leatherwalk": {
+    "sounds": [
+      "mobz:lightstep1",
+      "mobz:lightstep2"
+    ]
+  },
+  "lighterarmorwalk": {
+    "sounds": [
+      "mobz:lighterarmorstep1",
+      "mobz:lighterarmorstep2",
+      "mobz:lighterarmorstep3",
+      "mobz:lighterarmorstep4",
+      "mobz:lighterarmorstep5",
+      "mobz:lighterarmorstep6"
+    ]
+  },
+  "lessheavyarmorwalk": {
+    "sounds": [
+      "mobz:moreheavystep1",
+      "mobz:moreheavystep2"
+    ]
+  },
+  "ravidle": {
+    "sounds": [
+      "mobz:ravidle1",
+      "mobz:ravidle2",
+      "mobz:ravidle3",
+      "mobz:ravidle4",
+      "mobz:ravidle5",
+      "mobz:ravidle6",
+      "mobz:ravidle7"
+    ]
+  },
+  "ravhurt": {
+    "sounds": [
+      "mobz:ravhurt1",
+      "mobz:ravhurt2",
+      "mobz:ravhurt3",
+      "mobz:ravhurt4"
+    ]
+  },
+  "ravdeath": {
+    "sounds": [
+      "mobz:ravdeath1",
+      "mobz:ravdeath2",
+      "mobz:ravdeath3"
+    ]
+  },
+  "mgolemhit": {
+    "sounds": [
+      "mobz:mgolemhit1",
+      "mobz:mgolemhit2",
+      "mobz:mgolemhit3",
+      "mobz:mgolemhit4"
+    ]
+  },
+  "mgolembreak": {
+    "sounds": [
+      "mobz:mgolembreak1",
+      "mobz:mgolembreak1"
+    ]
+  },
+  "unseal": {
+    "sounds": [
+      "mobz:unseal"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/fast",
+    "display": {
+        "icon": {
+            "item": "mobz:fasthead"
+        },
+        "title": {
+            "translate": "mobz.advancements.tank.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.tank.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "tanking": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type":"mobz:tank_entity"
+                }
+            }
+        }
+    }
+}

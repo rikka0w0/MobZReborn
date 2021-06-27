@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ddd",
+    "d d",
+    "d d"
+ 
+  ],
+  "key": {
+    "d":{
+        "item": "mobz:boss_ingot"
+    }
+  },
+  "result": {
+    "item": "mobz:boss_leggings"
+  }
+}

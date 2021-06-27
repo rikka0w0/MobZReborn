@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mobz:hardenedmetal_block"
+    }
+  ],
+  "result": {
+    "item": "mobz:hardenedmetal_ingot",
+    "count": 9
+  }
+}

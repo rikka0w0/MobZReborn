@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "d d",
+    "ddd",
+    "ddd"
+  ],
+  "key": {
+    "d": {
+      "item": "mobz:hardenedmetal_ingot"
+    }
+  },
+  "result": {
+    "item": "mobz:life_chestplate"
+  }
+}

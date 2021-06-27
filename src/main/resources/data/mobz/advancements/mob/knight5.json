@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/enderknight",
+    "display": {
+        "icon": {
+            "item": "mobz:knight5entityhead"
+        },
+        "title": {
+            "translate": "mobz.advancements.knight5.title"
+        },
+        "description": {
+            "translate": "mobz.advancements.knight5.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "knighting5": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:knight5_entity"
+                }
+            }
+        }
+    }
+}
