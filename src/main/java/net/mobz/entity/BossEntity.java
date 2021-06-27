@@ -71,7 +71,7 @@ public class BossEntity extends ZombieEntity {
         this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(ArmorItems.boss_helmet));*/
         
         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(net.minecraft.item.Items.DIAMOND_SWORD));
-        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(net.minecraft.item.Items.SHIELD));
+        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
         this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(net.minecraft.item.Items.GOLDEN_CHESTPLATE));
         this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(net.minecraft.item.Items.GOLDEN_BOOTS));
         this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(net.minecraft.item.Items.GOLDEN_LEGGINGS));

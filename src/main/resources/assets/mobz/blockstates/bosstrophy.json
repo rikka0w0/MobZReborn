@@ -2,18 +2,19 @@
   "variants": {
     "facing=east": {
       "model": "mobz:block/bosstrophy",
-      "y": 180
+      "y": 90
     },
     "facing=north": {
       "model": "mobz:block/bosstrophy",
-      "y": 90
+      "y": 0
     },
     "facing=south": {
       "model": "mobz:block/bosstrophy",
-      "y": 270
+      "y": 180
     },
     "facing=west": {
-      "model": "mobz:block/bosstrophy"
+      "model": "mobz:block/bosstrophy",
+      "y": 270
     }
   }
 }

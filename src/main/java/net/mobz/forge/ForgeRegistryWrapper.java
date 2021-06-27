@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mobz.common.BlockDefinition;
 import net.mobz.common.EntityDefinition;
 import net.mobz.common.IRegistrable;
 import net.mobz.common.IRegistryWrapper;
@@ -37,10 +38,12 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	@Override
 	public void register(IRegistrable object) {
 		String rawName = object.Mobz$getRegistryName();
-		if (object instanceof Block) {
-			BLOCKS.register(rawName, ()->((Block)object));
-		} else if (object instanceof Item) {
+		if (object instanceof Item) {
 			ITEMS.register(rawName, ()->((Item)object));
+		} else if (object instanceof BlockDefinition) {
+			BlockDefinition<?> bd = (BlockDefinition<?>) object;
+			ITEMS.register(rawName, ()->(bd.blockItem));
+			BLOCKS.register(rawName, ()->(bd.block));
 		} else if (object instanceof EntityDefinition) {
 			EntityDefinition<?> ed = (EntityDefinition<?>) object;
 			// ResourceLocation regName = GameData.checkPrefix(rawName, true);

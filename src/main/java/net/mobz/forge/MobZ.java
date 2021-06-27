@@ -3,6 +3,7 @@ package net.mobz.forge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mobz.block.Blocks;
 import net.mobz.init.Entities;
 import net.mobz.init.Items;
 
@@ -22,6 +23,7 @@ public class MobZ {
     	
     	regWrapper = new ForgeRegistryWrapper();
     	Items.registerAll(regWrapper);
+    	Blocks.registerAll(regWrapper);
     	Entities.registerAll(regWrapper);
 	}
 	
