@@ -6,14 +6,15 @@
     },
     "facing=north": {
       "model": "mobz:block/totemtop",
-      "y": 270
+      "y": 0
     },
     "facing=south": {
-      "model": "mobz:block/totemtop"
+      "model": "mobz:block/totemtop",
+      "y": 180
     },
     "facing=west": {
       "model": "mobz:block/totemtop",
-      "y": 90
+      "y": 270
     }
   }
 }
