@@ -99,7 +99,7 @@ public class BossEntity extends ZombieEntity {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, Entities.BOSS.entityType)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, Entities.BOSS)
                 && Configs.instance.BossZombieSpawn;
     }
 

@@ -17,14 +17,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class Orb2 extends SimpleItem {
+public class Orb2 extends Item {
     private int sam = 0; // TODO: This might not work in multi-player
 
-    public Orb2(String name, Item.Properties properties) {
-        super(name, properties);
+    public Orb2(Item.Properties properties) {
+        super(properties);
     }
 
 	@OnlyIn(Dist.CLIENT)

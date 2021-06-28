@@ -15,8 +15,8 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 
 public class FrozenMeal extends SimpleItem {
-	public FrozenMeal(String name, Properties properties) {
-		super(name, properties);
+	public FrozenMeal(Properties properties) {
+		super(properties);
 	}
 
 	@Override

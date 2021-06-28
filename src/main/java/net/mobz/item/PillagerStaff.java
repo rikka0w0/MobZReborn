@@ -1,6 +1,5 @@
 package net.mobz.item;
 
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.BlockState;
@@ -18,12 +17,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class PillagerStaff extends SimpleItem {
-	public PillagerStaff(String name, Item.Properties properties) {
-        super(name, properties);
+	public PillagerStaff(Item.Properties properties) {
+        super(properties);
     }
 	
 	@Override

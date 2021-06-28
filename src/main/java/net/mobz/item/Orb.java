@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class Orb extends SimpleItem {
-    public Orb(String name, Item.Properties properties) {
-        super(name, properties);
+public class Orb extends Item {
+    public Orb(Item.Properties properties) {
+        super(properties);
     }
 
 	@OnlyIn(Dist.CLIENT)

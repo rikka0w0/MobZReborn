@@ -13,19 +13,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mobz.common.IRegistrable;
 
-public class Shield extends ShieldItem implements IRegistrable {
-	private final String regName;
-
-	@Override
-	public String Mobz$getRegistryName() {
-		return regName;
-	}
-
-    public Shield(String name, Properties settings) {
+public class Shield extends ShieldItem {
+    public Shield(Properties settings) {
         super(settings);
-        this.regName = name;
     }
 
 	@OnlyIn(Dist.CLIENT)

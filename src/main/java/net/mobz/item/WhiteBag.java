@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 
 
 public class WhiteBag extends SimpleItem {
-    public WhiteBag(String name, Properties settings) {
-        super(name, settings);
+    public WhiteBag(Properties settings) {
+        super(settings);
     }
 
     @Override

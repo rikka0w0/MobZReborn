@@ -14,8 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WitherMeal extends SimpleItem {
-	public WitherMeal(String name, Properties properties) {
-		super(name, properties);
+	public WitherMeal(Properties properties) {
+		super(properties);
 	}
 
 	@Override

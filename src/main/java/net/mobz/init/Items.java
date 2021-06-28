@@ -30,27 +30,27 @@ public class Items {
     }
 	
 	// Items
-	public static final SimpleItem AMAT_INGOT = new SimpleItem("amat_ingot", defItemProp());
-	public static final SimpleItem BEARLEATHER = new SimpleItem("bearleather", defItemProp());
-	public static final SimpleItem BOSS_INGOT = new SimpleItem("boss_ingot", defItemProp()) {
+	public static final SimpleItem AMAT_INGOT = new SimpleItem(defItemProp());
+	public static final SimpleItem BEARLEATHER = new SimpleItem(defItemProp());
+	public static final SimpleItem BOSS_INGOT = new SimpleItem(defItemProp()) {
 		@Override
 		public boolean isFoil(ItemStack itemStack) {
 			return true;
 		}
 	};
-	public static final FrozenMeal FROZENMEAL = new FrozenMeal("frozenmeal", defItemProp());
-	public static final SimpleItem HARDENEDMETAL_INGOT = new SimpleItem("hardenedmetal_ingot", defItemProp());
-	public static final Orb ORB = new Orb("orb", defItemProp().stacksTo(1));
-	public static final Orb2 ORB_2 = new Orb2("orb2", defItemProp().stacksTo(1));
-	public static final PillagerStaff PILLAGERSTAFF = new PillagerStaff("pillagerstaff", nonStackable());
-	public static final Rottenflesh ROTTENFLESH = new Rottenflesh("rottenflesh", defItemProp());
-	public static final SacrificeKnife SACRIFICEKNIFE = new SacrificeKnife("sacrificeknife", nonStackable());
-	public static final Sbow SBOW = new Sbow("sbow", defItemProp().durability(461));
-	public static final SimpleItem SEALITEM = new SimpleItem("sealitem", nonStackable());
-	public static final Shield SHIELD = new Shield("shield", defItemProp().durability(589));
-	public static final SimpleItem SHOWEGG = new SimpleItem("showegg", nonStackable());
-	public static final WhiteBag WHITEBAG = new WhiteBag("whitebag", nonStackable());
-	public static final WitherMeal WITHERMEAL = new WitherMeal("withermeal", defItemProp());
+	public static final FrozenMeal FROZENMEAL = new FrozenMeal(defItemProp());
+	public static final SimpleItem HARDENEDMETAL_INGOT = new SimpleItem(defItemProp());
+	public static final Orb ORB = new Orb(defItemProp().stacksTo(1));
+	public static final Orb2 ORB_2 = new Orb2(defItemProp().stacksTo(1));
+	public static final PillagerStaff PILLAGERSTAFF = new PillagerStaff(nonStackable());
+	public static final Rottenflesh ROTTENFLESH = new Rottenflesh(defItemProp());
+	public static final SacrificeKnife SACRIFICEKNIFE = new SacrificeKnife(nonStackable());
+	public static final Sbow SBOW = new Sbow(defItemProp().durability(461));
+	public static final SimpleItem SEALITEM = new SimpleItem(nonStackable());
+	public static final Shield SHIELD = new Shield(defItemProp().durability(589));
+	public static final SimpleItem SHOWEGG = new SimpleItem(nonStackable());
+	public static final WhiteBag WHITEBAG = new WhiteBag(nonStackable());
+	public static final WitherMeal WITHERMEAL = new WitherMeal(defItemProp());
 
     // Disks
 	/*public static final MusicDiscItem MEDIVEAL_DISC = new MusicDiscItem(1, Soundinit.MEDIVEALSOUNDEVENT,
@@ -60,10 +60,10 @@ public class Items {
         
         
 	// Heads
-	
+	/*
 	public static final SimpleItem ARCHERHEAD = new SimpleItem("archerhead", nonStackable());
 	public static final SimpleItem BOSSHEAD = new SimpleItem("bosshead", nonStackable());
-	/*public static final SimpleItem DWARFHEAD = new SimpleItem("showegg", nonStackable());
+	public static final SimpleItem DWARFHEAD = new SimpleItem("showegg", nonStackable());
 	public static final SimpleItem FASTHEAD = new SimpleItem("showegg", nonStackable());
 	public static final SimpleItem KNIGHT2ENTITYHEAD = new SimpleItem("showegg", nonStackable());
 	public static final SimpleItem KNIGHT5ENTITYHEAD = new SimpleItem("showegg", nonStackable());
@@ -104,29 +104,27 @@ public class Items {
 
 	public static void registerAll(IRegistryWrapper registry) {
 		// Items
-		registry.register(AMAT_INGOT);
-		registry.register(BEARLEATHER);
-		registry.register(BOSS_INGOT);
-		registry.register(FROZENMEAL);
-		registry.register(HARDENEDMETAL_INGOT);
+		registry.register("amat_ingot", AMAT_INGOT);
+		registry.register("bearleather", BEARLEATHER);
+		registry.register("boss_ingot", BOSS_INGOT);
+		registry.register("frozenmeal", FROZENMEAL);
+		registry.register("hardenedmetal_ingot", HARDENEDMETAL_INGOT);
 
-		registry.register(ORB);
-		registry.register(ORB_2);
-		registry.register(PILLAGERSTAFF);
-		registry.register(ROTTENFLESH);
-		registry.register(SACRIFICEKNIFE);
+		registry.register("orb", ORB);
+		registry.register("orb2", ORB_2);
+		registry.register("pillagerstaff", PILLAGERSTAFF);
+		registry.register("rottenflesh", ROTTENFLESH);
+		registry.register("sacrificeknife", SACRIFICEKNIFE);
 
-		registry.register(SBOW);
-		registry.register(SEALITEM);
-		registry.register(SHIELD);
-		registry.register(SHOWEGG);
-		registry.register(WHITEBAG);
+		registry.register("sbow", SBOW);
+		registry.register("sealitem", SEALITEM);
+		registry.register("shield", SHIELD);
+		registry.register("showegg", SHOWEGG);
+		registry.register("whitebag", WHITEBAG);
 
-		registry.register(WITHERMEAL);
-		
-		// Heads
-		registry.register(ARCHERHEAD);
-		registry.register(BOSSHEAD);
+		registry.register("withermeal", WITHERMEAL);
+
+		// Disks
 	}
         
         public static void init() {

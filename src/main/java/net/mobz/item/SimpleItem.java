@@ -12,25 +12,14 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mobz.common.IRegistrable;
 
-public class SimpleItem extends Item implements IRegistrable {
-	private final String regName;
-
-	@Override
-	public String Mobz$getRegistryName() {
-		return regName;
-	}
-
+public class SimpleItem extends Item {
     /**
      * @param name        Naming rules: lower case English letters and numbers only, words are separated by '_', e.g. "cooked_beef"
      * @param hasSubItems
      */
-    public SimpleItem(String name, Item.Properties properties) {
+    public SimpleItem(Item.Properties properties) {
     	super(properties);
-        // localization key: item.<MODID>.<name>
-        
-        this.regName = name;
     }
 
 	@OnlyIn(Dist.CLIENT)

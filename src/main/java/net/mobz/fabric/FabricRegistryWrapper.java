@@ -1,12 +1,16 @@
 package net.mobz.fabric;
 
-import net.minecraft.block.Block;
+import java.util.function.Supplier;
+
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.mobz.common.BlockDefinition;
-import net.mobz.common.EntityDefinition;
-import net.mobz.common.IRegistrable;
+
 import net.mobz.common.IRegistryWrapper;
 
 public class FabricRegistryWrapper implements IRegistryWrapper {
@@ -17,25 +21,28 @@ public class FabricRegistryWrapper implements IRegistryWrapper {
 		this.modId = modId;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public void register(IRegistrable object) {
-		ResourceLocation name = new ResourceLocation(modId, object.Mobz$getRegistryName());
-		if (object instanceof Item) {
-			Registry.register(Registry.ITEM, name, (Item)object);
-		} else if (object instanceof BlockDefinition) {
-			BlockDefinition<?> bd = (BlockDefinition<?>) object;
-			Registry.register(Registry.ITEM, name, bd.blockItem);
-			Registry.register(Registry.BLOCK, name, bd.block);
-		} else if (object instanceof EntityDefinition) {
-			EntityDefinition<?> ed = (EntityDefinition<?>) object;
-			
-			Registry.register(Registry.ENTITY_TYPE, ed.getEntityName(), ed.entityType);
-			if (ed.spawnEggItem != null) {
-				Registry.register(Registry.ITEM, ed.getSpawnEggName(), ed.spawnEggItem);
-			}
+	public void register(String name, Item item) {
+		ResourceLocation regName = new ResourceLocation(modId, name);
+		Registry.register(Registry.ITEM, regName, item);
+	}
 
-			// FabricDefaultAttributeRegistry.register(ed.entityType, ed.attribModifierSupplier.get());
+	@Override
+	public void register(String name, BlockItem blockItem) {
+		ResourceLocation regName = new ResourceLocation(modId, name);
+		Registry.register(Registry.ITEM, regName, blockItem);
+		Registry.register(Registry.BLOCK, regName, blockItem.getBlock());
+	}
+	
+	@Override
+	public <T extends LivingEntity> void register(String name, EntityType<T> entityType,
+			Supplier<MutableAttribute> attribModifierSupplier, SpawnEggItem spawnEggItem) {
+		Registry.register(Registry.ENTITY_TYPE, name + "_entity", entityType);
+
+		if (spawnEggItem != null) {
+			Registry.register(Registry.ITEM, "spawn_" + name, spawnEggItem);
 		}
+
+		// FabricDefaultAttributeRegistry.register(entityType, attribModifierSupplier.get());
 	}
 }

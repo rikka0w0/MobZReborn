@@ -3,25 +3,29 @@ package net.mobz.forge;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mobz.common.BlockDefinition;
-import net.mobz.common.EntityDefinition;
-import net.mobz.common.IRegistrable;
+
 import net.mobz.common.IRegistryWrapper;
 
 public class ForgeRegistryWrapper implements IRegistryWrapper {
 	private final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MobZ.MODID);
 	private final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MobZ.MODID);
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MobZ.MODID);
-	private final Set<EntityDefinition<?>> entityDefinitions = new HashSet<>();
+	private final Set<Pair<EntityType<? extends LivingEntity>, Supplier<MutableAttribute>>> attribSuppliers = new HashSet<>();
 
 	public ForgeRegistryWrapper() {
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -30,30 +34,32 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	}
 
 	public void applyGlobalEntityAttrib(BiConsumer<EntityType<? extends LivingEntity>, AttributeModifierMap> regFunc) {
-		entityDefinitions.forEach((ed) -> {
-			regFunc.accept(ed.entityType, ed.attribModifierSupplier.get().build());
+		attribSuppliers.forEach((pair) -> {
+			regFunc.accept(pair.getLeft(), pair.getRight().get().build());
 		});
 	}
 
 	@Override
-	public void register(IRegistrable object) {
-		String rawName = object.Mobz$getRegistryName();
-		if (object instanceof Item) {
-			ITEMS.register(rawName, ()->((Item)object));
-		} else if (object instanceof BlockDefinition) {
-			BlockDefinition<?> bd = (BlockDefinition<?>) object;
-			ITEMS.register(rawName, ()->(bd.blockItem));
-			BLOCKS.register(rawName, ()->(bd.block));
-		} else if (object instanceof EntityDefinition) {
-			EntityDefinition<?> ed = (EntityDefinition<?>) object;
-			// ResourceLocation regName = GameData.checkPrefix(rawName, true);
+	public void register(String name, Item item) {
+		ITEMS.register(name, ()->item);
+	}
 
-			ENTITY_TYPES.register(ed.getEntityName(), ()->ed.entityType);
-			if (ed.spawnEggItem != null) {
-				ITEMS.register(ed.getSpawnEggName(), ()->ed.spawnEggItem);
-			}
+	@Override
+	public void register(String name, BlockItem blockItem) {
+		ITEMS.register(name, ()->blockItem);
+		BLOCKS.register(name, ()->blockItem.getBlock());
+	}
 
-			entityDefinitions.add(ed);
+	@Override
+	public <T extends LivingEntity> void register(String name, EntityType<T> entityType,
+			Supplier<MutableAttribute> attribModifierSupplier, SpawnEggItem spawnEggItem) {
+		ENTITY_TYPES.register(name + "_entity", ()->entityType);
+		if (spawnEggItem != null) {
+			ITEMS.register("spawn_" + name, ()->spawnEggItem);
+		}
+
+		if (attribModifierSupplier != null) {
+			attribSuppliers.add(Pair.of(entityType, attribModifierSupplier));
 		}
 	}
 }

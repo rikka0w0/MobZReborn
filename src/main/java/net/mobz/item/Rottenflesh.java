@@ -14,8 +14,8 @@ import net.minecraft.item.Item;
 public class Rottenflesh extends SimpleItem {
 	public static final Food FOOD_COMPONENT = (new Food.Builder()).nutrition(5).saturationMod(0.8F).meat().build();
 
-	public Rottenflesh(String name, Item.Properties properties) {
-		super(name, properties.food(FOOD_COMPONENT));
+	public Rottenflesh(Item.Properties properties) {
+		super(properties.food(FOOD_COMPONENT));
 	}
 
 	@Override
