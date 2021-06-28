@@ -6,14 +6,14 @@
     },
     "facing=north": {
       "model": "mobz:block/enderheader",
-      "y": 90
+      "y": 180
     },
     "facing=south": {
       "model": "mobz:block/enderheader"
     },
     "facing=west": {
       "model": "mobz:block/enderheader",
-      "y": 180
+      "y": 90
     }
   }
 }

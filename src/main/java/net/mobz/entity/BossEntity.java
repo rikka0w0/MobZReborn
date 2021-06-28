@@ -17,8 +17,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.mobz.Configs;
-import net.mobz.init.Entities;
-import net.mobz.init.Items;
+import net.mobz.init.MobZEntities;
+import net.mobz.init.MobZItems;
 
 public class BossEntity extends ZombieEntity {
 
@@ -71,7 +71,7 @@ public class BossEntity extends ZombieEntity {
         this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(ArmorItems.boss_helmet));*/
         
         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(net.minecraft.item.Items.DIAMOND_SWORD));
-        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
+        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(MobZItems.SHIELD));
         this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(net.minecraft.item.Items.GOLDEN_CHESTPLATE));
         this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(net.minecraft.item.Items.GOLDEN_BOOTS));
         this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(net.minecraft.item.Items.GOLDEN_LEGGINGS));
@@ -99,7 +99,7 @@ public class BossEntity extends ZombieEntity {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, Entities.BOSS)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.BOSS)
                 && Configs.instance.BossZombieSpawn;
     }
 

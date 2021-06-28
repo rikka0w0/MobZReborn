@@ -3,9 +3,9 @@ package net.mobz.forge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mobz.init.Blocks;
-import net.mobz.init.Entities;
-import net.mobz.init.Items;
+import net.mobz.init.MobZBlocks;
+import net.mobz.init.MobZEntities;
+import net.mobz.init.MobZItems;
 
 @Mod(MobZ.MODID)
 public class MobZ {
@@ -22,9 +22,9 @@ public class MobZ {
             throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");
     	
     	regWrapper = new ForgeRegistryWrapper();
-    	Items.registerAll(regWrapper);
-    	Blocks.registerAll(regWrapper);
-    	Entities.registerAll(regWrapper);
+    	MobZItems.registerAll(regWrapper);
+    	MobZBlocks.registerAll(regWrapper);
+    	MobZEntities.registerAll(regWrapper);
 	}
 	
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

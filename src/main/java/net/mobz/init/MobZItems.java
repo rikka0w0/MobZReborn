@@ -11,13 +11,13 @@ import net.mobz.item.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class Items {
+public class MobZItems {
 	// ItemGroup
 	public final static ItemGroup tab = new ItemGroup(MobZ.MODID) {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack makeIcon() {
-            return new ItemStack(Items.BOSS_INGOT);
+            return new ItemStack(MobZItems.BOSS_INGOT);
         }
     };
     
