@@ -12,6 +12,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.SoundEvent;
 
 public interface IRegistryWrapper {	
 	/**
@@ -74,4 +75,6 @@ public interface IRegistryWrapper {
 		EntityType<T> entityType = entityTypeBuilder.build(name + "_entity");
 		register(name, entityType, attribModifierSupplier, eggColor1, eggColor2, eggGroup);
 	}
+
+	void register(String name, SoundEvent sound);
 }

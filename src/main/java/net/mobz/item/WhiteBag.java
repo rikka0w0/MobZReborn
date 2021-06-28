@@ -1,6 +1,5 @@
 package net.mobz.item;
 
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.entity.LivingEntity;
@@ -11,6 +10,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.mobz.init.MobZItems;
+import net.mobz.init.MobZWeapons;
 
 
 public class WhiteBag extends SimpleItem {
@@ -31,15 +32,15 @@ public class WhiteBag extends SimpleItem {
             randomNumber = randomNumber * (-1);
         }
         if (!world.isClientSide) {
-            switch (randomNumber) { // TODO: Impl
-                /*case 0:
-                    return new ItemStack(SwordItems.Axe);
+            switch (randomNumber) {
+                case 0:
+                    return new ItemStack(MobZWeapons.Axe);
                 case 1:
-                    return new ItemStack(SwordItems.Sword);
+                    return new ItemStack(MobZWeapons.Sword);
                 case 2:
-                    return new ItemStack(Iteminit.ORB_2);
+                    return new ItemStack(MobZItems.ORB_2);
                 case 3:
-                    return new ItemStack(Iteminit.BOSS_INGOT, 2);*/
+                    return new ItemStack(MobZItems.BOSS_INGOT, 2);
                 default:
                     return stack;
             }

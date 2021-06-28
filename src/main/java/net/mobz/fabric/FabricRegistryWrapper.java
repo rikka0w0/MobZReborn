@@ -9,6 +9,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 
 import net.mobz.common.IRegistryWrapper;
@@ -44,5 +45,11 @@ public class FabricRegistryWrapper implements IRegistryWrapper {
 		}
 
 		// FabricDefaultAttributeRegistry.register(entityType, attribModifierSupplier.get());
+	}
+
+	@Override
+	public void register(String name, SoundEvent sound) {
+		ResourceLocation regName = new ResourceLocation(modId, name);
+		Registry.register(Registry.SOUND_EVENT, regName, sound);
 	}
 }

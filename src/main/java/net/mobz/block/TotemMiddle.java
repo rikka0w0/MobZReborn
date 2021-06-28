@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 
-public class TotemMiddle extends AbstractHead {
+public class TotemMiddle extends Block {
 	protected static final VoxelShape SHAPE = VoxelShapes.or(
 			box(4D, 0, 4D, 12D, 2D, 12D), box(5D, 2D, 5D, 11D, 3D, 11D),
 	        box(4D, 3D, 4D, 12D, 13D, 12D), box(5D, 13D, 5D, 11D, 14D, 11D),

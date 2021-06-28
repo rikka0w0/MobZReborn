@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,6 +27,7 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	private final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MobZ.MODID);
 	private final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MobZ.MODID);
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MobZ.MODID);
+	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MobZ.MODID);
 	private final Set<Pair<EntityType<? extends LivingEntity>, Supplier<MutableAttribute>>> attribSuppliers = new HashSet<>();
 
 	public ForgeRegistryWrapper() {
@@ -62,5 +64,10 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 		if (attribModifierSupplier != null) {
 			attribSuppliers.add(Pair.of(entityType, attribModifierSupplier));
 		}
+	}
+
+	@Override
+	public void register(String name, SoundEvent sound) {
+		SOUNDS.register(name, ()->sound);
 	}
 }

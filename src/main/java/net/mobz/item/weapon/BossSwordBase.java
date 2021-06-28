@@ -22,4 +22,9 @@ public class BossSwordBase extends SwordItem {
     public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new TranslationTextComponent("item.mobz.boss_sword.tooltip"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
 }

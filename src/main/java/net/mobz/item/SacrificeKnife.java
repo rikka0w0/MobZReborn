@@ -11,19 +11,22 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.mobz.Configs;
+import net.mobz.block.TotemBase;
+import net.mobz.init.MobZBlocks;
 
 public class SacrificeKnife extends Item {
-	public int bloodCounter = 0;
-	public int dryingNumber = 0;
-
 	public SacrificeKnife(Properties settings) {
 		super(settings);
 	}
@@ -35,32 +38,46 @@ public class SacrificeKnife extends Item {
 		tooltip.add(new TranslationTextComponent("item.mobz.sacrificeknife.tooltip2"));
 	}
 
+	public static int getIntOrDef(CompoundNBT nbt, String key, int defaultVal) {
+		return nbt.contains(key) ? nbt.getInt(key) : defaultVal;
+	}
+	
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
-		if (!world.isClientSide && user.getHealth() > 2F) {
+
+		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		int bloodCounter = getIntOrDef(nbt, "bloodCounter", 0);
+		int dryingNumber = getIntOrDef(nbt, "dryingNumber", 0);
+		if (user.getHealth() > 2F) {
 			user.hurt(DamageSource.MAGIC, 2F);
 			if (dryingNumber < 4) {
 				dryingNumber = dryingNumber + 1;
 			}
 			if (bloodCounter < 5000) {
-				bloodCounter = bloodCounter + 950;
+				bloodCounter = bloodCounter + 200;
 			}
+			nbt.putInt("bloodCounter", bloodCounter);
+			nbt.putInt("dryingNumber", dryingNumber);
 			return ActionResult.success(itemStack);
-		} else
-			return ActionResult.success(itemStack);
+		} else {
+			return ActionResult.pass(itemStack);
+		}
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (!world.isClientSide) {
-			if (bloodCounter > 0) {
-				bloodCounter--;
-			}
-			if (bloodCounter == 0) {
-				dryingNumber = 0;
-			}
+		CompoundNBT nbt = stack.getOrCreateTagElement("mobz");
+		int bloodCounter = getIntOrDef(nbt, "bloodCounter", 0);
+		int dryingNumber = getIntOrDef(nbt, "dryingNumber", 0);
+		if (bloodCounter > 0) {
+			bloodCounter--;
 		}
+		if (bloodCounter == 0) {
+			dryingNumber = 0;
+		}
+		nbt.putInt("bloodCounter", bloodCounter);
+		nbt.putInt("dryingNumber", dryingNumber);
 	}
 
 	@Override
@@ -68,28 +85,35 @@ public class SacrificeKnife extends Item {
 		World world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		PlayerEntity player = context.getPlayer();
-		BlockState state = world.getBlockState(context.getClickedPos());
-		BlockState stateUp = world.getBlockState(context.getClickedPos().above());
-		BlockState stateDown = world.getBlockState(context.getClickedPos().below());
+		BlockState state = world.getBlockState(pos);
+		BlockState stateUp = world.getBlockState(pos.above());
+		BlockState stateDown = world.getBlockState(pos.below());
 
-		// TODO: Impl this
-		/*
-		if (state.getBlock() == Blockinit.TOTEM_MIDDLE) {
-			if (stateUp.getBlock() == Blockinit.TOTEM_TOP && stateDown.getBlock() == Blockinit.TOTEM_BASE) {
-				if (AutoConfig.getConfigHolder(configz.class).getConfig().PillagerBossSpawn) {
-					if (bloodCounter > 3000) {
-						if (Blockinit.TOTEMMIDDLEENTITY.getBlockEntity(world, pos).startTimer == false) {
-							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1F, 1F);
-							Blockinit.TOTEMMIDDLEENTITY.getBlockEntity(world, pos).startTimer = true;
-							return ActionResultType.SUCCESS;
+		if (state.getBlock() == MobZBlocks.TOTEM_MIDDLE) {
+			if (stateUp.getBlock() == MobZBlocks.TOTEM_TOP && stateDown.getBlock() == MobZBlocks.TOTEM_BASE) {
+				if (Configs.instance.PillagerBossSpawn) {
+					ItemStack itemStack = context.getItemInHand();
+					CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+					int bloodCounter = getIntOrDef(nbt, "bloodCounter", 0);
+					int dryingNumber = getIntOrDef(nbt, "dryingNumber", 0);
+
+					if (!stateDown.getValue(TotemBase.ENABLED)) {
+						if (bloodCounter > 4000) {
+							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundCategory.HOSTILE, 1F, 1F);
+							MobZBlocks.TOTEM_BASE.trigger(world, pos.below());
+							bloodCounter = 0;
+							dryingNumber = 0;
+							nbt.putInt("bloodCounter", bloodCounter);
+							nbt.putInt("dryingNumber", dryingNumber);
+							return ActionResultType.SUCCESS;							
 						} else {
+							player.displayClientMessage(new TranslationTextComponent("text.mobz.sacrificeknifeblood"),
+									true);
 							return ActionResultType.PASS;
 						}
-					} else {
-						player.displayClientMessage(new TranslationTextComponent("text.mobz.sacrificeknifeblood"),
-								true);
-						return ActionResultType.PASS;
 					}
+
+					return ActionResultType.PASS;
 				} else {
 					player.displayClientMessage(new TranslationTextComponent("text.mobz.pillagerspawnable"), true);
 					return ActionResultType.PASS;
@@ -100,8 +124,6 @@ public class SacrificeKnife extends Item {
 			}
 		} else {
 			return ActionResultType.PASS;
-		}*/
-		
-		return ActionResultType.PASS;
+		}
 	}
 }
