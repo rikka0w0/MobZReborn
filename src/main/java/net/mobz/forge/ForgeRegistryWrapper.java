@@ -20,6 +20,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import net.mobz.common.IRegistryWrapper;
+import net.mobz.common.MobZ;
 
 public class ForgeRegistryWrapper implements IRegistryWrapper {
 	private final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MobZ.MODID);

@@ -19,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class SacrificeKnife extends Item {
 	public int bloodCounter = 0;
@@ -30,7 +28,6 @@ public class SacrificeKnife extends Item {
 		super(settings);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip,
 			ITooltipFlag flag) {

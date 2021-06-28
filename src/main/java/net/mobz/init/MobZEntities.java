@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.mobz.common.IRegistryWrapper;
 import net.mobz.entity.BossEntity;
+import net.mobz.common.MobZ;
 
 public class MobZEntities {
     public static final EntityType<BossEntity> BOSS = 
@@ -15,6 +16,6 @@ public class MobZEntities {
 
     public static void registerAll(IRegistryWrapper registry) {
     	registry.register("boss", BOSS, BossEntity::createBossEntityAttributes,
-    			1181988, 3560490, MobZItems.tab);
+    			1181988, 3560490, MobZ.eggs);
     }
 }

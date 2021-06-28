@@ -5,24 +5,12 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.mobz.common.IRegistryWrapper;
-import net.mobz.forge.MobZ;
+import net.mobz.common.MobZ;
 import net.mobz.item.*;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-public class MobZItems {
-	// ItemGroup
-	public final static ItemGroup tab = new ItemGroup(MobZ.MODID) {
-        @Override
-        @OnlyIn(Dist.CLIENT)
-        public ItemStack makeIcon() {
-            return new ItemStack(MobZItems.BOSS_INGOT);
-        }
-    };
-    
+public class MobZItems {   
     public static Item.Properties defItemProp() {
-    	return new Item.Properties().tab(tab);
+    	return new Item.Properties().tab(MobZ.tab);
     }
     
     public static Item.Properties nonStackable() {

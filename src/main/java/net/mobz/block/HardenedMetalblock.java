@@ -45,13 +45,10 @@ public class HardenedMetalblock extends Block {
 		return this.golemPattern;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		super.neighborChanged(state, world, pos, blockIn, fromPos, isMoving);
-
-		if (!IS_PUMPKIN.test(world.getBlockState(pos.above()))) {
-			return;
-		}
 
 		BlockPattern.PatternHelper blockpattern$patternhelper = this.getGolemPattern().find(world, pos);
 		if (blockpattern$patternhelper != null) {

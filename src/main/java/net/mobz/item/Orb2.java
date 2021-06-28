@@ -18,9 +18,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
 public class Orb2 extends Item {
     private int sam = 0; // TODO: This might not work in multi-player
 
@@ -28,7 +25,6 @@ public class Orb2 extends Item {
         super(properties);
     }
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new TranslationTextComponent("item.mobz.orb2.tooltip"));

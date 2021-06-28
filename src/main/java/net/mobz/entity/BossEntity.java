@@ -17,8 +17,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.mobz.Configs;
+import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
+import net.mobz.init.MobZWeapons;
 
 public class BossEntity extends ZombieEntity {
 
@@ -63,19 +65,12 @@ public class BossEntity extends ZombieEntity {
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty) {
         super.populateDefaultEquipmentSlots(localDifficulty);
-        /*this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(SwordItems.BossSword));
-        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
-        this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(ArmorItems.boss_chestplate));
-        this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(ArmorItems.boss_boots));
-        this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(ArmorItems.boss_leggings));
-        this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(ArmorItems.boss_helmet));*/
-        
-        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(net.minecraft.item.Items.DIAMOND_SWORD));
+        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.BossSword));
         this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(MobZItems.SHIELD));
-        this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(net.minecraft.item.Items.GOLDEN_CHESTPLATE));
-        this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(net.minecraft.item.Items.GOLDEN_BOOTS));
-        this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(net.minecraft.item.Items.GOLDEN_LEGGINGS));
-        this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(net.minecraft.item.Items.GOLDEN_HELMET));
+        this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(MobZArmors.boss_chestplate));
+        this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(MobZArmors.boss_boots));
+        this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(MobZArmors.boss_leggings));
+        this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(MobZArmors.boss_helmet));
     }
 
     @Override

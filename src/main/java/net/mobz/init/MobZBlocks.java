@@ -8,6 +8,7 @@ import net.minecraft.block.material.MaterialColor;
 
 import net.mobz.block.*;
 import net.mobz.common.IRegistryWrapper;
+import net.mobz.common.MobZ;
 
 public class MobZBlocks {
 	@SuppressWarnings("deprecation")
@@ -27,14 +28,14 @@ public class MobZBlocks {
     public static final TotemTop TOTEM_TOP = new TotemTop(OAK_LOG_PROP);
 
 	public static void registerAll(IRegistryWrapper registry) {
-		registry.register("amat_block", AMAT_BLOCK, MobZItems.tab);
-		registry.register("boss_block", BOSS_BLOCK, MobZItems.tab);
-		registry.register("bosstrophy", BOSS_TROPHY, MobZItems.tab);
-		registry.register("enderheader", ENDERHEADER, MobZItems.tab);
-		registry.register("hardenedmetal_block", HARDENED_METALBLOCK, MobZItems.tab);
+		registry.register("amat_block", AMAT_BLOCK, MobZ.tab);
+		registry.register("boss_block", BOSS_BLOCK, MobZ.tab);
+		registry.register("bosstrophy", BOSS_TROPHY, MobZ.tab);
+		registry.register("enderheader", ENDERHEADER, MobZ.tab);
+		registry.register("hardenedmetal_block", HARDENED_METALBLOCK, MobZ.tab);
 
-		registry.register("totembase", TOTEM_BASE, MobZItems.tab);
-		registry.register("totemmiddle", TOTEM_MIDDLE, MobZItems.tab);
-		registry.register("totemtop", TOTEM_TOP, MobZItems.tab);
+		registry.register("totembase", TOTEM_BASE, MobZ.tab);
+		registry.register("totemmiddle", TOTEM_MIDDLE, MobZ.tab);
+		registry.register("totemtop", TOTEM_TOP, MobZ.tab);
 	}
 }
