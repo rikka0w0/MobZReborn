@@ -17,7 +17,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.mobz.block.EnderHeader;
+import net.mobz.init.MobZBlocks;
 
 public class PillagerStaff extends SimpleItem {
 	public PillagerStaff(Item.Properties properties) {
@@ -33,22 +36,22 @@ public class PillagerStaff extends SimpleItem {
             return ActionResultType.PASS;
         } else {
             BlockState state = world.getBlockState(context.getClickedPos());
-            // TODO: Impl this
-            /*
-            if (state.getBlock() == Blockinit.ENDERHEADER) {
-
-                if (Enderheader.isValid(world, context.getClickedPos(), state)) {
+          
+            if (state.getBlock() == MobZBlocks.ENDERHEADER) {
+                if (EnderHeader.isValid(world, context.getClickedPos(), state)) {
+                    // TODO: Impl this
+                	/*
                     Withender wither = (Withender) Entityinit.WITHENDER.create(world);
                     BlockPos oke = context.getClickedPos();
                     wither.refreshPositionAndAngles(oke, 0.0F, 0.0F);
-                    world.spawnEntity(wither);
+                    world.spawnEntity(wither);*/
                     return ActionResultType.SUCCESS;
                 } else {
                 	// TODO: check this
                     player.sendMessage(new TranslationTextComponent("text.mobz.withendermissing"), player.getUUID());
                 }
             }
-            */
+
             return ActionResultType.PASS;
         }
     }

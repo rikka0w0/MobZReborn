@@ -2,10 +2,9 @@ package net.mobz.init;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
-
-import net.mobz.common.IRegistryWrapper;
+import net.mobz.IRegistryWrapper;
+import net.mobz.MobZ;
 import net.mobz.item.weapon.*;
-import net.mobz.common.MobZ;
 
 public class MobZWeapons {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);

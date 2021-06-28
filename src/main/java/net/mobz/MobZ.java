@@ -1,4 +1,4 @@
-package net.mobz.common;
+package net.mobz;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,14 +15,14 @@ public class MobZ {
 	public static final String MODID = "mobz";
 
 	// ItemGroup
-	public final static ItemGroup tab = new ItemGroup("itemGroup.mobz.glomod") {
+	public final static ItemGroup tab = new ItemGroup("mobz.glomod") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(MobZArmors.boss_helmet);
         }
     };
 
-	public final static ItemGroup eggs = new ItemGroup("itemGroup.mobz.glomodegg") {
+	public final static ItemGroup eggs = new ItemGroup("mobz.glomodegg") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(MobZItems.SHOWEGG);

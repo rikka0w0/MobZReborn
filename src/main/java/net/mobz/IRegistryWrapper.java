@@ -1,4 +1,4 @@
-package net.mobz.common;
+package net.mobz;
 
 import java.util.function.Supplier;
 

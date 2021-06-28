@@ -1,7 +1,7 @@
 package net.mobz.init;
 
 import net.minecraft.item.Item;
-import net.mobz.common.IRegistryWrapper;
+import net.mobz.IRegistryWrapper;
 import net.mobz.item.SimpleItem;
 
 public class MobZIcons {

@@ -2,9 +2,9 @@ package net.mobz.init;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.mobz.common.IRegistryWrapper;
+import net.mobz.IRegistryWrapper;
+import net.mobz.MobZ;
 import net.mobz.entity.BossEntity;
-import net.mobz.common.MobZ;
 
 public class MobZEntities {
     public static final EntityType<BossEntity> BOSS = 

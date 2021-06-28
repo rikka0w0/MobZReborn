@@ -2,7 +2,7 @@ package net.mobz.init;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.mobz.common.IRegistryWrapper;
+import net.mobz.IRegistryWrapper;
 
 public class MobZSounds {
     public static final ResourceLocation AMBIENTTANK = new ResourceLocation("mobz:ambienttank");

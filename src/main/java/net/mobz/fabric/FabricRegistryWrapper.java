@@ -11,8 +11,7 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
-
-import net.mobz.common.IRegistryWrapper;
+import net.mobz.IRegistryWrapper;
 
 public class FabricRegistryWrapper implements IRegistryWrapper {
 	public final static IRegistryWrapper instance = new FabricRegistryWrapper("mobz");

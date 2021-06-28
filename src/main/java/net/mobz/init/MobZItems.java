@@ -3,8 +3,8 @@ package net.mobz.init;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
-import net.mobz.common.IRegistryWrapper;
-import net.mobz.common.MobZ;
+import net.mobz.IRegistryWrapper;
+import net.mobz.MobZ;
 import net.mobz.item.*;
 
 public class MobZItems {   

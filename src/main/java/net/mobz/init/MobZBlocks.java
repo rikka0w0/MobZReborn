@@ -5,10 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-
+import net.mobz.IRegistryWrapper;
+import net.mobz.MobZ;
 import net.mobz.block.*;
-import net.mobz.common.IRegistryWrapper;
-import net.mobz.common.MobZ;
 
 public class MobZBlocks {
 	@SuppressWarnings("deprecation")

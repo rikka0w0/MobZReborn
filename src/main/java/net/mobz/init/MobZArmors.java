@@ -3,10 +3,9 @@ package net.mobz.init;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
-
-import net.mobz.common.IRegistryWrapper;
+import net.mobz.IRegistryWrapper;
+import net.mobz.MobZ;
 import net.mobz.item.armor.*;
-import net.mobz.common.MobZ;
 
 public class MobZArmors {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);
