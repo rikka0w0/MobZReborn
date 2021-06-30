@@ -30,6 +30,26 @@ public class SacrificeKnife extends Item {
 	public SacrificeKnife(Properties settings) {
 		super(settings);
 	}
+	
+	public static int getBloodCounter(ItemStack itemStack) {
+		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		return getIntOrDef(nbt, "bloodCounter", 0);
+	}
+
+	public static int getDryingNumber(ItemStack itemStack) {
+		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		return getIntOrDef(nbt, "dryingNumber", 0);
+	}
+
+	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
+		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		nbt.putInt("bloodCounter", bloodCounter);
+		nbt.putInt("dryingNumber", dryingNumber);
+	}
+
+	public static int getIntOrDef(CompoundNBT nbt, String key, int defaultVal) {
+		return nbt.contains(key) ? nbt.getInt(key) : defaultVal;
+	}
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip,
@@ -37,18 +57,13 @@ public class SacrificeKnife extends Item {
 		tooltip.add(new TranslationTextComponent("item.mobz.sacrificeknife.tooltip"));
 		tooltip.add(new TranslationTextComponent("item.mobz.sacrificeknife.tooltip2"));
 	}
-
-	public static int getIntOrDef(CompoundNBT nbt, String key, int defaultVal) {
-		return nbt.contains(key) ? nbt.getInt(key) : defaultVal;
-	}
 	
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
 
-		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
-		int bloodCounter = getIntOrDef(nbt, "bloodCounter", 0);
-		int dryingNumber = getIntOrDef(nbt, "dryingNumber", 0);
+		int bloodCounter = getBloodCounter(itemStack);
+		int dryingNumber = getDryingNumber(itemStack);
 		if (user.getHealth() > 2F) {
 			user.hurt(DamageSource.MAGIC, 2F);
 			if (dryingNumber < 4) {
@@ -57,8 +72,7 @@ public class SacrificeKnife extends Item {
 			if (bloodCounter < 5000) {
 				bloodCounter = bloodCounter + 200;
 			}
-			nbt.putInt("bloodCounter", bloodCounter);
-			nbt.putInt("dryingNumber", dryingNumber);
+			setParam(itemStack, bloodCounter, dryingNumber);
 			return ActionResult.success(itemStack);
 		} else {
 			return ActionResult.pass(itemStack);
@@ -67,17 +81,15 @@ public class SacrificeKnife extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		CompoundNBT nbt = stack.getOrCreateTagElement("mobz");
-		int bloodCounter = getIntOrDef(nbt, "bloodCounter", 0);
-		int dryingNumber = getIntOrDef(nbt, "dryingNumber", 0);
+		int bloodCounter = getBloodCounter(stack);
+		int dryingNumber = getDryingNumber(stack);
 		if (bloodCounter > 0) {
 			bloodCounter--;
 		}
 		if (bloodCounter == 0) {
 			dryingNumber = 0;
 		}
-		nbt.putInt("bloodCounter", bloodCounter);
-		nbt.putInt("dryingNumber", dryingNumber);
+		setParam(stack, bloodCounter, dryingNumber);
 	}
 
 	@Override
@@ -93,18 +105,13 @@ public class SacrificeKnife extends Item {
 			if (stateUp.getBlock() == MobZBlocks.TOTEM_TOP && stateDown.getBlock() == MobZBlocks.TOTEM_BASE) {
 				if (Configs.instance.PillagerBossSpawn) {
 					ItemStack itemStack = context.getItemInHand();
-					CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
-					int bloodCounter = getIntOrDef(nbt, "bloodCounter", 0);
-					int dryingNumber = getIntOrDef(nbt, "dryingNumber", 0);
+					int bloodCounter = getBloodCounter(itemStack);
 
 					if (!stateDown.getValue(TotemBase.ENABLED)) {
 						if (bloodCounter > 4000) {
 							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundCategory.HOSTILE, 1F, 1F);
 							MobZBlocks.TOTEM_BASE.trigger(world, pos.below());
-							bloodCounter = 0;
-							dryingNumber = 0;
-							nbt.putInt("bloodCounter", bloodCounter);
-							nbt.putInt("dryingNumber", dryingNumber);
+							setParam(itemStack, 0, 0);
 							return ActionResultType.SUCCESS;							
 						} else {
 							player.displayClientMessage(new TranslationTextComponent("text.mobz.sacrificeknifeblood"),
