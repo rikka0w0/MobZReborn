@@ -5,7 +5,15 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
-import net.mobz.item.armor.*;
+import net.mobz.item.armor.AMaterial;
+import net.mobz.item.armor.AmatArmorBase;
+import net.mobz.item.armor.BossArmorBase;
+import net.mobz.item.armor.BossArmorMaterial;
+import net.mobz.item.armor.LifeArmorBase;
+import net.mobz.item.armor.LifeArmorMaterial;
+import net.mobz.item.armor.SpeedShoeBase;
+import net.mobz.item.armor.SpeedShoeMaterial;
+import net.mobz.item.armor.SpeedShoeMaterial2;
 
 public class MobZArmors {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);

@@ -8,7 +8,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
 import net.mobz.init.MobZBlocks;
 
 public class EnderHeader extends AbstractHead {

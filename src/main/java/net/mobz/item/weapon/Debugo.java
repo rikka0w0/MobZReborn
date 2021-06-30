@@ -3,10 +3,10 @@ package net.mobz.item.weapon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.item.IItemTier;
 import net.minecraft.world.World;
 
 public class Debugo extends SwordItem {

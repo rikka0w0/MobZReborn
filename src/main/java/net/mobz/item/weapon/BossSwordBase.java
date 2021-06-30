@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.IItemTier;
 import net.minecraft.world.World;
 
 public class BossSwordBase extends SwordItem {

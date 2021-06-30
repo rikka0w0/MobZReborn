@@ -6,9 +6,8 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.mobz.client.IEntityRendererRegisterWrapper;
-
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.mobz.client.IEntityRendererRegisterWrapper;
 
 public class ForgeClientRegistryWrapper implements IEntityRendererRegisterWrapper {
 	public final static IEntityRendererRegisterWrapper instance = new ForgeClientRegistryWrapper();

@@ -1,15 +1,14 @@
 package net.mobz.item;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.world.World;
-
 import java.util.Random;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.World;
 
 public class Rottenflesh extends SimpleItem {
 	public static final Food FOOD_COMPONENT = (new Food.Builder()).nutrition(5).saturationMod(0.8F).meat().build();

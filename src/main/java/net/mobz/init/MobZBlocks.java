@@ -7,7 +7,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
-import net.mobz.block.*;
+import net.mobz.block.BossTrophy;
+import net.mobz.block.EnderHeader;
+import net.mobz.block.HardenedMetalblock;
+import net.mobz.block.TotemBase;
+import net.mobz.block.TotemMiddle;
+import net.mobz.block.TotemTop;
 
 public class MobZBlocks {
 	@SuppressWarnings("deprecation")

@@ -2,7 +2,6 @@ package net.mobz;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;

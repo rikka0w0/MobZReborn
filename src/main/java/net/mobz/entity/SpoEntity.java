@@ -2,26 +2,20 @@ package net.mobz.entity;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
-import net.mobz.init.MobZSounds;
 
 public class SpoEntity extends SpiderEntity {
     public SpoEntity(EntityType<? extends SpiderEntity> entityType, World world) {

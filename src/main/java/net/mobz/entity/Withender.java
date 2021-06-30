@@ -24,7 +24,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-
 import net.mobz.Configs;
 import net.mobz.init.MobZSounds;
 

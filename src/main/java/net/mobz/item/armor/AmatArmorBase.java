@@ -24,7 +24,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-
 import net.mobz.init.MobZArmors;
 
 public class AmatArmorBase extends ArmorItem {

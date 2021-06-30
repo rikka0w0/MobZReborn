@@ -1,7 +1,7 @@
 package net.mobz.item.weapon;
 
-import net.minecraft.item.Items;
 import net.minecraft.item.IItemTier;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
 public class SwordMaterial implements IItemTier {

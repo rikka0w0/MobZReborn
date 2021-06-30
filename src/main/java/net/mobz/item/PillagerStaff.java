@@ -20,7 +20,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.mobz.block.EnderHeader;
-
 import net.mobz.entity.Withender;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;

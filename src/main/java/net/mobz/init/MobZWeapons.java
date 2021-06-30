@@ -4,7 +4,22 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
-import net.mobz.item.weapon.*;
+import net.mobz.item.weapon.ArmoredSwordBase;
+import net.mobz.item.weapon.ArmoredSwordMaterial;
+import net.mobz.item.weapon.AxeBase;
+import net.mobz.item.weapon.AxeMaterial;
+import net.mobz.item.weapon.BossSwordBase;
+import net.mobz.item.weapon.Debugo;
+import net.mobz.item.weapon.DebugoMat;
+import net.mobz.item.weapon.FrozenSwordBase;
+import net.mobz.item.weapon.PoisonSwordBase;
+import net.mobz.item.weapon.PoisonSwordMaterial;
+import net.mobz.item.weapon.SwordBase;
+import net.mobz.item.weapon.SwordBossMaterial;
+import net.mobz.item.weapon.SwordMaterial;
+import net.mobz.item.weapon.VSwordBase;
+import net.mobz.item.weapon.WitherSwordBase;
+import net.mobz.item.weapon.WitherSwordMaterial;
 
 public class MobZWeapons {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);
