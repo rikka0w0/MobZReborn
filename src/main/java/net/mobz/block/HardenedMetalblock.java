@@ -14,7 +14,6 @@ import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +21,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.mobz.entity.MetalGolem;
+import net.mobz.init.MobZEntities;
 
 public class HardenedMetalblock extends Block {
 	@Nullable
@@ -60,34 +61,10 @@ public class HardenedMetalblock extends Block {
 				}
 			}
 
-			BlockPos blockpos = blockpattern$patternhelper.getBlock(1, 2, 0).getPos();
-			TNTEntity tntentity = new TNTEntity(world, (double) blockpos.getX() + 0.5D, (double) blockpos.getY(),
-					(double) blockpos.getZ() + 0.5D, null);
-			world.addFreshEntity(tntentity);
-           /*
-           IronGolemEntity irongolementity = EntityType.IRON_GOLEM.create(world);
-           irongolementity.setPlayerCreated(true);
-           irongolementity.setLocationAndAngles((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.05D, (double)blockpos.getZ() + 0.5D, 0.0F, 0.0F);
-           world.addEntity(irongolementity);
-
-           for(ServerPlayerEntity serverplayerentity1 : world.getEntitiesWithinAABB(ServerPlayerEntity.class, irongolementity.getBoundingBox().grow(5.0D))) {
-              CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayerentity1, irongolementity);
-           }
-
-           for(int i1 = 0; i1 < this.getGolemPattern().getPalmLength(); ++i1) {
-              for(int j1 = 0; j1 < this.getGolemPattern().getThumbLength(); ++j1) {
-                 CachedBlockInfo cachedblockinfo1 = blockpattern$patternhelper.translateOffset(i1, j1, 0);
-                 world.func_230547_a_(cachedblockinfo1.getPos(), Blocks.AIR);
-              }
-           }*/
-		
-		// TODO: impl this
-		/*
-		MetalGolem golem = (MetalGolem) MobZEntities.METALGOLEM.create(world);
-		BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
-		golem.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-		world.spawnEntity(golem);
-		*/
+			BlockPos spawnPos = blockpattern$patternhelper.getBlock(1, 2, 0).getPos();
+			MetalGolem golem = (MetalGolem) MobZEntities.METALGOLEM.create(world);
+			golem.moveTo(spawnPos, 0.0F, 0.0F);
+			world.addFreshEntity(golem);
 		}
 	}
 	

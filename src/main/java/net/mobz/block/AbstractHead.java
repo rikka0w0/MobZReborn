@@ -13,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 
 public abstract class AbstractHead extends Block {
 	public final static Direction[] horizontalDirections = new Direction[]{Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST};
-	public static final DirectionProperty ROTATION = BlockStateProperties.FACING;
+	public static final DirectionProperty ROTATION = BlockStateProperties.HORIZONTAL_FACING;
 
 	public AbstractHead(Properties settings) {
 		super(settings);
