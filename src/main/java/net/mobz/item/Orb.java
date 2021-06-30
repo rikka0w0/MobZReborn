@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
@@ -28,8 +27,10 @@ public class Orb extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        LivingEntity bob = (LivingEntity) entity;
-        PlayerEntity ok = (PlayerEntity) bob;
+    	if (!(entity instanceof LivingEntity))
+    		return;
+
+    	LivingEntity ok = (LivingEntity) entity;
         if (slot == 0 || slot == 1 || slot == 2 || slot == 3 || slot == 4 || slot == 5 || slot == 6 || slot == 7
                 || slot == 8 && !world.isClientSide) {
             ok.hurtDir = 10F; // TODO: Yarn: knockbackVelocity
