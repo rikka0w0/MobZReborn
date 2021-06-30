@@ -20,7 +20,7 @@ public class GChickenRenderer extends MobRenderer<ChickenEntity, ChickenModel<Ch
    }
 
    @Override
-   protected float getWhiteOverlayProgress(ChickenEntity chickenEntity, float f) {
+   protected float getBob(ChickenEntity chickenEntity, float f) {
       float g = MathHelper.lerp(f, chickenEntity.oFlap, chickenEntity.flap);
       float h = MathHelper.lerp(f, chickenEntity.oFlapSpeed, chickenEntity.flapSpeed);
       return (MathHelper.sin(g) + 1.0F) * h;

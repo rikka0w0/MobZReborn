@@ -14,7 +14,7 @@ public class DogRenderer extends MobRenderer<WolfEntity, WolfModel<WolfEntity>> 
    }
 
    @Override
-   protected float getWhiteOverlayProgress(WolfEntity wolfEntity, float f) {
+   protected float getBob(WolfEntity wolfEntity, float f) {
       return wolfEntity.getTailAngle();
    }
 
