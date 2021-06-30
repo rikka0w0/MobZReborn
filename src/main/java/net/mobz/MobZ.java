@@ -28,7 +28,7 @@ public class MobZ {
         }
     };
 
-	public static void registerAll(IRegistryWrapper regWrapper) {
+	public static void registerAll(IRegistryWrapper regWrapper, IMobSpawnAdder mobSpawnAdder) {
     	MobZItems.registerAll(regWrapper);
     	MobZBlocks.registerAll(regWrapper);
     	MobZEntities.registerAll(regWrapper);
@@ -36,5 +36,7 @@ public class MobZ {
     	MobZWeapons.registerAll(regWrapper);
     	MobZSounds.registerAll(regWrapper);
     	MobZIcons.registerAll(regWrapper);
+
+    	MobZEntities.addMobSpawns(mobSpawnAdder);
 	}
 }

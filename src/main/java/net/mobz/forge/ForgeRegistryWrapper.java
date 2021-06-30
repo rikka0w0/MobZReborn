@@ -27,8 +27,10 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	private final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MobZ.MODID);
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MobZ.MODID);
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MobZ.MODID);
-	private final Set<Pair<EntityType<? extends LivingEntity>, Supplier<MutableAttribute>>> attribSuppliers = new HashSet<>();
 
+	private Set<Pair<EntityType<? extends LivingEntity>, Supplier<MutableAttribute>>> attribSuppliers = new HashSet<>();
+	
+	
 	public ForgeRegistryWrapper() {
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -39,6 +41,8 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 		attribSuppliers.forEach((pair) -> {
 			regFunc.accept(pair.getLeft(), pair.getRight().get().build());
 		});
+		attribSuppliers.clear();
+		attribSuppliers = null;
 	}
 
 	@Override

@@ -2,6 +2,12 @@ package net.mobz.init;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
+
+import net.mobz.Configs;
+import net.mobz.IBiomeFilter;
+import net.mobz.IMobSpawnAdder;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.entity.Archer2Entity;
@@ -279,5 +285,164 @@ public class MobZEntities {
         registry.register("islandvex", ISLANDVEXENTITY, IslandVexEntity::createIslandVexEntityAttributes, 2039583, 9014412, MobZ.eggs);
         registry.register("metalgolem", METALGOLEM, MetalGolem::createMetalGolemAttributes, 2930848, 5197390, MobZ.eggs);
         registry.register("screeper", SCREEPER, SCreeperEntity::createSCreeperEntityAttributes, 4798252, 107176, MobZ.eggs);
+	}
+
+	public static void addMobSpawns(IMobSpawnAdder spawnAdder) {
+		normalSpawn(spawnAdder);
+		iceSpawn(spawnAdder);
+		netherSpawn(spawnAdder);
+		endSpawn(spawnAdder);
+		bossSpawn(spawnAdder);
+		rockySpawn(spawnAdder);
+		jungleSpawn(spawnAdder);
+	}
+
+	private static void normalSpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> {
+			return category != Biome.Category.NETHER && category != Biome.Category.THEEND
+					&& category != Biome.Category.ICY && category != Biome.Category.OCEAN
+					&& category != Biome.Category.MUSHROOM && category != Biome.Category.EXTREME_HILLS
+					&& category != Biome.Category.MESA && category != Biome.Category.DESERT;
+		};
+
+		spawnAdder.register(biomeSelector, ARCHERENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(ARCHERENTITY, Configs.instance.BowmanSpawnRate, 1, 2));
+		spawnAdder.register(biomeSelector, ARMORED.getCategory(),
+				new MobSpawnInfo.Spawners(ARMORED, Configs.instance.ArmoredZombieSpawnRate, 1, 2));
+		spawnAdder.register(biomeSelector, DWARFENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(DWARFENTITY, Configs.instance.DwarfSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, FAST.getCategory(),
+				new MobSpawnInfo.Spawners(FAST, Configs.instance.SpeedyZombieSpawnRate, 2, 3));
+		spawnAdder.register(biomeSelector, FULLIRONENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(FULLIRONENTITY, Configs.instance.SteveSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, KNIGHT2ENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(KNIGHT2ENTITY, Configs.instance.WarriorSpawnRate, 1, 2));
+		spawnAdder.register(biomeSelector, KNIGHTENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(KNIGHTENTITY, Configs.instance.TemplarSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, MAGE2ENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(MAGE2ENTITY, Configs.instance.ZombieMageSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, SKELI2.getCategory(), new MobSpawnInfo.Spawners(SKELI2,
+				Configs.instance.OvergrownSkeletonSpawnRate, 2, 4));
+		spawnAdder.register(biomeSelector, SKELI4.getCategory(),
+				new MobSpawnInfo.Spawners(SKELI4, Configs.instance.LostSkeletonSpawnRate, 2, 2));
+		spawnAdder.register(biomeSelector, SLIMO.getCategory(),
+				new MobSpawnInfo.Spawners(SLIMO, Configs.instance.GrassSlimeSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, SPI.getCategory(),
+				new MobSpawnInfo.Spawners(SPI, Configs.instance.BlueSpiderSpawnRate, 2, 3));
+		spawnAdder.register(biomeSelector, SPO.getCategory(),
+				new MobSpawnInfo.Spawners(SPO, Configs.instance.PurpleSpiderSpawnRate, 1, 4));
+		spawnAdder.register(biomeSelector, TSPIDER.getCategory(),
+				new MobSpawnInfo.Spawners(TSPIDER, Configs.instance.TinySpiderSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, TANK.getCategory(),
+				new MobSpawnInfo.Spawners(TANK, Configs.instance.TankSpawnRate, 1, 2));
+
+		if (Configs.instance.WildBoarSpawn) {
+			spawnAdder.register(biomeSelector, BOAR.getCategory(),
+					new MobSpawnInfo.Spawners(BOAR, Configs.instance.WildBoarSpawnRate, 2, 4));
+		}
+		if (Configs.instance.DirtyBoarSpawn) {
+			spawnAdder.register(biomeSelector, BOAR3.getCategory(),
+					new MobSpawnInfo.Spawners(BOAR3, Configs.instance.DirtyBoarSpawnRate, 1, 3));
+		}
+		if (Configs.instance.BrownBearSpawn) {
+			spawnAdder.register(biomeSelector, BROWNBEAR.getCategory(), new MobSpawnInfo.Spawners(
+					BROWNBEAR, Configs.instance.BrownBearSpawnRate, 2, 3));
+		}
+		if (Configs.instance.AlexSpawn) {
+			spawnAdder.register(biomeSelector, FRIEND.getCategory(),
+					new MobSpawnInfo.Spawners(FRIEND, Configs.instance.AlexSpawnRate, 1, 1));
+		}
+		if (Configs.instance.GoldenChickenSpawn) {
+			spawnAdder.register(biomeSelector, GCHICKEN.getCategory(), new MobSpawnInfo.Spawners(
+					GCHICKEN, Configs.instance.GoldenChickenSpawnRate, 1, 2));
+		}
+		if (Configs.instance.FioraSpawn) {
+			spawnAdder.register(biomeSelector, KNIGHT4ENTITY.getCategory(), new MobSpawnInfo.Spawners(
+					KNIGHT4ENTITY, Configs.instance.FioraSpawnRate, 1, 1));
+		}
+	}
+
+	private static void iceSpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> category == Biome.Category.ICY;
+
+		spawnAdder.register(biomeSelector, CREEP.getCategory(),
+				new MobSpawnInfo.Spawners(CREEP, Configs.instance.FrostCreeperSpawnRate, 1, 3));
+		spawnAdder.register(biomeSelector, FROSTENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(FROSTENTITY, Configs.instance.FrostBlazeSpawnRate, 1, 3));
+		spawnAdder.register(biomeSelector, ICEGOLEM.getCategory(),
+				new MobSpawnInfo.Spawners(ICEGOLEM, Configs.instance.IceGolemSpawnRate, 1, 1));
+		if (Configs.instance.BoarSpawn) {
+			spawnAdder.register(biomeSelector, BOAR2.getCategory(),
+					new MobSpawnInfo.Spawners(BOAR2, Configs.instance.BoarSpawnRate, 2, 3));
+		}
+
+		if (Configs.instance.BlackBearSpawn) {
+			spawnAdder.register(biomeSelector, BLACKBEAR.getCategory(),
+					new MobSpawnInfo.Spawners(BLACKBEAR, Configs.instance.BlackBearSpawnRate, 1, 2));
+		}
+	}
+
+	private static void netherSpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> category == Biome.Category.NETHER;
+
+		spawnAdder.register(biomeSelector, DOG.getCategory(),
+				new MobSpawnInfo.Spawners(DOG, Configs.instance.NetherWolfSpawnRate, 1, 3));
+		spawnAdder.register(biomeSelector, LAVAGOLEM.getCategory(),
+				new MobSpawnInfo.Spawners(LAVAGOLEM, Configs.instance.LavaGolemSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, PIG.getCategory(),
+				new MobSpawnInfo.Spawners(PIG, Configs.instance.PigmanSpawnRate, 2, 3));
+		spawnAdder.register(biomeSelector, SKELI3.getCategory(),
+				new MobSpawnInfo.Spawners(SKELI3, Configs.instance.NetherSkeletonSpawnRate, 1, 2));
+		spawnAdder.register(biomeSelector, WITHENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(WITHENTITY, Configs.instance.WitherBlazeSpawnRate, 1, 3));
+		spawnAdder.register(biomeSelector, SCREEPER.getCategory(),
+				new MobSpawnInfo.Spawners(SCREEPER, Configs.instance.SoulCreeperSpawnRate, 1, 2));
+	}
+
+	private static void endSpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> category == Biome.Category.THEEND;
+
+		spawnAdder.register(biomeSelector, ENDER.getCategory(),
+				new MobSpawnInfo.Spawners(ENDER, Configs.instance.EndermanSpawnRate, 1, 3));
+		spawnAdder.register(biomeSelector, ENDERZOMBIE.getCategory(),
+				new MobSpawnInfo.Spawners(ENDERZOMBIE, Configs.instance.EnderzombieSpawnRate, 1, 3));
+		spawnAdder.register(biomeSelector, KNIGHT3ENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(KNIGHT3ENTITY, Configs.instance.EnderKnightSpawnRate, 1, 1));
+	}
+
+	private static void bossSpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> {
+			return category == Biome.Category.MESA;
+		};
+
+		spawnAdder.register(biomeSelector, BIGBOSSENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(BIGBOSSENTITY, Configs.instance.BigBossSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, ARCHER2ENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(ARCHER2ENTITY, Configs.instance.ArcherSpawnRate, 1, 2));
+		spawnAdder.register(biomeSelector, BOSS.getCategory(),
+				new MobSpawnInfo.Spawners(BOSS, Configs.instance.BossZombieSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, ILLUSIONER.getCategory(),
+				new MobSpawnInfo.Spawners(ILLUSIONER, Configs.instance.IllusionerSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, KNIGHT5ENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(KNIGHT5ENTITY, Configs.instance.LordofDarknessSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, MAGEENTITY.getCategory(),
+				new MobSpawnInfo.Spawners(MAGEENTITY, Configs.instance.SpiderMageSpawnRate, 1, 1));
+		spawnAdder.register(biomeSelector, SKELI1.getCategory(),
+				new MobSpawnInfo.Spawners(SKELI1, Configs.instance.BossSkeletonSpawnRate, 1, 1));
+	}
+
+	private static void rockySpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> category == Biome.Category.EXTREME_HILLS;
+
+		spawnAdder.register(biomeSelector, STONEGOLEM.getCategory(),
+				new MobSpawnInfo.Spawners(STONEGOLEM, Configs.instance.StoneGolemSpawnRate, 1, 1));
+
+	}
+
+	private static void jungleSpawn(IMobSpawnAdder spawnAdder) {
+		IBiomeFilter biomeSelector = (category) -> category == Biome.Category.JUNGLE;
+
+		spawnAdder.register(biomeSelector, CRIP.getCategory(),
+				new MobSpawnInfo.Spawners(CRIP, Configs.instance.CookieCreeperSpawnRate, 1, 2));
 	}
 }
