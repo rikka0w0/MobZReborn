@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
@@ -26,6 +25,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.mobz.entity.PillagerBoss;
+import net.mobz.init.MobZEntities;
 
 public class TotemBase extends Block {
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
@@ -72,17 +73,12 @@ public class TotemBase extends Block {
 			world.removeBlock(pos, false);
 			world.removeBlock(pos.above(), false);
 			world.removeBlock(pos.above().above(), false);
-			
-			// TODO: Spawn PillagerBoss			
-			// PillagerBoss pillager = (PillagerBoss) Entityinit.PILLAGERBOSS.create(world);
+				
+			PillagerBoss pillager = (PillagerBoss) MobZEntities.PILLAGERBOSS.create(world);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
-			// pillager.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
+			pillager.moveTo(spawnPos, 0.0F, 0.0F);
 			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundCategory.HOSTILE, 1F, 1F);
-			// world.addFreshEntity(pillager);
-
-			TNTEntity tntentity = new TNTEntity(world, (double) spawnPos.getX() + 0.5D, (double) spawnPos.getY(),
-					(double) spawnPos.getZ() + 0.5D, null);
-			world.addFreshEntity(tntentity);
+			world.addFreshEntity(pillager);
 		}
 	}
 

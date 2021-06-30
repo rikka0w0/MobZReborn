@@ -20,7 +20,10 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.mobz.block.EnderHeader;
+
+import net.mobz.entity.Withender;
 import net.mobz.init.MobZBlocks;
+import net.mobz.init.MobZEntities;
 
 public class PillagerStaff extends SimpleItem {
 	public PillagerStaff(Item.Properties properties) {
@@ -39,12 +42,10 @@ public class PillagerStaff extends SimpleItem {
           
             if (state.getBlock() == MobZBlocks.ENDERHEADER) {
                 if (EnderHeader.isValid(world, context.getClickedPos(), state)) {
-                    // TODO: Impl this
-                	/*
-                    Withender wither = (Withender) Entityinit.WITHENDER.create(world);
+                    Withender wither = (Withender) MobZEntities.WITHENDER.create(world);
                     BlockPos oke = context.getClickedPos();
-                    wither.refreshPositionAndAngles(oke, 0.0F, 0.0F);
-                    world.spawnEntity(wither);*/
+                    wither.moveTo(oke, 0.0F, 0.0F);
+                    world.addFreshEntity(wither);
                     return ActionResultType.SUCCESS;
                 } else {
                 	// TODO: check this
