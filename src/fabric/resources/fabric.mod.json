@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "mobz",
-  "version": "2.4.3",
+  "version": "3.0.0",
   "name": "MobZ",
   "description": "More vanilla style mobs",
   "authors": [
@@ -9,11 +9,11 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/mobz",
-    "sources": "https://github.com/Globox1997/MobZ",
-    "issues": "https://github.com/Globox1997/MobZ/issues"
+    "sources": "https://github.com/rikka0w0/MobZReborn",
+    "issues": "https://github.com/rikka0w0/MobZReborn/issues"
   },
   "license": "GPLv3",
-  "icon": "assets/mobz/icon.png",
+  "icon": "assets/mobz/mobz_logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [
