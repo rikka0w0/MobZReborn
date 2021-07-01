@@ -1,11 +1,16 @@
 package net.mobz.forge;
 
+import net.minecraft.loot.LootPool;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
+import net.mobz.init.LootTableModifier;
 
 @Mod(MobZ.MODID)
 public class ForgeEntry {
@@ -40,6 +45,19 @@ public class ForgeEntry {
     		if (event.getPhase() == EventPriority.HIGH) {
     			mobSpawns.addMobSpawns(event.getCategory(), event.getSpawns());
     		}
+    	}
+
+    	@SubscribeEvent(priority = EventPriority.HIGH)
+		public static void onLootTableLoadEvent (final LootTableLoadEvent event) {
+    		ILootTableAdder lootTableAdder = (lootTableIDs, range, entryBuilder) -> {
+    			for (ResourceLocation lootTableID: lootTableIDs) {
+    				if (event.getName().equals(lootTableID)) {
+    					event.getTable().addPool(LootPool.lootPool().setRolls(range).add(entryBuilder).build());
+    				}
+    			}
+    		};
+
+    		LootTableModifier.loadAll(lootTableAdder);
     	}
     }
 }
