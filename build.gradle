@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '3.0.0'
-group = 'mobz' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'net.mobz' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'MobZReborn'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
@@ -159,11 +159,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title": "MobzReborn",
-                "Specification-Vendor": "CISM",
+                "Specification-Vendor": "Rikka0w0",
                 "Specification-Version": "1", // We are version 1 of ourselves
                 "Implementation-Title": project.name,
                 "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"CISM",
+                "Implementation-Vendor" :"Rikka0w0",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
