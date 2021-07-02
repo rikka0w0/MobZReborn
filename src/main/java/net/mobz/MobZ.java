@@ -2,6 +2,8 @@ package net.mobz;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.mobz.init.MobSpawnRestrictions;
+import net.mobz.init.MobSpawns;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
@@ -28,7 +30,8 @@ public class MobZ {
         }
     };
 
-	public static void registerAll(IRegistryWrapper regWrapper, IMobSpawnAdder mobSpawnAdder) {
+	public static void registerAll(IRegistryWrapper regWrapper, IMobSpawnAdder mobSpawnAdder,
+			IEntitySpawnPlacementWrapper spawnRestrictionAdder) {
     	MobZItems.registerAll(regWrapper);
     	MobZBlocks.registerAll(regWrapper);
     	MobZEntities.registerAll(regWrapper);
@@ -37,6 +40,7 @@ public class MobZ {
     	MobZSounds.registerAll(regWrapper);
     	MobZIcons.registerAll(regWrapper);
 
-    	MobZEntities.addMobSpawns(mobSpawnAdder);
+    	MobSpawns.addMobSpawns(mobSpawnAdder);
+    	MobSpawnRestrictions.applyAll(spawnRestrictionAdder);
 	}
 }

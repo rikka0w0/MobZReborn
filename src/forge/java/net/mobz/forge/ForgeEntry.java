@@ -1,5 +1,6 @@
 package net.mobz.forge;
 
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.LootTableLoadEvent;
@@ -27,7 +28,7 @@ public class ForgeEntry {
 
     	regWrapper = new ForgeRegistryWrapper();
     	mobSpawns = new ForgeMobSpawnAdder();
-    	MobZ.registerAll(regWrapper, mobSpawns);
+    	MobZ.registerAll(regWrapper, mobSpawns, EntitySpawnPlacementRegistry::register);
 	}
 
     @Mod.EventBusSubscriber(modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
