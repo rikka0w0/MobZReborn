@@ -15,9 +15,7 @@ import net.mobz.block.TotemMiddle;
 import net.mobz.block.TotemTop;
 
 public class MobZBlocks {
-	@SuppressWarnings("deprecation")
-	private static final AbstractBlock.Properties ZOMBIE_HEAD_PROP = AbstractBlock.Properties.of(Material.DECORATION)
-			.strength(1.0F).dropsLike(net.minecraft.block.Blocks.ZOMBIE_HEAD);
+	private static final AbstractBlock.Properties ZOMBIE_HEAD_PROP = AbstractBlock.Properties.of(Material.DECORATION).strength(1.0F);
 	private static final AbstractBlock.Properties IRON_BLOCK_PROP = AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
 			.requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL);
 	private static final AbstractBlock.Properties OAK_LOG_PROP = AbstractBlock.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD);
