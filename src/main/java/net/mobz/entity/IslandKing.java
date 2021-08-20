@@ -96,7 +96,7 @@ public class IslandKing extends Vindicator {
   protected void customServerAiStep() {
     MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
 
-    if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && canSee(getTarget())) {
+    if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
 
       cooldown++;
       if (cooldown >= requiredCooldown) {

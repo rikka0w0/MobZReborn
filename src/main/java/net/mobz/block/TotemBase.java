@@ -28,8 +28,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.mobz.entity.PillagerBoss;
 import net.mobz.init.MobZEntities;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class TotemBase extends Block {
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 	protected static final VoxelShape SHAPE = Shapes.or(
@@ -63,7 +61,7 @@ public class TotemBase extends Block {
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(ENABLED);
 	}
-	
+
 	public void trigger(Level world, BlockPos pos) {
 		world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(TotemBase.ENABLED, true));
 		world.getBlockTicks().scheduleTick(pos, this, 100, TickPriority.HIGH);
@@ -75,7 +73,7 @@ public class TotemBase extends Block {
 			world.removeBlock(pos, false);
 			world.removeBlock(pos.above(), false);
 			world.removeBlock(pos.above().above(), false);
-				
+
 			PillagerBoss pillager = (PillagerBoss) MobZEntities.PILLAGERBOSS.create(world);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
 			pillager.moveTo(spawnPos, 0.0F, 0.0F);

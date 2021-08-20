@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.NeutralMob;
@@ -160,7 +160,7 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
         } else {
             if (this.isTame()) {
                 if (this.isFood(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                    if (!player.abilities.instabuild) {
+                    if (!player.getAbilities().instabuild) {
                         itemStack.shrink(1);
                     }
 
@@ -174,7 +174,7 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
                 }
 
             } else if (item == Items.GOLD_NUGGET && !this.isAngry()) {
-                if (!player.abilities.instabuild) {
+                if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
                 }
 
@@ -196,7 +196,7 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-	public FriendEntity getBreedOffspring(ServerLevel world, AgableMob passiveEntity) {
+	public FriendEntity getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
         FriendEntity FriendEntity = (FriendEntity) MobZEntities.FRIEND.create(this.level);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {

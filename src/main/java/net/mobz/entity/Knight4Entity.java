@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.NeutralMob;
@@ -152,7 +152,7 @@ public class Knight4Entity extends TamableAnimal implements NeutralMob {
         } else {
             if (this.isTame()) {
                 if (this.isFood(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                    if (!player.abilities.instabuild) {
+                    if (!player.getAbilities().instabuild) {
                         itemStack.shrink(1);
                     }
 
@@ -213,7 +213,7 @@ public class Knight4Entity extends TamableAnimal implements NeutralMob {
                 }
 
             } else if (item == Items.BONE && !this.isAngry()) {
-                if (!player.abilities.instabuild) {
+                if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
                 }
 
@@ -235,7 +235,7 @@ public class Knight4Entity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-	public Knight4Entity getBreedOffspring(ServerLevel world, AgableMob passiveEntity) {
+	public Knight4Entity getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
         Knight4Entity Knight4Entity = (Knight4Entity) MobZEntities.KNIGHT4ENTITY.create(this.level);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {

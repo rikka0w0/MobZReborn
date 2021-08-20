@@ -11,8 +11,6 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.util.Mth;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public abstract class AbstractHead extends Block {
 	public final static Direction[] horizontalDirections = new Direction[]{Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST};
 	public static final DirectionProperty ROTATION = BlockStateProperties.HORIZONTAL_FACING;

@@ -22,7 +22,7 @@ public class ForgeEntry {
 	public static ForgeRegistryWrapper regWrapper;
 
 	public ForgeEntry() {
-    	if (instance == null) 
+    	if (instance == null)
             instance = this;
         else
             throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");

@@ -7,10 +7,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.level.BlockGetter;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class BossTrophy extends AbstractHead {
-	protected static final VoxelShape SHAPE = 
+	protected static final VoxelShape SHAPE =
 			Shapes.or(box(4D, 0, 4D, 12D, 8D, 12D),
 			box(4D, 8D, 4D, 5D, 9D, 12D), box(11D, 8D, 4D, 12D, 9D, 12D),
 			box(5D, 8D, 4D, 11D, 9D, 5D), box(5D, 8D, 11D, 11D, 9D, 12D),

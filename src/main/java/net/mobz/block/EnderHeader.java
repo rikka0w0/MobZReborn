@@ -10,8 +10,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.mobz.init.MobZBlocks;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class EnderHeader extends AbstractHead {
 	protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);;
 

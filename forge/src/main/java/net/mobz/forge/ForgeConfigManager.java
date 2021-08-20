@@ -15,6 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import net.mobz.Configs;
 import net.mobz.MobZ;
@@ -46,7 +47,7 @@ public class ForgeConfigManager {
     }
 
     @SubscribeEvent
-    public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
+    public static void onModConfigEvent(final ModConfigEvent configEvent) {
         if (configEvent.getConfig().getSpec() != ForgeConfigManager.configSpec) {
             return;
         }

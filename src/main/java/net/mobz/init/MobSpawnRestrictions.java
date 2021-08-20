@@ -1,6 +1,6 @@
 package net.mobz.init;
 
-import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.SpawnPlacements.Type;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.animal.Animal;
@@ -32,9 +32,9 @@ public class MobSpawnRestrictions {
 		w.register(MobZEntities.PIG, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.LAVAGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.ICEGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.SKELI1, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.SKELI2, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -56,7 +56,7 @@ public class MobSpawnRestrictions {
 		w.register(MobZEntities.KNIGHT3ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.KNIGHT4ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.KNIGHT5ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.MAGE2ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -70,9 +70,9 @@ public class MobSpawnRestrictions {
 		w.register(MobZEntities.FROSTENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.DOG, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.STONEGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.ILLUSIONER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.DWARFENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -92,13 +92,13 @@ public class MobSpawnRestrictions {
 		w.register(MobZEntities.BOAR3, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Animal::checkAnimalSpawnRules);
 		w.register(MobZEntities.FRIEND, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.WITHENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.WITHENDER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.SLIMO, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.TSPIDER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.PILLAGERBOSS, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -116,7 +116,7 @@ public class MobSpawnRestrictions {
 		w.register(MobZEntities.ISLANDVEXENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.METALGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				AgableMob::checkMobSpawnRules);
+				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.SCREEPER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 	}

@@ -16,8 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.BlockGetter;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class TotemMiddle extends Block {
 	protected static final VoxelShape SHAPE = Shapes.or(
 			box(4D, 0, 4D, 12D, 2D, 12D), box(5D, 2D, 5D, 11D, 3D, 11D),

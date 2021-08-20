@@ -1,6 +1,6 @@
 package net.mobz.entity;
 
-import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -53,7 +53,7 @@ public class Boar extends Pig {
         return false;
     }
 
-    public Boar method_6574(AgableMob passiveEntity_1) {
+    public Boar method_6574(AgeableMob passiveEntity_1) {
         return (Boar) MobZEntities.BOAR.create(this.level);
     }
 
@@ -63,7 +63,7 @@ public class Boar extends Pig {
     }
 
     @Override
-	public Boar getBreedOffspring(ServerLevel world, AgableMob passiveEntity) {
+	public Boar getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
         return (Boar) MobZEntities.BOAR.create(this.level);
     }
 

@@ -1,7 +1,7 @@
 package net.mobz.entity;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -57,7 +57,7 @@ public class GChicken extends Chicken {
       this.goalSelector.addGoal(0, new FloatGoal(this));
       this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
       this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-      this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, false, BREEDING_INGREDIENT));
+      this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, BREEDING_INGREDIENT, false));
       this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
       this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
       this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -117,7 +117,7 @@ public class GChicken extends Chicken {
    }
 
    @Override
-	public GChicken getBreedOffspring(ServerLevel world, AgableMob passiveEntity_1) {
+	public GChicken getBreedOffspring(ServerLevel world, AgeableMob passiveEntity_1) {
       return (GChicken) MobZEntities.GCHICKEN.create(this.level);
    }
 

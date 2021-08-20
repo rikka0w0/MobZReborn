@@ -14,8 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.BlockGetter;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class TotemTop extends AbstractHead {
 	protected static final VoxelShape SHAPE = box(4D, 0, 4D, 12D, 10D, 12D);
 

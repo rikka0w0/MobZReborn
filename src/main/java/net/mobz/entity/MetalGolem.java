@@ -124,7 +124,7 @@ public class MetalGolem extends IronGolem {
       } else {
         float g = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
         this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, g);
-        if (!player.abilities.instabuild) {
+        if (!player.getAbilities().instabuild) {
           itemStack.shrink(1);
         }
 

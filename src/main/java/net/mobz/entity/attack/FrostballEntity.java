@@ -21,6 +21,7 @@ public class FrostballEntity extends Fireball {
 
 	public FrostballEntity(Level world, LivingEntity livingEntity, double double_1, double double_2,
 			double double_3) {
+		// TODO: Register FrostballEntity
 		super(EntityType.SMALL_FIREBALL, livingEntity, double_1, double_2, double_3, world);
 	}
 
@@ -69,9 +70,9 @@ public class FrostballEntity extends Fireball {
 	protected void onHit(HitResult hitResult) {
 		super.onHit(hitResult);
 		if (!this.level.isClientSide) {
-			this.remove();
+			// TODO: check onHit, this line may not be necessary
+			this.remove(Entity.RemovalReason.KILLED);
 		}
-
 	}
 
 	@Override

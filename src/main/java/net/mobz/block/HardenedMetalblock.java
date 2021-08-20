@@ -24,8 +24,6 @@ import net.minecraft.world.level.Level;
 import net.mobz.entity.MetalGolem;
 import net.mobz.init.MobZEntities;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class HardenedMetalblock extends Block {
 	@Nullable
 	private BlockPattern golemPattern;
@@ -69,7 +67,7 @@ public class HardenedMetalblock extends Block {
 			world.addFreshEntity(golem);
 		}
 	}
-	
+
 	@Override
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
 		if (world.isClientSide) {

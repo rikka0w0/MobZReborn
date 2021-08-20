@@ -20,7 +20,7 @@ public class Debugo extends SwordItem {
         Player ok = (Player) bob;
         if (slot == 0 || slot == 1 || slot == 2 || slot == 3 || slot == 4 || slot == 5 || slot == 6 || slot == 7
                 || slot == 8 && !world.isClientSide) {
-            ok.abilities.mayfly = true;
+            ok.getAbilities().mayfly = true;
         }
     }
 

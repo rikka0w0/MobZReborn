@@ -169,10 +169,10 @@ public class Mage2Entity extends SpellcasterIllager {
    }
 
    public class WololoGoal extends SpellcasterIllager.SpellcasterUseSpellGoal {
-      private final TargetingConditions purpleSheepPredicate = (new TargetingConditions()).range(16.0D)
-            .allowInvulnerable().selector((livingEntity) -> {
-               return ((Sheep) livingEntity).getColor() == DyeColor.BLUE;
-            });
+      private final TargetingConditions purpleSheepPredicate = TargetingConditions.forNonCombat().range(16.0D)
+    		  .selector((sheepTarget) -> {
+    			  return ((Sheep)sheepTarget).getColor() == DyeColor.BLUE;
+    		  });
 
       public WololoGoal() {
          super();
@@ -238,12 +238,11 @@ public class Mage2Entity extends SpellcasterIllager {
    }
 
    class SummonVexGoal extends SpellcasterIllager.SpellcasterUseSpellGoal {
-      private final TargetingConditions closeVexPredicate;
+      private final TargetingConditions closeVexPredicate
+      		= TargetingConditions.forNonCombat().range(16.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
 
       private SummonVexGoal() {
          super();
-         this.closeVexPredicate = (new TargetingConditions()).range(16.0D).allowUnseeable()
-               .ignoreInvisibilityTesting().allowInvulnerable().allowSameTeam();
       }
 
       public boolean canUse() {

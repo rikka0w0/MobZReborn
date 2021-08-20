@@ -13,9 +13,6 @@ import net.minecraft.world.level.Level;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
-
-import net.minecraft.world.item.Item.Properties;
-
 public class WhiteBag extends SimpleItem {
     public WhiteBag(Properties settings) {
         super(settings);

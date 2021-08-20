@@ -9,12 +9,13 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.Direction;
+
+import java.util.Random;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class FrozenMeal extends SimpleItem {
 	public FrozenMeal(Properties properties) {
@@ -28,7 +29,7 @@ public class FrozenMeal extends SimpleItem {
 		ItemStack handItem = player.getMainHandItem();
 		BlockPos pos = context.getClickedPos();
 		BlockState blockState = world.getBlockState(pos);
-		
+
 		BlockHitResult blockHitResult = getPlayerPOVHitResult(world, player,
 				ClipContext.Fluid.SOURCE_ONLY);
 		BlockPos blockPos = blockHitResult.getBlockPos();
@@ -40,6 +41,7 @@ public class FrozenMeal extends SimpleItem {
 			return InteractionResult.SUCCESS;
 		}
 
+		Random random = world.getRandom();
 		if (((blockState.getBlock() == Blocks.WATER || blockState.getBlock() == Blocks.ICE) && world.isClientSide)) {
 			for (int i = 0; i < 16; ++i) {
 				double d = random.nextGaussian() * 0.02D;

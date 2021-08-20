@@ -13,8 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class WitherMeal extends SimpleItem {
 	public WitherMeal(Properties properties) {
 		super(properties);
@@ -53,6 +51,7 @@ public class WitherMeal extends SimpleItem {
 
         if (((blockState.getBlock() == Blocks.SOUL_SAND || blockState.getBlock() == Blocks.FARMLAND)
                 && world.isClientSide)) {
+        	Random random = world.getRandom();
             for (int i = 0; i < 12; ++i) {
                 double d = random.nextGaussian() * 0.02D;
                 double e = random.nextGaussian() * 0.02D;

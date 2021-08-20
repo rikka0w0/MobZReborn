@@ -70,7 +70,7 @@ public class PillagerBoss extends Pillager {
     protected void customServerAiStep() {
         MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false);
 
-        if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && canSee(getTarget())) {
+        if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
 
             cooldown++;
             if (cooldown >= requiredCooldown) {

@@ -26,13 +26,11 @@ import net.mobz.Configs;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class SacrificeKnife extends Item {
 	public SacrificeKnife(Properties settings) {
 		super(settings);
 	}
-	
+
 	public static int getBloodCounter(ItemStack itemStack) {
 		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
 		return getIntOrDef(nbt, "bloodCounter", 0);
@@ -59,7 +57,7 @@ public class SacrificeKnife extends Item {
 		tooltip.add(new TranslatableComponent("item.mobz.sacrificeknife.tooltip"));
 		tooltip.add(new TranslatableComponent("item.mobz.sacrificeknife.tooltip2"));
 	}
-	
+
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
@@ -114,7 +112,7 @@ public class SacrificeKnife extends Item {
 							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1F, 1F);
 							MobZBlocks.TOTEM_BASE.trigger(world, pos.below());
 							setParam(itemStack, 0, 0);
-							return InteractionResult.SUCCESS;							
+							return InteractionResult.SUCCESS;
 						} else {
 							player.displayClientMessage(new TranslatableComponent("text.mobz.sacrificeknifeblood"),
 									true);

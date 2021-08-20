@@ -29,7 +29,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
@@ -167,7 +166,7 @@ public class WithEntity extends Blaze {
    }
 
    @Override
-   public boolean causeFallDamage(float float_1, float float_2) {
+   public boolean causeFallDamage(float float_1, float float_2, DamageSource source) {
       return false;
    }
 
@@ -224,7 +223,7 @@ public class WithEntity extends Blaze {
          --this.field_7217;
          LivingEntity livingEntity_1 = this.blaze.getTarget();
          if (livingEntity_1 != null) {
-            boolean boolean_1 = this.blaze.getSensing().canSee(livingEntity_1);
+            boolean boolean_1 = this.blaze.getSensing().hasLineOfSight(livingEntity_1);
             if (boolean_1) {
                this.field_19420 = 0;
             } else {
@@ -262,7 +261,7 @@ public class WithEntity extends Blaze {
                   }
 
                   if (this.field_7218 > 1) {
-                     float float_1 = Mth.sqrt(Mth.sqrt(double_1)) * 0.5F;
+                     double float_1 = Math.sqrt(Math.sqrt(double_1)) * 0.5F;
                      this.blaze.level.levelEvent((Player) null, 1018, this.blaze.blockPosition(), 0);
 
                      for (int int_1 = 0; int_1 < 1; ++int_1) {

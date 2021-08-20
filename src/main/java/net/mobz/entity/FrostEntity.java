@@ -26,7 +26,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
@@ -147,7 +146,7 @@ public class FrostEntity extends Blaze {
    }
 
    @Override
-   public boolean causeFallDamage(float float_1, float float_2) {
+   public boolean causeFallDamage(float float_1, float float_2, DamageSource source) {
       return false;
    }
 
@@ -178,7 +177,7 @@ public class FrostEntity extends Blaze {
       double e = target.getX() - this.getX();
       double g = d - snowballEntity.getY();
       double h = target.getZ() - this.getZ();
-      float i = Mth.sqrt(e * e + h * h) * 0.2F;
+      double i = Math.sqrt(e * e + h * h) * 0.2F;
       snowballEntity.shoot(e, g + (double) i, h, 1.6F, 12.0F);
       this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
       this.level.addFreshEntity(snowballEntity);
@@ -218,7 +217,7 @@ public class FrostEntity extends Blaze {
          --this.field_7217;
          LivingEntity livingEntity_1 = this.blaze.getTarget();
          if (livingEntity_1 != null) {
-            boolean boolean_1 = this.blaze.getSensing().canSee(livingEntity_1);
+            boolean boolean_1 = this.blaze.getSensing().hasLineOfSight(livingEntity_1);
             if (boolean_1) {
                this.field_19420 = 0;
             } else {
@@ -256,13 +255,13 @@ public class FrostEntity extends Blaze {
                   }
 
                   if (this.field_7218 > 1) {
-                     float float_1 = Mth.sqrt(Mth.sqrt(double_1)) * 0.5F;
+                     double float_1 = Math.sqrt(Math.sqrt(double_1)) * 0.5F;
                      this.blaze.level.levelEvent((Player) null, 1018, this.blaze.blockPosition(), 0);
 
                      for (int int_1 = 0; int_1 < 1; ++int_1) {
                         FrostballEntity smallFireballEntity_1 = new FrostballEntity(this.blaze.level, this.blaze,
-                              double_2 + this.blaze.getRandom().nextGaussian() * (double) float_1, double_3,
-                              double_4 + this.blaze.getRandom().nextGaussian() * (double) float_1);
+                              double_2 + this.blaze.getRandom().nextGaussian() * float_1, double_3,
+                              double_4 + this.blaze.getRandom().nextGaussian() * float_1);
                         smallFireballEntity_1.absMoveTo(smallFireballEntity_1.getX(),
                               this.blaze.getY(0.5D) + 0.5D, smallFireballEntity_1.getZ());
                         this.blaze.level.addFreshEntity(smallFireballEntity_1);
