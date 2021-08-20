@@ -2,10 +2,11 @@ package net.mobz.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CreeperPowerLayer;
 import net.minecraft.client.model.CreeperModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,9 +14,9 @@ import net.minecraft.util.Mth;
 public class CreepRenderer extends MobRenderer<Creeper, CreeperModel<Creeper>> {
     private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/creep.png");
 
-    public CreepRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new CreeperModel<>(), 0.5F);
-        this.addLayer(new CreeperPowerLayer(this));
+    public CreepRenderer(EntityRendererProvider.Context context) {
+        super(context, new CreeperModel<>(context.bakeLayer(ModelLayers.CREEPER)), 0.5F);
+        this.addLayer(new CreeperPowerLayer(this, context.getModelSet()));
     }
 
     @Override

@@ -9,17 +9,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.BossEntity;
 
 public class BossRenderer extends HumanoidMobRenderer<BossEntity, ZombieModel<BossEntity>> {
-	private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/boss.png");
+    private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/boss.png");
 
-	public BossRenderer(EntityRendererProvider.Context context) {
-		super(context, new ZombieModel<>(context.getModelSet().bakeLayer(ModelLayers.ZOMBIE)), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this,
-				new ZombieModel<>(context.getModelSet().bakeLayer(ModelLayers.ZOMBIE_INNER_ARMOR)),
-				new ZombieModel<>(context.getModelSet().bakeLayer(ModelLayers.ZOMBIE_OUTER_ARMOR))));
-	}
+    public BossRenderer(EntityRendererProvider.Context context) {
+        super(context, new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE)), 0.5F);
+        this.addLayer(new HumanoidArmorLayer<>(this,
+                new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE_INNER_ARMOR)),
+                new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE_OUTER_ARMOR))));
+    }
 
-	@Override
-	public ResourceLocation getTextureLocation(BossEntity Bossy) {
-		return SKIN;
-	}
+    @Override
+    public ResourceLocation getTextureLocation(BossEntity Bossy) {
+        return SKIN;
+    }
 }
