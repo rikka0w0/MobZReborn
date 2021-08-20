@@ -1,30 +1,30 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class TSpider extends SpiderEntity {
-    public TSpider(EntityType<? extends SpiderEntity> entityType, World world) {
+public class TSpider extends Spider {
+    public TSpider(EntityType<? extends Spider> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static AttributeModifierMap.MutableAttribute createTSpiderAttributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createTSpiderAttributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, Configs.instance.TinySpiderLife)
                 .add(Attributes.MOVEMENT_SPEED, 0.1D)
                 .add(Attributes.ATTACK_DAMAGE, Configs.instance.TinySpiderAttack);
@@ -32,12 +32,12 @@ public class TSpider extends SpiderEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new RandomWalkingGoal(this, 0.5D));
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.5D));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
     @Override
-    public boolean checkSpawnObstruction(IWorldReader view) {
+    public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())

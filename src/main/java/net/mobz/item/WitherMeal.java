@@ -2,16 +2,18 @@ package net.mobz.item;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class WitherMeal extends SimpleItem {
 	public WitherMeal(Properties properties) {
@@ -19,9 +21,9 @@ public class WitherMeal extends SimpleItem {
 	}
 
 	@Override
-	public ActionResultType useOn(ItemUseContext context) {
-		World world = context.getLevel();
-        PlayerEntity player = context.getPlayer();
+	public InteractionResult useOn(UseOnContext context) {
+		Level world = context.getLevel();
+        Player player = context.getPlayer();
         ItemStack mealitem = player.getMainHandItem();
 		BlockPos pos = context.getClickedPos();
 		BlockState blockState = world.getBlockState(pos);
@@ -46,7 +48,7 @@ public class WitherMeal extends SimpleItem {
             }
             world.setBlock(pos.above(), Blocks.WITHER_ROSE.defaultBlockState(), 3);
             mealitem.shrink(1);
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         if (((blockState.getBlock() == Blocks.SOUL_SAND || blockState.getBlock() == Blocks.FARMLAND)
@@ -60,7 +62,7 @@ public class WitherMeal extends SimpleItem {
                                 * blockState.getShape(world, pos).max(Direction.Axis.Y) + 1,
                         (double) ((float) pos.getZ() + random.nextFloat()), d, e, f);
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() == Blocks.FARMLAND && !world.isClientSide) {
@@ -79,9 +81,9 @@ public class WitherMeal extends SimpleItem {
             world.setBlock(pos.above(), Blocks.WITHER_ROSE.defaultBlockState(), 3);
             world.setBlock(pos, Blocks.SOUL_SAND.defaultBlockState(), 3);
             mealitem.shrink(1);
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
-            return ActionResultType.PASS;
+            return InteractionResult.PASS;
         }
     }
 }

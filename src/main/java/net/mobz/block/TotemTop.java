@@ -4,15 +4,17 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.BlockGetter;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class TotemTop extends AbstractHead {
 	protected static final VoxelShape SHAPE = box(4D, 0, 4D, 12D, 10D, 12D);
@@ -22,13 +24,13 @@ public class TotemTop extends AbstractHead {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader view, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable IBlockReader world, List<ITextComponent> tooltip,
-			ITooltipFlag options) {
-		tooltip.add(new TranslationTextComponent("block.mobz.totemtop.tooltip"));
+	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
+			TooltipFlag options) {
+		tooltip.add(new TranslatableComponent("block.mobz.totemtop.tooltip"));
 	}
 }

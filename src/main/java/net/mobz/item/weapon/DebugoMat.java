@@ -1,10 +1,10 @@
 package net.mobz.item.weapon;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
-public class DebugoMat implements IItemTier {
+public class DebugoMat implements Tier {
     @Override
     public int getUses() {
         return 2020;

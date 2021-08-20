@@ -1,44 +1,44 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.VindicatorEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
-public class IslandKing extends VindicatorEntity {
+public class IslandKing extends Vindicator {
   private int cooldown = 0;
   private final int requiredCooldown = 200;
 
-  public IslandKing(EntityType<? extends VindicatorEntity> entityType, World world) {
+  public IslandKing(EntityType<? extends Vindicator> entityType, Level world) {
     super(entityType, world);
     this.xpReward = 50;
 
   }
 
-  public static AttributeModifierMap.MutableAttribute createIslandKingAttributes() {
-    return MonsterEntity.createMonsterAttributes()
+  public static AttributeSupplier.Builder createIslandKingAttributes() {
+    return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
             Configs.instance.KingCharlesLife * Configs.instance.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.32D)
@@ -58,13 +58,13 @@ public class IslandKing extends VindicatorEntity {
   protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
     super.populateDefaultEquipmentSlots(localDifficulty_1);
     if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-      this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
     }
   }
 
   @Override
-  public CreatureAttribute getMobType() {
-    return CreatureAttribute.UNDEFINED;
+  public MobType getMobType() {
+    return MobType.UNDEFINED;
   }
 
   @Override
@@ -94,7 +94,7 @@ public class IslandKing extends VindicatorEntity {
 
   @Override
   protected void customServerAiStep() {
-    EffectInstance slow = new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
+    MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
 
     if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && canSee(getTarget())) {
 
@@ -116,8 +116,8 @@ public class IslandKing extends VindicatorEntity {
         -2 + IslandKing.this.random.nextInt(5));
     IslandVexEntity vexEntity = (IslandVexEntity) MobZEntities.ISLANDVEXENTITY.create(IslandKing.this.level);
     vexEntity.moveTo(blockPos, 0.0F, 0.0F);
-    vexEntity.finalizeSpawn((IServerWorld) IslandKing.this.level, IslandKing.this.level.getCurrentDifficultyAt(blockPos),
-        SpawnReason.MOB_SUMMONED, null, (CompoundNBT) null);
+    vexEntity.finalizeSpawn((ServerLevelAccessor) IslandKing.this.level, IslandKing.this.level.getCurrentDifficultyAt(blockPos),
+        MobSpawnType.MOB_SUMMONED, null, (CompoundTag) null);
     IslandKing.this.level.addFreshEntity(vexEntity);
   }
 

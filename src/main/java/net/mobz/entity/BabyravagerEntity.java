@@ -1,24 +1,24 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.RavagerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZSounds;
 
-public class BabyravagerEntity extends RavagerEntity {
+public class BabyravagerEntity extends Ravager {
 
-  public BabyravagerEntity(EntityType<? extends RavagerEntity> type, World world) {
+  public BabyravagerEntity(EntityType<? extends Ravager> type, Level world) {
     super(type, world);
   }
 
-  public static AttributeModifierMap.MutableAttribute createBabyravagerEntityAttributes() {
-    return MonsterEntity.createMonsterAttributes()
+  public static AttributeSupplier.Builder createBabyravagerEntityAttributes() {
+    return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
             Configs.instance.BabyRavagerLife * Configs.instance.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.3D)

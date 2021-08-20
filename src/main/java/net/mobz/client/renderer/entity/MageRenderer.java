@@ -1,12 +1,12 @@
 package net.mobz.client.renderer.entity;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EvokerRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.MageEntity;
 
 public class MageRenderer extends EvokerRenderer<MageEntity> {
-    public MageRenderer(EntityRendererManager dispatcher) {
+    public MageRenderer(EntityRenderDispatcher dispatcher) {
         super(dispatcher);
     }
 

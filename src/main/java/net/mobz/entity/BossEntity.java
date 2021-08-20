@@ -1,36 +1,36 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
-public class BossEntity extends ZombieEntity {
+public class BossEntity extends Zombie {
 
-    public BossEntity(EntityType<? extends ZombieEntity> entityType, World world) {
+    public BossEntity(EntityType<? extends Zombie> entityType, Level world) {
         super(entityType, world);
         this.xpReward = 60;
     }
 
-    public static AttributeModifierMap.MutableAttribute createBossEntityAttributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createBossEntityAttributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         Configs.instance.BossZombieLife * Configs.instance.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.21D)
@@ -65,12 +65,12 @@ public class BossEntity extends ZombieEntity {
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty) {
         super.populateDefaultEquipmentSlots(localDifficulty);
-        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.BossSword));
-        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(MobZItems.SHIELD));
-        this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(MobZArmors.boss_chestplate));
-        this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(MobZArmors.boss_boots));
-        this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(MobZArmors.boss_leggings));
-        this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(MobZArmors.boss_helmet));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.BossSword));
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(MobZArmors.boss_chestplate));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(MobZArmors.boss_boots));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(MobZArmors.boss_leggings));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MobZArmors.boss_helmet));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class BossEntity extends ZombieEntity {
     }
 
     @Override
-    public boolean checkSpawnObstruction(IWorldReader view) {
+    public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
@@ -101,7 +101,7 @@ public class BossEntity extends ZombieEntity {
     @Override
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
         LivingEntity bob = (LivingEntity) target;
-        EffectInstance fatigue = new EffectInstance(Effect.byId(4), 120, 0, false, false);
+        MobEffectInstance fatigue = new MobEffectInstance(MobEffect.byId(4), 120, 0, false, false);
         if (target instanceof LivingEntity) {
             bob.addEffect(fatigue);
         }

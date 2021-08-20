@@ -3,84 +3,84 @@ package net.mobz.entity;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.NonTamedTargetGoal;
-import net.minecraft.entity.ai.goal.OwnerHurtByTargetGoal;
-import net.minecraft.entity.ai.goal.OwnerHurtTargetGoal;
-import net.minecraft.entity.ai.goal.ResetAngerGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.AbstractSkeletonEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.monster.GhastEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
-public class Knight4Entity extends TameableEntity implements IAngerable {
+public class Knight4Entity extends TamableAnimal implements NeutralMob {
     public static final Predicate<LivingEntity> FOLLOW_TAMED_PREDICATE;
 
-    public Knight4Entity(EntityType<? extends Knight4Entity> entityType, World world) {
+    public Knight4Entity(EntityType<? extends Knight4Entity> entityType, Level world) {
         super(entityType, world);
         this.setTame(false);
-        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new SitGoal(this));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers());
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, false));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
         this.targetSelector.addGoal(5,
-                new NonTamedTargetGoal<>(this, AnimalEntity.class, false, FOLLOW_TAMED_PREDICATE));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, false));
-        this.targetSelector.addGoal(8, new ResetAngerGoal<>(this, true));
+                new NonTameRandomTargetGoal<>(this, Animal.class, false, FOLLOW_TAMED_PREDICATE));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
+        this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
-    public static AttributeModifierMap.MutableAttribute createKnight4EntityAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D)
+    public static AttributeSupplier.Builder createKnight4EntityAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D)
                 .add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
@@ -116,8 +116,8 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
         } else {
             Entity entity = source.getEntity();
             this.setOrderedToSit(false);
-            if (entity != null && !(entity instanceof PlayerEntity)
-                    && !(entity instanceof AbstractArrowEntity)) {
+            if (entity != null && !(entity instanceof Player)
+                    && !(entity instanceof AbstractArrow)) {
                 amount = (amount + 1.0F) / 2.0F;
             }
 
@@ -142,13 +142,13 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
     }
 
     @Override
-    public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         Item item = itemStack.getItem();
         if (this.level.isClientSide) {
             boolean bl = this.isOwnedBy(player) || this.isTame()
                     || item == Items.GOLD_NUGGET && !this.isTame() && !this.isAngry();
-            return bl ? ActionResultType.CONSUME : ActionResultType.PASS;
+            return bl ? InteractionResult.CONSUME : InteractionResult.PASS;
         } else {
             if (this.isTame()) {
                 if (this.isFood(itemStack) && this.getHealth() < this.getMaxHealth()) {
@@ -157,59 +157,59 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
                     }
 
                     this.heal((float) item.getFoodProperties().getNutrition());
-                    return ActionResultType.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.BLUE_ORCHID))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.BLUE_ORCHID));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.BLUE_ORCHID));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.CORNFLOWER))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.CORNFLOWER));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.CORNFLOWER));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.WHITE_TULIP))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.WHITE_TULIP));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.WHITE_TULIP));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.PINK_TULIP))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.PINK_TULIP));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.PINK_TULIP));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.RED_TULIP))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.RED_TULIP));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.RED_TULIP));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.ORANGE_TULIP))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.ORANGE_TULIP));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.ORANGE_TULIP));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.ALLIUM))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.ALLIUM));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.ALLIUM));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.AZURE_BLUET))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.AZURE_BLUET));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.AZURE_BLUET));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.DANDELION))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.DANDELION));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.DANDELION));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.OXEYE_DAISY))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.OXEYE_DAISY));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.OXEYE_DAISY));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.LILY_OF_THE_VALLEY))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.LILY_OF_THE_VALLEY));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.LILY_OF_THE_VALLEY));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.POPPY))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.POPPY));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.POPPY));
+                    return InteractionResult.SUCCESS;
                 }
                 if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.SHIELD))) {
-                    this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
-                    return ActionResultType.SUCCESS;
+                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+                    return InteractionResult.SUCCESS;
                 }
 
             } else if (item == Items.BONE && !this.isAngry()) {
@@ -227,7 +227,7 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
                     this.level.broadcastEntityEvent(this, (byte) 6);
                 }
 
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
 
             return super.mobInteract(player, hand);
@@ -235,7 +235,7 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
     }
 
     @Override
-	public Knight4Entity getBreedOffspring(ServerWorld world, AgeableEntity passiveEntity) {
+	public Knight4Entity getBreedOffspring(ServerLevel world, AgableMob passiveEntity) {
         Knight4Entity Knight4Entity = (Knight4Entity) MobZEntities.KNIGHT4ENTITY.create(this.level);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {
@@ -248,17 +248,17 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
 
     @Override
     public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-        if (!(target instanceof CreeperEntity) && !(target instanceof GhastEntity)) {
+        if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
             if (target instanceof Knight4Entity) {
                 Knight4Entity Knight4Entity = (Knight4Entity) target;
                 return !Knight4Entity.isTame() || Knight4Entity.getOwner() != owner;
-            } else if (target instanceof PlayerEntity && owner instanceof PlayerEntity
-                    && !((PlayerEntity) owner).canHarmPlayer((PlayerEntity) target)) {
+            } else if (target instanceof Player && owner instanceof Player
+                    && !((Player) owner).canHarmPlayer((Player) target)) {
                 return false;
-            } else if (target instanceof AbstractHorseEntity && ((AbstractHorseEntity) target).isTamed()) {
+            } else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
                 return false;
             } else {
-                return !(target instanceof TameableEntity) || !((TameableEntity) target).isTame();
+                return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
             }
         } else {
             return false;
@@ -266,7 +266,7 @@ public class Knight4Entity extends TameableEntity implements IAngerable {
     }
 
     @Override
-    public boolean canBeLeashed(PlayerEntity player) {
+    public boolean canBeLeashed(Player player) {
         return false;
     }
 

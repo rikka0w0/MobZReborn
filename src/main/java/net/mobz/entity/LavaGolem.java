@@ -1,42 +1,42 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MoveTowardsTargetGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.WitherSkeletonEntity;
-import net.minecraft.entity.monster.ZoglinEntity;
-import net.minecraft.entity.monster.piglin.PiglinEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.entity.attack.GolemAttack;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class LavaGolem extends IronGolemEntity {
+public class LavaGolem extends IronGolem {
 
-   public LavaGolem(EntityType<? extends IronGolemEntity> entityType, World world) {
+   public LavaGolem(EntityType<? extends IronGolem> entityType, Level world) {
       super(entityType, world);
       this.xpReward = 20;
    }
 
-   public static AttributeModifierMap.MutableAttribute createLavaGolemAttributes() {
-      return MonsterEntity.createMonsterAttributes()
+   public static AttributeSupplier.Builder createLavaGolemAttributes() {
+      return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
                   Configs.instance.LavaGolemLife * Configs.instance.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.25D)
@@ -50,21 +50,21 @@ public class LavaGolem extends IronGolemEntity {
       this.goalSelector.addGoal(1, new GolemAttack(this, 1.0D, true));
       this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
       // this.goalSelector.addGoal(5, new OfferFlowerGoal(this));
-      this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
-      this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-      this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-      this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+      this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+      this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+      this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+      this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
       this.initCustomGoals();
    }
 
    protected void initCustomGoals() {
-      this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(ZoglinEntity.class));
+      this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Zoglin.class));
       this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(skeli3.class));
-      this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(SkeletonEntity.class));
-      this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(WitherSkeletonEntity.class));
+      this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Skeleton.class));
+      this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(WitherSkeleton.class));
       this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Dog.class));
       this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(WithEntity.class));
-      this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(PiglinEntity.class));
+      this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Piglin.class));
    }
 
    @Override
@@ -88,7 +88,7 @@ public class LavaGolem extends IronGolemEntity {
    }
 
    @Override
-   public boolean checkSpawnObstruction(IWorldReader view) {
+   public boolean checkSpawnObstruction(LevelReader view) {
       BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())

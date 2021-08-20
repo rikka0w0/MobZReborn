@@ -1,37 +1,37 @@
 package net.mobz.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.IronGolemCracksLayer;
-import net.minecraft.client.renderer.entity.layers.IronGolenFlowerLayer;
-import net.minecraft.client.renderer.entity.model.IronGolemModel;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.entity.layers.IronGolemCrackinessLayer;
+import net.minecraft.client.renderer.entity.layers.IronGolemFlowerLayer;
+import net.minecraft.client.model.IronGolemModel;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.resources.ResourceLocation;
+import com.mojang.math.Vector3f;
 
-public class IceGolemRenderer extends MobRenderer<IronGolemEntity, IronGolemModel<IronGolemEntity>> {
+public class IceGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<IronGolem>> {
     private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/icegolem.png");
 
-    public IceGolemRenderer(EntityRendererManager entityRenderDispatcher) {
+    public IceGolemRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new IronGolemModel<>(), 0.7F);
-        this.addLayer(new IronGolemCracksLayer(this));
-        this.addLayer(new IronGolenFlowerLayer(this));
+        this.addLayer(new IronGolemCrackinessLayer(this));
+        this.addLayer(new IronGolemFlowerLayer(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(IronGolemEntity ice) {
+    public ResourceLocation getTextureLocation(IronGolem ice) {
         return SKIN;
     }
 
     @Override
-    protected void scale(IronGolemEntity golem, MatrixStack matrixStack, float f) {
+    protected void scale(IronGolem golem, PoseStack matrixStack, float f) {
         matrixStack.scale(1.1F, 1.1F, 1.1F);
     }
 
     @Override
-    protected void setupRotations(IronGolemEntity ironGolemEntity, MatrixStack matrixStack, float f, float g,
+    protected void setupRotations(IronGolem ironGolemEntity, PoseStack matrixStack, float f, float g,
             float h) {
         super.setupRotations(ironGolemEntity, matrixStack, f, g, h);
         if ((double) ironGolemEntity.animationSpeed >= 0.01D) {

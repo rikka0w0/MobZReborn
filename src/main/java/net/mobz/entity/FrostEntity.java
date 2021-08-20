@@ -2,52 +2,52 @@ package net.mobz.entity;
 
 import java.util.EnumSet;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MoveTowardsRestrictionGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SnowballEntity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.entity.attack.FrostballEntity;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class FrostEntity extends BlazeEntity {
+public class FrostEntity extends Blaze {
    private float field_7214 = 0.5F;
    private int field_7215;
-   private static final DataParameter<Byte> BLAZE_FLAGS;
+   private static final EntityDataAccessor<Byte> BLAZE_FLAGS;
 
-   public FrostEntity(EntityType<? extends FrostEntity> entityType_1, World world_1) {
+   public FrostEntity(EntityType<? extends FrostEntity> entityType_1, Level world_1) {
       super(entityType_1, world_1);
-      this.setPathfindingMalus(PathNodeType.WATER, 8.0F);
+      this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
       this.xpReward = 10;
    }
 
-   public static AttributeModifierMap.MutableAttribute createFrostEntityAttributes() {
-      return MonsterEntity.createMonsterAttributes()
+   public static AttributeSupplier.Builder createFrostEntityAttributes() {
+      return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
                   Configs.instance.FrostBlazeLife * Configs.instance.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
@@ -57,7 +57,7 @@ public class FrostEntity extends BlazeEntity {
    }
 
    @Override
-   public boolean checkSpawnObstruction(IWorldReader view) {
+   public boolean checkSpawnObstruction(LevelReader view) {
       BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
@@ -71,11 +71,11 @@ public class FrostEntity extends BlazeEntity {
    protected void registerGoals() {
       this.goalSelector.addGoal(4, new FrostEntity.ShootFireballGoal(this));
       this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-      this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
-      this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-      this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+      this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
+      this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+      this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
       this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers());
-      this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+      this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
    }
 
    @Override
@@ -137,7 +137,7 @@ public class FrostEntity extends BlazeEntity {
       LivingEntity livingEntity_1 = this.getTarget();
       if (livingEntity_1 != null && livingEntity_1.getEyeY() > this.getEyeY() + (double) this.field_7214
             && this.canAttack(livingEntity_1)) {
-         Vector3d vec3d_1 = this.getDeltaMovement();
+         Vec3 vec3d_1 = this.getDeltaMovement();
          this.setDeltaMovement(
                this.getDeltaMovement().add(0.0D, (0.30000001192092896D - vec3d_1.y) * 0.30000001192092896D, 0.0D));
          this.hasImpulse = true;
@@ -173,12 +173,12 @@ public class FrostEntity extends BlazeEntity {
 
    ////////////////////////////////////////////////
    public void attack(LivingEntity target, float f) {
-	   SnowballEntity snowballEntity = new SnowballEntity(this.level, this);
+	   Snowball snowballEntity = new Snowball(this.level, this);
       double d = target.getEyeY() - 1.100000023841858D;
       double e = target.getX() - this.getX();
       double g = d - snowballEntity.getY();
       double h = target.getZ() - this.getZ();
-      float i = MathHelper.sqrt(e * e + h * h) * 0.2F;
+      float i = Mth.sqrt(e * e + h * h) * 0.2F;
       snowballEntity.shoot(e, g + (double) i, h, 1.6F, 12.0F);
       this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
       this.level.addFreshEntity(snowballEntity);
@@ -186,7 +186,7 @@ public class FrostEntity extends BlazeEntity {
 
    /////////////////////////////////////
    static {
-      BLAZE_FLAGS = EntityDataManager.defineId(FrostEntity.class, DataSerializers.BYTE);
+      BLAZE_FLAGS = SynchedEntityData.defineId(FrostEntity.class, EntityDataSerializers.BYTE);
    }
 
    static class ShootFireballGoal extends Goal {
@@ -256,8 +256,8 @@ public class FrostEntity extends BlazeEntity {
                   }
 
                   if (this.field_7218 > 1) {
-                     float float_1 = MathHelper.sqrt(MathHelper.sqrt(double_1)) * 0.5F;
-                     this.blaze.level.levelEvent((PlayerEntity) null, 1018, this.blaze.blockPosition(), 0);
+                     float float_1 = Mth.sqrt(Mth.sqrt(double_1)) * 0.5F;
+                     this.blaze.level.levelEvent((Player) null, 1018, this.blaze.blockPosition(), 0);
 
                      for (int int_1 = 0; int_1 < 1; ++int_1) {
                         FrostballEntity smallFireballEntity_1 = new FrostballEntity(this.blaze.level, this.blaze,

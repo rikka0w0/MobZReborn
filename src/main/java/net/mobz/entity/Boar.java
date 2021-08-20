@@ -1,30 +1,30 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class Boar extends PigEntity {
+public class Boar extends Pig {
     private static final Ingredient BREEDING_INGREDIENT;
 
-    public Boar(EntityType<? extends PigEntity> entityType, World world) {
+    public Boar(EntityType<? extends Pig> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static AttributeModifierMap.MutableAttribute createBoarAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D)
+    public static AttributeSupplier.Builder createBoarAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
@@ -53,7 +53,7 @@ public class Boar extends PigEntity {
         return false;
     }
 
-    public Boar method_6574(AgeableEntity passiveEntity_1) {
+    public Boar method_6574(AgableMob passiveEntity_1) {
         return (Boar) MobZEntities.BOAR.create(this.level);
     }
 
@@ -63,7 +63,7 @@ public class Boar extends PigEntity {
     }
 
     @Override
-	public Boar getBreedOffspring(ServerWorld world, AgeableEntity passiveEntity) {
+	public Boar getBreedOffspring(ServerLevel world, AgableMob passiveEntity) {
         return (Boar) MobZEntities.BOAR.create(this.level);
     }
 

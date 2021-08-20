@@ -1,8 +1,8 @@
 package net.mobz.init;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.item.armor.AMaterial;
@@ -18,26 +18,26 @@ import net.mobz.item.armor.SpeedShoeMaterial2;
 public class MobZArmors {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);
 	
-    public static final IArmorMaterial BOSSAPPARE = new BossArmorMaterial();
-    public static final IArmorMaterial LIFEAPPARE = new LifeArmorMaterial();
-    public static final IArmorMaterial SPEEDAPPARE = new SpeedShoeMaterial();
-    public static final IArmorMaterial SPEEDAPPARE2 = new SpeedShoeMaterial2();
-    public static final IArmorMaterial AMAT = new AMaterial();
+    public static final ArmorMaterial BOSSAPPARE = new BossArmorMaterial();
+    public static final ArmorMaterial LIFEAPPARE = new LifeArmorMaterial();
+    public static final ArmorMaterial SPEEDAPPARE = new SpeedShoeMaterial();
+    public static final ArmorMaterial SPEEDAPPARE2 = new SpeedShoeMaterial2();
+    public static final ArmorMaterial AMAT = new AMaterial();
 
-    public static final AmatArmorBase amat_helmet = new AmatArmorBase(AMAT, EquipmentSlotType.HEAD, defaultItemProp);
-    public static final AmatArmorBase amat_chestplate = new AmatArmorBase(AMAT, EquipmentSlotType.CHEST, defaultItemProp);
-    public static final AmatArmorBase amat_leggings = new AmatArmorBase(AMAT, EquipmentSlotType.LEGS, defaultItemProp);
-    public static final AmatArmorBase amat_boots = new AmatArmorBase(AMAT, EquipmentSlotType.FEET, defaultItemProp);
-    public static final BossArmorBase boss_helmet = new BossArmorBase(BOSSAPPARE, EquipmentSlotType.HEAD, defaultItemProp);
-    public static final BossArmorBase boss_chestplate = new BossArmorBase(BOSSAPPARE, EquipmentSlotType.CHEST, defaultItemProp);
-    public static final BossArmorBase boss_leggings = new BossArmorBase(BOSSAPPARE, EquipmentSlotType.LEGS, defaultItemProp);
-    public static final BossArmorBase boss_boots = new BossArmorBase(BOSSAPPARE, EquipmentSlotType.FEET, defaultItemProp);
-    public static final LifeArmorBase life_helmet = new LifeArmorBase(LIFEAPPARE, EquipmentSlotType.HEAD, defaultItemProp, 3.0D);
-    public static final LifeArmorBase life_chestplate = new LifeArmorBase(LIFEAPPARE, EquipmentSlotType.CHEST, defaultItemProp, 3.0D);
-    public static final LifeArmorBase life_leggings = new LifeArmorBase(LIFEAPPARE, EquipmentSlotType.LEGS, defaultItemProp, 3.0D);
-    public static final LifeArmorBase life_boots = new LifeArmorBase(LIFEAPPARE, EquipmentSlotType.FEET, defaultItemProp, 3.0D);
-    public static final SpeedShoeBase speed_boots = new SpeedShoeBase(SPEEDAPPARE, EquipmentSlotType.FEET, defaultItemProp, 0.02D);
-    public static final SpeedShoeBase speed2_boots = new SpeedShoeBase(SPEEDAPPARE2, EquipmentSlotType.FEET, defaultItemProp, 0.03D);
+    public static final AmatArmorBase amat_helmet = new AmatArmorBase(AMAT, EquipmentSlot.HEAD, defaultItemProp);
+    public static final AmatArmorBase amat_chestplate = new AmatArmorBase(AMAT, EquipmentSlot.CHEST, defaultItemProp);
+    public static final AmatArmorBase amat_leggings = new AmatArmorBase(AMAT, EquipmentSlot.LEGS, defaultItemProp);
+    public static final AmatArmorBase amat_boots = new AmatArmorBase(AMAT, EquipmentSlot.FEET, defaultItemProp);
+    public static final BossArmorBase boss_helmet = new BossArmorBase(BOSSAPPARE, EquipmentSlot.HEAD, defaultItemProp);
+    public static final BossArmorBase boss_chestplate = new BossArmorBase(BOSSAPPARE, EquipmentSlot.CHEST, defaultItemProp);
+    public static final BossArmorBase boss_leggings = new BossArmorBase(BOSSAPPARE, EquipmentSlot.LEGS, defaultItemProp);
+    public static final BossArmorBase boss_boots = new BossArmorBase(BOSSAPPARE, EquipmentSlot.FEET, defaultItemProp);
+    public static final LifeArmorBase life_helmet = new LifeArmorBase(LIFEAPPARE, EquipmentSlot.HEAD, defaultItemProp, 3.0D);
+    public static final LifeArmorBase life_chestplate = new LifeArmorBase(LIFEAPPARE, EquipmentSlot.CHEST, defaultItemProp, 3.0D);
+    public static final LifeArmorBase life_leggings = new LifeArmorBase(LIFEAPPARE, EquipmentSlot.LEGS, defaultItemProp, 3.0D);
+    public static final LifeArmorBase life_boots = new LifeArmorBase(LIFEAPPARE, EquipmentSlot.FEET, defaultItemProp, 3.0D);
+    public static final SpeedShoeBase speed_boots = new SpeedShoeBase(SPEEDAPPARE, EquipmentSlot.FEET, defaultItemProp, 0.02D);
+    public static final SpeedShoeBase speed2_boots = new SpeedShoeBase(SPEEDAPPARE2, EquipmentSlot.FEET, defaultItemProp, 0.03D);
 
 	public static void registerAll(IRegistryWrapper registry) {
 		registry.register("amat_helmet", amat_helmet);

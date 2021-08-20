@@ -1,26 +1,26 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.CaveSpiderEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.CaveSpider;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 
-public class SpiSmall extends CaveSpiderEntity {
+public class SpiSmall extends CaveSpider {
 
     private int lifeTicks;
     private boolean alive;
 
-    public SpiSmall(EntityType<? extends CaveSpiderEntity> entityType, World world) {
+    public SpiSmall(EntityType<? extends CaveSpider> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static AttributeModifierMap.MutableAttribute createSpiSmallAttributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createSpiSmallAttributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 5D * Configs.instance.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
                 .add(Attributes.ATTACK_DAMAGE, 3D * Configs.instance.DamageMultiplicatorMob)

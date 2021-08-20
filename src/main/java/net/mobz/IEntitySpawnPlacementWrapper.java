@@ -1,10 +1,10 @@
 package net.mobz;
 
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public interface IEntitySpawnPlacementWrapper {
-	<T extends MobEntity> void register(EntityType<T> entityType, EntitySpawnPlacementRegistry.PlacementType placeType, Heightmap.Type heightMapType, EntitySpawnPlacementRegistry.IPlacementPredicate<T> placementPredicate);
+	<T extends Mob> void register(EntityType<T> entityType, SpawnPlacements.Type placeType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> placementPredicate);
 }

@@ -1,32 +1,32 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class TankEntity extends ZombieEntity {
+public class TankEntity extends Zombie {
 
-    public TankEntity(EntityType<? extends ZombieEntity> entityType, World world) {
+    public TankEntity(EntityType<? extends Zombie> entityType, Level world) {
         super(entityType, world);
         this.xpReward = 10;
     }
 
-    public static AttributeModifierMap.MutableAttribute createTankEntityAttributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createTankEntityAttributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         Configs.instance.TankLife * Configs.instance.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
@@ -54,7 +54,7 @@ public class TankEntity extends ZombieEntity {
     }
 
     @Override
-    public boolean checkSpawnObstruction(IWorldReader view) {
+    public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
@@ -67,7 +67,7 @@ public class TankEntity extends ZombieEntity {
     @Override
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
         LivingEntity bob = (LivingEntity) target;
-        EffectInstance weakness = new EffectInstance(Effects.WEAKNESS, 100, 0, false, false);
+        MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false);
         if (target instanceof LivingEntity && !level.isClientSide) {
             bob.addEffect(weakness);
         }

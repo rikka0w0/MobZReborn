@@ -1,28 +1,28 @@
 package net.mobz.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.CreeperChargeLayer;
-import net.minecraft.client.renderer.entity.model.CreeperModel;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.renderer.entity.layers.CreeperPowerLayer;
+import net.minecraft.client.model.CreeperModel;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
-public class CreepRenderer extends MobRenderer<CreeperEntity, CreeperModel<CreeperEntity>> {
+public class CreepRenderer extends MobRenderer<Creeper, CreeperModel<Creeper>> {
     private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/creep.png");
 
-    public CreepRenderer(EntityRendererManager entityRenderDispatcher) {
+    public CreepRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new CreeperModel<>(), 0.5F);
-        this.addLayer(new CreeperChargeLayer(this));
+        this.addLayer(new CreeperPowerLayer(this));
     }
 
     @Override
-    protected void scale(CreeperEntity creeperEntity, MatrixStack matrixStack, float f) {
+    protected void scale(Creeper creeperEntity, PoseStack matrixStack, float f) {
         float g = creeperEntity.getSwelling(f);
-        float h = 1.0F + MathHelper.sin(g * 100.0F) * g * 0.01F;
-        g = MathHelper.clamp(g, 0.0F, 1.0F);
+        float h = 1.0F + Mth.sin(g * 100.0F) * g * 0.01F;
+        g = Mth.clamp(g, 0.0F, 1.0F);
         g *= g;
         g *= g;
         float i = (1.0F + g * 0.4F) * h;
@@ -31,13 +31,13 @@ public class CreepRenderer extends MobRenderer<CreeperEntity, CreeperModel<Creep
     }
 
     @Override
-    protected float getBob(CreeperEntity creeperEntity, float f) {
+    protected float getBob(Creeper creeperEntity, float f) {
         float g = creeperEntity.getSwelling(f);
-        return (int) (g * 10.0F) % 2 == 0 ? 0.0F : MathHelper.clamp(g, 0.5F, 1.0F);
+        return (int) (g * 10.0F) % 2 == 0 ? 0.0F : Mth.clamp(g, 0.5F, 1.0F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CreeperEntity creeperEntity) {
+    public ResourceLocation getTextureLocation(Creeper creeperEntity) {
         return SKIN;
     }
 }

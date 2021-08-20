@@ -2,49 +2,49 @@ package net.mobz.client.renderer.entity;
 
 import java.util.Random;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.HeldBlockLayer;
-import net.minecraft.client.renderer.entity.model.EndermanModel;
-import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.client.renderer.entity.layers.CarriedBlockLayer;
+import net.minecraft.client.model.EndermanModel;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import net.mobz.client.renderer.features.EnderEyes;
 
-public class EnderRenderer extends MobRenderer<EndermanEntity, EndermanModel<EndermanEntity>> {
+public class EnderRenderer extends MobRenderer<EnderMan, EndermanModel<EnderMan>> {
    private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/ender.png");
    private final Random random = new Random();
 
-   public EnderRenderer(EntityRendererManager entityRenderDispatcher) {
+   public EnderRenderer(EntityRenderDispatcher entityRenderDispatcher) {
       super(entityRenderDispatcher, new EndermanModel<>(0.0F), 0.5F);
       this.addLayer(new EnderEyes<>(this));
-      this.addLayer(new HeldBlockLayer(this));
+      this.addLayer(new CarriedBlockLayer(this));
    }
 
    @Override
-   public void render(EndermanEntity endermanEntity, float f, float g, MatrixStack matrixStack,
-         IRenderTypeBuffer vertexConsumerProvider, int i) {
+   public void render(EnderMan endermanEntity, float f, float g, PoseStack matrixStack,
+         MultiBufferSource vertexConsumerProvider, int i) {
       BlockState blockState = endermanEntity.getCarriedBlock();
-      EndermanModel<EndermanEntity> endermanEntityModel = this.getModel();
+      EndermanModel<EnderMan> endermanEntityModel = this.getModel();
       endermanEntityModel.carrying = blockState != null;
       endermanEntityModel.creepy = endermanEntity.isCreepy();
-      super.render((EndermanEntity) endermanEntity, f, g, matrixStack, vertexConsumerProvider, i);
+      super.render((EnderMan) endermanEntity, f, g, matrixStack, vertexConsumerProvider, i);
    }
 
    @Override
-   public Vector3d getRenderOffset(EndermanEntity endermanEntity, float f) {
+   public Vec3 getRenderOffset(EnderMan endermanEntity, float f) {
       if (endermanEntity.isCreepy()) {
-         return new Vector3d(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D);
+         return new Vec3(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D);
       } else {
          return super.getRenderOffset(endermanEntity, f);
       }
    }
 
-   public ResourceLocation getTextureLocation(EndermanEntity endermanEntity) {
+   public ResourceLocation getTextureLocation(EnderMan endermanEntity) {
       return SKIN;
    }
 }

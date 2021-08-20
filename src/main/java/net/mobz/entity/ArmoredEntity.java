@@ -1,31 +1,31 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZWeapons;
 
-public class ArmoredEntity extends ZombieEntity {
-   public ArmoredEntity(EntityType<? extends ZombieEntity> entityType, World world) {
+public class ArmoredEntity extends Zombie {
+   public ArmoredEntity(EntityType<? extends Zombie> entityType, Level world) {
       super(entityType, world);
       this.xpReward = 20;
    }
 
-   public static AttributeModifierMap.MutableAttribute createArmoredEntityAttributes() {
-      return MonsterEntity.createMonsterAttributes()
+   public static AttributeSupplier.Builder createArmoredEntityAttributes() {
+      return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
                   Configs.instance.ArmoredZombieLife * Configs.instance.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
@@ -44,19 +44,19 @@ public class ArmoredEntity extends ZombieEntity {
    protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
       super.populateDefaultEquipmentSlots(localDifficulty_1);
       if (this.level.getDifficulty() == Difficulty.NORMAL) {
-         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
-         this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-         this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(Items.IRON_BOOTS));
+         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+         this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
       } else {
          if (this.level.getDifficulty() == Difficulty.EASY) {
-            this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
-            this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
-            this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(Items.LEATHER_BOOTS));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
          } else {
             if (this.level.getDifficulty() == Difficulty.HARD) {
-               this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
-               this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
-               this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(Items.DIAMOND_BOOTS));
+               this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+               this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
+               this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
             } else {
             }
          }
@@ -69,7 +69,7 @@ public class ArmoredEntity extends ZombieEntity {
    }
 
    @Override
-   public boolean checkSpawnObstruction(IWorldReader view) {
+   public boolean checkSpawnObstruction(LevelReader view) {
       BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())

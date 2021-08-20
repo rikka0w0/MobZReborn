@@ -5,32 +5,34 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.TickPriority;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.TickPriority;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.mobz.entity.PillagerBoss;
 import net.mobz.init.MobZEntities;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class TotemBase extends Block {
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
-	protected static final VoxelShape SHAPE = VoxelShapes.or(
+	protected static final VoxelShape SHAPE = Shapes.or(
 			box(1D, 0, 1D, 15D, 1D, 15D), box(2D, 1D, 2D, 14D, 2D, 14D),
 	        box(4D, 2D, 4D, 12D, 16D, 12D), box(3D, 5D, 4D, 4D, 8D, 5D),
 	        box(3D, 5D, 11D, 4D, 8D, 12D), box(2D, 6D, 4D, 3D, 9D, 5D),
@@ -58,17 +60,17 @@ public class TotemBase extends Block {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(ENABLED);
 	}
 	
-	public void trigger(World world, BlockPos pos) {
+	public void trigger(Level world, BlockPos pos) {
 		world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(TotemBase.ENABLED, true));
 		world.getBlockTicks().scheduleTick(pos, this, 100, TickPriority.HIGH);
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
 		if (state.getValue(TotemBase.ENABLED)) {
 			world.removeBlock(pos, false);
 			world.removeBlock(pos.above(), false);
@@ -77,13 +79,13 @@ public class TotemBase extends Block {
 			PillagerBoss pillager = (PillagerBoss) MobZEntities.PILLAGERBOSS.create(world);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
 			pillager.moveTo(spawnPos, 0.0F, 0.0F);
-			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundCategory.HOSTILE, 1F, 1F);
+			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.HOSTILE, 1F, 1F);
 			world.addFreshEntity(pillager);
 		}
 	}
 
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		if (state.getValue(ENABLED)) {
 			for (int i=0; i<10; i++) {
 		        double d = (double) pos.getX() + (double) rand.nextFloat();
@@ -99,13 +101,13 @@ public class TotemBase extends Block {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader view, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable IBlockReader world, List<ITextComponent> tooltip,
-			ITooltipFlag options) {
-		tooltip.add(new TranslationTextComponent("block.mobz.totembase.tooltip"));
+	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
+			TooltipFlag options) {
+		tooltip.add(new TranslatableComponent("block.mobz.totembase.tooltip"));
 	}
 }

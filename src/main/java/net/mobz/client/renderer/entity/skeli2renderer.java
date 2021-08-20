@@ -1,14 +1,14 @@
 package net.mobz.client.renderer.entity;
 
-import net.minecraft.client.renderer.entity.BipedRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.model.SkeletonModel;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.model.SkeletonModel;
+import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.skeli2;
 
-public class skeli2renderer extends BipedRenderer<skeli2, SkeletonModel<skeli2>> {
+public class skeli2renderer extends HumanoidMobRenderer<skeli2, SkeletonModel<skeli2>> {
 
-    public skeli2renderer(EntityRendererManager dispatcher) {
+    public skeli2renderer(EntityRenderDispatcher dispatcher) {
         super(dispatcher, new SkeletonModel<>(), 0.5F);
     }
 

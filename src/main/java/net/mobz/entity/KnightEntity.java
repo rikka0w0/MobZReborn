@@ -1,47 +1,47 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.ai.goal.ZombieAttackGoal;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.ZombieAttackGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
-public class KnightEntity extends ZombieEntity {
+public class KnightEntity extends Zombie {
 
-    public KnightEntity(EntityType<? extends ZombieEntity> entityType, World world) {
+    public KnightEntity(EntityType<? extends Zombie> entityType, Level world) {
         super(entityType, world);
         this.xpReward = 20;
     }
 
-    public static AttributeModifierMap.MutableAttribute createKnightEntityAttributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createKnightEntityAttributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         Configs.instance.TemplarLife * Configs.instance.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
@@ -58,26 +58,26 @@ public class KnightEntity extends ZombieEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new ZombieAttackGoal(this, 1.0D, false));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 0.9D));
-        this.goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.9D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
         super.populateDefaultEquipmentSlots(localDifficulty_1);
         if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-            this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
-            this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(MobZItems.SHIELD));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD));
         }
     }
 
     @Override
-    public CreatureAttribute getMobType() {
-        return CreatureAttribute.UNDEFINED;
+    public MobType getMobType() {
+        return MobType.UNDEFINED;
     }
 
     @Override
@@ -111,7 +111,7 @@ public class KnightEntity extends ZombieEntity {
     }
 
     @Override
-    public boolean checkSpawnObstruction(IWorldReader view) {
+    public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox()) && this.level.isDay()
@@ -124,7 +124,7 @@ public class KnightEntity extends ZombieEntity {
     @Override
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
         LivingEntity bob = (LivingEntity) target;
-        EffectInstance weakness = new EffectInstance(Effects.WEAKNESS, 140, 0, false, false);
+        MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false);
         if (target instanceof LivingEntity && !level.isClientSide) {
             bob.addEffect(weakness);
         }

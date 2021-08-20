@@ -1,8 +1,8 @@
 package net.mobz.init;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MusicDiscItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.RecordItem;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.item.FrozenMeal;
@@ -51,10 +51,10 @@ public class MobZItems {
 
     // Disks
 	@SuppressWarnings("deprecation")
-	public static final MusicDiscItem MEDIVEAL_DISC = new MusicDiscItem(1, MobZSounds.MEDIVEALSOUNDEVENT,
+	public static final RecordItem MEDIVEAL_DISC = new RecordItem(1, MobZSounds.MEDIVEALSOUNDEVENT,
 			new Item.Properties().stacksTo(1));
 	@SuppressWarnings("deprecation")
-	public static final MusicDiscItem MEDIVEAL_DISC2 = new MusicDiscItem(0, MobZSounds.MEDIVEALSOUND2EVENT,
+	public static final RecordItem MEDIVEAL_DISC2 = new RecordItem(0, MobZSounds.MEDIVEALSOUND2EVENT,
 			new Item.Properties().stacksTo(1));
 
 	public static void registerAll(IRegistryWrapper registry) {

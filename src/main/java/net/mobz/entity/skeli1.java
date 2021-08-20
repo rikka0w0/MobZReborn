@@ -1,29 +1,29 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class skeli1 extends SkeletonEntity {
+public class skeli1 extends Skeleton {
 
-    public skeli1(EntityType<? extends SkeletonEntity> entityType, World world) {
+    public skeli1(EntityType<? extends Skeleton> entityType, Level world) {
         super(entityType, world);
         this.xpReward = 50;
     }
 
-    public static AttributeModifierMap.MutableAttribute createskeli1Attributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createskeli1Attributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         Configs.instance.BossSkeletonLife * Configs.instance.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D)
@@ -53,7 +53,7 @@ public class skeli1 extends SkeletonEntity {
     }
 
     @Override
-    public boolean checkSpawnObstruction(IWorldReader view) {
+    public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())

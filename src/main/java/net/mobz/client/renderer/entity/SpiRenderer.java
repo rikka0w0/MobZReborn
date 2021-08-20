@@ -1,13 +1,13 @@
 package net.mobz.client.renderer.entity;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.SpiderRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.mobz.client.renderer.features.SpiEyes;
 import net.mobz.entity.SpiEntity;
 
 public class SpiRenderer extends SpiderRenderer<SpiEntity> {
-    public SpiRenderer(EntityRendererManager dispatcher) {
+    public SpiRenderer(EntityRenderDispatcher dispatcher) {
         super(dispatcher);
         this.addLayer(new SpiEyes<>(this));
     }

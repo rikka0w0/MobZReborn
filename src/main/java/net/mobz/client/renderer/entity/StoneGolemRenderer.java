@@ -1,32 +1,32 @@
 package net.mobz.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.IronGolemCracksLayer;
-import net.minecraft.client.renderer.entity.layers.IronGolenFlowerLayer;
-import net.minecraft.client.renderer.entity.model.IronGolemModel;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.entity.layers.IronGolemCrackinessLayer;
+import net.minecraft.client.renderer.entity.layers.IronGolemFlowerLayer;
+import net.minecraft.client.model.IronGolemModel;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.resources.ResourceLocation;
+import com.mojang.math.Vector3f;
 
-public class StoneGolemRenderer extends MobRenderer<IronGolemEntity, IronGolemModel<IronGolemEntity>> {
+public class StoneGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<IronGolem>> {
 	private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/stonegolem.png");
 
-	public StoneGolemRenderer(EntityRendererManager entityRenderDispatcher) {
+	public StoneGolemRenderer(EntityRenderDispatcher entityRenderDispatcher) {
 		super(entityRenderDispatcher, new IronGolemModel<>(), 0.7F);
-		this.addLayer(new IronGolemCracksLayer(this));
-		this.addLayer(new IronGolenFlowerLayer(this));
+		this.addLayer(new IronGolemCrackinessLayer(this));
+		this.addLayer(new IronGolemFlowerLayer(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(IronGolemEntity stone) {
+	public ResourceLocation getTextureLocation(IronGolem stone) {
 		return SKIN;
 	}
 
 	@Override
-	protected void setupRotations(IronGolemEntity ironGolemEntity, MatrixStack matrixStack, float f, float g, float h) {
+	protected void setupRotations(IronGolem ironGolemEntity, PoseStack matrixStack, float f, float g, float h) {
 		super.setupRotations(ironGolemEntity, matrixStack, f, g, h);
 		if ((double) ironGolemEntity.animationSpeed >= 0.01D) {
 			float j = ironGolemEntity.animationPosition - ironGolemEntity.animationSpeed * (1.0F - h) + 6.0F;

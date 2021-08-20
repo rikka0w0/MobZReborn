@@ -1,28 +1,28 @@
 package net.mobz.entity;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class SCreeperEntity extends CreeperEntity {
+public class SCreeperEntity extends Creeper {
 
-  public SCreeperEntity(EntityType<? extends CreeperEntity> entityType, World world) {
+  public SCreeperEntity(EntityType<? extends Creeper> entityType, Level world) {
     super(entityType, world);
   }
 
-  public static AttributeModifierMap.MutableAttribute createSCreeperEntityAttributes() {
-    return MonsterEntity.createMonsterAttributes()
+  public static AttributeSupplier.Builder createSCreeperEntityAttributes() {
+    return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
             Configs.instance.SoulCreeperLife * Configs.instance.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
@@ -39,7 +39,7 @@ public class SCreeperEntity extends CreeperEntity {
   }
 
   @Override
-  public boolean checkSpawnObstruction(IWorldReader view) {
+  public boolean checkSpawnObstruction(LevelReader view) {
     BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
     BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
     return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())

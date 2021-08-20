@@ -1,27 +1,27 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZSounds;
 
-public class SmallZombie extends ZombieEntity {
-    private MobEntity owner;
+public class SmallZombie extends Zombie {
+    private Mob owner;
 
-    public SmallZombie(EntityType<? extends ZombieEntity> entityType, World world) {
+    public SmallZombie(EntityType<? extends Zombie> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static AttributeModifierMap.MutableAttribute createSmallZombieAttributes() {
-        return MonsterEntity.createMonsterAttributes()
+    public static AttributeSupplier.Builder createSmallZombieAttributes() {
+        return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 6D * Configs.instance.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
                 .add(Attributes.ATTACK_DAMAGE, 3D * Configs.instance.DamageMultiplicatorMob)
@@ -75,8 +75,8 @@ public class SmallZombie extends ZombieEntity {
 
     }
 
-    public void setOwner(MobEntity owner) {
-        MobEntity.class.equals(Mage2Entity.class);
+    public void setOwner(Mob owner) {
+        Mob.class.equals(Mage2Entity.class);
     }
 
     public Entity getOwner() {

@@ -1,28 +1,28 @@
 package net.mobz.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.BipedRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.model.VexModel;
-import net.minecraft.entity.monster.VexEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.model.VexModel;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.resources.ResourceLocation;
 
-public class TestRenderer extends BipedRenderer<VexEntity, VexModel> {
+public class TestRenderer extends HumanoidMobRenderer<Vex, VexModel> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("mobz:textures/entity/test.png");
 	private static final ResourceLocation CHARGING_TEXTURE = new ResourceLocation("mobz:textures/entity/test.png");
 
-	public TestRenderer(EntityRendererManager entityRenderDispatcher) {
+	public TestRenderer(EntityRenderDispatcher entityRenderDispatcher) {
 		super(entityRenderDispatcher, new VexModel(), 0.3F);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(VexEntity vexEntity) {
+	public ResourceLocation getTextureLocation(Vex vexEntity) {
 		return vexEntity.isCharging() ? CHARGING_TEXTURE : TEXTURE;
 	}
 
 	@Override
-	protected void scale(VexEntity vexEntity, MatrixStack matrixStack, float f) {
+	protected void scale(Vex vexEntity, PoseStack matrixStack, float f) {
 		matrixStack.scale(0.4F, 0.4F, 0.4F);
 	}
 }

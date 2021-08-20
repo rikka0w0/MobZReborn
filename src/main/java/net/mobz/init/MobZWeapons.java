@@ -1,7 +1,7 @@
 package net.mobz.init;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Item;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.item.weapon.ArmoredSwordBase;
@@ -24,13 +24,13 @@ import net.mobz.item.weapon.WitherSwordMaterial;
 public class MobZWeapons {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);
 
-    public static final IItemTier BOSS_MATERIAL = new SwordBossMaterial();
-    public static final IItemTier ARMORED_MATERIAL = new ArmoredSwordMaterial();
-    public static final IItemTier SWORDMATERIAL = new SwordMaterial();
-    public static final IItemTier AXEMATERIAL = new AxeMaterial();
-    public static final IItemTier POISONSWORDMATERIAL = new PoisonSwordMaterial();
-    public static final IItemTier WITHERSWORDMATERIAL = new WitherSwordMaterial();
-    public static final IItemTier DEBUGOMAT = new DebugoMat();
+    public static final Tier BOSS_MATERIAL = new SwordBossMaterial();
+    public static final Tier ARMORED_MATERIAL = new ArmoredSwordMaterial();
+    public static final Tier SWORDMATERIAL = new SwordMaterial();
+    public static final Tier AXEMATERIAL = new AxeMaterial();
+    public static final Tier POISONSWORDMATERIAL = new PoisonSwordMaterial();
+    public static final Tier WITHERSWORDMATERIAL = new WitherSwordMaterial();
+    public static final Tier DEBUGOMAT = new DebugoMat();
 
     public static final Item Axe = new AxeBase(AXEMATERIAL, defaultItemProp);
     public static final Item ArmoredSword = new ArmoredSwordBase(ARMORED_MATERIAL, defaultItemProp);

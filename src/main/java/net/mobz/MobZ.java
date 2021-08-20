@@ -1,7 +1,7 @@
 package net.mobz;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
@@ -15,14 +15,14 @@ public class MobZ {
 	public static final String MODID = "mobz";
 
 	// ItemGroup
-	public final static ItemGroup tab = new ItemGroup("mobz.glomod") {
+	public final static CreativeModeTab tab = new CreativeModeTab("mobz.glomod") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(MobZArmors.boss_helmet);
         }
     };
 
-	public final static ItemGroup eggs = new ItemGroup("mobz.glomodegg") {
+	public final static CreativeModeTab eggs = new CreativeModeTab("mobz.glomodegg") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(MobZItems.SHOWEGG);

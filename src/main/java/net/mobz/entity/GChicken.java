@@ -1,38 +1,38 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.mobz.init.MobZEntities;
 
-public class GChicken extends ChickenEntity {
+public class GChicken extends Chicken {
    private static final Ingredient BREEDING_INGREDIENT;
    public float field_6741;
    public float field_6743;
@@ -42,30 +42,30 @@ public class GChicken extends ChickenEntity {
    public int eggLayTime;
    public boolean jockey;
 
-   public GChicken(EntityType<? extends GChicken> entityType_1, World world_1) {
+   public GChicken(EntityType<? extends GChicken> entityType_1, Level world_1) {
       super(entityType_1, world_1);
       this.eggLayTime = this.random.nextInt(6000) + 6000;
    }
 
-   public static AttributeModifierMap.MutableAttribute createGChickenAttributes() {
-      return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D)
+   public static AttributeSupplier.Builder createGChickenAttributes() {
+      return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.25D);
    }
 
    @Override
    protected void registerGoals() {
-      this.goalSelector.addGoal(0, new SwimGoal(this));
+      this.goalSelector.addGoal(0, new FloatGoal(this));
       this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
       this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
       this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, false, BREEDING_INGREDIENT));
       this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
-      this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-      this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-      this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+      this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+      this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+      this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
    }
 
    @Override
-   protected float getStandingEyeHeight(Pose entityPose_1, EntitySize entityDimensions_1) {
+   protected float getStandingEyeHeight(Pose entityPose_1, EntityDimensions entityDimensions_1) {
       return this.isBaby() ? entityDimensions_1.height * 0.85F : entityDimensions_1.height * 0.92F;
    }
 
@@ -75,13 +75,13 @@ public class GChicken extends ChickenEntity {
       this.field_6736 = this.field_6741;
       this.field_6738 = this.field_6743;
       this.field_6743 = (float) ((double) this.field_6743 + (double) (this.onGround ? -1 : 4) * 0.3D);
-      this.field_6743 = MathHelper.clamp(this.field_6743, 0.0F, 1.0F);
+      this.field_6743 = Mth.clamp(this.field_6743, 0.0F, 1.0F);
       if (!this.onGround && this.field_6737 < 1.0F) {
          this.field_6737 = 1.0F;
       }
 
       this.field_6737 = (float) ((double) this.field_6737 * 0.9D);
-      Vector3d vec3d_1 = this.getDeltaMovement();
+      Vec3 vec3d_1 = this.getDeltaMovement();
       if (!this.onGround && vec3d_1.y < 0.0D) {
          this.setDeltaMovement(vec3d_1.multiply(1.0D, 0.6D, 1.0D));
       }
@@ -117,7 +117,7 @@ public class GChicken extends ChickenEntity {
    }
 
    @Override
-	public GChicken getBreedOffspring(ServerWorld world, AgeableEntity passiveEntity_1) {
+	public GChicken getBreedOffspring(ServerLevel world, AgableMob passiveEntity_1) {
       return (GChicken) MobZEntities.GCHICKEN.create(this.level);
    }
 
@@ -126,12 +126,12 @@ public class GChicken extends ChickenEntity {
       return BREEDING_INGREDIENT.test(stack);
    }
 
-   protected int getExperienceReward(PlayerEntity playerEntity_1) {
+   protected int getExperienceReward(Player playerEntity_1) {
       return this.isChickenJockey() ? 10 : super.getExperienceReward(playerEntity_1);
    }
 
    @Override
-   public void addAdditionalSaveData(CompoundNBT compoundTag_1) {
+   public void addAdditionalSaveData(CompoundTag compoundTag_1) {
       super.addAdditionalSaveData(compoundTag_1);
       compoundTag_1.putBoolean("IsChickenJockey", this.isChickenJockey);
       compoundTag_1.putInt("EggLayTime", this.eggTime);

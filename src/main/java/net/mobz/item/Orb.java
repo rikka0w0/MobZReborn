@@ -4,15 +4,15 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 public class Orb extends Item {
     public Orb(Item.Properties properties) {
@@ -20,13 +20,13 @@ public class Orb extends Item {
     }
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new TranslationTextComponent("item.mobz.orb.tooltip"));
-        tooltip.add(new TranslationTextComponent("item.mobz.orb.tooltip2"));
+	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TranslatableComponent("item.mobz.orb.tooltip"));
+        tooltip.add(new TranslatableComponent("item.mobz.orb.tooltip2"));
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
     	if (!(entity instanceof LivingEntity))
     		return;
 
@@ -34,9 +34,9 @@ public class Orb extends Item {
         if (slot == 0 || slot == 1 || slot == 2 || slot == 3 || slot == 4 || slot == 5 || slot == 6 || slot == 7
                 || slot == 8 && !world.isClientSide) {
             ok.hurtDir = 10F; // TODO: Yarn: knockbackVelocity
-            if (ok.hasEffect(Effects.WITHER) || ok.hasEffect(Effects.POISON)) {
-                ok.removeEffect(Effects.WITHER);
-                ok.removeEffect(Effects.POISON);
+            if (ok.hasEffect(MobEffects.WITHER) || ok.hasEffect(MobEffects.POISON)) {
+                ok.removeEffect(MobEffects.WITHER);
+                ok.removeEffect(MobEffects.POISON);
             }
         }
     }

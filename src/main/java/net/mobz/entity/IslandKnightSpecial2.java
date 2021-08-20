@@ -1,38 +1,38 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.VindicatorEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
-public class IslandKnightSpecial2 extends VindicatorEntity {
+public class IslandKnightSpecial2 extends Vindicator {
 
-  public IslandKnightSpecial2(EntityType<? extends VindicatorEntity> entityType, World world) {
+  public IslandKnightSpecial2(EntityType<? extends Vindicator> entityType, Level world) {
     super(entityType, world);
     this.xpReward = 30;
   }
 
-  public static AttributeModifierMap.MutableAttribute createIslandKnightSpecial2Attributes() {
-    return MonsterEntity.createMonsterAttributes()
+  public static AttributeSupplier.Builder createIslandKnightSpecial2Attributes() {
+    return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
             Configs.instance.AndriuLife * Configs.instance.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.32D)
@@ -52,13 +52,13 @@ public class IslandKnightSpecial2 extends VindicatorEntity {
   protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
     super.populateDefaultEquipmentSlots(localDifficulty_1);
     if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-      this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MobZWeapons.FrozenSword));
+      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.FrozenSword));
     }
   }
 
   @Override
-  public CreatureAttribute getMobType() {
-    return CreatureAttribute.UNDEFINED;
+  public MobType getMobType() {
+    return MobType.UNDEFINED;
   }
 
   @Override
@@ -89,7 +89,7 @@ public class IslandKnightSpecial2 extends VindicatorEntity {
   @Override
   public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
     LivingEntity bob = (LivingEntity) target;
-    EffectInstance slow = new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 120, 0, false, false);
+    MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 0, false, false);
     if (target instanceof LivingEntity) {
       bob.addEffect(slow);
     }

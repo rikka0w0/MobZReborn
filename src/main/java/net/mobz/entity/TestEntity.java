@@ -1,19 +1,19 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.VexEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.level.Level;
 
-public class TestEntity extends VexEntity {
-    public TestEntity(EntityType<? extends VexEntity> entityType, World world) {
+public class TestEntity extends Vex {
+    public TestEntity(EntityType<? extends Vex> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static AttributeModifierMap.MutableAttribute createTestEntityAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 1D)
+    public static AttributeSupplier.Builder createTestEntityAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D);
     }
 }

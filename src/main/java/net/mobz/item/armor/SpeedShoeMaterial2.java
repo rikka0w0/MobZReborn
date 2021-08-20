@@ -1,23 +1,23 @@
 package net.mobz.item.armor;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
-public class SpeedShoeMaterial2 implements IArmorMaterial {
+public class SpeedShoeMaterial2 implements ArmorMaterial {
     private static final int[] BASE_DURABILITY = new int[] { 12, 13, 14, 11 };
     private static final int[] PROTECTION_AMOUNTS = new int[] { 2, 3, 4, 2 };
 
     @Override
-    public int getDurabilityForSlot(EquipmentSlotType equipmentSlot) {
+    public int getDurabilityForSlot(EquipmentSlot equipmentSlot) {
         return BASE_DURABILITY[equipmentSlot.getIndex()] * 25;
     }
 
     @Override
-    public int getDefenseForSlot(EquipmentSlotType equipmentSlot) {
+    public int getDefenseForSlot(EquipmentSlot equipmentSlot) {
         return PROTECTION_AMOUNTS[equipmentSlot.getIndex()];
     }
 

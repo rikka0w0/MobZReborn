@@ -1,6 +1,6 @@
 package net.mobz.init;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.mobz.IRegistryWrapper;
 import net.mobz.item.SimpleItem;
 

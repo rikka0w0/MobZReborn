@@ -1,10 +1,10 @@
 package net.mobz.item.weapon;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.mobz.init.MobZItems;
 
-public class SwordBossMaterial implements IItemTier {
+public class SwordBossMaterial implements Tier {
     @Override
     public int getUses() {
         return 561;

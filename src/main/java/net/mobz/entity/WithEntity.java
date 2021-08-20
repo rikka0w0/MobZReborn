@@ -2,57 +2,57 @@ package net.mobz.entity;
 
 import java.util.EnumSet;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MoveTowardsRestrictionGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.WitherSkeletonEntity;
-import net.minecraft.entity.monster.piglin.PiglinEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 
-public class WithEntity extends BlazeEntity {
+public class WithEntity extends Blaze {
    private float field_7214 = 0.5F;
    private int field_7215;
-   private static final DataParameter<Byte> BLAZE_FLAGS;
+   private static final EntityDataAccessor<Byte> BLAZE_FLAGS;
 
-   public WithEntity(EntityType<? extends WithEntity> entityType_1, World world_1) {
+   public WithEntity(EntityType<? extends WithEntity> entityType_1, Level world_1) {
       super(entityType_1, world_1);
-      this.setPathfindingMalus(PathNodeType.LAVA, 8.0F);
-      this.setPathfindingMalus(PathNodeType.DANGER_FIRE, 0.0F);
-      this.setPathfindingMalus(PathNodeType.DAMAGE_FIRE, 0.0F);
+      this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
+      this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
+      this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
       this.xpReward = 14;
    }
 
-   public static AttributeModifierMap.MutableAttribute createWithEntityAttributes() {
-      return MonsterEntity.createMonsterAttributes()
+   public static AttributeSupplier.Builder createWithEntityAttributes() {
+      return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
                   Configs.instance.WitherBlazeLife * Configs.instance.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
@@ -62,7 +62,7 @@ public class WithEntity extends BlazeEntity {
    }
 
    @Override
-   public boolean checkSpawnObstruction(IWorldReader view) {
+   public boolean checkSpawnObstruction(LevelReader view) {
       BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
@@ -76,19 +76,19 @@ public class WithEntity extends BlazeEntity {
    protected void registerGoals() {
       this.goalSelector.addGoal(4, new WithEntity.ShootFireballGoal(this));
       this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-      this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
-      this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-      this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+      this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
+      this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+      this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
       this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers());
-      this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+      this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
       this.initCustomGoals();
    }
 
    protected void initCustomGoals() {
-      this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(PiglinEntity.class));
+      this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Piglin.class));
       this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(skeli3.class));
-      this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(SkeletonEntity.class));
-      this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(WitherSkeletonEntity.class));
+      this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Skeleton.class));
+      this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(WitherSkeleton.class));
       this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Dog.class));
       this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(WithEntity.class));
       this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(LavaGolem.class));
@@ -157,7 +157,7 @@ public class WithEntity extends BlazeEntity {
       LivingEntity livingEntity_1 = this.getTarget();
       if (livingEntity_1 != null && livingEntity_1.getEyeY() > this.getEyeY() + (double) this.field_7214
             && this.canAttack(livingEntity_1)) {
-         Vector3d vec3d_1 = this.getDeltaMovement();
+         Vec3 vec3d_1 = this.getDeltaMovement();
          this.setDeltaMovement(
                this.getDeltaMovement().add(0.0D, (0.30000001192092896D - vec3d_1.y) * 0.30000001192092896D, 0.0D));
          this.hasImpulse = true;
@@ -192,7 +192,7 @@ public class WithEntity extends BlazeEntity {
    }
 
    static {
-      BLAZE_FLAGS = EntityDataManager.defineId(WithEntity.class, DataSerializers.BYTE);
+      BLAZE_FLAGS = SynchedEntityData.defineId(WithEntity.class, EntityDataSerializers.BYTE);
    }
 
    static class ShootFireballGoal extends Goal {
@@ -262,11 +262,11 @@ public class WithEntity extends BlazeEntity {
                   }
 
                   if (this.field_7218 > 1) {
-                     float float_1 = MathHelper.sqrt(MathHelper.sqrt(double_1)) * 0.5F;
-                     this.blaze.level.levelEvent((PlayerEntity) null, 1018, this.blaze.blockPosition(), 0);
+                     float float_1 = Mth.sqrt(Mth.sqrt(double_1)) * 0.5F;
+                     this.blaze.level.levelEvent((Player) null, 1018, this.blaze.blockPosition(), 0);
 
                      for (int int_1 = 0; int_1 < 1; ++int_1) {
-                        SmallFireballEntity smallFireballEntity_1 = new SmallFireballEntity(this.blaze.level,
+                        SmallFireball smallFireballEntity_1 = new SmallFireball(this.blaze.level,
                               this.blaze, double_2 + this.blaze.getRandom().nextGaussian() * (double) float_1, double_3,
                               double_4 + this.blaze.getRandom().nextGaussian() * (double) float_1);
                         smallFireballEntity_1.absMoveTo(smallFireballEntity_1.getX(),

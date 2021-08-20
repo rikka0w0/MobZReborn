@@ -4,27 +4,29 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class SacrificeKnife extends Item {
 	public SacrificeKnife(Properties settings) {
@@ -32,34 +34,34 @@ public class SacrificeKnife extends Item {
 	}
 	
 	public static int getBloodCounter(ItemStack itemStack) {
-		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
 		return getIntOrDef(nbt, "bloodCounter", 0);
 	}
 
 	public static int getDryingNumber(ItemStack itemStack) {
-		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
 		return getIntOrDef(nbt, "dryingNumber", 0);
 	}
 
 	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
-		CompoundNBT nbt = itemStack.getOrCreateTagElement("mobz");
+		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
 		nbt.putInt("bloodCounter", bloodCounter);
 		nbt.putInt("dryingNumber", dryingNumber);
 	}
 
-	public static int getIntOrDef(CompoundNBT nbt, String key, int defaultVal) {
+	public static int getIntOrDef(CompoundTag nbt, String key, int defaultVal) {
 		return nbt.contains(key) ? nbt.getInt(key) : defaultVal;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip,
-			ITooltipFlag flag) {
-		tooltip.add(new TranslationTextComponent("item.mobz.sacrificeknife.tooltip"));
-		tooltip.add(new TranslationTextComponent("item.mobz.sacrificeknife.tooltip2"));
+	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip,
+			TooltipFlag flag) {
+		tooltip.add(new TranslatableComponent("item.mobz.sacrificeknife.tooltip"));
+		tooltip.add(new TranslatableComponent("item.mobz.sacrificeknife.tooltip2"));
 	}
 	
 	@Override
-	public ActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
 
 		int bloodCounter = getBloodCounter(itemStack);
@@ -73,14 +75,14 @@ public class SacrificeKnife extends Item {
 				bloodCounter = bloodCounter + 200;
 			}
 			setParam(itemStack, bloodCounter, dryingNumber);
-			return ActionResult.success(itemStack);
+			return InteractionResultHolder.success(itemStack);
 		} else {
-			return ActionResult.pass(itemStack);
+			return InteractionResultHolder.pass(itemStack);
 		}
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		int bloodCounter = getBloodCounter(stack);
 		int dryingNumber = getDryingNumber(stack);
 		if (bloodCounter > 0) {
@@ -93,10 +95,10 @@ public class SacrificeKnife extends Item {
 	}
 
 	@Override
-	public ActionResultType useOn(ItemUseContext context) {
-		World world = context.getLevel();
+	public InteractionResult useOn(UseOnContext context) {
+		Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
-		PlayerEntity player = context.getPlayer();
+		Player player = context.getPlayer();
 		BlockState state = world.getBlockState(pos);
 		BlockState stateUp = world.getBlockState(pos.above());
 		BlockState stateDown = world.getBlockState(pos.below());
@@ -109,28 +111,28 @@ public class SacrificeKnife extends Item {
 
 					if (!stateDown.getValue(TotemBase.ENABLED)) {
 						if (bloodCounter > 4000) {
-							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundCategory.HOSTILE, 1F, 1F);
+							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1F, 1F);
 							MobZBlocks.TOTEM_BASE.trigger(world, pos.below());
 							setParam(itemStack, 0, 0);
-							return ActionResultType.SUCCESS;							
+							return InteractionResult.SUCCESS;							
 						} else {
-							player.displayClientMessage(new TranslationTextComponent("text.mobz.sacrificeknifeblood"),
+							player.displayClientMessage(new TranslatableComponent("text.mobz.sacrificeknifeblood"),
 									true);
-							return ActionResultType.PASS;
+							return InteractionResult.PASS;
 						}
 					}
 
-					return ActionResultType.PASS;
+					return InteractionResult.PASS;
 				} else {
-					player.displayClientMessage(new TranslationTextComponent("text.mobz.pillagerspawnable"), true);
-					return ActionResultType.PASS;
+					player.displayClientMessage(new TranslatableComponent("text.mobz.pillagerspawnable"), true);
+					return InteractionResult.PASS;
 				}
 			} else {
-				player.displayClientMessage(new TranslationTextComponent("text.mobz.pillagermissing"), true);
-				return ActionResultType.PASS;
+				player.displayClientMessage(new TranslatableComponent("text.mobz.pillagermissing"), true);
+				return InteractionResult.PASS;
 			}
 		} else {
-			return ActionResultType.PASS;
+			return InteractionResult.PASS;
 		}
 	}
 }

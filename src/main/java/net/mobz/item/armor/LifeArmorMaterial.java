@@ -1,23 +1,23 @@
 package net.mobz.item.armor;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.mobz.init.MobZItems;
 
-public class LifeArmorMaterial implements IArmorMaterial {
+public class LifeArmorMaterial implements ArmorMaterial {
     private static final int[] BASE_DURABILITY = new int[] { 16, 18, 20, 14 };
     private static final int[] PROTECTION_AMOUNTS = new int[] { 2, 4, 5, 2 };
 
     @Override
-    public int getDurabilityForSlot(EquipmentSlotType equipmentSlot) {
+    public int getDurabilityForSlot(EquipmentSlot equipmentSlot) {
         return BASE_DURABILITY[equipmentSlot.getIndex()] * 25;
     }
 
     @Override
-    public int getDefenseForSlot(EquipmentSlotType equipmentSlot) {
+    public int getDefenseForSlot(EquipmentSlot equipmentSlot) {
         return PROTECTION_AMOUNTS[equipmentSlot.getIndex()];
     }
 

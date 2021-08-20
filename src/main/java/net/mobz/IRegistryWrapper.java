@@ -4,15 +4,15 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.sounds.SoundEvent;
 
 public interface IRegistryWrapper {	
 	/**
@@ -32,14 +32,14 @@ public interface IRegistryWrapper {
 	/**
 	 * Block registration helper method
 	 */
-	default void register(String name, Block block, ItemGroup group) {
+	default void register(String name, Block block, CreativeModeTab group) {
 		register(name, new BlockItem(block, new Item.Properties().tab(group)));
 	}
 
 	/**
 	 * Block registration helper method
 	 */
-	default void register(String name, Block block, ItemGroup group, int maxStackSize) {
+	default void register(String name, Block block, CreativeModeTab group, int maxStackSize) {
 		register(name, new BlockItem(block, new Item.Properties().tab(group).stacksTo(maxStackSize)));
 	}
 
@@ -53,15 +53,15 @@ public interface IRegistryWrapper {
 	 * @param spawnEggItem set to null to disable spawn egg
 	 */
 	<T extends LivingEntity> void register(String name, EntityType<T> entityType, 
-			@Nullable Supplier<AttributeModifierMap.MutableAttribute> attribModifierSupplier,
+			@Nullable Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			@Nullable SpawnEggItem spawnEggItem);
 
 	/**
 	 * Entity registration helper method
 	 */
 	default <T extends LivingEntity> void register(String name, EntityType<T> entityType, 
-			Supplier<AttributeModifierMap.MutableAttribute> attribModifierSupplier,
-			int eggColor1, int eggColor2, ItemGroup eggGroup) {
+			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
+			int eggColor1, int eggColor2, CreativeModeTab eggGroup) {
 		register(name, entityType, attribModifierSupplier,
 				new SpawnEggItem(entityType, eggColor1, eggColor2, new Item.Properties().tab(eggGroup)));
 	}
@@ -70,8 +70,8 @@ public interface IRegistryWrapper {
 	 * Entity registration helper method
 	 */
 	default <T extends LivingEntity> void register(String name, EntityType.Builder<T> entityTypeBuilder, 
-			Supplier<AttributeModifierMap.MutableAttribute> attribModifierSupplier,
-			int eggColor1, int eggColor2, ItemGroup eggGroup) {
+			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
+			int eggColor1, int eggColor2, CreativeModeTab eggGroup) {
 		EntityType<T> entityType = entityTypeBuilder.build(name + "_entity");
 		register(name, entityType, attribModifierSupplier, eggColor1, eggColor2, eggGroup);
 	}

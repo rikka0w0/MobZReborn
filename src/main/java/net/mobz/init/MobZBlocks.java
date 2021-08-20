@@ -1,10 +1,10 @@
 package net.mobz.init;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.block.BossTrophy;
@@ -15,10 +15,10 @@ import net.mobz.block.TotemMiddle;
 import net.mobz.block.TotemTop;
 
 public class MobZBlocks {
-	private static final AbstractBlock.Properties ZOMBIE_HEAD_PROP = AbstractBlock.Properties.of(Material.DECORATION).strength(1.0F);
-	private static final AbstractBlock.Properties IRON_BLOCK_PROP = AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
+	private static final BlockBehaviour.Properties ZOMBIE_HEAD_PROP = BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F);
+	private static final BlockBehaviour.Properties IRON_BLOCK_PROP = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL)
 			.requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL);
-	private static final AbstractBlock.Properties OAK_LOG_PROP = AbstractBlock.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD);
+	private static final BlockBehaviour.Properties OAK_LOG_PROP = BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD);
 
 	public static final Block AMAT_BLOCK = new Block(IRON_BLOCK_PROP.emissiveRendering((blockstate, world, pos) -> true));
 	public static final Block BOSS_BLOCK = new Block(IRON_BLOCK_PROP.emissiveRendering((blockstate, world, pos) -> true));

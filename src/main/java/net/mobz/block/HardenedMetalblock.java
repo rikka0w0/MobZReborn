@@ -5,24 +5,26 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.pattern.BlockMaterialMatcher;
-import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.CachedBlockInfo;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.mobz.entity.MetalGolem;
 import net.mobz.init.MobZEntities;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class HardenedMetalblock extends Block {
 	@Nullable
@@ -38,9 +40,9 @@ public class HardenedMetalblock extends Block {
 	private BlockPattern getGolemPattern() {
 		if (this.golemPattern == null) {
 			this.golemPattern = BlockPatternBuilder.start().aisle("~^~", "###", "~#~")
-					.where('^', CachedBlockInfo.hasState(IS_PUMPKIN))
-					.where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(this)))
-					.where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+					.where('^', BlockInWorld.hasState(IS_PUMPKIN))
+					.where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(this)))
+					.where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))).build();
 		}
 
 		return this.golemPattern;
@@ -48,14 +50,14 @@ public class HardenedMetalblock extends Block {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		super.neighborChanged(state, world, pos, blockIn, fromPos, isMoving);
 
-		BlockPattern.PatternHelper blockpattern$patternhelper = this.getGolemPattern().find(world, pos);
+		BlockPattern.BlockPatternMatch blockpattern$patternhelper = this.getGolemPattern().find(world, pos);
 		if (blockpattern$patternhelper != null) {
 			for (int j = 0; j < this.getGolemPattern().getWidth(); ++j) {
 				for (int k = 0; k < this.getGolemPattern().getHeight(); ++k) {
-					CachedBlockInfo cachedblockinfo2 = blockpattern$patternhelper.getBlock(j, k, 0);
+					BlockInWorld cachedblockinfo2 = blockpattern$patternhelper.getBlock(j, k, 0);
 					world.setBlock(cachedblockinfo2.getPos(), Blocks.AIR.defaultBlockState(), 2);
 					world.globalLevelEvent(2001, cachedblockinfo2.getPos(), Block.getId(cachedblockinfo2.getState()));
 				}
@@ -69,15 +71,15 @@ public class HardenedMetalblock extends Block {
 	}
 	
 	@Override
-	public void onPlace(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
+	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
 		if (world.isClientSide) {
 			return;
 		}
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable IBlockReader world, List<ITextComponent> tooltip,
-			ITooltipFlag options) {
-		tooltip.add(new TranslationTextComponent("block.mobz.hardenedmetal_block.tooltip"));
+	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
+			TooltipFlag options) {
+		tooltip.add(new TranslatableComponent("block.mobz.hardenedmetal_block.tooltip"));
 	}
 }

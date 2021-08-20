@@ -1,8 +1,8 @@
 package net.mobz;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public interface IMobSpawnAdder {
-	void register(IBiomeFilter biomeFilter, EntityClassification spawnGroup, MobSpawnInfo.Spawners spawns);
+	void register(IBiomeFilter biomeFilter, MobCategory spawnGroup, MobSpawnSettings.SpawnerData spawns);
 }

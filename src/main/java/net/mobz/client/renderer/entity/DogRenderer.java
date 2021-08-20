@@ -1,25 +1,25 @@
 package net.mobz.client.renderer.entity;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.model.WolfModel;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.model.WolfModel;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.resources.ResourceLocation;
 
-public class DogRenderer extends MobRenderer<WolfEntity, WolfModel<WolfEntity>> {
+public class DogRenderer extends MobRenderer<Wolf, WolfModel<Wolf>> {
    private static final ResourceLocation TEXTURE = new ResourceLocation("mobz:textures/entity/dog.png");
 
-   public DogRenderer(EntityRendererManager entityRenderDispatcher) {
+   public DogRenderer(EntityRenderDispatcher entityRenderDispatcher) {
       super(entityRenderDispatcher, new WolfModel<>(), 0.5F);
    }
 
    @Override
-   protected float getBob(WolfEntity wolfEntity, float f) {
+   protected float getBob(Wolf wolfEntity, float f) {
       return wolfEntity.getTailAngle();
    }
 
    @Override
-   public ResourceLocation getTextureLocation(WolfEntity wolfEntity) {
+   public ResourceLocation getTextureLocation(Wolf wolfEntity) {
       return TEXTURE;
    }
 }

@@ -2,17 +2,19 @@ package net.mobz.item;
 
 import java.util.Random;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
+
+import net.minecraft.world.item.Item.Properties;
 
 public class WhiteBag extends SimpleItem {
     public WhiteBag(Properties settings) {
@@ -20,12 +22,12 @@ public class WhiteBag extends SimpleItem {
     }
 
     @Override
-    public UseAction getUseAnimation(ItemStack stack) {
-        return UseAction.NONE;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.NONE;
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entity) {
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         Random random = new Random();
         int randomNumber = (random.nextInt() + 7) % 4;
         if (randomNumber < 0) {
@@ -56,8 +58,8 @@ public class WhiteBag extends SimpleItem {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player playerEntity, InteractionHand hand) {
     	playerEntity.startUsingItem(hand);
-        return new ActionResult<>(ActionResultType.SUCCESS, playerEntity.getItemInHand(hand));
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, playerEntity.getItemInHand(hand));
     }
 }

@@ -2,24 +2,24 @@ package net.mobz.item;
 
 import java.util.Random;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.Level;
 
 public class Rottenflesh extends SimpleItem {
-	public static final Food FOOD_COMPONENT = (new Food.Builder()).nutrition(5).saturationMod(0.8F).meat().build();
+	public static final FoodProperties FOOD_COMPONENT = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.8F).meat().build();
 
 	public Rottenflesh(Item.Properties properties) {
 		super(properties.food(FOOD_COMPONENT));
 	}
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entity) {
-		EffectInstance hunger = new EffectInstance(Effect.byId(17), 600, 0, true, false);
+	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
+		MobEffectInstance hunger = new MobEffectInstance(MobEffect.byId(17), 600, 0, true, false);
 		Random random = new Random();
 		int randomNumber = random.nextInt() % 2;
 

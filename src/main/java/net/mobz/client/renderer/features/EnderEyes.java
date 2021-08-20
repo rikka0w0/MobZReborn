@@ -1,16 +1,16 @@
 package net.mobz.client.renderer.features;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
-import net.minecraft.client.renderer.entity.model.EndermanModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.model.EndermanModel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.resources.ResourceLocation;
 
-public class EnderEyes<T extends LivingEntity> extends AbstractEyesLayer<T, EndermanModel<T>> {
+public class EnderEyes<T extends LivingEntity> extends EyesLayer<T, EndermanModel<T>> {
 	private static final RenderType SKIN = RenderType.eyes(new ResourceLocation("mobz:textures/entity/endereyes.png"));
 
-	public EnderEyes(IEntityRenderer<T, EndermanModel<T>> context) {
+	public EnderEyes(RenderLayerParent<T, EndermanModel<T>> context) {
 		super(context);
 	}
 

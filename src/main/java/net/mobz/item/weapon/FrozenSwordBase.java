@@ -6,37 +6,37 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 public class FrozenSwordBase extends SwordItem {
-    public FrozenSwordBase(IItemTier IItemTier_1, Item.Properties properties) {
+    public FrozenSwordBase(Tier IItemTier_1, Item.Properties properties) {
         super(IItemTier_1, 1, -2.4f, properties);
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new TranslationTextComponent("item.mobz.frozen_sword.tooltip"));
+    public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TranslatableComponent("item.mobz.frozen_sword.tooltip"));
     }
 
-    private static Supplier<EffectInstance> slow1 = ()->new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 50, 1, false, false, false);
-    private static Supplier<EffectInstance> slow3 = ()->new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 100, 1, false, false, false);
-    private static Supplier<EffectInstance> slow4 = ()->new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 150, 1, false, false, false);
+    private static Supplier<MobEffectInstance> slow1 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 50, 1, false, false, false);
+    private static Supplier<MobEffectInstance> slow3 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1, false, false, false);
+    private static Supplier<MobEffectInstance> slow4 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 150, 1, false, false, false);
 
     @Override
     public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {
         itemStack_1.hurtAndBreak(1, livingEntity_2, (livingEntity_1x) -> 
-            ((LivingEntity) livingEntity_1x).broadcastBreakEvent(EquipmentSlotType.MAINHAND)
+            ((LivingEntity) livingEntity_1x).broadcastBreakEvent(EquipmentSlot.MAINHAND)
         );
 
 		Random random = new Random();

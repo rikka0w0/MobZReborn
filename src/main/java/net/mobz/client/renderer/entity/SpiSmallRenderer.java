@@ -1,22 +1,22 @@
 package net.mobz.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.SpiderRenderer;
 import net.minecraft.client.renderer.entity.layers.SpiderEyesLayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.SpiSmall;
 
 public class SpiSmallRenderer extends SpiderRenderer<SpiSmall> {
-   public SpiSmallRenderer(EntityRendererManager dispatcher) {
+   public SpiSmallRenderer(EntityRenderDispatcher dispatcher) {
       super(dispatcher);
       this.shadowRadius *= 0.7F;
       this.addLayer(new SpiderEyesLayer<>(this));
    }
 
    @Override
-   protected void scale(SpiSmall caveSpiderEntity, MatrixStack matrixStack, float f) {
+   protected void scale(SpiSmall caveSpiderEntity, PoseStack matrixStack, float f) {
       matrixStack.scale(0.7F, 0.7F, 0.7F);
    }
 

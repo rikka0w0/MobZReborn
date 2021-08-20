@@ -1,34 +1,34 @@
 package net.mobz.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.VindicatorEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
 
-public class IslandKnightNormal extends VindicatorEntity {
+public class IslandKnightNormal extends Vindicator {
 
-  public IslandKnightNormal(EntityType<? extends VindicatorEntity> entityType, World world) {
+  public IslandKnightNormal(EntityType<? extends Vindicator> entityType, Level world) {
     super(entityType, world);
   }
 
-  public static AttributeModifierMap.MutableAttribute createIslandKnightNormalAttributes() {
-    return MonsterEntity.createMonsterAttributes()
+  public static AttributeSupplier.Builder createIslandKnightNormalAttributes() {
+    return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
             Configs.instance.IslandKnightLife * Configs.instance.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.32D)
@@ -48,14 +48,14 @@ public class IslandKnightNormal extends VindicatorEntity {
   protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
     super.populateDefaultEquipmentSlots(localDifficulty_1);
     if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-      this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_SWORD));
-      this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(MobZItems.SHIELD));
+      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+      this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD));
     }
   }
 
   @Override
-  public CreatureAttribute getMobType() {
-    return CreatureAttribute.UNDEFINED;
+  public MobType getMobType() {
+    return MobType.UNDEFINED;
   }
 
   @Override

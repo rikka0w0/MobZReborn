@@ -1,123 +1,123 @@
 package net.mobz.init;
 
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.SpawnPlacements.Type;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.mobz.IEntitySpawnPlacementWrapper;
 
 public class MobSpawnRestrictions {
 	public static void applyAll(IEntitySpawnPlacementWrapper w) {
-		w.register(MobZEntities.TANK, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.FAST, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ARMORED, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.BOSS, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.CREEP, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.CRIP, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ENDER, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ENDERZOMBIE, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SPI, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SPO, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.PIG, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.LAVAGOLEM, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.ICEGOLEM, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.SKELI1, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SKELI2, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SKELI3, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SKELI4, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ARCHERENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkAnyLightMonsterSpawnRules);
-		w.register(MobZEntities.ARCHER2ENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkAnyLightMonsterSpawnRules);
-		w.register(MobZEntities.BIGBOSSENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.KNIGHTENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.KNIGHT2ENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.KNIGHT3ENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.KNIGHT4ENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.KNIGHT5ENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.MAGE2ENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.MAGEENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.FULLIRONENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SMALLZOMBIE, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.FROSTENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.DOG, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.STONEGOLEM, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.ILLUSIONER, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.DWARFENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SPISMALL, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.BLACKBEAR, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AnimalEntity::checkAnimalSpawnRules);
-		w.register(MobZEntities.BROWNBEAR, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AnimalEntity::checkAnimalSpawnRules);
-		w.register(MobZEntities.GCHICKEN, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AnimalEntity::checkAnimalSpawnRules);
-		w.register(MobZEntities.BOAR, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AnimalEntity::checkAnimalSpawnRules);
-		w.register(MobZEntities.BOAR2, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AnimalEntity::checkAnimalSpawnRules);
-		w.register(MobZEntities.BOAR3, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AnimalEntity::checkAnimalSpawnRules);
-		w.register(MobZEntities.FRIEND, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.WITHENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.WITHENDER, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.SLIMO, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.TSPIDER, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.PILLAGERBOSS, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.BABYRAVAGERENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ISLANDKING, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ISLANDKNIGHTNORMAL, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ISLANDKNIGHTSPECIAL, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ISLANDKNIGHTSPECIAL2, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.ISLANDVEXENTITY, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
-		w.register(MobZEntities.METALGOLEM, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				AgeableEntity::checkMobSpawnRules);
-		w.register(MobZEntities.SCREEPER, PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-				MonsterEntity::checkMonsterSpawnRules);
+		w.register(MobZEntities.TANK, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.FAST, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ARMORED, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.BOSS, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.CREEP, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.CRIP, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ENDER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ENDERZOMBIE, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SPI, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SPO, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.PIG, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.LAVAGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.ICEGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.SKELI1, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SKELI2, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SKELI3, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SKELI4, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ARCHERENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkAnyLightMonsterSpawnRules);
+		w.register(MobZEntities.ARCHER2ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkAnyLightMonsterSpawnRules);
+		w.register(MobZEntities.BIGBOSSENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.KNIGHTENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.KNIGHT2ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.KNIGHT3ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.KNIGHT4ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.KNIGHT5ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.MAGE2ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.MAGEENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.FULLIRONENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SMALLZOMBIE, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.FROSTENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.DOG, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.STONEGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.ILLUSIONER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.DWARFENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SPISMALL, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.BLACKBEAR, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
+		w.register(MobZEntities.BROWNBEAR, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
+		w.register(MobZEntities.GCHICKEN, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
+		w.register(MobZEntities.BOAR, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
+		w.register(MobZEntities.BOAR2, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
+		w.register(MobZEntities.BOAR3, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
+		w.register(MobZEntities.FRIEND, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.WITHENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.WITHENDER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.SLIMO, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.TSPIDER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.PILLAGERBOSS, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.BABYRAVAGERENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ISLANDKING, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ISLANDKNIGHTNORMAL, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ISLANDKNIGHTSPECIAL, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ISLANDKNIGHTSPECIAL2, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.ISLANDVEXENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
+		w.register(MobZEntities.METALGOLEM, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				AgableMob::checkMobSpawnRules);
+		w.register(MobZEntities.SCREEPER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Monster::checkMonsterSpawnRules);
 	}
 }

@@ -1,13 +1,13 @@
 package net.mobz.client.renderer.entity;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.SpiderRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.mobz.client.renderer.features.SpoEyes;
 import net.mobz.entity.SpoEntity;
 
 public class SpoRenderer extends SpiderRenderer<SpoEntity> {
-    public SpoRenderer(EntityRendererManager dispatcher) {
+    public SpoRenderer(EntityRenderDispatcher dispatcher) {
         super(dispatcher);
         this.addLayer(new SpoEyes<>(this));
     }

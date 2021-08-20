@@ -7,15 +7,15 @@ import java.util.function.Supplier;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,7 +28,7 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MobZ.MODID);
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MobZ.MODID);
 
-	private Set<Pair<EntityType<? extends LivingEntity>, Supplier<MutableAttribute>>> attribSuppliers = new HashSet<>();
+	private Set<Pair<EntityType<? extends LivingEntity>, Supplier<Builder>>> attribSuppliers = new HashSet<>();
 	
 	
 	public ForgeRegistryWrapper() {
@@ -37,7 +37,7 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 		ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 
-	public void applyGlobalEntityAttrib(BiConsumer<EntityType<? extends LivingEntity>, AttributeModifierMap> regFunc) {
+	public void applyGlobalEntityAttrib(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier> regFunc) {
 		attribSuppliers.forEach((pair) -> {
 			regFunc.accept(pair.getLeft(), pair.getRight().get().build());
 		});
@@ -58,7 +58,7 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 
 	@Override
 	public <T extends LivingEntity> void register(String name, EntityType<T> entityType,
-			Supplier<MutableAttribute> attribModifierSupplier, SpawnEggItem spawnEggItem) {
+			Supplier<Builder> attribModifierSupplier, SpawnEggItem spawnEggItem) {
 		ENTITY_TYPES.register(name + "_entity", ()->entityType);
 		if (spawnEggItem != null) {
 			ITEMS.register("spawn_" + name, ()->spawnEggItem);

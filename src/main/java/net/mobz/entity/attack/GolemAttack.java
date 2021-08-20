@@ -1,13 +1,13 @@
 package net.mobz.entity.attack;
 
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.animal.IronGolem;
 
 public class GolemAttack extends MeleeAttackGoal {
-   private final IronGolemEntity golem;
+   private final IronGolem golem;
    private int ticks;
 
-   public GolemAttack(IronGolemEntity golem, double speed, boolean pauseWhenMobIdle) {
+   public GolemAttack(IronGolem golem, double speed, boolean pauseWhenMobIdle) {
       super(golem, speed, pauseWhenMobIdle);
       this.golem = golem;
    }

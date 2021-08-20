@@ -1,42 +1,42 @@
 package net.mobz.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 import net.mobz.Configs;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
-public class FullIronEntity extends ZombieEntity {
+public class FullIronEntity extends Zombie {
 
-   public FullIronEntity(EntityType<? extends FullIronEntity> entityType_1, World world_1) {
+   public FullIronEntity(EntityType<? extends FullIronEntity> entityType_1, Level world_1) {
       super(entityType_1, world_1);
       this.xpReward = 20;
    }
 
-   public static AttributeModifierMap.MutableAttribute createFullIronEntityAttributes() {
-      return MonsterEntity.createMonsterAttributes()
+   public static AttributeSupplier.Builder createFullIronEntityAttributes() {
+      return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
                   Configs.instance.SteveLife * Configs.instance.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.26D)
@@ -51,7 +51,7 @@ public class FullIronEntity extends ZombieEntity {
    }
 
    @Override
-   public boolean checkSpawnObstruction(IWorldReader view) {
+   public boolean checkSpawnObstruction(LevelReader view) {
       BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
@@ -65,24 +65,24 @@ public class FullIronEntity extends ZombieEntity {
    protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
       super.populateDefaultEquipmentSlots(localDifficulty_1);
       if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_SWORD));
-         this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
-         this.setItemSlot(EquipmentSlotType.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-         this.setItemSlot(EquipmentSlotType.FEET, new ItemStack(Items.IRON_BOOTS));
-         this.setItemSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
-         this.setItemSlot(EquipmentSlotType.HEAD, new ItemStack(Items.IRON_HELMET));
+         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+         this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
+         this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
+         this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
       }
    }
 
    @Override
    protected void registerGoals() {
-      this.goalSelector.addGoal(0, new SwimGoal(this));
+      this.goalSelector.addGoal(0, new FloatGoal(this));
       this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-      this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.9D));
-      this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
-      this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-      this.goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
-      this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+      this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.9D));
+      this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
+      this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+      this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+      this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
    }
 
    @Override
