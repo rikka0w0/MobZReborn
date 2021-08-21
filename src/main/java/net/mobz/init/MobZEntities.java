@@ -99,7 +99,7 @@ public class MobZEntities {
 			.setTrackingRange(74).setUpdateInterval(2).sized(1.4F, 0.9F).build("spo");
 	public static final EntityType<PigmanEntity> PIG = EntityType.Builder
 			.of(PigmanEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
-			.sized(0.5F, 0.9F).build("pigman");
+			.sized(0.75F, 2.2F).build("pigman");
 	public static final EntityType<LavaGolem> LAVAGOLEM = EntityType.Builder
 			.of(LavaGolem::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
 			.sized(1.35F, 2.6F).build("lavagolem");

@@ -12,10 +12,6 @@ import net.mobz.entity.Knight3Entity;
 public class Knight3Renderer extends HumanoidMobRenderer<Knight3Entity, PlayerModel<Knight3Entity>> {
     public Knight3Renderer(EntityRendererProvider.Context context) {
         super(context, new PlayerModel<>(context.bakeLayer(ModelLayers.PLAYER), true), 0.5F);
-        this.addLayer(new HumanoidArmorLayer<>(this,
-                new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
-                new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR))
-                ));
     }
 
     @Override
