@@ -61,6 +61,7 @@ import net.mobz.entity.skeli1;
 import net.mobz.entity.skeli2;
 import net.mobz.entity.skeli3;
 import net.mobz.entity.skeli4;
+import net.mobz.entity.attack.FrostballEntity;
 
 public class MobZEntities {
 	public static final EntityType<BossEntity> BOSS = EntityType.Builder
@@ -142,6 +143,9 @@ public class MobZEntities {
 	public static final EntityType<FrostEntity> FROSTENTITY = EntityType.Builder
 			.of(FrostEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
 			.sized(0.6F, 1.8F).build("frost");
+	public static final EntityType<FrostballEntity> FROSTBALLENTITY = EntityType.Builder
+            .<FrostballEntity>of(FrostballEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F)
+            .clientTrackingRange(4).updateInterval(10).build("frostball");
 	public static final EntityType<Dog> DOG = EntityType.Builder.of(Dog::new, MobCategory.MONSTER)
 			.setTrackingRange(74).setUpdateInterval(2).fireImmune().sized(0.6F, 0.85F).build("dog");
 	public static final EntityType<StoneGolem> STONEGOLEM = EntityType.Builder

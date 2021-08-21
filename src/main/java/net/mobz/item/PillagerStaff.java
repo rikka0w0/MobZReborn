@@ -28,7 +28,7 @@ public class PillagerStaff extends SimpleItem {
 	public PillagerStaff(Item.Properties properties) {
         super(properties);
     }
-	
+
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
 		Level world = context.getLevel();
@@ -38,7 +38,7 @@ public class PillagerStaff extends SimpleItem {
             return InteractionResult.PASS;
         } else {
             BlockState state = world.getBlockState(context.getClickedPos());
-          
+
             if (state.getBlock() == MobZBlocks.ENDERHEADER) {
                 if (EnderHeader.isValid(world, context.getClickedPos(), state)) {
                     Withender wither = (Withender) MobZEntities.WITHENDER.create(world);
@@ -47,7 +47,6 @@ public class PillagerStaff extends SimpleItem {
                     world.addFreshEntity(wither);
                     return InteractionResult.SUCCESS;
                 } else {
-                	// TODO: check this
                     player.sendMessage(new TranslatableComponent("text.mobz.withendermissing"), player.getUUID());
                 }
             }

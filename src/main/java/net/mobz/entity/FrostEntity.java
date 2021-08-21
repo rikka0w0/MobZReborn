@@ -151,6 +151,11 @@ public class FrostEntity extends Blaze {
    }
 
    @Override
+   public boolean displayFireAnimation() {
+	   return false;
+   }
+
+   @Override
    public boolean isOnFire() {
       return this.isCharged();
    }

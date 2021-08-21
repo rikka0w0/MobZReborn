@@ -1,5 +1,6 @@
 package net.mobz.client;
 
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.mobz.client.renderer.entity.*;
 import net.mobz.init.MobZEntities;
 
@@ -32,6 +33,8 @@ public class EntityRenderers {
 		registry.register(MobZEntities.SMALLZOMBIE, SmallZombieRenderer::new);
 		registry.register(MobZEntities.FULLIRONENTITY, FullIronRenderer::new);
 		registry.register(MobZEntities.FROSTENTITY, FrostRenderer::new);
+        registry.register(MobZEntities.FROSTBALLENTITY,
+                (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		registry.register(MobZEntities.DOG, DogRenderer::new);
 		registry.register(MobZEntities.STONEGOLEM, StoneGolemRenderer::new);
 		registry.register(MobZEntities.ILLUSIONER, IllusionerRenderer::new);

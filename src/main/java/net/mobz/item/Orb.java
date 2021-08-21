@@ -33,7 +33,7 @@ public class Orb extends Item {
     	LivingEntity ok = (LivingEntity) entity;
         if (slot == 0 || slot == 1 || slot == 2 || slot == 3 || slot == 4 || slot == 5 || slot == 6 || slot == 7
                 || slot == 8 && !world.isClientSide) {
-            ok.hurtDir = 10F; // TODO: Yarn: knockbackVelocity
+            ok.hurtDir = 10F; // Yarn: knockbackVelocity
             if (ok.hasEffect(MobEffects.WITHER) || ok.hasEffect(MobEffects.POISON)) {
                 ok.removeEffect(MobEffects.WITHER);
                 ok.removeEffect(MobEffects.POISON);
