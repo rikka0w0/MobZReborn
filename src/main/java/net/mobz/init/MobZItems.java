@@ -17,15 +17,15 @@ import net.mobz.item.SimpleItem;
 import net.mobz.item.WhiteBag;
 import net.mobz.item.WitherMeal;
 
-public class MobZItems {   
+public class MobZItems {
     public static Item.Properties defItemProp() {
     	return new Item.Properties().tab(MobZ.tab);
     }
-    
+
     public static Item.Properties nonStackable() {
     	return defItemProp().stacksTo(1);
     }
-	
+
 	// Items
 	public static final SimpleItem AMAT_INGOT = new SimpleItem(defItemProp());
 	public static final SimpleItem BEARLEATHER = new SimpleItem(defItemProp());
@@ -52,10 +52,10 @@ public class MobZItems {
     // Disks
 	@SuppressWarnings("deprecation")
 	public static final RecordItem MEDIVEAL_DISC = new RecordItem(1, MobZSounds.MEDIVEALSOUNDEVENT,
-			new Item.Properties().stacksTo(1));
+			new Item.Properties().stacksTo(1)) {};
 	@SuppressWarnings("deprecation")
 	public static final RecordItem MEDIVEAL_DISC2 = new RecordItem(0, MobZSounds.MEDIVEALSOUND2EVENT,
-			new Item.Properties().stacksTo(1));
+			new Item.Properties().stacksTo(1)) {};
 
 	public static void registerAll(IRegistryWrapper registry) {
 		// Items

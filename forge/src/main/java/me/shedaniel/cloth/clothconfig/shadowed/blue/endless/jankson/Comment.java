@@ -1,4 +1,4 @@
-package me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson;
+package me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

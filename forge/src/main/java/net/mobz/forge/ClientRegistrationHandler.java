@@ -1,5 +1,6 @@
 package net.mobz.forge;
 
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -12,7 +13,7 @@ import net.mobz.client.VanillaClientRegistry;
 public class ClientRegistrationHandler {
 	@SubscribeEvent
 	public static void onClientSetup(final FMLClientSetupEvent event) {
-		EntityRenderers.registerAll(ForgeClientRegistryWrapper.instance);
-		VanillaClientRegistry.registerItemModelProperties();
+		EntityRenderers.registerAll(net.minecraft.client.renderer.entity.EntityRenderers::register);
+		VanillaClientRegistry.registerItemModelProperties(ItemProperties::register);
 	}
 }

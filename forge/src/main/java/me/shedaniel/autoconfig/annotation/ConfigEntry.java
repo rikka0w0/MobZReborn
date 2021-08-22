@@ -1,4 +1,4 @@
-package me.sargunvohra.mcmods.autoconfig1u.annotation;
+package me.shedaniel.autoconfig.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -101,7 +101,7 @@ public class ConfigEntry {
         @Retention(RetentionPolicy.RUNTIME)
         @Target(ElementType.FIELD)
         public @interface NoTooltip {
-            
+
         }
 
         /**

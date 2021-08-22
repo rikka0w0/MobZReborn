@@ -11,15 +11,12 @@ import net.minecraft.world.item.ShieldItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class Shield extends ShieldItem {
     public Shield(Properties settings) {
         super(settings);
     }
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(new TranslatableComponent("item.mobz.shield.tooltip"));

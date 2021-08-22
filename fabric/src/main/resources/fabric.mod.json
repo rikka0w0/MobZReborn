@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "mobz",
-  "version": "3.0.0",
+  "version": "${version}",
   "name": "MobZ",
   "description": "More vanilla style mobs",
   "authors": [
@@ -13,26 +13,26 @@
     "issues": "https://github.com/rikka0w0/MobZReborn/issues"
   },
   "license": "GPLv3",
-  "icon": "assets/mobz/mobz_logo.png",
+  "icon": "mobz_logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.mobz.glomod"
+      "net.mobz.fabric.FabricEntry"
     ],
     "modmenu": [
-      "net.mobz.Config.ModMenuIntegration"
+      "net.mobz.fabric.ModMenuIntegration"
     ],
     "client": [
-      "net.mobz.client"
+      "net.mobz.fabric.FabricClientEntry"
     ]
   },
   "mixins": [
     "mobz.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.7.4",
-    "fabric": "*",
-    "minecraft": "1.16.x"
+    "fabricloader": ">=${loader_version}",
+    "fabric": ">=${fabric_version}",
+    "minecraft": "1.17.x"
   },
   "suggests": {
     "flamingo": "*"

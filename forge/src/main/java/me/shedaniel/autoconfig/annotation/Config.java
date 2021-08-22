@@ -1,4 +1,4 @@
-package me.sargunvohra.mcmods.autoconfig1u.annotation;
+package me.shedaniel.autoconfig.annotation;
 
 import java.lang.annotation.*;
 

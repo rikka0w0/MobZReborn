@@ -1,12 +1,12 @@
 package net.mobz;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
-import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @SuppressWarnings("unused")
-@Config(name = "mobz")
+@Config(name = MobZ.MODID)
 @Config.Gui.Background("minecraft:textures/block/oak_planks.png")
 public class Configs implements ConfigData {
 	// To be assigned by either ForgeConfigManager or AutoConfig

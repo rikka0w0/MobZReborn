@@ -65,166 +65,166 @@ import net.mobz.entity.attack.FrostballEntity;
 
 public class MobZEntities {
 	public static final EntityType<BossEntity> BOSS = EntityType.Builder
-			.of(BossEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
+			.of(BossEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
 			.sized(0.6F, 1.95F).build("boss");
 
 	public static final EntityType<TankEntity> TANK = EntityType.Builder
-			.of(TankEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(TankEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("tank");
 
 	public static final EntityType<FastEntity> FAST = EntityType.Builder
-			.of(FastEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(FastEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("fast");
 	public static final EntityType<TestEntity> TEST = EntityType.Builder
-			.of(TestEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
+			.of(TestEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
 			.sized(0.6F, 1.95F).build("test");
 	public static final EntityType<ArmoredEntity> ARMORED = EntityType.Builder
-			.of(ArmoredEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(ArmoredEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("armored");
 
 	public static final EntityType<CreepEntity> CREEP = EntityType.Builder
-			.of(CreepEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(CreepEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.7F).build("creep");
 	public static final EntityType<CripEntity> CRIP = EntityType.Builder
-			.of(CripEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(CripEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.7F).build("crip");
 	public static final EntityType<EnderEntity> ENDER = EntityType.Builder
-			.of(EnderEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(EnderEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 2.9F).build("ender");
 	public static final EntityType<EnderZombieEntity> ENDERZOMBIE = EntityType.Builder
-			.of(EnderZombieEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(EnderZombieEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("enderzombie");
 	public static final EntityType<SpiEntity> SPI = EntityType.Builder.of(SpiEntity::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).sized(1.4F, 0.9F).build("spi");
+			.clientTrackingRange(74).updateInterval(2).sized(1.4F, 0.9F).build("spi");
 	public static final EntityType<SpoEntity> SPO = EntityType.Builder.of(SpoEntity::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).sized(1.4F, 0.9F).build("spo");
+			.clientTrackingRange(74).updateInterval(2).sized(1.4F, 0.9F).build("spo");
 	public static final EntityType<PigmanEntity> PIG = EntityType.Builder
-			.of(PigmanEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
+			.of(PigmanEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
 			.sized(0.75F, 2.2F).build("pigman");
 	public static final EntityType<LavaGolem> LAVAGOLEM = EntityType.Builder
-			.of(LavaGolem::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
+			.of(LavaGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
 			.sized(1.35F, 2.6F).build("lavagolem");
 	public static final EntityType<IceGolem> ICEGOLEM = EntityType.Builder
-			.of(IceGolem::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).sized(1.54F, 3F)
+			.of(IceGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).sized(1.54F, 3F)
 			.build("icegolem");
 	public static final EntityType<skeli1> SKELI1 = EntityType.Builder.of(skeli1::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).fireImmune().sized(0.6F, 1.99F).build("skeli1");
+			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 1.99F).build("skeli1");
 	public static final EntityType<skeli2> SKELI2 = EntityType.Builder.of(skeli2::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).fireImmune().sized(0.6F, 1.99F).build("skeli2");
+			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 1.99F).build("skeli2");
 	public static final EntityType<skeli3> SKELI3 = EntityType.Builder.of(skeli3::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.6F, 1.99F).build("skeli3");
+			.clientTrackingRange(74).updateInterval(2).sized(0.6F, 1.99F).build("skeli3");
 	public static final EntityType<ArcherEntity> ARCHERENTITY = EntityType.Builder
-			.of(ArcherEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(ArcherEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("archer");
 	public static final EntityType<Archer2Entity> ARCHER2ENTITY = EntityType.Builder
-			.of(Archer2Entity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(Archer2Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("archer2");
 	public static final EntityType<BigBossEntity> BIGBOSSENTITY = EntityType.Builder
-			.of(BigBossEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(BigBossEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(1.5F, 4.875F).build("");
 	public static final EntityType<KnightEntity> KNIGHTENTITY = EntityType.Builder
-			.of(KnightEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(KnightEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("knight");
 	public static final EntityType<Knight2Entity> KNIGHT2ENTITY = EntityType.Builder
-			.of(Knight2Entity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(Knight2Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("knight2");
 	public static final EntityType<MageEntity> MAGEENTITY = EntityType.Builder
-			.of(MageEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(MageEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("mage");
 	public static final EntityType<Mage2Entity> MAGE2ENTITY = EntityType.Builder
-			.of(Mage2Entity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(Mage2Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("mage2");
 	public static final EntityType<SmallZombie> SMALLZOMBIE = EntityType.Builder
-			.of(SmallZombie::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(SmallZombie::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.3F, 1.0F).build("smallzombie");
 	public static final EntityType<FullIronEntity> FULLIRONENTITY = EntityType.Builder
-			.of(FullIronEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(FullIronEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("fulliron");
 	public static final EntityType<FrostEntity> FROSTENTITY = EntityType.Builder
-			.of(FrostEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(FrostEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.8F).build("frost");
 	public static final EntityType<FrostballEntity> FROSTBALLENTITY = EntityType.Builder
             .<FrostballEntity>of(FrostballEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F)
             .clientTrackingRange(4).updateInterval(10).build("frostball");
 	public static final EntityType<Dog> DOG = EntityType.Builder.of(Dog::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).fireImmune().sized(0.6F, 0.85F).build("dog");
+			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 0.85F).build("dog");
 	public static final EntityType<StoneGolem> STONEGOLEM = EntityType.Builder
-			.of(StoneGolem::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(StoneGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(1.4F, 2.7F).build("stonegolem");
 	public static final EntityType<Illusioner> ILLUSIONER = EntityType.Builder
-			.of(Illusioner::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(Illusioner::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F).build("illusioner");
 	public static final EntityType<DwarfEntity> DWARFENTITY = EntityType.Builder
-			.of(DwarfEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(DwarfEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.5F).build("dwarfentity");
 	public static final EntityType<SpiSmall> SPISMALL = EntityType.Builder
-			.of(SpiSmall::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).sized(0.7F, 0.5F)
+			.of(SpiSmall::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).sized(0.7F, 0.5F)
 			.build("spismall");
 	public static final EntityType<Blackbear> BLACKBEAR = EntityType.Builder
-			.of(Blackbear::new, MobCategory.CREATURE).setTrackingRange(74).setUpdateInterval(2)
+			.of(Blackbear::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
 			.sized(1.25F, 1.3F).build("blackbear");
 	public static final EntityType<Brownbear> BROWNBEAR = EntityType.Builder
-			.of(Brownbear::new, MobCategory.CREATURE).setTrackingRange(74).setUpdateInterval(2)
+			.of(Brownbear::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
 			.sized(1.3F, 1.4F).build("brownbear");
 	public static final EntityType<GChicken> GCHICKEN = EntityType.Builder
-			.of(GChicken::new, MobCategory.CREATURE).setTrackingRange(74).setUpdateInterval(2)
+			.of(GChicken::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
 			.sized(0.4F, 0.7F).build("gchicken");
 	public static final EntityType<Boar> BOAR = EntityType.Builder.of(Boar::new, MobCategory.CREATURE)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.9F, 0.9F).build("boar");
+			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F).build("boar");
 	public static final EntityType<Boar2> BOAR2 = EntityType.Builder.of(Boar2::new, MobCategory.CREATURE)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.9F, 0.9F).build("boar2");
+			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F).build("boar2");
 	public static final EntityType<Boar3> BOAR3 = EntityType.Builder.of(Boar3::new, MobCategory.CREATURE)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.9F, 0.9F).build("boar3");
+			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F).build("boar3");
 	public static final EntityType<FriendEntity> FRIEND = EntityType.Builder
-			.of(FriendEntity::new, MobCategory.CREATURE).setTrackingRange(74).setUpdateInterval(2)
+			.of(FriendEntity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("friend");
 	public static final EntityType<Knight3Entity> KNIGHT3ENTITY = EntityType.Builder
-			.of(Knight3Entity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(Knight3Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("knight3");
 	public static final EntityType<Knight4Entity> KNIGHT4ENTITY = EntityType.Builder
-			.of(Knight4Entity::new, MobCategory.CREATURE).setTrackingRange(74).setUpdateInterval(2)
+			.of(Knight4Entity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("knight4");
 	public static final EntityType<Knight5Entity> KNIGHT5ENTITY = EntityType.Builder
-			.of(Knight5Entity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(Knight5Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("knight5");
 	public static final EntityType<WithEntity> WITHENTITY = EntityType.Builder
-			.of(WithEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
+			.of(WithEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
 			.sized(0.6F, 1.8F).build("with");
 	public static final EntityType<skeli4> SKELI4 = EntityType.Builder.of(skeli4::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.6F, 1.99F).build("skeli4");
+			.clientTrackingRange(74).updateInterval(2).sized(0.6F, 1.99F).build("skeli4");
 	public static final EntityType<Withender> WITHENDER = EntityType.Builder
-			.of(Withender::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2).fireImmune()
+			.of(Withender::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
 			.sized(0.6F, 1.95F).build("withender");
 	public static final EntityType<Slimo> SLIMO = EntityType.Builder.of(Slimo::new, MobCategory.MONSTER)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.51F, 0.51F).build("slimo");
+			.clientTrackingRange(74).updateInterval(2).sized(0.51F, 0.51F).build("slimo");
 	public static final EntityType<TSpider> TSPIDER = EntityType.Builder.of(TSpider::new, MobCategory.AMBIENT)
-			.setTrackingRange(74).setUpdateInterval(2).sized(0.2F, 0.1F).build("tspider");
+			.clientTrackingRange(74).updateInterval(2).sized(0.2F, 0.1F).build("tspider");
 	public static final EntityType<PillagerBoss> PILLAGERBOSS = EntityType.Builder
-			.of(PillagerBoss::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(PillagerBoss::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.78F, 2.675F).build("pillagerboss");
 	public static final EntityType<BabyravagerEntity> BABYRAVAGERENTITY = EntityType.Builder
-			.of(BabyravagerEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(BabyravagerEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.78F, 0.88F).build("babyravager");
 	public static final EntityType<IslandKing> ISLANDKING = EntityType.Builder
-			.of(IslandKing::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(IslandKing::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("islandking");
 	public static final EntityType<IslandKnightNormal> ISLANDKNIGHTNORMAL = EntityType.Builder
-			.of(IslandKnightNormal::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(IslandKnightNormal::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("islandkingnormal");
 	public static final EntityType<IslandKnightSpecial> ISLANDKNIGHTSPECIAL = EntityType.Builder
-			.of(IslandKnightSpecial::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(IslandKnightSpecial::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("islandkingspecial");
 	public static final EntityType<IslandKnightSpecial2> ISLANDKNIGHTSPECIAL2 = EntityType.Builder
-			.of(IslandKnightSpecial2::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(IslandKnightSpecial2::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F).build("islandkingspecial2");
 	public static final EntityType<IslandVexEntity> ISLANDVEXENTITY = EntityType.Builder
-			.of(IslandVexEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(IslandVexEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.4F, 0.8F).build("islandvex");
 	public static final EntityType<MetalGolem> METALGOLEM = EntityType.Builder
-			.of(MetalGolem::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(MetalGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(1.59F, 3F).build("metalgolem");
 	public static final EntityType<SCreeperEntity> SCREEPER = EntityType.Builder
-			.of(SCreeperEntity::new, MobCategory.MONSTER).setTrackingRange(74).setUpdateInterval(2)
+			.of(SCreeperEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.7F).build("screeper");
 
 	public static void registerAll(IRegistryWrapper registry) {

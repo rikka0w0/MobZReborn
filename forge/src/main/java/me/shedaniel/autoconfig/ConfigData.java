@@ -1,4 +1,4 @@
-package me.sargunvohra.mcmods.autoconfig1u;
+package me.shedaniel.autoconfig;
 
 public interface ConfigData {
     default void validatePostLoad() throws ValidationException {

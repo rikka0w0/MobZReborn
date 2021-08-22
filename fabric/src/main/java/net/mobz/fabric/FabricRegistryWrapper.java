@@ -2,53 +2,53 @@ package net.mobz.fabric;
 
 import java.util.function.Supplier;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.registry.Registry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.mobz.IRegistryWrapper;
+import net.mobz.MobZ;
 
 public class FabricRegistryWrapper implements IRegistryWrapper {
-	public final static IRegistryWrapper instance = new FabricRegistryWrapper("mobz");
+	public final static IRegistryWrapper instance = new FabricRegistryWrapper();
+	private FabricRegistryWrapper() {}
 
-	private final String modId;
-	public FabricRegistryWrapper(String modId) {
-		this.modId = modId;
+	private static ResourceLocation res(String name) {
+		return new ResourceLocation(MobZ.MODID, name);
 	}
 
 	@Override
 	public void register(String name, Item item) {
-		ResourceLocation regName = new ResourceLocation(modId, name);
-		Registry.register(Registry.ITEM, regName, item);
+		Registry.register(Registry.ITEM, res(name), item);
 	}
 
 	@Override
 	public void register(String name, BlockItem blockItem) {
-		ResourceLocation regName = new ResourceLocation(modId, name);
+		ResourceLocation regName = res(name);
 		Registry.register(Registry.ITEM, regName, blockItem);
 		Registry.register(Registry.BLOCK, regName, blockItem.getBlock());
 	}
-	
+
 	@Override
 	public <T extends LivingEntity> void register(String name, EntityType<T> entityType,
-			Supplier<MutableAttribute> attribModifierSupplier, SpawnEggItem spawnEggItem) {
-		Registry.register(Registry.ENTITY_TYPE, name + "_entity", entityType);
+			Supplier<AttributeSupplier.Builder> attribModifierSupplier, SpawnEggItem spawnEggItem) {
+		Registry.register(Registry.ENTITY_TYPE, res(name + "_entity"), entityType);
 
 		if (spawnEggItem != null) {
-			Registry.register(Registry.ITEM, "spawn_" + name, spawnEggItem);
+			Registry.register(Registry.ITEM, res("spawn_" + name), spawnEggItem);
 		}
 
-		// FabricDefaultAttributeRegistry.register(entityType, attribModifierSupplier.get());
+		FabricDefaultAttributeRegistry.register(entityType, attribModifierSupplier.get());
 	}
 
 	@Override
 	public void register(String name, SoundEvent sound) {
-		ResourceLocation regName = new ResourceLocation(modId, name);
-		Registry.register(Registry.SOUND_EVENT, regName, sound);
+		Registry.register(Registry.SOUND_EVENT, res(name), sound);
 	}
 }

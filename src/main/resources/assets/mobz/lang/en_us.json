@@ -245,6 +245,7 @@
     "itemGroup.mobz.glomodegg": "MobZ Spawn Eggs",
 
     "text.autoconfig.mobz.title": "MobZ Config",
+    "text.autoconfig.mobz.category.default": "MobZ Settings",
     "text.autoconfig.mobz.category.spawnsetting": "Spawn Settings",
     "text.autoconfig.mobz.category.lifesetting": "Life Settings",
     "text.autoconfig.mobz.category.damagesetting": "Attack Damage Settings",
