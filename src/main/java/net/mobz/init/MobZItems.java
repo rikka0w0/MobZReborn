@@ -3,7 +3,6 @@ package net.mobz.init;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.RecordItem;
-import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.item.FrozenMeal;
 import net.mobz.item.Orb;
@@ -16,6 +15,7 @@ import net.mobz.item.Shield;
 import net.mobz.item.SimpleItem;
 import net.mobz.item.WhiteBag;
 import net.mobz.item.WitherMeal;
+import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZItems {
     public static Item.Properties defItemProp() {
@@ -57,30 +57,30 @@ public class MobZItems {
 	public static final RecordItem MEDIVEAL_DISC2 = new RecordItem(0, MobZSounds.MEDIVEALSOUND2EVENT,
 			new Item.Properties().stacksTo(1)) {};
 
-	public static void registerAll(IRegistryWrapper registry) {
+	static {
 		// Items
-		registry.register("amat_ingot", AMAT_INGOT);
-		registry.register("bearleather", BEARLEATHER);
-		registry.register("boss_ingot", BOSS_INGOT);
-		registry.register("frozenmeal", FROZENMEAL);
-		registry.register("hardenedmetal_ingot", HARDENEDMETAL_INGOT);
+		StaticAPIWrapper.instance.register("amat_ingot", AMAT_INGOT);
+		StaticAPIWrapper.instance.register("bearleather", BEARLEATHER);
+		StaticAPIWrapper.instance.register("boss_ingot", BOSS_INGOT);
+		StaticAPIWrapper.instance.register("frozenmeal", FROZENMEAL);
+		StaticAPIWrapper.instance.register("hardenedmetal_ingot", HARDENEDMETAL_INGOT);
 
-		registry.register("orb", ORB);
-		registry.register("orb2", ORB_2);
-		registry.register("pillagerstaff", PILLAGERSTAFF);
-		registry.register("rottenflesh", ROTTENFLESH);
-		registry.register("sacrificeknife", SACRIFICEKNIFE);
+		StaticAPIWrapper.instance.register("orb", ORB);
+		StaticAPIWrapper.instance.register("orb2", ORB_2);
+		StaticAPIWrapper.instance.register("pillagerstaff", PILLAGERSTAFF);
+		StaticAPIWrapper.instance.register("rottenflesh", ROTTENFLESH);
+		StaticAPIWrapper.instance.register("sacrificeknife", SACRIFICEKNIFE);
 
-		registry.register("sbow", SBOW);
-		registry.register("sealitem", SEALITEM);
-		registry.register("shield", SHIELD);
-		registry.register("showegg", SHOWEGG);
-		registry.register("whitebag", WHITEBAG);
+		StaticAPIWrapper.instance.register("sbow", SBOW);
+		StaticAPIWrapper.instance.register("sealitem", SEALITEM);
+		StaticAPIWrapper.instance.register("shield", SHIELD);
+		StaticAPIWrapper.instance.register("showegg", SHOWEGG);
+		StaticAPIWrapper.instance.register("whitebag", WHITEBAG);
 
-		registry.register("withermeal", WITHERMEAL);
+		StaticAPIWrapper.instance.register("withermeal", WITHERMEAL);
 
 		// Disks
-		registry.register("medivealdisc", MEDIVEAL_DISC);
-		registry.register("medivealdisc2", MEDIVEAL_DISC2);
+		StaticAPIWrapper.instance.register("medivealdisc", MEDIVEAL_DISC);
+		StaticAPIWrapper.instance.register("medivealdisc2", MEDIVEAL_DISC2);
 	}
 }

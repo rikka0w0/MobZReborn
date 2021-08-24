@@ -20,6 +20,7 @@ import net.mobz.Configs;
 import net.mobz.IBiomeFilter;
 import net.mobz.MobZ;
 import net.mobz.init.LootTableModifier;
+import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobSpawns;
 
 @SuppressWarnings("deprecation")
@@ -53,7 +54,8 @@ public class FabricEntry implements ModInitializer {
 		Configs.instance = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
 
 		// Register items, blocks, entities
-		MobZ.registerAll(FabricRegistryWrapper.instance, SpawnRestrictionAccessor::callRegister);
+		MobZ.invokeStaticFields();
+		MobSpawnRestrictions.applyAll(SpawnRestrictionAccessor::callRegister);
 
 		// Inject loot tables
 		LootTableModifier.loadAll(FabricEntry::addRoll);

@@ -3,7 +3,6 @@ package net.mobz.init;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
-import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.item.armor.AMaterial;
 import net.mobz.item.armor.AmatArmorBase;
@@ -14,10 +13,11 @@ import net.mobz.item.armor.LifeArmorMaterial;
 import net.mobz.item.armor.SpeedShoeBase;
 import net.mobz.item.armor.SpeedShoeMaterial;
 import net.mobz.item.armor.SpeedShoeMaterial2;
+import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZArmors {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);
-	
+
     public static final ArmorMaterial BOSSAPPARE = new BossArmorMaterial();
     public static final ArmorMaterial LIFEAPPARE = new LifeArmorMaterial();
     public static final ArmorMaterial SPEEDAPPARE = new SpeedShoeMaterial();
@@ -39,20 +39,20 @@ public class MobZArmors {
     public static final SpeedShoeBase speed_boots = new SpeedShoeBase(SPEEDAPPARE, EquipmentSlot.FEET, defaultItemProp, 0.02D);
     public static final SpeedShoeBase speed2_boots = new SpeedShoeBase(SPEEDAPPARE2, EquipmentSlot.FEET, defaultItemProp, 0.03D);
 
-	public static void registerAll(IRegistryWrapper registry) {
-		registry.register("amat_helmet", amat_helmet);
-		registry.register("amat_chestplate", amat_chestplate);
-		registry.register("amat_leggings", amat_leggings);
-		registry.register("amat_boots", amat_boots);
-		registry.register("boss_helmet", boss_helmet);
-		registry.register("boss_chestplate", boss_chestplate);
-		registry.register("boss_leggings", boss_leggings);
-		registry.register("boss_boots", boss_boots);
-		registry.register("life_helmet", life_helmet);
-		registry.register("life_chestplate", life_chestplate);
-		registry.register("life_leggings", life_leggings);
-		registry.register("life_boots", life_boots);
-		registry.register("speed_boots", speed_boots);
-		registry.register("speed2_boots", speed2_boots);
+	static {
+		StaticAPIWrapper.instance.register("amat_helmet", amat_helmet);
+		StaticAPIWrapper.instance.register("amat_chestplate", amat_chestplate);
+		StaticAPIWrapper.instance.register("amat_leggings", amat_leggings);
+		StaticAPIWrapper.instance.register("amat_boots", amat_boots);
+		StaticAPIWrapper.instance.register("boss_helmet", boss_helmet);
+		StaticAPIWrapper.instance.register("boss_chestplate", boss_chestplate);
+		StaticAPIWrapper.instance.register("boss_leggings", boss_leggings);
+		StaticAPIWrapper.instance.register("boss_boots", boss_boots);
+		StaticAPIWrapper.instance.register("life_helmet", life_helmet);
+		StaticAPIWrapper.instance.register("life_chestplate", life_chestplate);
+		StaticAPIWrapper.instance.register("life_leggings", life_leggings);
+		StaticAPIWrapper.instance.register("life_boots", life_boots);
+		StaticAPIWrapper.instance.register("speed_boots", speed_boots);
+		StaticAPIWrapper.instance.register("speed2_boots", speed2_boots);
 	}
 }

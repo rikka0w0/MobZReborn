@@ -13,13 +13,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
 import net.mobz.init.LootTableModifier;
+import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobSpawns;
+import net.mobz.portable.StaticAPIWrapper;
 
 @Mod(MobZ.MODID)
 public class ForgeEntry {
 	public static ForgeEntry instance;
 
-	public static ForgeRegistryWrapper regWrapper;
+	private static ForgeMobSpawnAdder mobSpawns = new ForgeMobSpawnAdder();
 
 	public ForgeEntry() {
     	if (instance == null)
@@ -29,15 +31,16 @@ public class ForgeEntry {
 
     	ForgeConfigManager.register();
 
-    	regWrapper = new ForgeRegistryWrapper();
-    	MobZ.registerAll(regWrapper, SpawnPlacements::register);
+    	MobZ.invokeStaticFields();
+    	MobSpawnRestrictions.applyAll(SpawnPlacements::register);
+    	MobSpawns.addMobSpawns(mobSpawns);
 	}
 
     @Mod.EventBusSubscriber(modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public final static class ModEventBusHandler {
     	@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
-    		regWrapper.applyGlobalEntityAttrib(event::put);
+    		((ForgeRegistryWrapper) StaticAPIWrapper.instance).applyGlobalEntityAttrib(event::put);
     	}
     }
 
@@ -46,8 +49,6 @@ public class ForgeEntry {
     	@SubscribeEvent(priority = EventPriority.HIGH)
 		public static void onBiomeLoadingEvent(final BiomeLoadingEvent event) {
     		if (event.getPhase() == EventPriority.HIGH) {
-    			ForgeMobSpawnAdder mobSpawns = new ForgeMobSpawnAdder();
-    			MobSpawns.addMobSpawns(mobSpawns);
     			mobSpawns.addMobSpawns(event.getCategory(), event.getSpawns());
     		}
     	}

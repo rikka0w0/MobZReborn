@@ -8,13 +8,16 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,8 +32,7 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MobZ.MODID);
 
 	private Set<Pair<EntityType<? extends LivingEntity>, Supplier<Builder>>> attribSuppliers = new HashSet<>();
-	
-	
+
 	public ForgeRegistryWrapper() {
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -46,31 +48,43 @@ public class ForgeRegistryWrapper implements IRegistryWrapper {
 	}
 
 	@Override
-	public void register(String name, Item item) {
-		ITEMS.register(name, ()->item);
+	public CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier) {
+		return new CreativeModeTab(resLoc.getNamespace() + "." + resLoc.getPath()) {
+			public ItemStack makeIcon() {
+				return iconSupplier.get();
+			}
+		};
 	}
 
 	@Override
-	public void register(String name, BlockItem blockItem) {
+	public Item register(String name, Item item) {
+		ITEMS.register(name, ()->item);
+		return item;
+	}
+
+	@Override
+	public BlockItem register(String name, BlockItem blockItem) {
 		ITEMS.register(name, ()->blockItem);
 		BLOCKS.register(name, ()->blockItem.getBlock());
+		return blockItem;
 	}
 
 	@Override
-	public <T extends LivingEntity> void register(String name, EntityType<T> entityType,
-			Supplier<Builder> attribModifierSupplier, SpawnEggItem spawnEggItem) {
-		ENTITY_TYPES.register(name + "_entity", ()->entityType);
-		if (spawnEggItem != null) {
-			ITEMS.register("spawn_" + name, ()->spawnEggItem);
-		}
-
-		if (attribModifierSupplier != null) {
-			attribSuppliers.add(Pair.of(entityType, attribModifierSupplier));
-		}
+	public <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
+		ENTITY_TYPES.register(name, ()->entityType);
+		return entityType;
 	}
 
 	@Override
-	public void register(String name, SoundEvent sound) {
+	public <T extends LivingEntity> EntityType<T> entityAttribModifier(EntityType<T> entityType,
+			Supplier<Builder> attribModifierSupplier) {
+		attribSuppliers.add(Pair.of(entityType, attribModifierSupplier));
+		return entityType;
+	}
+
+	@Override
+	public SoundEvent register(String name, SoundEvent sound) {
 		SOUNDS.register(name, ()->sound);
+		return sound;
 	}
 }

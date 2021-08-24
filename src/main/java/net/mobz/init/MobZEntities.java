@@ -1,9 +1,13 @@
 package net.mobz.init;
 
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
-import net.mobz.IRegistryWrapper;
+import java.util.function.Supplier;
+
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.mobz.MobZ;
 import net.mobz.entity.Archer2Entity;
 import net.mobz.entity.ArcherEntity;
@@ -62,227 +66,223 @@ import net.mobz.entity.skeli2;
 import net.mobz.entity.skeli3;
 import net.mobz.entity.skeli4;
 import net.mobz.entity.attack.FrostballEntity;
+import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZEntities {
-	public static final EntityType<BossEntity> BOSS = EntityType.Builder
-			.of(BossEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.6F, 1.95F).build("boss");
-
-	public static final EntityType<TankEntity> TANK = EntityType.Builder
+	public static final EntityType<TankEntity> TANK = register(EntityType.Builder
 			.of(TankEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("tank");
+			.sized(0.6F, 1.95F), "tank", TankEntity::createTankEntityAttributes, 5055902, 2507798);
 
-	public static final EntityType<FastEntity> FAST = EntityType.Builder
+	public static final EntityType<FastEntity> FAST = register(EntityType.Builder
 			.of(FastEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("fast");
-	public static final EntityType<TestEntity> TEST = EntityType.Builder
+			.sized(0.6F, 1.95F), "fast", FastEntity::createFastEntityAttributes, 6109639, 2968097);
+	public static final EntityType<TestEntity> TEST = register(EntityType.Builder
 			.of(TestEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.6F, 1.95F).build("test");
-	public static final EntityType<ArmoredEntity> ARMORED = EntityType.Builder
+			.sized(0.6F, 1.95F), "test", TestEntity::createTestEntityAttributes, 2039583, 9109643);
+	public static final EntityType<ArmoredEntity> ARMORED = register(EntityType.Builder
 			.of(ArmoredEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("armored");
-
-	public static final EntityType<CreepEntity> CREEP = EntityType.Builder
+			.sized(0.6F, 1.95F), "armored", ArmoredEntity::createArmoredEntityAttributes, 1397590, 3165729);
+	public static final EntityType<BossEntity> BOSS = register(EntityType.Builder
+			.of(BossEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
+			.sized(0.6F, 1.95F), "boss", BossEntity::createBossEntityAttributes, 1181988, 3560490);
+	public static final EntityType<CreepEntity> CREEP = register(EntityType.Builder
 			.of(CreepEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.7F).build("creep");
-	public static final EntityType<CripEntity> CRIP = EntityType.Builder
+			.sized(0.6F, 1.7F), "creep", CreepEntity::createCreepEntityAttributes, 4897722, 0);
+	public static final EntityType<CripEntity> CRIP = register(EntityType.Builder
 			.of(CripEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.7F).build("crip");
-	public static final EntityType<EnderEntity> ENDER = EntityType.Builder
+			.sized(0.6F, 1.7F), "crip", CripEntity::createCripEntityAttributes,	10250793, 0);
+	public static final EntityType<EnderEntity> ENDER = register(EntityType.Builder
 			.of(EnderEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 2.9F).build("ender");
-	public static final EntityType<EnderZombieEntity> ENDERZOMBIE = EntityType.Builder
+			.sized(0.6F, 2.9F), "ender", EnderEntity::createEnderEntityAttributes, 7884109, 2167558);
+	public static final EntityType<EnderZombieEntity> ENDERZOMBIE = register(EntityType.Builder
 			.of(EnderZombieEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("enderzombie");
-	public static final EntityType<SpiEntity> SPI = EntityType.Builder.of(SpiEntity::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).sized(1.4F, 0.9F).build("spi");
-	public static final EntityType<SpoEntity> SPO = EntityType.Builder.of(SpoEntity::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).sized(1.4F, 0.9F).build("spo");
-	public static final EntityType<PigmanEntity> PIG = EntityType.Builder
+			.sized(0.6F, 1.95F), "enderzombie", EnderZombieEntity::createEnderZombieEntityAttributes, 656405, 3876927);
+	public static final EntityType<SpiEntity> SPI = register(EntityType.Builder.of(SpiEntity::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).sized(1.4F, 0.9F), "spi"
+			, SpiEntity::createSpiEntityAttributes, 3291714, 960680);
+	public static final EntityType<SpoEntity> SPO = register(EntityType.Builder.of(SpoEntity::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).sized(1.4F, 0.9F), "spo"
+			, SpoEntity::createSpoEntityAttributes, 4864065, 10817192);
+	public static final EntityType<PigmanEntity> PIG = register(EntityType.Builder
 			.of(PigmanEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.75F, 2.2F).build("pigman");
-	public static final EntityType<LavaGolem> LAVAGOLEM = EntityType.Builder
+			.sized(0.75F, 2.2F), "pigman", PigmanEntity::createPigmanEntityAttributes, 7026980, 15245428);
+	public static final EntityType<LavaGolem> LAVAGOLEM = register(EntityType.Builder
 			.of(LavaGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(1.35F, 2.6F).build("lavagolem");
-	public static final EntityType<IceGolem> ICEGOLEM = EntityType.Builder
+			.sized(1.35F, 2.6F), "lavagolem" , LavaGolem::createLavaGolemAttributes, 6098704, 3039578);
+	public static final EntityType<IceGolem> ICEGOLEM = register(EntityType.Builder
 			.of(IceGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).sized(1.54F, 3F)
-			.build("icegolem");
-	public static final EntityType<skeli1> SKELI1 = EntityType.Builder.of(skeli1::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 1.99F).build("skeli1");
-	public static final EntityType<skeli2> SKELI2 = EntityType.Builder.of(skeli2::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 1.99F).build("skeli2");
-	public static final EntityType<skeli3> SKELI3 = EntityType.Builder.of(skeli3::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).sized(0.6F, 1.99F).build("skeli3");
-	public static final EntityType<ArcherEntity> ARCHERENTITY = EntityType.Builder
+			, "icegolem", IceGolem::createIceGolemAttributes, 7499112, 1572516);
+	public static final EntityType<skeli1> SKELI1 = register(EntityType.Builder.of(skeli1::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 1.99F), "skeli1",
+			skeli1::createskeli1Attributes, 2697513, 4934989);
+	public static final EntityType<skeli2> SKELI2 = register(EntityType.Builder.of(skeli2::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 1.99F), "skeli2",
+			skeli2::createskeli2Attributes, 5263682, 11534);
+	public static final EntityType<skeli3> SKELI3 = register(EntityType.Builder.of(skeli3::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).sized(0.6F, 1.99F), "skeli3",
+			skeli3::createskeli3Attributes, 4801614, 5121582);
+	public static final EntityType<ArcherEntity> ARCHERENTITY = register(EntityType.Builder
 			.of(ArcherEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("archer");
-	public static final EntityType<Archer2Entity> ARCHER2ENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "archer",
+			ArcherEntity::createArcherEntityAttributes, 3218704, 11711154);
+	public static final EntityType<Archer2Entity> ARCHER2ENTITY = register(EntityType.Builder
 			.of(Archer2Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("archer2");
-	public static final EntityType<BigBossEntity> BIGBOSSENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "archer2",
+			Archer2Entity::createArcher2EntityAttributes, 7691600, 4269851);
+	public static final EntityType<BigBossEntity> BIGBOSSENTITY = register(EntityType.Builder
 			.of(BigBossEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(1.5F, 4.875F).build("");
-	public static final EntityType<KnightEntity> KNIGHTENTITY = EntityType.Builder
+			.sized(1.5F, 4.875F), "bigboss",
+			BigBossEntity::createBigBossEntityAttributes, 667182, 984607);
+	public static final EntityType<KnightEntity> KNIGHTENTITY = register(EntityType.Builder
 			.of(KnightEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("knight");
-	public static final EntityType<Knight2Entity> KNIGHT2ENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "knight",
+			KnightEntity::createKnightEntityAttributes, 5914402, 2499613);
+	public static final EntityType<Knight2Entity> KNIGHT2ENTITY = register(EntityType.Builder
 			.of(Knight2Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("knight2");
-	public static final EntityType<MageEntity> MAGEENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "knight2",
+			Knight2Entity::createKnight2EntityAttributes, 4464921, 2173756);
+	public static final EntityType<MageEntity> MAGEENTITY = register(EntityType.Builder
 			.of(MageEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("mage");
-	public static final EntityType<Mage2Entity> MAGE2ENTITY = EntityType.Builder
+			.sized(0.6F, 1.95F), "mage",
+			MageEntity::createMageEntityAttributes, 5128776, 12342593);
+	public static final EntityType<Mage2Entity> MAGE2ENTITY = register(EntityType.Builder
 			.of(Mage2Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("mage2");
-	public static final EntityType<SmallZombie> SMALLZOMBIE = EntityType.Builder
+			.sized(0.6F, 1.95F), "mage2",
+			Mage2Entity::createMage2EntityAttributes, 4211261, 2375449);
+	public static final EntityType<SmallZombie> SMALLZOMBIE = register(EntityType.Builder
 			.of(SmallZombie::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.3F, 1.0F).build("smallzombie");
-	public static final EntityType<FullIronEntity> FULLIRONENTITY = EntityType.Builder
+			.sized(0.3F, 1.0F), "smallzombie",
+			SmallZombie::createSmallZombieAttributes, 3222535, 1116191);
+	public static final EntityType<FullIronEntity> FULLIRONENTITY = register(EntityType.Builder
 			.of(FullIronEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("fulliron");
-	public static final EntityType<FrostEntity> FROSTENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "fulliron",
+			FullIronEntity::createFullIronEntityAttributes, 888205, 4800672);
+	public static final EntityType<FrostEntity> FROSTENTITY = register(EntityType.Builder
 			.of(FrostEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.8F).build("frost");
-	public static final EntityType<FrostballEntity> FROSTBALLENTITY = EntityType.Builder
+			.sized(0.6F, 1.8F), "frost",
+			FrostEntity::createFrostEntityAttributes, 8709375, 86111);
+	public static final EntityType<FrostballEntity> FROSTBALLENTITY = register(EntityType.Builder
             .<FrostballEntity>of(FrostballEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F)
-            .clientTrackingRange(4).updateInterval(10).build("frostball");
-	public static final EntityType<Dog> DOG = EntityType.Builder.of(Dog::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 0.85F).build("dog");
-	public static final EntityType<StoneGolem> STONEGOLEM = EntityType.Builder
+            .clientTrackingRange(4).updateInterval(10), "frostball");
+	public static final EntityType<Dog> DOG = register(EntityType.Builder.of(Dog::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 0.85F), "dog",
+			Dog::createDogAttributes, 4785691, 6700094);
+	public static final EntityType<StoneGolem> STONEGOLEM = register(EntityType.Builder
 			.of(StoneGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(1.4F, 2.7F).build("stonegolem");
-	public static final EntityType<Illusioner> ILLUSIONER = EntityType.Builder
+			.sized(1.4F, 2.7F), "stonegolem",
+			StoneGolem::createStoneGolemAttributes, 10197915, 6654258);
+	public static final EntityType<Illusioner> ILLUSIONER = register(EntityType.Builder
 			.of(Illusioner::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.95F).build("illusioner");
-	public static final EntityType<DwarfEntity> DWARFENTITY = EntityType.Builder
+			.sized(0.6F, 1.95F), "illusioner",
+			Illusioner::createAttributes, 2763306, 2507353);
+	public static final EntityType<DwarfEntity> DWARFENTITY = register(EntityType.Builder
 			.of(DwarfEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.5F).build("dwarfentity");
-	public static final EntityType<SpiSmall> SPISMALL = EntityType.Builder
+			.sized(0.6F, 1.5F), "dwarf",
+			DwarfEntity::createDwarfEntityAttributes, 5392946, 11882545);
+	public static final EntityType<SpiSmall> SPISMALL = register(EntityType.Builder
 			.of(SpiSmall::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).sized(0.7F, 0.5F)
-			.build("spismall");
-	public static final EntityType<Blackbear> BLACKBEAR = EntityType.Builder
+			, "spismall", SpiSmall::createSpiSmallAttributes, 3806513, 146458);
+	public static final EntityType<Blackbear> BLACKBEAR = register(EntityType.Builder
 			.of(Blackbear::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(1.25F, 1.3F).build("blackbear");
-	public static final EntityType<Brownbear> BROWNBEAR = EntityType.Builder
+			.sized(1.25F, 1.3F), "blackbear",
+			Blackbear::createBlackbearAttributes, 657934, 2960685);
+	public static final EntityType<Brownbear> BROWNBEAR = register(EntityType.Builder
 			.of(Brownbear::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(1.3F, 1.4F).build("brownbear");
-	public static final EntityType<GChicken> GCHICKEN = EntityType.Builder
+			.sized(1.3F, 1.4F), "brownbear",
+			Brownbear::createBrownbearAttributes, 2169097, 4403731);
+	public static final EntityType<GChicken> GCHICKEN = register(EntityType.Builder
 			.of(GChicken::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(0.4F, 0.7F).build("gchicken");
-	public static final EntityType<Boar> BOAR = EntityType.Builder.of(Boar::new, MobCategory.CREATURE)
-			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F).build("boar");
-	public static final EntityType<Boar2> BOAR2 = EntityType.Builder.of(Boar2::new, MobCategory.CREATURE)
-			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F).build("boar2");
-	public static final EntityType<Boar3> BOAR3 = EntityType.Builder.of(Boar3::new, MobCategory.CREATURE)
-			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F).build("boar3");
-	public static final EntityType<FriendEntity> FRIEND = EntityType.Builder
+			.sized(0.4F, 0.7F), "gchicken",
+			GChicken::createGChickenAttributes, 13027014, 15315221);
+	public static final EntityType<Boar> BOAR = register(EntityType.Builder.of(Boar::new, MobCategory.CREATURE)
+			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F), "boar",
+			Boar::createBoarAttributes, 3211264, 9984303);
+	public static final EntityType<Boar2> BOAR2 = register(EntityType.Builder.of(Boar2::new, MobCategory.CREATURE)
+			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F), "boar2",
+			Boar2::createBoar2Attributes, 14601929, 2962756);
+	public static final EntityType<Boar3> BOAR3 = register(EntityType.Builder.of(Boar3::new, MobCategory.CREATURE)
+			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F), "boar3",
+			Boar3::createBoar3Attributes, 13284514, 2890508);
+	public static final EntityType<FriendEntity> FRIEND = register(EntityType.Builder
 			.of(FriendEntity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("friend");
-	public static final EntityType<Knight3Entity> KNIGHT3ENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "friend",
+			FriendEntity::createFriendEntityAttributes, 5132380, 7164237);
+	public static final EntityType<Knight3Entity> KNIGHT3ENTITY = register(EntityType.Builder
 			.of(Knight3Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("knight3");
-	public static final EntityType<Knight4Entity> KNIGHT4ENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "knight3",
+			Knight3Entity::createKnight3EntityAttributes, 1447190, 4917648);
+	public static final EntityType<Knight4Entity> KNIGHT4ENTITY = register(EntityType.Builder
 			.of(Knight4Entity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("knight4");
-	public static final EntityType<Knight5Entity> KNIGHT5ENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "knight4",
+			Knight4Entity::createKnight4EntityAttributes, 5308416, 16039829);
+	public static final EntityType<Knight5Entity> KNIGHT5ENTITY = register(EntityType.Builder
 			.of(Knight5Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("knight5");
-	public static final EntityType<WithEntity> WITHENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "knight5",
+			Knight5Entity::createKnight5EntityAttributes, 1118487, 5000017);
+	public static final EntityType<WithEntity> WITHENTITY = register(EntityType.Builder
 			.of(WithEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.6F, 1.8F).build("with");
-	public static final EntityType<skeli4> SKELI4 = EntityType.Builder.of(skeli4::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).sized(0.6F, 1.99F).build("skeli4");
-	public static final EntityType<Withender> WITHENDER = EntityType.Builder
+			.sized(0.6F, 1.8F), "with",
+			WithEntity::createWithEntityAttributes, 1841947, 8157561);
+	public static final EntityType<skeli4> SKELI4 = register(EntityType.Builder.of(skeli4::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).sized(0.6F, 1.99F), "skeli4",
+			skeli4::createskeli4Attributes, 4079166, 11776947);
+	public static final EntityType<Slimo> SLIMO = register(EntityType.Builder.of(Slimo::new, MobCategory.MONSTER)
+			.clientTrackingRange(74).updateInterval(2).sized(0.51F, 0.51F), "slimo",
+			Slimo::createSlimoAttributes, 16752702, 16564078);
+	public static final EntityType<Withender> WITHENDER = register(EntityType.Builder
 			.of(Withender::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.6F, 1.95F).build("withender");
-	public static final EntityType<Slimo> SLIMO = EntityType.Builder.of(Slimo::new, MobCategory.MONSTER)
-			.clientTrackingRange(74).updateInterval(2).sized(0.51F, 0.51F).build("slimo");
-	public static final EntityType<TSpider> TSPIDER = EntityType.Builder.of(TSpider::new, MobCategory.AMBIENT)
-			.clientTrackingRange(74).updateInterval(2).sized(0.2F, 0.1F).build("tspider");
-	public static final EntityType<PillagerBoss> PILLAGERBOSS = EntityType.Builder
+			.sized(0.6F, 1.95F), "withender",
+			Withender::createWithenderAttributes, 1452605, 1982799);
+	public static final EntityType<TSpider> TSPIDER = register(EntityType.Builder.of(TSpider::new, MobCategory.AMBIENT)
+			.clientTrackingRange(74).updateInterval(2).sized(0.2F, 0.1F), "tspider",
+			TSpider::createTSpiderAttributes, 0, 0);
+	public static final EntityType<PillagerBoss> PILLAGERBOSS = register(EntityType.Builder
 			.of(PillagerBoss::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.78F, 2.675F).build("pillagerboss");
-	public static final EntityType<BabyravagerEntity> BABYRAVAGERENTITY = EntityType.Builder
+			.sized(0.78F, 2.675F), "pillagerboss",
+			PillagerBoss::createPillagerBossAttributes, 4984603, 1453610);
+	public static final EntityType<BabyravagerEntity> BABYRAVAGERENTITY = register(EntityType.Builder
 			.of(BabyravagerEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.78F, 0.88F).build("babyravager");
-	public static final EntityType<IslandKing> ISLANDKING = EntityType.Builder
+			.sized(0.78F, 0.88F), "babyravager",
+			BabyravagerEntity::createBabyravagerEntityAttributes, 6315866, 4538432);
+	public static final EntityType<IslandKing> ISLANDKING = register(EntityType.Builder
 			.of(IslandKing::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("islandking");
-	public static final EntityType<IslandKnightNormal> ISLANDKNIGHTNORMAL = EntityType.Builder
+			.sized(0.6F, 1.99F), "islandking",
+			IslandKing::createIslandKingAttributes, 8222839, 12891527);
+	public static final EntityType<IslandKnightNormal> ISLANDKNIGHTNORMAL = register(EntityType.Builder
 			.of(IslandKnightNormal::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("islandkingnormal");
-	public static final EntityType<IslandKnightSpecial> ISLANDKNIGHTSPECIAL = EntityType.Builder
+			.sized(0.6F, 1.99F), "islandknightnormal",
+			IslandKnightNormal::createIslandKnightNormalAttributes, 3815735, 723723);
+	public static final EntityType<IslandKnightSpecial> ISLANDKNIGHTSPECIAL = register(EntityType.Builder
 			.of(IslandKnightSpecial::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("islandkingspecial");
-	public static final EntityType<IslandKnightSpecial2> ISLANDKNIGHTSPECIAL2 = EntityType.Builder
+			.sized(0.6F, 1.99F), "islandknightspecial",
+			IslandKnightSpecial::createIslandKnightSpecialAttributes, 2434859, 3481123);
+	public static final EntityType<IslandKnightSpecial2> ISLANDKNIGHTSPECIAL2 = register(EntityType.Builder
 			.of(IslandKnightSpecial2::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F).build("islandkingspecial2");
-	public static final EntityType<IslandVexEntity> ISLANDVEXENTITY = EntityType.Builder
+			.sized(0.6F, 1.99F), "islandknightspecial2",
+			IslandKnightSpecial2::createIslandKnightSpecial2Attributes, 3882305, 3161413);
+	public static final EntityType<IslandVexEntity> ISLANDVEXENTITY = register(EntityType.Builder
 			.of(IslandVexEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.4F, 0.8F).build("islandvex");
-	public static final EntityType<MetalGolem> METALGOLEM = EntityType.Builder
+			.sized(0.4F, 0.8F), "islandvex",
+			IslandVexEntity::createIslandVexEntityAttributes, 2039583, 9014412);
+	public static final EntityType<MetalGolem> METALGOLEM = register(EntityType.Builder
 			.of(MetalGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(1.59F, 3F).build("metalgolem");
-	public static final EntityType<SCreeperEntity> SCREEPER = EntityType.Builder
+			.sized(1.59F, 3F), "metalgolem",
+			MetalGolem::createMetalGolemAttributes, 2930848, 5197390);
+	public static final EntityType<SCreeperEntity> SCREEPER = register(EntityType.Builder
 			.of(SCreeperEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.7F).build("screeper");
+			.sized(0.6F, 1.7F), "screeper", SCreeperEntity::createSCreeperEntityAttributes, 4798252, 107176);
 
-	public static void registerAll(IRegistryWrapper registry) {
-		registry.register("tank", TANK, TankEntity::createTankEntityAttributes,	5055902, 2507798, MobZ.eggs);
-        registry.register("fast", FAST, FastEntity::createFastEntityAttributes, 6109639, 2968097, MobZ.eggs);
-        registry.register("test", TEST, TestEntity::createTestEntityAttributes, 2039583, 9109643, MobZ.eggs);
-        registry.register("armored", ARMORED, ArmoredEntity::createArmoredEntityAttributes, 1397590, 3165729, MobZ.eggs);
-        registry.register("boss", BOSS, BossEntity::createBossEntityAttributes, 1181988, 3560490, MobZ.eggs);
-        registry.register("creep", CREEP, CreepEntity::createCreepEntityAttributes,	4897722, 0, MobZ.eggs);
-        registry.register("crip", CRIP, CripEntity::createCripEntityAttributes,	10250793, 0, MobZ.eggs);
-        registry.register("ender", ENDER, EnderEntity::createEnderEntityAttributes,	7884109, 2167558, MobZ.eggs);
-        registry.register("enderzombie", ENDERZOMBIE, EnderZombieEntity::createEnderZombieEntityAttributes,	656405, 3876927, MobZ.eggs);
-        registry.register("spi", SPI, SpiEntity::createSpiEntityAttributes, 3291714, 960680, MobZ.eggs);
-        registry.register("spo", SPO, SpoEntity::createSpoEntityAttributes, 4864065, 10817192, MobZ.eggs);
-        registry.register("pigman", PIG, PigmanEntity::createPigmanEntityAttributes, 7026980, 15245428, MobZ.eggs);
-        registry.register("lavagolem", LAVAGOLEM, LavaGolem::createLavaGolemAttributes, 6098704, 3039578, MobZ.eggs);
-        registry.register("icegolem", ICEGOLEM, IceGolem::createIceGolemAttributes, 7499112, 1572516, MobZ.eggs);
-        registry.register("skeli1", SKELI1, skeli1::createskeli1Attributes, 2697513, 4934989, MobZ.eggs);
-        registry.register("skeli2", SKELI2, skeli2::createskeli2Attributes, 5263682, 11534, MobZ.eggs);
-        registry.register("skeli3", SKELI3, skeli3::createskeli3Attributes, 4801614, 5121582, MobZ.eggs);
-        registry.register("archer", ARCHERENTITY, ArcherEntity::createArcherEntityAttributes, 3218704, 11711154, MobZ.eggs);
-        registry.register("archer2", ARCHER2ENTITY, Archer2Entity::createArcher2EntityAttributes, 7691600, 4269851, MobZ.eggs);
-        registry.register("bigboss", BIGBOSSENTITY, BigBossEntity::createBigBossEntityAttributes, 667182, 984607, MobZ.eggs);
-        registry.register("knight", KNIGHTENTITY, KnightEntity::createKnightEntityAttributes, 5914402, 2499613, MobZ.eggs);
-        registry.register("knight2", KNIGHT2ENTITY, Knight2Entity::createKnight2EntityAttributes, 4464921, 2173756, MobZ.eggs);
-        registry.register("mage", MAGEENTITY, MageEntity::createMageEntityAttributes, 5128776, 12342593, MobZ.eggs);
-        registry.register("mage2", MAGE2ENTITY, Mage2Entity::createMage2EntityAttributes, 4211261, 2375449, MobZ.eggs);
-        registry.register("smallzombie", SMALLZOMBIE, SmallZombie::createSmallZombieAttributes, 3222535, 1116191, MobZ.eggs);
-        registry.register("fulliron", FULLIRONENTITY, FullIronEntity::createFullIronEntityAttributes, 888205, 4800672, MobZ.eggs);
-        registry.register("frost", FROSTENTITY, FrostEntity::createFrostEntityAttributes, 8709375, 86111, MobZ.eggs);
-        registry.register("dog", DOG, Dog::createDogAttributes, 4785691, 6700094, MobZ.eggs);
-        registry.register("stonegolem", STONEGOLEM, StoneGolem::createStoneGolemAttributes, 10197915, 6654258, MobZ.eggs);
-        registry.register("illusioner", ILLUSIONER, Illusioner::createAttributes, 2763306, 2507353, MobZ.eggs);
-        registry.register("dwarf", DWARFENTITY, DwarfEntity::createDwarfEntityAttributes, 5392946, 11882545, MobZ.eggs);
-        registry.register("spismall", SPISMALL, SpiSmall::createSpiSmallAttributes, 3806513, 146458, MobZ.eggs);
-        registry.register("blackbear", BLACKBEAR, Blackbear::createBlackbearAttributes, 657934, 2960685, MobZ.eggs);
-        registry.register("brownbear", BROWNBEAR, Brownbear::createBrownbearAttributes, 2169097, 4403731, MobZ.eggs);
-        registry.register("gchicken", GCHICKEN, GChicken::createGChickenAttributes, 13027014, 15315221, MobZ.eggs);
-        registry.register("boar", BOAR, Boar::createBoarAttributes, 3211264, 9984303, MobZ.eggs);
-        registry.register("boar2", BOAR2, Boar2::createBoar2Attributes, 14601929, 2962756, MobZ.eggs);
-        registry.register("boar3", BOAR3, Boar3::createBoar3Attributes, 13284514, 2890508, MobZ.eggs);
-        registry.register("friend", FRIEND, FriendEntity::createFriendEntityAttributes, 5132380, 7164237, MobZ.eggs);
-        registry.register("knight3", KNIGHT3ENTITY, Knight3Entity::createKnight3EntityAttributes, 1447190, 4917648, MobZ.eggs);
-        registry.register("knight4", KNIGHT4ENTITY, Knight4Entity::createKnight4EntityAttributes, 5308416, 16039829, MobZ.eggs);
-        registry.register("knight5", KNIGHT5ENTITY, Knight5Entity::createKnight5EntityAttributes, 1118487, 5000017, MobZ.eggs);
-        registry.register("with", WITHENTITY, WithEntity::createWithEntityAttributes, 1841947, 8157561, MobZ.eggs);
-        registry.register("skeli4", SKELI4, skeli4::createskeli4Attributes, 4079166, 11776947, MobZ.eggs);
-        registry.register("slimo", SLIMO, Slimo::createSlimoAttributes, 16752702, 16564078, MobZ.eggs);
-        registry.register("withender", WITHENDER, Withender::createWithenderAttributes, 1452605, 1982799, MobZ.eggs);
-        registry.register("tspider", TSPIDER, TSpider::createTSpiderAttributes, 0, 0, MobZ.eggs);
-        registry.register("pillagerboss", PILLAGERBOSS, PillagerBoss::createPillagerBossAttributes, 4984603, 1453610, MobZ.eggs);
-        registry.register("babyravager", BABYRAVAGERENTITY, BabyravagerEntity::createBabyravagerEntityAttributes, 6315866, 4538432, MobZ.eggs);
-        registry.register("islandking", ISLANDKING, IslandKing::createIslandKingAttributes, 8222839, 12891527, MobZ.eggs);
-        registry.register("islandknightnormal", ISLANDKNIGHTNORMAL, IslandKnightNormal::createIslandKnightNormalAttributes, 3815735, 723723 , MobZ.eggs);
-        registry.register("islandknightspecial", ISLANDKNIGHTSPECIAL, IslandKnightSpecial::createIslandKnightSpecialAttributes, 2434859, 3481123, MobZ.eggs);
-        registry.register("islandknightspecial2", ISLANDKNIGHTSPECIAL2, IslandKnightSpecial2::createIslandKnightSpecial2Attributes, 3882305, 3161413, MobZ.eggs);
-        registry.register("islandvex", ISLANDVEXENTITY, IslandVexEntity::createIslandVexEntityAttributes, 2039583, 9014412, MobZ.eggs);
-        registry.register("metalgolem", METALGOLEM, MetalGolem::createMetalGolemAttributes, 2930848, 5197390, MobZ.eggs);
-        registry.register("screeper", SCREEPER, SCreeperEntity::createSCreeperEntityAttributes, 4798252, 107176, MobZ.eggs);
+	private static <T extends Entity> EntityType<T> register(EntityType.Builder<T> entityTypeBuilder, String name) {
+		EntityType<T> entityType = entityTypeBuilder.build(name);
+		StaticAPIWrapper.instance.register(name, entityType);
+		return entityType;
+	}
+
+	private static <T extends Mob> EntityType<T> register(EntityType.Builder<T> entityTypeBuilder, String name,
+			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
+			int eggColor1, int eggColor2) {
+		EntityType<T> entityType = entityTypeBuilder.build(name);
+		StaticAPIWrapper.instance.register(name, entityType, attribModifierSupplier, eggColor1, eggColor2, MobZ.eggs);
+		return entityType;
 	}
 }

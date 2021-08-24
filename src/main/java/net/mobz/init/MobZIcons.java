@@ -1,8 +1,8 @@
 package net.mobz.init;
 
 import net.minecraft.world.item.Item;
-import net.mobz.IRegistryWrapper;
 import net.mobz.item.SimpleItem;
+import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZIcons {
 	public static final SimpleItem ARCHERHEAD = new SimpleItem(new Item.Properties());
@@ -44,46 +44,46 @@ public class MobZIcons {
 
 	public static final SimpleItem ARCHER2HEAD = new SimpleItem(new Item.Properties());
 	public static final SimpleItem SCREEPERHEAD = new SimpleItem(new Item.Properties());
-	
-	public static void registerAll(IRegistryWrapper registry) {
-        registry.register("archerhead", ARCHERHEAD);
-        registry.register("bosshead", BOSSHEAD);
-        registry.register("dwarfhead", DWARFHEAD);
-        registry.register("fasthead", FASTHEAD);
-        registry.register("knight2entityhead", KNIGHT2ENTITYHEAD);
-        registry.register("knight5entityhead", KNIGHT5ENTITYHEAD);
-        registry.register("lavagolemhead", LAVAGOLEMHEAD);
-        registry.register("mageentityhead", MAGEENTITYHEAD);
-        registry.register("spohead", SPOHEAD);
-        registry.register("starthead", STARTHEAD);
-        registry.register("withenderhead", WITHENDERHEAD);
-        registry.register("blazehead", BLAZEHEAD);
-        registry.register("creephead", CREEPHEAD);
-        registry.register("enderhead", ENDERHEAD);
-        registry.register("friendhead", FRIENDHEAD);
-        registry.register("golemhead", GOLEMHEAD);
-        registry.register("skelihead1", SKELIHEAD1);
-        registry.register("skelihead2", SKELIHEAD2);
-        registry.register("skelihead3", SKELIHEAD3);
-        registry.register("criphead", CRIPHEAD);
-        registry.register("enderknighthead", ENDERKNIGHTHEAD);
-        registry.register("enderzombiehead", ENDERZOMBIEHEAD);
-        registry.register("fiorahead", FIORAHEAD);
-        registry.register("icegolemhead", ICEGOLEMHEAD);
-        registry.register("knightentityhead", KNIGHTENTITYHEAD);
-        registry.register("skelihead4", SKELIHEAD4);
-        registry.register("spihead", SPIHEAD);
-        registry.register("stevehead", STEVEHEAD);
-        registry.register("witherblazehead", WITHERBLAZEHEAD);
-        registry.register("pillagerbosshead", PILLAGERBOSSHEAD);
-        registry.register("babyravagerhead", BABYRAVAGERHEAD);
-        registry.register("islandkinghead", ISLANDKINGHEAD);
-        registry.register("islandknightspecialhead",
+
+	static {
+        StaticAPIWrapper.instance.register("archerhead", ARCHERHEAD);
+        StaticAPIWrapper.instance.register("bosshead", BOSSHEAD);
+        StaticAPIWrapper.instance.register("dwarfhead", DWARFHEAD);
+        StaticAPIWrapper.instance.register("fasthead", FASTHEAD);
+        StaticAPIWrapper.instance.register("knight2entityhead", KNIGHT2ENTITYHEAD);
+        StaticAPIWrapper.instance.register("knight5entityhead", KNIGHT5ENTITYHEAD);
+        StaticAPIWrapper.instance.register("lavagolemhead", LAVAGOLEMHEAD);
+        StaticAPIWrapper.instance.register("mageentityhead", MAGEENTITYHEAD);
+        StaticAPIWrapper.instance.register("spohead", SPOHEAD);
+        StaticAPIWrapper.instance.register("starthead", STARTHEAD);
+        StaticAPIWrapper.instance.register("withenderhead", WITHENDERHEAD);
+        StaticAPIWrapper.instance.register("blazehead", BLAZEHEAD);
+        StaticAPIWrapper.instance.register("creephead", CREEPHEAD);
+        StaticAPIWrapper.instance.register("enderhead", ENDERHEAD);
+        StaticAPIWrapper.instance.register("friendhead", FRIENDHEAD);
+        StaticAPIWrapper.instance.register("golemhead", GOLEMHEAD);
+        StaticAPIWrapper.instance.register("skelihead1", SKELIHEAD1);
+        StaticAPIWrapper.instance.register("skelihead2", SKELIHEAD2);
+        StaticAPIWrapper.instance.register("skelihead3", SKELIHEAD3);
+        StaticAPIWrapper.instance.register("criphead", CRIPHEAD);
+        StaticAPIWrapper.instance.register("enderknighthead", ENDERKNIGHTHEAD);
+        StaticAPIWrapper.instance.register("enderzombiehead", ENDERZOMBIEHEAD);
+        StaticAPIWrapper.instance.register("fiorahead", FIORAHEAD);
+        StaticAPIWrapper.instance.register("icegolemhead", ICEGOLEMHEAD);
+        StaticAPIWrapper.instance.register("knightentityhead", KNIGHTENTITYHEAD);
+        StaticAPIWrapper.instance.register("skelihead4", SKELIHEAD4);
+        StaticAPIWrapper.instance.register("spihead", SPIHEAD);
+        StaticAPIWrapper.instance.register("stevehead", STEVEHEAD);
+        StaticAPIWrapper.instance.register("witherblazehead", WITHERBLAZEHEAD);
+        StaticAPIWrapper.instance.register("pillagerbosshead", PILLAGERBOSSHEAD);
+        StaticAPIWrapper.instance.register("babyravagerhead", BABYRAVAGERHEAD);
+        StaticAPIWrapper.instance.register("islandkinghead", ISLANDKINGHEAD);
+        StaticAPIWrapper.instance.register("islandknightspecialhead",
                         ISLANDKNIGHTSPECIALHEAD);
-        registry.register("islandknightspecial2head",
+        StaticAPIWrapper.instance.register("islandknightspecial2head",
                         ISLANDKNIGHTSPECIAL2HEAD);
-        registry.register("metalgolemhead", METALGOLEMHEAD);
-        registry.register("archer2head", ARCHER2HEAD);
-        registry.register("screeperhead", SCREEPERHEAD);
+        StaticAPIWrapper.instance.register("metalgolemhead", METALGOLEMHEAD);
+        StaticAPIWrapper.instance.register("archer2head", ARCHER2HEAD);
+        StaticAPIWrapper.instance.register("screeperhead", SCREEPERHEAD);
 	}
 }

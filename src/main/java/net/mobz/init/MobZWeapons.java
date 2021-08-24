@@ -2,7 +2,6 @@ package net.mobz.init;
 
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Item;
-import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.item.weapon.ArmoredSwordBase;
 import net.mobz.item.weapon.ArmoredSwordMaterial;
@@ -20,6 +19,7 @@ import net.mobz.item.weapon.SwordMaterial;
 import net.mobz.item.weapon.VSwordBase;
 import net.mobz.item.weapon.WitherSwordBase;
 import net.mobz.item.weapon.WitherSwordMaterial;
+import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZWeapons {
 	public static final Item.Properties defaultItemProp = new Item.Properties().tab(MobZ.tab);
@@ -42,15 +42,15 @@ public class MobZWeapons {
     public static final Item VSword = new VSwordBase(WITHERSWORDMATERIAL, defaultItemProp);
     public static final Item WitherSword = new WitherSwordBase(WITHERSWORDMATERIAL, defaultItemProp);
 
-	public static void registerAll(IRegistryWrapper registry) {
-		registry.register("axe", Axe);
-		registry.register("armored_sword", ArmoredSword);
-		registry.register("boss_sword", BossSword);
-		registry.register("debuger", Debuger);
-		registry.register("frozen_sword", FrozenSword);
-		registry.register("poison_sword", PoisonSword);
-		registry.register("sword", Sword);
-		registry.register("v_sword", VSword);
-		registry.register("wither_sword", WitherSword);
+	static {
+		StaticAPIWrapper.instance.register("axe", Axe);
+		StaticAPIWrapper.instance.register("armored_sword", ArmoredSword);
+		StaticAPIWrapper.instance.register("boss_sword", BossSword);
+		StaticAPIWrapper.instance.register("debuger", Debuger);
+		StaticAPIWrapper.instance.register("frozen_sword", FrozenSword);
+		StaticAPIWrapper.instance.register("poison_sword", PoisonSword);
+		StaticAPIWrapper.instance.register("sword", Sword);
+		StaticAPIWrapper.instance.register("v_sword", VSword);
+		StaticAPIWrapper.instance.register("wither_sword", WitherSword);
 	}
 }

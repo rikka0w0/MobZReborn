@@ -5,7 +5,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.mobz.IRegistryWrapper;
 import net.mobz.MobZ;
 import net.mobz.block.BossTrophy;
 import net.mobz.block.EnderHeader;
@@ -13,6 +12,7 @@ import net.mobz.block.HardenedMetalblock;
 import net.mobz.block.TotemBase;
 import net.mobz.block.TotemMiddle;
 import net.mobz.block.TotemTop;
+import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZBlocks {
 	private static final BlockBehaviour.Properties ZOMBIE_HEAD_PROP = BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F);
@@ -29,15 +29,15 @@ public class MobZBlocks {
     public static final TotemMiddle TOTEM_MIDDLE = new TotemMiddle(OAK_LOG_PROP);
     public static final TotemTop TOTEM_TOP = new TotemTop(OAK_LOG_PROP);
 
-	public static void registerAll(IRegistryWrapper registry) {
-		registry.register("amat_block", AMAT_BLOCK, MobZ.tab);
-		registry.register("boss_block", BOSS_BLOCK, MobZ.tab);
-		registry.register("bosstrophy", BOSS_TROPHY, MobZ.tab);
-		registry.register("enderheader", ENDERHEADER, MobZ.tab);
-		registry.register("hardenedmetal_block", HARDENED_METALBLOCK, MobZ.tab);
+	static {
+		StaticAPIWrapper.instance.register("amat_block", AMAT_BLOCK, MobZ.tab);
+		StaticAPIWrapper.instance.register("boss_block", BOSS_BLOCK, MobZ.tab);
+		StaticAPIWrapper.instance.register("bosstrophy", BOSS_TROPHY, MobZ.tab);
+		StaticAPIWrapper.instance.register("enderheader", ENDERHEADER, MobZ.tab);
+		StaticAPIWrapper.instance.register("hardenedmetal_block", HARDENED_METALBLOCK, MobZ.tab);
 
-		registry.register("totembase", TOTEM_BASE, MobZ.tab);
-		registry.register("totemmiddle", TOTEM_MIDDLE, MobZ.tab);
-		registry.register("totemtop", TOTEM_TOP, MobZ.tab);
+		StaticAPIWrapper.instance.register("totembase", TOTEM_BASE, MobZ.tab);
+		StaticAPIWrapper.instance.register("totemmiddle", TOTEM_MIDDLE, MobZ.tab);
+		StaticAPIWrapper.instance.register("totemtop", TOTEM_TOP, MobZ.tab);
 	}
 }
