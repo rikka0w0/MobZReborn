@@ -12,6 +12,9 @@ public class Configs implements ConfigData {
 	// To be assigned by either ForgeConfigManager or AutoConfig
 	public static Configs instance = null;
 
+	@ConfigEntry.BoundedDiscrete(min = 0, max = Integer.MAX_VALUE)
+	public int ToadSpawnRate = 8;
+
     @ConfigEntry.Category("spawnsetting")
     @ConfigEntry.Gui.PrefixText
     public boolean AlexSpawn = true;

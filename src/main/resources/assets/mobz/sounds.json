@@ -424,5 +424,39 @@
     "sounds": [
       "mobz:unseal"
     ]
+  },
+  
+  "entity.toad.croak": {
+    "sounds": [
+      "mobz:toad_croak",
+      "mobz:toad_croak2",
+      "mobz:toad_croak3"
+    ],
+    "subtitle": "subtitles.entity.toad.croak"
+  },
+  "entity.toad.hurt": {
+    "sounds": [
+      "mobz:toad_hurt",
+      "mobz:toad_hurt2"
+    ],
+    "subtitle": "subtitles.entity.toad.hurt"
+  },
+  "entity.toad.death": {
+    "sounds": [
+      "mobz:toad_death"
+    ],
+    "subtitle": "subtitles.entity.toad.death"
+  },
+  "entity.toad.mouth": {
+    "sounds": [
+      "mobz:toad_mouth"
+    ],
+    "subtitle": "subtitles.entity.toad.mouth"
+  },
+  "entity.toad.swallow": {
+    "sounds": [
+      "mobz:toad_swallow"
+    ],
+    "subtitle": "subtitles.entity.toad.swallow"
   }
 }

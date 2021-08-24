@@ -2,12 +2,15 @@ package net.mobz.forge;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
 import net.mobz.client.VanillaClientRegistry;
+import net.mobz.client.renderer.model.TadpoleEntityModel;
+import net.mobz.client.renderer.model.ToadEntityModel;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegistrationHandler {
@@ -15,5 +18,11 @@ public class ClientRegistrationHandler {
 	public static void onClientSetup(final FMLClientSetupEvent event) {
 		EntityRenderers.registerAll(net.minecraft.client.renderer.entity.EntityRenderers::register);
 		VanillaClientRegistry.registerItemModelProperties(ItemProperties::register);
+	}
+
+	@SubscribeEvent
+	public static void onLayerDefinitionRegistration(final RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(TadpoleEntityModel.modelResLoc, TadpoleEntityModel::createBodyLayer);
+		event.registerLayerDefinition(ToadEntityModel.modelResLoc, ToadEntityModel::createBodyLayer);
 	}
 }

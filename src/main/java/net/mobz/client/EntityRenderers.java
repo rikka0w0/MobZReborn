@@ -64,5 +64,8 @@ public class EntityRenderers {
 		registry.register(MobZEntities.ISLANDVEXENTITY, IslandVexEntityRenderer::new);
 		registry.register(MobZEntities.METALGOLEM, MetalGolemRenderer::new);
 		registry.register(MobZEntities.SCREEPER, SCreeperRenderer::new);
+
+		registry.register(MobZEntities.TADPOLE, TadpoleRender::new);
+		registry.register(MobZEntities.TOAD, ToadRender::new);
 	}
 }

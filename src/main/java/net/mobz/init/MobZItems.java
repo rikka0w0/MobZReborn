@@ -1,8 +1,12 @@
 package net.mobz.init;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluids;
 import net.mobz.MobZ;
 import net.mobz.item.FrozenMeal;
 import net.mobz.item.Orb;
@@ -56,6 +60,15 @@ public class MobZItems {
 	@SuppressWarnings("deprecation")
 	public static final RecordItem MEDIVEAL_DISC2 = new RecordItem(0, MobZSounds.MEDIVEALSOUND2EVENT,
 			new Item.Properties().stacksTo(1)) {};
+
+
+	public static final ItemLike TADPOLE_BUCKET = register("tadpole_bucket",
+			new MobBucketItem(MobZEntities.TADPOLE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, nonStackable()));
+
+	private static <T extends Item> T register(String name, T item) {
+		StaticAPIWrapper.instance.register(name, item);
+		return item;
+	}
 
 	static {
 		// Items

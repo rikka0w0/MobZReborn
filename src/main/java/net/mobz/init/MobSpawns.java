@@ -80,6 +80,10 @@ public class MobSpawns {
 			spawnAdder.register(biomeSelector, MobZEntities.KNIGHT4ENTITY.getCategory(), new MobSpawnSettings.SpawnerData(
 					MobZEntities.KNIGHT4ENTITY, Configs.instance.FioraSpawnRate, 1, 1));
 		}
+
+
+		spawnAdder.register(biomeSelector, MobZEntities.TOAD.getCategory(), new MobSpawnSettings.SpawnerData(
+				MobZEntities.TOAD, Configs.instance.ToadSpawnRate, 1, 1));
 	}
 
 	private static void iceSpawn(IMobSpawnAdder spawnAdder) {

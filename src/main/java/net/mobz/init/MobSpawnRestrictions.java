@@ -119,5 +119,8 @@ public class MobSpawnRestrictions {
 				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.SCREEPER, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
+
+		w.register(MobZEntities.TOAD, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Animal::checkAnimalSpawnRules);
 	}
 }

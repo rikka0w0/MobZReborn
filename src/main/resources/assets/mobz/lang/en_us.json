@@ -55,6 +55,8 @@
     "entity.mobz.islandvex_entity": "Spirit of Death",
     "entity.mobz.metalgolem_entity": "Metal Golem",
     "entity.mobz.screeper_entity": "Soul Creeper",
+    "entity.mobz.tadpole_entity": "Tadpole",
+    "entity.mobz.toad_entity": "Toad",
 
 
     "item.mobz.boss_sword": "Enchanted Golden Sword",
@@ -241,6 +243,8 @@
     "item.mobz.spawn_islandvex": "Spirit of Death Spawn Egg",
     "item.mobz.spawn_metalgolem": "Metal Golem Spawn Egg",
     "item.mobz.spawn_screeper": "Soul Creeper Spawn Egg",
+    "item.mobz.spawn_tadpole": "Tadpole Spawn Egg",
+    "item.mobz.spawn_toad": "Toad Spawn Egg",
 
     "itemGroup.mobz.glomod": "MobZ",
     "itemGroup.mobz.glomodegg": "MobZ Spawn Eggs",

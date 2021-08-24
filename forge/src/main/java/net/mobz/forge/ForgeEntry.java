@@ -2,16 +2,19 @@ package net.mobz.forge;
 
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
+import net.mobz.forge.datagen.SpawnEggItemModelDataProvider;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobSpawns;
@@ -41,6 +44,16 @@ public class ForgeEntry {
     	@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
     		((ForgeRegistryWrapper) StaticAPIWrapper.instance).applyGlobalEntityAttrib(event::put);
+    	}
+
+    	@SubscribeEvent
+    	public static void onDataGeneratorInvoked(final GatherDataEvent event) {
+    		DataGenerator generator = event.getGenerator();
+    		ExistingFileHelper exfh = event.getExistingFileHelper();
+
+    		if (event.includeClient()) {
+    			generator.addProvider(new SpawnEggItemModelDataProvider(generator, exfh));
+    		}
     	}
     }
 

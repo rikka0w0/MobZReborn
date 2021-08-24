@@ -57,6 +57,7 @@ sourceSets {
         }
         resources {
             srcDir "../src/main/resources"
+            srcDir "../src/generated/resources"
             exclude '.cache'
             exclude 'Thumbs.db'
         }

@@ -57,8 +57,10 @@ import net.mobz.entity.SpiSmall;
 import net.mobz.entity.SpoEntity;
 import net.mobz.entity.StoneGolem;
 import net.mobz.entity.TSpider;
+import net.mobz.entity.TadpoleEntity;
 import net.mobz.entity.TankEntity;
 import net.mobz.entity.TestEntity;
+import net.mobz.entity.ToadEntity;
 import net.mobz.entity.WithEntity;
 import net.mobz.entity.Withender;
 import net.mobz.entity.skeli1;
@@ -271,6 +273,14 @@ public class MobZEntities {
 	public static final EntityType<SCreeperEntity> SCREEPER = register(EntityType.Builder
 			.of(SCreeperEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.7F), "screeper", SCreeperEntity::createSCreeperEntityAttributes, 4798252, 107176);
+
+
+	public static final EntityType<ToadEntity> TOAD = register(EntityType.Builder
+			.of(ToadEntity::new, MobCategory.CREATURE)
+			.sized(0.8F, 0.6F).clientTrackingRange(12), "toad", ToadEntity::createEntityAttributes, 0x4b8252, 0x614d33);
+	public static final EntityType<TadpoleEntity> TADPOLE = register(EntityType.Builder
+			.of(TadpoleEntity::new, MobCategory.WATER_CREATURE)
+			.sized(0.5F, 0.3F).clientTrackingRange(12), "tadpode", TadpoleEntity::createEntityAttributes, 0x67824b, 0x614d33);
 
 	private static <T extends Entity> EntityType<T> register(EntityType.Builder<T> entityTypeBuilder, String name) {
 		EntityType<T> entityType = entityTypeBuilder.build(name);

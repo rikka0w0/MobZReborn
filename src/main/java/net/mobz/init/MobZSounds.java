@@ -6,7 +6,7 @@ import net.mobz.MobZ;
 import net.mobz.portable.StaticAPIWrapper;
 
 public class MobZSounds {
-    public static SoundEvent AMBIENTTANKEVENT = register("ambienttank");
+	public static SoundEvent AMBIENTTANKEVENT = register("ambienttank");
     public static SoundEvent DEATHTANKEVENT = register("deathtank");
     public static SoundEvent HURTTANKEVENT = register("hurttank");
     public static SoundEvent STEPTANKEVENT = register("steptank");
@@ -68,6 +68,15 @@ public class MobZSounds {
     public static SoundEvent MGOLEMHITEVENT = register("mgolemhit");
     public static SoundEvent MGOLEMBREAKEVENT = register("mgolembreak");
     public static SoundEvent UNSEALEVENT = register("unseal");
+
+
+    public static final SoundEvent TOAD_MOUTH = register("entity.toad.mouth");
+	public static final SoundEvent TOAD_SWALLOW = register("entity.toad.swallow");
+	public static final SoundEvent TOAD_HAVE_BABY = register("entity.toad.have_baby");
+	public static final SoundEvent TOAD_CROAK = register("entity.toad.croak");
+	public static final SoundEvent TOAD_DEATH = register("entity.toad.death");
+	public static final SoundEvent TOAD_HURT = register("entity.toad.hurt");
+	public static final SoundEvent TOAD_JUMP = register("entity.toad.jump");
 
     private static SoundEvent register(String name) {
     	ResourceLocation resLoc = new ResourceLocation(MobZ.MODID, name);
