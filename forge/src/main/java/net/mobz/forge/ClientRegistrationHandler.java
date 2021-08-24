@@ -9,8 +9,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
 import net.mobz.client.VanillaClientRegistry;
-import net.mobz.client.renderer.model.TadpoleEntityModel;
-import net.mobz.client.renderer.model.ToadEntityModel;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegistrationHandler {
@@ -22,7 +20,6 @@ public class ClientRegistrationHandler {
 
 	@SubscribeEvent
 	public static void onLayerDefinitionRegistration(final RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(TadpoleEntityModel.modelResLoc, TadpoleEntityModel::createBodyLayer);
-		event.registerLayerDefinition(ToadEntityModel.modelResLoc, ToadEntityModel::createBodyLayer);
+		EntityRenderers.registerLayerDefinitions(event::registerLayerDefinition);
 	}
 }

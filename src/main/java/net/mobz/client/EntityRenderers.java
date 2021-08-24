@@ -1,7 +1,10 @@
 package net.mobz.client;
 
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.mobz.ILayerDefinitionRegistration;
 import net.mobz.client.renderer.entity.*;
+import net.mobz.client.renderer.model.TadpoleEntityModel;
+import net.mobz.client.renderer.model.ToadEntityModel;
 import net.mobz.init.MobZEntities;
 
 public class EntityRenderers {
@@ -67,5 +70,10 @@ public class EntityRenderers {
 
 		registry.register(MobZEntities.TADPOLE, TadpoleRender::new);
 		registry.register(MobZEntities.TOAD, ToadRender::new);
+	}
+
+	public static void registerLayerDefinitions(ILayerDefinitionRegistration registry) {
+		registry.register(TadpoleEntityModel.modelResLoc, TadpoleEntityModel::createBodyLayer);
+		registry.register(ToadEntityModel.modelResLoc, ToadEntityModel::createBodyLayer);
 	}
 }
