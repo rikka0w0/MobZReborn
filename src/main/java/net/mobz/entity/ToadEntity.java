@@ -97,11 +97,9 @@ public class ToadEntity extends Animal {
 		this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
 	}
 
-	public void setTongueEntity(LivingEntity e)
-	{
+	public void setTongueEntity(LivingEntity e) {
 		entityData.set(TONGUE_ENTITY, e.getId());
-		if(!level.isClientSide())
-		{
+		if(!level.isClientSide()) {
 			this.playSound(MobZSounds.TOAD_MOUTH, 1F, 1F + ((float) random.nextGaussian() / 5F));
 		}
 	}
@@ -116,8 +114,7 @@ public class ToadEntity extends Animal {
 		return entityData.get(TONGUE_ENTITY);
 	}
 
-	public void clearTongueEntity()
-	{
+	public void clearTongueEntity() {
 		entityData.set(TONGUE_ENTITY, -1);
 	}
 
@@ -126,6 +123,27 @@ public class ToadEntity extends Animal {
 		if(world.getBlockState(pos).is(Blocks.LILY_PAD)) return 100;
 
 		return super.getWalkTargetValue(pos, world);
+	}
+
+	private void tickVictim(LivingEntity victim) {
+		if (this.isDeadOrDying() || this.isRemoved()) {
+			clearTongueEntity();
+			return;
+		}
+
+		if (this.isTongueReady()) {
+			double xx = MathUtils.approachValue(victim.position().x, getX(), 0.3D);
+			double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.1D);
+			double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.3D);
+			victim.absMoveTo(xx, yy, zz, getYRot(), getXRot());
+			victim.setPosRaw(xx, yy, zz);
+			victim.setDeltaMovement(0, 0, 0);
+
+			if (distanceTo(victim) <= 0.2F) {
+				playSound(MobZSounds.TOAD_SWALLOW, 1F, 1F + ((float) random.nextGaussian() / 5F));
+				victim.discard();
+			}
+		}
 	}
 
 	private final TargetingConditions predicate = TargetingConditions.forNonCombat().selector((e)->e.distanceTo(e) < 10);
@@ -152,6 +170,8 @@ public class ToadEntity extends Animal {
 				if(tongueDistance > targetTongueDistance) speed *= 2;
 
 				tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);
+
+				tickVictim((LivingEntity) e);
 			}else//TODO: clean this
 			{
 				targetTongueDistance = 0;
