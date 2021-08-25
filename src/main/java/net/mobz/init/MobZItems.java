@@ -49,7 +49,7 @@ public class MobZItems {
 	public static final Sbow SBOW = new Sbow(defItemProp().durability(461));
 	public static final SimpleItem SEALITEM = new SimpleItem(nonStackable());
 	public static final Shield SHIELD = new Shield(defItemProp().durability(589));
-	public static final SimpleItem SHOWEGG = new SimpleItem(nonStackable());
+	public static final SimpleItem SHOWEGG = new SimpleItem(new Item.Properties());
 	public static final WhiteBag WHITEBAG = new WhiteBag(nonStackable());
 	public static final WitherMeal WITHERMEAL = new WitherMeal(defItemProp());
 

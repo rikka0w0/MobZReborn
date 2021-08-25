@@ -1,15 +1,12 @@
 package net.mobz.client.renderer.model;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Random;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.model.ListModel;
-import net.minecraft.client.model.Model;
+
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -19,13 +16,13 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.mobz.entity.ToadEntity;
 import net.mobz.MathUtils;
 import net.mobz.MobZ;
 
-public class ToadEntityModel extends ListModel<ToadEntity> implements HeadedModel
-{
+public class ToadEntityModel extends EntityModel<ToadEntity> {
+	public static final Random random = new Random();
+
 	private final ModelPart body;
 	private final ModelPart backlege;
 	private final ModelPart backlegw;
@@ -38,8 +35,7 @@ public class ToadEntityModel extends ListModel<ToadEntity> implements HeadedMode
 	private final ModelPart frontlege;
 	private final ModelPart tongue;
 
-	static float tongueDistance;
-	static ToadEntity entity;
+	private float tongueDistance;
 
 	public final static ModelLayerLocation modelResLoc = new ModelLayerLocation(
 			new ResourceLocation(MobZ.MODID, "toad_model"), "main");
@@ -93,12 +89,12 @@ public class ToadEntityModel extends ListModel<ToadEntity> implements HeadedMode
 		PartDefinition frontlege = body.addOrReplaceChild("frontlege", CubeListBuilder.create()
 				, PartPose.offset(-4.0F, -5.0F, -1.0F));
 
-		frontlegw.addOrReplaceChild("cube_r2", CubeListBuilder.create()
+		frontlege.addOrReplaceChild("cube_r2", CubeListBuilder.create()
 				.texOffs(0, 0).addBox(-2.0F, -6.0F, 0.0F, 2.0F, 6.0F, 2.0F)
 				, PartPose.offsetAndRotation(0.0F, 5.0F, -2.0F, -0.3491F, 0.0F, 0.0F));
 
 		body.addOrReplaceChild("tongue", CubeListBuilder.create()
-				.texOffs(0, 30).addBox(-1.0F, -1.5F, -0.8F, 2.0F, 1.0F, 1.0F)
+				.texOffs(0, 30).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 1.0F, 1.0F)
 				, PartPose.offset(0.1F, 0.0F, -4.1273F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
@@ -119,9 +115,7 @@ public class ToadEntityModel extends ListModel<ToadEntity> implements HeadedMode
 	}
 
 	@Override
-	public void setupAnim(ToadEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
-	{
-		ToadEntityModel.entity = entity;
+	public void setupAnim(ToadEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		float pi = (float) Math.PI;
 		float legAmount = 1.4F;
 
@@ -131,112 +125,56 @@ public class ToadEntityModel extends ListModel<ToadEntity> implements HeadedMode
 		this.frontlegw.xRot = Mth.cos(limbAngle * 1) * 1.4F * limbDistance;
 		this.backlegw.xRot = Mth.cos(limbAngle * 1 + pi) * legAmount * limbDistance;
 
-		if(!entity.isOnGround())
-		{
+		if(!entity.isOnGround()) {
 			this.backlegw.xRot = 2F;
 			this.backlege.xRot = 2F;
 		}
 
-		if(entity.hasTongueEntity())
-		{
+		if(entity.hasTongueEntity()) {
 			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 1, 0.5F);
-			Entity e = entity.level.getEntity(entity.getTongueEntityID());
-			if(e != null && entity.isTongueReady())
-			{
-				tongueDistance = (entity.distanceTo(e) * 16) - ((float) (e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
-			}else tongueDistance = 0;
-		}else
-		{
+		} else {
 			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 0, 0.10F);
 		}
 		lipTop.y = -entity.mouthDistance;
 		lipBottom.y = entity.mouthDistance;
 
-		tongue.xRot = -0.2618F + (headPitch * 0.0175F);
+		tongue.xRot = headPitch * 0.0175F;
 		tongue.yRot = headYaw * 0.0175F;
+		this.tongueDistance = entity.tongueDistance;
 	}
 
 	@Override
-	public Iterable<ModelPart> parts()
-	{
-		return ImmutableList.of(body);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight,
+			int overlay, float r, float g, float b, float alpha) {
+		this.body.render(poseStack, vertexConsumer, packedLight, overlay, r, g, b, alpha);
+
+		// Render tongue
+		poseStack.pushPose();
+		this.body.translateAndRotate(poseStack);
+		this.renderTongue(poseStack, vertexConsumer, packedLight, overlay, r, g, b, alpha);
+		poseStack.popPose();
 	}
 
-	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z)
-	{
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
+	public void renderTongue(PoseStack matrices, VertexConsumer vertexConsumer, int light,
+			int overlay, float red, float green, float blue, float alpha) {
+		matrices.pushPose();
+		if (this.tongue.zRot != 0.0F) {
+			matrices.mulPose(Vector3f.ZP.rotation(this.tongue.zRot));
+		}
+
+		if (this.tongue.yRot != 0.0F) {
+			matrices.mulPose(Vector3f.YP.rotation(this.tongue.yRot));
+		}
+
+		if (this.tongue.xRot != 0.0F) {
+			matrices.mulPose(Vector3f.XP.rotation(this.tongue.xRot));
+		}
+
+		matrices.translate(0, -0.25, 0);
+		matrices.scale(1, 1, tongueDistance);
+		ModelPart.Cube cuboid = new ModelPart.Cube(16, 0, -1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0, 0, 0, false, 64, 64);
+		cuboid.compile(matrices.last(), vertexConsumer, light, overlay, 1, 0, 0, 0);
+
+		matrices.popPose();
 	}
-
-	@Override
-	public ModelPart getHead()
-	{
-		return tongue;
-	}
-
-	/*private static class TonguePart extends ModelPart
-	{
-		TonguePart(Model model)
-		{
-			super(model);
-		}
-
-		@Override
-		public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha)
-		{
-			ModelPart.Cube cube = getRandomCuboid(RandomUtil.RANDOM);
-			matrices.pushPose();
-			if(this.roll != 0.0F)
-			{
-				matrices.mulPose(Vector3f.ZP.rotation(this.roll));
-			}
-
-			if(this.yaw != 0.0F)
-			{
-				matrices.mulPose(Vector3f.YP.rotation(this.yaw));
-			}
-
-			if(this.pitch != 0.0F)
-			{
-				matrices.mulPose(Vector3f.XP.rotation(this.pitch));
-			}
-
-
-			drawBox(matrices, vertices, cube.minX, cube.minY, cube.minZ, cube.maxX, cube.maxY, cube.minZ - entity.tongueDistance, light, overlay);
-
-			matrices.popPose();
-			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-		}
-
-		public static void drawBox(PoseStack matrices, VertexConsumer vertexConsumer, float x1, float y1, float z1, float x2, float y2, float z2, int light, int overlay)
-		{
-			Cuboid cuboid = new Cuboid(0, 30, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, 0, 0, 0, false, 64, 54);
-
-			PoseStack.Pose me = matrices.last();
-			Matrix4f matrix4f = me.pose();
-			Matrix3f matrix3f = me.normal();
-
-			ModelPart.Polygon[] var13 = ((CuboidAccessor) cuboid).bm_getSides();
-			int var14 = var13.length;
-
-			for(int var15 = 0; var15 < var14; ++var15)
-			{
-				ModelPart.Polygon quad = var13[var15];
-				Vector3f vector3f = quad.normal.copy();
-				vector3f.transform(matrix3f);
-
-				for(int i = 0; i < 4; ++i)
-				{
-					ModelPart.Vertex vertex = quad.vertices[i];
-					float j = vertex.pos.x() / 16.0F;
-					float k = vertex.pos.y() / 16.0F;
-					float l = vertex.pos.z() / 16.0F;
-					Vector4f vector4f = new Vector4f(j, k, l, 1.0F);
-					vector4f.transform(matrix4f);
-					vertexConsumer.vertex(vector4f.x(), vector4f.y(), vector4f.z(), 1, 0, 0, 1, 0.1F, 0.1F, overlay, light, 1, 1, 1);
-				}
-			}
-		}
-	}*/
 }

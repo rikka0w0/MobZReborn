@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import net.minecraft.world.level.block.Block;
+import net.mobz.item.SpawnEgg;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -78,7 +79,7 @@ public interface IRegistryWrapper {
 	default <T extends LivingEntity> void register(String name, EntityType<T> entityType,
 			@Nullable Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			@Nullable SpawnEggItem spawnEggItem) {
-		register(name + "_entity", entityType);
+		register(name, entityType);
 		if (spawnEggItem != null) {
 			register("spawn_" + name, spawnEggItem);
 		}
@@ -94,7 +95,7 @@ public interface IRegistryWrapper {
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2, CreativeModeTab eggGroup) {
 		register(name, entityType, attribModifierSupplier,
-				new SpawnEggItem(entityType, eggColor1, eggColor2, new Item.Properties().tab(eggGroup)));
+				new SpawnEgg(entityType, eggColor1, eggColor2, new Item.Properties().tab(eggGroup)));
 	}
 
 	/**
@@ -103,7 +104,7 @@ public interface IRegistryWrapper {
 	default <T extends Mob> void register(String name, EntityType.Builder<T> entityTypeBuilder,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2, CreativeModeTab eggGroup) {
-		EntityType<T> entityType = entityTypeBuilder.build(name + "_entity");
+		EntityType<T> entityType = entityTypeBuilder.build(name);
 		register(name, entityType, attribModifierSupplier, eggColor1, eggColor2, eggGroup);
 	}
 
