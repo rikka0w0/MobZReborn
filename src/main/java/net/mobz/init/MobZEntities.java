@@ -291,8 +291,6 @@ public class MobZEntities {
 	private static <T extends Mob> EntityType<T> register(EntityType.Builder<T> entityTypeBuilder, String name,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2) {
-		EntityType<T> entityType = entityTypeBuilder.build(name);
-		StaticAPIWrapper.instance.register(name, entityType, attribModifierSupplier, eggColor1, eggColor2, MobZ.eggs);
-		return entityType;
+		return StaticAPIWrapper.instance.register(name, entityTypeBuilder, attribModifierSupplier, eggColor1, eggColor2, MobZ.eggs);
 	}
 }

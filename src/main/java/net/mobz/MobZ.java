@@ -28,12 +28,12 @@ public class MobZ {
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {
-    	MobZItems.BOSS_INGOT.toString();
-    	MobZBlocks.BOSS_BLOCK.toString();
-    	MobZEntities.BOSS.toString();
-    	MobZArmors.boss_boots.toString();
-    	MobZWeapons.BossSword.toString();
-    	MobZSounds.MEDIVEALSOUNDEVENT.toString();
-    	MobZIcons.BOSSHEAD.toString();
+    	MobZItems.BOSS_INGOT.getClass();
+    	MobZBlocks.BOSS_BLOCK.getClass();
+    	MobZEntities.BOSS.getClass();
+    	MobZArmors.boss_boots.getClass();
+    	MobZWeapons.BossSword.getClass();
+    	MobZSounds.MEDIVEALSOUNDEVENT.getClass();
+    	MobZIcons.BOSSHEAD.getClass();
 	}
 }

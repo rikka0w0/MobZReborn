@@ -20,7 +20,7 @@
             "trigger": "minecraft:player_killed_entity",
             "conditions": {
                 "entity": {
-                    "type": "mobz:crip_entity"
+                    "type": "mobz:crip"
                 }
             }
         }

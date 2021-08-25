@@ -133,9 +133,9 @@ public class ToadEntity extends Animal {
 		}
 
 		if (this.isTongueReady()) {
-			double xx = MathUtils.approachValue(victim.position().x, getX(), 0.4D);
-			double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.2D);
-			double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.4D);
+			double xx = MathUtils.approachValue(victim.position().x, getX(), 0.2D);
+			double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.1D);
+			double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.2D);
 			victim.absMoveTo(xx, yy, zz);
 			victim.setDeltaMovement(0, 0, 0);
 		}

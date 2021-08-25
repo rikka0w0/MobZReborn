@@ -425,7 +425,35 @@
       "mobz:unseal"
     ]
   },
-  
+
+  "entity.toad.jump": {
+    "sounds": [
+      {
+        "name": "mob/rabbit/hop1",
+        "volume": 0.1
+      },
+      {
+        "name": "mob/rabbit/hop2",
+        "volume": 0.1
+      },
+      {
+        "name": "mob/rabbit/hop3",
+        "volume": 0.1
+      },
+      {
+        "name": "mob/rabbit/hop4",
+        "volume": 0.1
+      }
+    ],
+    "subtitle": "subtitles.entity.toad.jump"
+  },
+  "entity.toad.have_baby": {
+    "sounds": [
+      "mob/turtle/egg/drop_egg1",
+      "mob/turtle/egg/drop_egg2"
+    ],
+    "subtitle": "subtitles.entity.toad.have_baby"
+  },
   "entity.toad.croak": {
     "sounds": [
       "mobz:toad_croak",

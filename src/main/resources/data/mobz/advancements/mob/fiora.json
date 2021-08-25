@@ -20,7 +20,7 @@
             "trigger": "minecraft:player_hurt_entity",
             "conditions": {
                 "entity": {
-                    "type": "mobz:knight4_entity"
+                    "type": "mobz:knight4"
                 }
             }
         }

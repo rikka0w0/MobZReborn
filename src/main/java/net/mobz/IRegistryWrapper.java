@@ -101,11 +101,12 @@ public interface IRegistryWrapper {
 	/**
 	 * Entity registration helper method
 	 */
-	default <T extends Mob> void register(String name, EntityType.Builder<T> entityTypeBuilder,
+	default <T extends Mob> EntityType<T> register(String name, EntityType.Builder<T> entityTypeBuilder,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2, CreativeModeTab eggGroup) {
 		EntityType<T> entityType = entityTypeBuilder.build(name);
 		register(name, entityType, attribModifierSupplier, eggColor1, eggColor2, eggGroup);
+		return entityType;
 	}
 
 	SoundEvent register(String name, SoundEvent sound);

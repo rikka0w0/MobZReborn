@@ -20,7 +20,7 @@
             "trigger": "minecraft:player_killed_entity",
             "conditions": {
                 "entity": {
-                    "type": "mobz:skeli3_entity"
+                    "type": "mobz:skeli3"
                 }
             }
         }
