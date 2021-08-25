@@ -17,13 +17,14 @@ public class MobZ {
 
 	// ItemGroup
 	public final static CreativeModeTab tab = StaticAPIWrapper.instance.tab(
-			new ResourceLocation(MODID, "glomod"), () -> new ItemStack(MobZArmors.boss_helmet));
+			new ResourceLocation(MODID, "glomod"), () -> new ItemStack(MobZBlocks.BOSS_TROPHY));
 
 	public final static CreativeModeTab eggs = StaticAPIWrapper.instance.tab(
 			new ResourceLocation(MODID, "glomodegg"), () -> new ItemStack(MobZItems.SHOWEGG));
 
 	// Tags
 	public final static ResourceLocation TOAD_FOOD = new ResourceLocation(MODID, "toad_food");
+	public final static ResourceLocation TOAD_TARGET = new ResourceLocation(MODID, "toad_target");
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {

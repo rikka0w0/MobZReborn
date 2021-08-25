@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -132,10 +133,9 @@ public class ToadEntity extends Animal {
 		}
 
 		if (this.isTongueReady()) {
-			// double step = distanceToSqr(victim) < 0.09F ? 0.3D : 0.1D;
-			double xx = MathUtils.approachValue(victim.position().x, getX(), 0.1D);
-			double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.1D);
-			double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.1D);
+			double xx = MathUtils.approachValue(victim.position().x, getX(), 0.4D);
+			double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.2D);
+			double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.4D);
 			victim.absMoveTo(xx, yy, zz);
 			victim.setDeltaMovement(0, 0, 0);
 		}
@@ -160,7 +160,7 @@ public class ToadEntity extends Animal {
 				yHeadRot = getTargetYaw();
 				this.setXRot(getTargetPitch());
 
-				float speed = 1;
+				float speed = 10;
 				targetTongueDistance = (this.distanceTo(e) * 16) - ((float) (e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
 				if(tongueDistance > targetTongueDistance) speed *= 2;
 
@@ -448,7 +448,7 @@ public class ToadEntity extends Animal {
 	}
 
 	public static boolean canToadTarget(Entity entity) {
-		return entity instanceof TSpider;
+		return EntityTypeTags.getAllTags().getTagOrEmpty(MobZ.TOAD_TARGET).contains(entity.getType());
 	}
 
 	public void attackVictim(LivingEntity victim) {

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "minecraft:silverfish",
+    "mobz:tspider",
+    "mobz:spi",
+    "mobz:spismall",
+    "mobz:spo"
+  ]
+}
