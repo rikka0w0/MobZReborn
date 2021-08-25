@@ -57,6 +57,7 @@
     "entity.mobz.screeper": "Soul Creeper",
     "entity.mobz.tadpode": "Tadpole",
     "entity.mobz.toad": "Toad",
+    "entity.mobz.toad_giant": "Giant Toad",
 
     "item.mobz.boss_sword": "Enchanted Golden Sword",
     "item.mobz.boss_sword.tooltip": "§5Epic",

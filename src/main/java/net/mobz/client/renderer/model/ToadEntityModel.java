@@ -23,6 +23,7 @@ import net.mobz.MobZ;
 public class ToadEntityModel extends EntityModel<ToadEntity> {
 	public static final Random random = new Random();
 
+	private final float bodyScale;
 	private final ModelPart body;
 	private final ModelPart backlege;
 	private final ModelPart backlegw;
@@ -100,7 +101,8 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	public ToadEntityModel(ModelPart modelPart) {
+	public ToadEntityModel(ModelPart modelPart, float bodyScale) {
+		this.bodyScale = bodyScale;
 		this.body = modelPart.getChild("body");
 		this.backlege = body.getChild("backlege");
 		this.backlegw = body.getChild("backlegw");
@@ -171,7 +173,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		}
 
 		matrices.translate(0, -0.25, 0);
-		matrices.scale(1, 1, tongueDistance);
+		matrices.scale(1, 1, tongueDistance / this.bodyScale);
 		ModelPart.Cube cuboid = new ModelPart.Cube(16, 0, -1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0, 0, 0, false, 64, 64);
 		cuboid.compile(matrices.last(), vertexConsumer, light, overlay, 1, 0, 0, 0);
 

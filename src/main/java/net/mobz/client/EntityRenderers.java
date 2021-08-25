@@ -70,6 +70,7 @@ public class EntityRenderers {
 
 		registry.register(MobZEntities.TADPOLE, TadpoleRender::new);
 		registry.register(MobZEntities.TOAD, ToadRender::new);
+		registry.register(MobZEntities.TOAD_GIANT, ToadRender.Giant::new);
 	}
 
 	public static void registerLayerDefinitions(ILayerDefinitionRegistration registry) {

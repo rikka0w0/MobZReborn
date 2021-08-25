@@ -127,17 +127,21 @@ public class ToadEntity extends Animal {
 	}
 
 	private void dragVictim(LivingEntity victim) {
-		if (this.isDeadOrDying() || this.isRemoved() || !this.hasLineOfSight(victim)) {
+		if (this.isDeadOrDying() || this.isRemoved() || !this.hasLineOfSight(victim) || victim.isRemoved() || this.distanceTo(victim) > this.getSpotRange() * 2) {
 			clearTongueEntity();
 			return;
 		}
 
 		if (this.isTongueReady()) {
-			double xx = MathUtils.approachValue(victim.position().x, getX(), 0.2D);
-			double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.1D);
-			double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.2D);
-			victim.absMoveTo(xx, yy, zz);
-			victim.setDeltaMovement(0, 0, 0);
+			if (victim.getBoundingBox().intersects(getBoundingBox())) {
+				this.attackVictim(victim);
+			} else {
+				double xx = MathUtils.approachValue(victim.position().x, getX(), 0.2D);
+				double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.1D);
+				double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.2D);
+				victim.absMoveTo(xx, yy, zz);
+				victim.setDeltaMovement(0, 0, 0);
+			}
 		}
 	}
 
@@ -168,11 +172,7 @@ public class ToadEntity extends Animal {
 
 				// Tongue touches / reaches the target
 				if (Math.abs(tongueDistance - targetTongueDistance) < 1e-3) {
-					if (tongueDistance < 6F) {
-						attackVictim((LivingEntity) e);
-					} else {
-						dragVictim((LivingEntity) e);
-					}
+					dragVictim((LivingEntity) e);
 				}
 			} else {
 				targetTongueDistance = 0;
@@ -224,9 +224,10 @@ public class ToadEntity extends Animal {
 		eatCooldown--;
 		if(eatCooldown <= 0 && !hasTongueEntity())
 		{
+			double spotRange = getSpotRange();
 			List<LivingEntity> targets = level.getEntities(
 					EntityTypeTest.forClass(LivingEntity.class),
-					getBoundingBox().inflate(3, 3, 3),
+					getBoundingBox().inflate(spotRange, spotRange, spotRange),
 					this::isToadTarget);
 			LivingEntity closest = level.getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
 
@@ -439,15 +440,35 @@ public class ToadEntity extends Animal {
 		}
 	}
 
-	public boolean isToadTarget(Entity entity) {
-		return canToadTarget(entity) && this.hasLineOfSight(entity);
+	private boolean isToadTarget(Entity entity) {
+		if (!canToadTarget((LivingEntity) entity) || !this.hasLineOfSight(entity))
+			return false;
+
+		// xPos - 0deg, zPos = 90
+		double headingAngle = this.getYHeadRot() + 90;
+		if (headingAngle > 360.0)
+			headingAngle -= 360;
+		if (headingAngle < 0.0)
+			headingAngle += 360;
+
+		// Direction of the entity
+		double dx = entity.getX() - this.getX();
+		double dz = entity.getZ() - this.getZ();
+		double dir = 90 - Mth.atan2(dx, dz)/Mth.PI*180.0D;
+		if (dir > 360.0)
+			dir -= 360;
+		if (dir < 0.0)
+			dir += 360;
+
+		double diff = dir - headingAngle;
+		return diff < 45 && diff > -45;
 	}
 
 	public static Tag<Item> getToadFoodTag() {
 		return ItemTags.getAllTags().getTagOrEmpty(MobZ.TOAD_FOOD);
 	}
 
-	public static boolean canToadTarget(Entity entity) {
+	public boolean canToadTarget(LivingEntity entity) {
 		return EntityTypeTags.getAllTags().getTagOrEmpty(MobZ.TOAD_TARGET).contains(entity.getType());
 	}
 
@@ -455,7 +476,11 @@ public class ToadEntity extends Animal {
 		if (victim instanceof Player) {
 			victim.hurt(DamageSource.indirectMobAttack(this, null), 1F);
 		} else {
-			victim.discard();
+			victim.hurt(DamageSource.indirectMobAttack(this, null), Float.MAX_VALUE);
 		}
+	}
+
+	public int getSpotRange() {
+		return 3;
 	}
 }

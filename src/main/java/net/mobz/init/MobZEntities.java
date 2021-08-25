@@ -31,6 +31,7 @@ import net.mobz.entity.FriendEntity;
 import net.mobz.entity.FrostEntity;
 import net.mobz.entity.FullIronEntity;
 import net.mobz.entity.GChicken;
+import net.mobz.entity.GiantToad;
 import net.mobz.entity.IceGolem;
 import net.mobz.entity.Illusioner;
 import net.mobz.entity.IslandKing;
@@ -281,6 +282,9 @@ public class MobZEntities {
 	public static final EntityType<TadpoleEntity> TADPOLE = register(EntityType.Builder
 			.of(TadpoleEntity::new, MobCategory.WATER_CREATURE)
 			.sized(0.5F, 0.3F).clientTrackingRange(12), "tadpode", TadpoleEntity::createEntityAttributes, 0x67824b, 0x614d33);
+	public static final EntityType<GiantToad> TOAD_GIANT = register(EntityType.Builder
+			.of(GiantToad::new, MobCategory.CREATURE)
+			.sized(3.2F, 2.4F).clientTrackingRange(12), "toad_giant", ToadEntity::createEntityAttributes, 0x4b8252, 0x614d33);
 
 	private static <T extends Entity> EntityType<T> register(EntityType.Builder<T> entityTypeBuilder, String name) {
 		EntityType<T> entityType = entityTypeBuilder.build(name);
