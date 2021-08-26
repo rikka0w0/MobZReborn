@@ -165,10 +165,9 @@ public class ToadEntity extends Animal {
 				yHeadRot = getTargetYaw();
 				this.setXRot(getTargetPitch());
 
-				float speed = 10;
+				float speed = 0.8F;
 				targetTongueDistance = distanceTo(e) - (float) (e.getBoundingBox().maxX - e.getBoundingBox().minX);
 				targetTongueDistance = (float) getEyePosition().distanceTo(victimCenter);
-				targetTongueDistance *= 16F;
 				if(tongueDistance > targetTongueDistance) speed *= 2;
 
 				tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);

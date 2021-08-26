@@ -169,7 +169,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		float mouthHeightRelative = 3F/16F;  // Mouth to bottom of the model
 		float mouthHorizontalOffsetRelative = 2F/16F;  // Horizontal distance between mouth and eye
 		// Distance between the target and eye
-		float tongueDistance = this.tongueDistance / 16F;
+		float tongueDistance = this.targetTongueDistance;
 
 		// Model parameters, with respect to the real world
 		// Mouth to bottom of the model
@@ -192,6 +192,9 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		float cosME_MT = (mouthEyeDistanceSqr + lenSqr - tongueDistance * tongueDistance) /
 				(2 * mouthEyeDistance * len);
 		float xRot = (float) (Math.acos(cosME_MT) - Mth.HALF_PI - angleMouthEye);
+
+		// Smooth animation
+		len *= this.tongueDistance / this.targetTongueDistance;
 
 		//matrices.translate(0, -eyeHeight / this.bodyScale, 0);
 		matrices.translate(0, -mouthHeightRelative, -mouthHorizontalOffsetRelative);
