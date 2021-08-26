@@ -49,6 +49,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import net.mobz.MathUtils;
 import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
@@ -157,15 +158,17 @@ public class ToadEntity extends Animal {
 		if(hasTongueEntity())
 		{
 			Entity e = level.getEntity(getTongueEntityID());
-			if(e != null && !e.isPassenger())
-			{
-				getLookControl().setLookAt(e.getX(), (e.getBoundingBox().minY + 0.5F), e.getZ(), 100, 100);
+			if(e != null && !e.isPassenger()) {
+				Vec3 victimCenter = e.getBoundingBox().getCenter();
+				getLookControl().setLookAt(victimCenter.x, e.getY(), victimCenter.z, 100, 100);
 				yBodyRot = getTargetYaw();
 				yHeadRot = getTargetYaw();
 				this.setXRot(getTargetPitch());
 
 				float speed = 10;
-				targetTongueDistance = (this.distanceTo(e) * 16) - ((float) (e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
+				targetTongueDistance = distanceTo(e) - (float) (e.getBoundingBox().maxX - e.getBoundingBox().minX);
+				targetTongueDistance = (float) getEyePosition().distanceTo(victimCenter);
+				targetTongueDistance *= 16F;
 				if(tongueDistance > targetTongueDistance) speed *= 2;
 
 				tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);
@@ -481,6 +484,6 @@ public class ToadEntity extends Animal {
 	}
 
 	public int getSpotRange() {
-		return 3;
+		return 5;
 	}
 }
