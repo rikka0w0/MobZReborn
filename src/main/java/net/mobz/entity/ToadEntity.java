@@ -56,10 +56,17 @@ import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 public class ToadEntity extends Animal {
+	// All toads share this set, only used on the server side
+	private static Set<Entity> targetedEntities = new HashSet<>();
+
 	private static final UUID JUMP_SPEED_BOOST = UUID.fromString("0fa7caca-4f09-11eb-ae93-0242ac130002");
 	private static final AttributeModifier JUMP_SPEED_BOOST_MOD = new AttributeModifier(JUMP_SPEED_BOOST, "Jump Speed Boost", 0.6F, AttributeModifier.Operation.ADDITION);
 
@@ -103,20 +110,32 @@ public class ToadEntity extends Animal {
 		entityData.set(TONGUE_ENTITY, e.getId());
 		if(!level.isClientSide()) {
 			this.playSound(MobZSounds.TOAD_MOUTH, 1F, 1F + ((float) random.nextGaussian() / 5F));
+
+			synchronized (ToadEntity.class) {
+				ToadEntity.targetedEntities.add(e);
+			}
 		}
 	}
 
-	public boolean hasTongueEntity()
-	{
+	public boolean hasTongueEntity() {
 		return entityData.get(TONGUE_ENTITY) != -1;
 	}
 
-	public int getTongueEntityID()
-	{
-		return entityData.get(TONGUE_ENTITY);
+	@Nullable
+	public Entity getTongueEntity() {
+		return this.level.getEntity(entityData.get(TONGUE_ENTITY));
 	}
 
 	public void clearTongueEntity() {
+		if (!level.isClientSide()) {
+			Entity e = this.getTongueEntity();
+			if (e != null) {
+				synchronized (ToadEntity.class) {
+					ToadEntity.targetedEntities.remove(e);
+				}
+			}
+		}
+
 		entityData.set(TONGUE_ENTITY, -1);
 	}
 
@@ -137,9 +156,10 @@ public class ToadEntity extends Animal {
 			if (victim.getBoundingBox().intersects(getBoundingBox())) {
 				this.attackVictim(victim);
 			} else {
-				double xx = MathUtils.approachValue(victim.position().x, getX(), 0.2D);
-				double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, 0.1D);
-				double zz = MathUtils.approachValue(victim.position().z, getZ(), 0.2D);
+				double speed = getTongueSpeed2();
+				double xx = MathUtils.approachValue(victim.position().x, getX(), speed);
+				double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, speed / 2.0D);
+				double zz = MathUtils.approachValue(victim.position().z, getZ(), speed);
 				victim.absMoveTo(xx, yy, zz);
 				victim.setDeltaMovement(0, 0, 0);
 			}
@@ -157,7 +177,7 @@ public class ToadEntity extends Animal {
 
 		if(hasTongueEntity())
 		{
-			Entity e = level.getEntity(getTongueEntityID());
+			Entity e = this.getTongueEntity();;
 			if(e != null && !e.isPassenger()) {
 				Vec3 victimCenter = e.getBoundingBox().getCenter();
 				getLookControl().setLookAt(victimCenter.x, e.getY(), victimCenter.z, 100, 100);
@@ -165,7 +185,7 @@ public class ToadEntity extends Animal {
 				yHeadRot = getTargetYaw();
 				this.setXRot(getTargetPitch());
 
-				float speed = 0.8F;
+				float speed = getTongueSpeed();
 				targetTongueDistance = distanceTo(e) - (float) (e.getBoundingBox().maxX - e.getBoundingBox().minX);
 				targetTongueDistance = (float) getEyePosition().distanceTo(victimCenter);
 				if(tongueDistance > targetTongueDistance) speed *= 2;
@@ -241,7 +261,7 @@ public class ToadEntity extends Animal {
 			}
 		}else
 		{
-			Entity e = level.getEntity(getTongueEntityID());
+			Entity e = this.getTongueEntity();
 			if(!canUseTongue() || e == null || !e.isAlive()) clearTongueEntity();
 		}
 
@@ -442,9 +462,16 @@ public class ToadEntity extends Animal {
 		}
 	}
 
+	// Supposed to be used on the server-side only
 	private boolean isToadTarget(Entity entity) {
 		if (!canToadTarget((LivingEntity) entity) || !this.hasLineOfSight(entity))
 			return false;
+
+		synchronized (ToadEntity.class) {
+			if (ToadEntity.targetedEntities.contains(entity)) {
+				return false;
+			}
+		}
 
 		// xPos - 0deg, zPos = 90
 		double headingAngle = this.getYHeadRot() + 90;
@@ -463,7 +490,8 @@ public class ToadEntity extends Animal {
 			dir += 360;
 
 		double diff = dir - headingAngle;
-		return diff < 45 && diff > -45;
+		double FOV = 90;
+		return diff < FOV/2.0 && diff > -FOV/2.0;
 	}
 
 	public static Tag<Item> getToadFoodTag() {
@@ -484,5 +512,13 @@ public class ToadEntity extends Animal {
 
 	public int getSpotRange() {
 		return 5;
+	}
+
+	protected float getTongueSpeed() {
+		return 0.8F;
+	}
+
+	protected float getTongueSpeed2() {
+		return 0.4F;
 	}
 }

@@ -24,4 +24,14 @@ public class GiantToad extends ToadEntity {
 	public int getSpotRange() {
 		return 10;
 	}
+
+	@Override
+	protected float getTongueSpeed() {
+		return 1F;
+	}
+
+	@Override
+	protected float getTongueSpeed2() {
+		return 0.8F;
+	}
 }
