@@ -34,7 +34,7 @@ public class ForgeEntry {
         else
             throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");
 
-    	ForgeConfigManager.register();
+    	MobZ.initConfig();
     	DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
     	MobZ.invokeStaticFields();

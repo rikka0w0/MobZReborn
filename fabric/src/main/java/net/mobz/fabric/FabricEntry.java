@@ -2,8 +2,6 @@ package net.mobz.fabric;
 
 import com.google.common.base.Preconditions;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -16,7 +14,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.mobz.Configs;
 import net.mobz.IBiomeFilter;
 import net.mobz.MobZ;
 import net.mobz.init.LootTableModifier;
@@ -51,7 +48,7 @@ public class FabricEntry implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		// Config
-		MobZ.configs = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
+		MobZ.initConfig();
 
 		// Register items, blocks, entities
 		MobZ.invokeStaticFields();

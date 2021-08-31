@@ -1,5 +1,7 @@
 package net.mobz;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +18,6 @@ public class MobZ {
 	public static final String MODID = "mobz";
 
 	// Configs
-	// To be assigned by either ForgeConfigManager or AutoConfig
 	public static Configs configs = null;
 
 	// ItemGroup
@@ -39,5 +40,9 @@ public class MobZ {
     	MobZWeapons.BossSword.getClass();
     	MobZSounds.MEDIVEALSOUNDEVENT.getClass();
     	MobZIcons.BOSSHEAD.getClass();
+	}
+
+	public static void initConfig() {
+		MobZ.configs = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
 	}
 }
