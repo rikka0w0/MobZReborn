@@ -192,7 +192,6 @@
     "itemGroup.mobz.glomodegg": "MobZ Spawn Eggs",
 
     "text.autoconfig.mobz.title": "MobZ Config",
-    "text.autoconfig.mobz.category.default": "MobZ Settings",
     "text.autoconfig.mobz.category.spawnsetting": "Spawn Settings",
     "text.autoconfig.mobz.category.lifesetting": "Life Settings",
     "text.autoconfig.mobz.category.damagesetting": "Attack Damage Settings",
@@ -213,6 +212,7 @@
     "text.autoconfig.mobz.option.CookieCreeperSpawn": "Cookie Creeper Spawn",
     "text.autoconfig.mobz.option.DirtyBoarSpawn": "Dirty Boar Spawn",
     "text.autoconfig.mobz.option.DwarfSpawn": "Dwarf Spawn",
+    "text.autoconfig.mobz.option.DwarfSpawn_UndergroundOnly": "Only allows underground dwarf spawn",
     "text.autoconfig.mobz.option.EnderKnightSpawn": "Ender Knight Spawn",
     "text.autoconfig.mobz.option.EndermanSpawn": "Enderman Spawn",
     "text.autoconfig.mobz.option.EnderzombieSpawn": "Enderzombie Spawn",
@@ -404,6 +404,7 @@
     "text.autoconfig.mobz.option.SoulCreeperSpawn": "Soul Creeper Spawn",
     "text.autoconfig.mobz.option.SoulCreeperLife": "Soul Creeper Life Points",
     "text.autoconfig.mobz.option.SoulCreeperSpawnRate": "Soul Creeper Spawnrate",
+    "text.autoconfig.mobz.option.ToadSpawnRate": "Toad Spawnrate",
 
     "mobz.advancements.archer.title": "Bowman",
     "mobz.advancements.archer.description": "Kill the Bowman!",

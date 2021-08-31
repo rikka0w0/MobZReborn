@@ -5,16 +5,9 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
-@SuppressWarnings("unused")
 @Config(name = MobZ.MODID)
 @Config.Gui.Background("minecraft:textures/block/oak_planks.png")
 public class Configs implements ConfigData {
-	// To be assigned by either ForgeConfigManager or AutoConfig
-	public static Configs instance = null;
-
-	@ConfigEntry.BoundedDiscrete(min = 0, max = Integer.MAX_VALUE)
-	public int ToadSpawnRate = 8;
-
     @ConfigEntry.Category("spawnsetting")
     @ConfigEntry.Gui.PrefixText
     public boolean AlexSpawn = true;
@@ -426,9 +419,11 @@ public class Configs implements ConfigData {
     @ConfigEntry.Category("spawnratesetting")
     @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
     public int ZombieMageSpawnRate = 5;
+    @ConfigEntry.Category("spawnratesetting")
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+	public int ToadSpawnRate = 8;
 
     @ConfigEntry.Category("miscsetting")
     @ConfigEntry.Gui.PrefixText
     public int SpawnCountBabyRavagerBlock = 12;
-
 }

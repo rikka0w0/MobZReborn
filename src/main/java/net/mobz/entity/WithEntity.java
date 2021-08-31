@@ -32,7 +32,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -53,10 +53,10 @@ public class WithEntity extends Blaze {
    public static AttributeSupplier.Builder createWithEntityAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.WitherBlazeLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.WitherBlazeLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.WitherBlazeAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.WitherBlazeAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 48.0D);
    }
 
@@ -67,7 +67,7 @@ public class WithEntity extends Blaze {
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.WITHENTITY)
-            && Configs.instance.WitherBlazeSpawn;
+            && MobZ.configs.WitherBlazeSpawn;
 
    }
 

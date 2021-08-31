@@ -29,7 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.entity.attack.FrostballEntity;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
@@ -48,10 +48,10 @@ public class FrostEntity extends Blaze {
    public static AttributeSupplier.Builder createFrostEntityAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.FrostBlazeLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.FrostBlazeLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.FrostBlazeAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.FrostBlazeAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 48.0D);
    }
 
@@ -62,7 +62,7 @@ public class FrostEntity extends Blaze {
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FROSTENTITY)
-            && Configs.instance.FrostBlazeSpawn;
+            && MobZ.configs.FrostBlazeSpawn;
 
    }
 

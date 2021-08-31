@@ -25,7 +25,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
@@ -40,10 +40,10 @@ public class IslandKnightSpecial extends Zombie {
   public static AttributeSupplier.Builder createIslandKnightSpecialAttributes() {
     return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
-            Configs.instance.WilliamLife * Configs.instance.LifeMultiplicatorMob)
+            MobZ.configs.WilliamLife * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.32D)
         .add(Attributes.ATTACK_DAMAGE,
-            Configs.instance.WilliamAttack * Configs.instance.DamageMultiplicatorMob)
+            MobZ.configs.WilliamAttack * MobZ.configs.DamageMultiplicatorMob)
         .add(Attributes.FOLLOW_RANGE, 18.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
   }
 

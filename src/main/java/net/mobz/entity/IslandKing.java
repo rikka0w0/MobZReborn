@@ -22,7 +22,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
@@ -40,10 +40,10 @@ public class IslandKing extends Vindicator {
   public static AttributeSupplier.Builder createIslandKingAttributes() {
     return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
-            Configs.instance.KingCharlesLife * Configs.instance.LifeMultiplicatorMob)
+            MobZ.configs.KingCharlesLife * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.32D)
         .add(Attributes.ATTACK_DAMAGE,
-            Configs.instance.KingCharlesAttack * Configs.instance.DamageMultiplicatorMob)
+            MobZ.configs.KingCharlesAttack * MobZ.configs.DamageMultiplicatorMob)
         .add(Attributes.FOLLOW_RANGE, 18.0D);
   }
 

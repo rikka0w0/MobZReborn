@@ -15,7 +15,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -30,10 +30,10 @@ public class Archer2Entity extends Pillager {
     public static AttributeSupplier.Builder createArcher2EntityAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.ArcherLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.ArcherLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.345D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.ArcherAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.ArcherAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
@@ -67,7 +67,7 @@ public class Archer2Entity extends Pillager {
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.ARCHER2ENTITY)
-                && Configs.instance.ArcherSpawn;
+                && MobZ.configs.ArcherSpawn;
 
     }
 

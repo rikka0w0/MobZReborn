@@ -8,7 +8,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class EnderEntity extends EnderMan {
@@ -20,10 +20,10 @@ public class EnderEntity extends EnderMan {
     public static AttributeSupplier.Builder createEnderEntityAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.EndermanLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.EndermanLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.EndermanAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.EndermanAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 64.0D);
     }
 
@@ -44,7 +44,7 @@ public class EnderEntity extends EnderMan {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ENDER)
-                && Configs.instance.EndermanSpawn;
+                && MobZ.configs.EndermanSpawn;
 
     }
 }

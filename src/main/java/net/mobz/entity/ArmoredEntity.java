@@ -14,7 +14,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZWeapons;
 
@@ -27,10 +27,10 @@ public class ArmoredEntity extends Zombie {
    public static AttributeSupplier.Builder createArmoredEntityAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.ArmoredZombieLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.ArmoredZombieLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.ArmoredZombieAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.ArmoredZombieAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.ARMOR, 3D)
             .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
    }
@@ -75,7 +75,7 @@ public class ArmoredEntity extends Zombie {
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARMORED)
-            && Configs.instance.ArmoredZombieSpawn;
+            && MobZ.configs.ArmoredZombieSpawn;
 
    }
 

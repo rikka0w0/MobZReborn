@@ -42,7 +42,11 @@ group = project.dev_group
 
 processResources {
 	inputs.property "version", project.version
-	def props = ["version": project.version, "loader_version": project.loader_version, "fabric_version": project.fabric_version]
+	def props = [
+		"version": project.version, 
+		"loader_version": project.loader_version, 
+		"fabric_version": project.fabric_version,
+		"cloth_config_version": project.cloth_config_version]
 
 	filesMatching("fabric.mod.json") {
 		expand props
@@ -84,4 +88,11 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 jar {
 	from "LICENSE"
+}
+
+// https://github.com/FabricMC/fabric-loom/issues/452
+afterEvaluate {
+	tasks.remapJar {
+		archiveClassifier.set("fabric")
+	}
 }

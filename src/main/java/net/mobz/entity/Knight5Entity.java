@@ -18,7 +18,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
@@ -34,10 +34,10 @@ public class Knight5Entity extends Vindicator {
     public static AttributeSupplier.Builder createKnight5EntityAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.LordofDarknessLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.LordofDarknessLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.LordofDarknessAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.LordofDarknessAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 26.0D);
     }
 
@@ -89,7 +89,7 @@ public class Knight5Entity extends Vindicator {
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.KNIGHT5ENTITY)
-                && Configs.instance.LordofDarknessSpawn;
+                && MobZ.configs.LordofDarknessSpawn;
 
     }
 

@@ -24,7 +24,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class Withender extends WitherBoss {
@@ -38,7 +38,7 @@ public class Withender extends WitherBoss {
     public static AttributeSupplier.Builder createWithenderAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.WithenderLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.WithenderLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.6D).add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(Attributes.ARMOR, 4.0D);
     }
@@ -80,7 +80,7 @@ public class Withender extends WitherBoss {
     @Override
     public boolean checkSpawnObstruction(LevelReader viewableWorld_1) {
         return viewableWorld_1.isUnobstructed(this)
-                && Configs.instance.WithenderSpawn;
+                && MobZ.configs.WithenderSpawn;
 
     }
 

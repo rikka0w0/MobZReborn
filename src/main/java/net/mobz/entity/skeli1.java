@@ -11,7 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -25,7 +25,7 @@ public class skeli1 extends Skeleton {
     public static AttributeSupplier.Builder createskeli1Attributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.BossSkeletonLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.BossSkeletonLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.ARMOR, 2D);
     }
@@ -59,6 +59,6 @@ public class skeli1 extends Skeleton {
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI1)
-                && Configs.instance.BossSkeletonSpawn;
+                && MobZ.configs.BossSkeletonSpawn;
     }
 }

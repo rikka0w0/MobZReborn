@@ -15,6 +15,10 @@ import net.mobz.portable.StaticAPIWrapper;
 public class MobZ {
 	public static final String MODID = "mobz";
 
+	// Configs
+	// To be assigned by either ForgeConfigManager or AutoConfig
+	public static Configs configs = null;
+
 	// ItemGroup
 	public final static CreativeModeTab tab = StaticAPIWrapper.instance.tab(
 			new ResourceLocation(MODID, "glomod"), () -> new ItemStack(MobZBlocks.BOSS_TROPHY));

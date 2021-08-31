@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
@@ -28,10 +28,10 @@ public class skeli4 extends Skeleton {
     public static AttributeSupplier.Builder createskeli4Attributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.LostSkeletonLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.LostSkeletonLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.255D).add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.LostSkeletonAttack * Configs.instance.DamageMultiplicatorMob);
+                        MobZ.configs.LostSkeletonAttack * MobZ.configs.DamageMultiplicatorMob);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class skeli4 extends Skeleton {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI4)
-                && Configs.instance.LostSkeletonSpawn;
+                && MobZ.configs.LostSkeletonSpawn;
 
     }
 }

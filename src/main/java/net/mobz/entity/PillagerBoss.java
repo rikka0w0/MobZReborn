@@ -22,7 +22,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
@@ -42,10 +42,10 @@ public class PillagerBoss extends Pillager {
     public static AttributeSupplier.Builder createPillagerBossAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.PillagerBossLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.PillagerBossLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.PillagerBossAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.PillagerBossAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1D);
     }

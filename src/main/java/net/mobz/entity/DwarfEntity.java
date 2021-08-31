@@ -20,7 +20,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
@@ -36,10 +36,10 @@ public class DwarfEntity extends Vindicator {
     public static AttributeSupplier.Builder createDwarfEntityAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.DwarfLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.DwarfLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.DwarfAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.DwarfAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 24.0D);
     }
 
@@ -93,7 +93,7 @@ public class DwarfEntity extends Vindicator {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
 
-        if (Configs.instance.DwarfSpawn_UndergroundOnly &&
+        if (MobZ.configs.DwarfSpawn_UndergroundOnly &&
 				posentity.getY() >= view.getSeaLevel() - 10) {
         	return false;
         }
@@ -101,7 +101,7 @@ public class DwarfEntity extends Vindicator {
         return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
                         .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.DWARFENTITY)
-                && Configs.instance.DwarfSpawn;
+                && MobZ.configs.DwarfSpawn;
 
     }
 }

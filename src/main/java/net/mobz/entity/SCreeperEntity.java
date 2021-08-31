@@ -11,7 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -24,7 +24,7 @@ public class SCreeperEntity extends Creeper {
   public static AttributeSupplier.Builder createSCreeperEntityAttributes() {
     return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
-            Configs.instance.SoulCreeperLife * Configs.instance.LifeMultiplicatorMob)
+            MobZ.configs.SoulCreeperLife * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
   }
 
@@ -47,6 +47,6 @@ public class SCreeperEntity extends Creeper {
         && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SCREEPER)
         && (this.level.getBlockState(blockunderentity).is(Blocks.SOUL_SAND)
             || this.level.getBlockState(blockunderentity).is(Blocks.SOUL_SOIL))
-        && Configs.instance.SoulCreeperSpawn;
+        && MobZ.configs.SoulCreeperSpawn;
   }
 }

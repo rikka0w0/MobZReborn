@@ -24,7 +24,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -38,10 +38,10 @@ public class FullIronEntity extends Zombie {
    public static AttributeSupplier.Builder createFullIronEntityAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.SteveLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.SteveLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.26D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.SteveAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.SteveAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
    }
 
@@ -57,7 +57,7 @@ public class FullIronEntity extends Zombie {
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
                   .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FULLIRONENTITY)
-            && Configs.instance.SteveSpawn;
+            && MobZ.configs.SteveSpawn;
 
    }
 

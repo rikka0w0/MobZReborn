@@ -24,7 +24,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
@@ -39,10 +39,10 @@ public class IceGolem extends IronGolem {
     public static AttributeSupplier.Builder createIceGolemAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.IceGolemLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.IceGolemLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.IceGolemAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.IceGolemAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
     }
@@ -68,7 +68,7 @@ public class IceGolem extends IronGolem {
                 && this.level.isDay() && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.ICEGOLEM)
-                && Configs.instance.IceGolemSpawn;
+                && MobZ.configs.IceGolemSpawn;
 
     }
 

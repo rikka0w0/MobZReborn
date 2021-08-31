@@ -22,7 +22,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
 
@@ -103,7 +103,7 @@ public class SacrificeKnife extends Item {
 
 		if (state.getBlock() == MobZBlocks.TOTEM_MIDDLE) {
 			if (stateUp.getBlock() == MobZBlocks.TOTEM_TOP && stateDown.getBlock() == MobZBlocks.TOTEM_BASE) {
-				if (Configs.instance.PillagerBossSpawn) {
+				if (MobZ.configs.PillagerBossSpawn) {
 					ItemStack itemStack = context.getItemInHand();
 					int bloodCounter = getBloodCounter(itemStack);
 

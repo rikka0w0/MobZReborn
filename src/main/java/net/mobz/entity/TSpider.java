@@ -14,7 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -25,9 +25,9 @@ public class TSpider extends Spider {
 
     public static AttributeSupplier.Builder createTSpiderAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, Configs.instance.TinySpiderLife)
+                .add(Attributes.MAX_HEALTH, MobZ.configs.TinySpiderLife)
                 .add(Attributes.MOVEMENT_SPEED, 0.1D)
-                .add(Attributes.ATTACK_DAMAGE, Configs.instance.TinySpiderAttack);
+                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.TinySpiderAttack);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TSpider extends Spider {
                 && this.level.getMaxLocalRawBrightness(posentity) <= 7
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TSPIDER)
-                && Configs.instance.TinySpiderSpawn;
+                && MobZ.configs.TinySpiderSpawn;
 
     }
 

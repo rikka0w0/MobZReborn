@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -23,10 +23,10 @@ public class FastEntity extends Zombie {
     public static AttributeSupplier.Builder createFastEntityAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.SpeedyZombieLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.SpeedyZombieLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.27D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.SpeedyZombieAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.SpeedyZombieAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
     }
@@ -43,7 +43,7 @@ public class FastEntity extends Zombie {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FAST)
-                && Configs.instance.SpeedyZombieSpawn;
+                && MobZ.configs.SpeedyZombieSpawn;
 
     }
 

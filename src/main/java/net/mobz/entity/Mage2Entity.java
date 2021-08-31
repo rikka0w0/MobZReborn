@@ -41,7 +41,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class Mage2Entity extends SpellcasterIllager {
@@ -55,10 +55,10 @@ public class Mage2Entity extends SpellcasterIllager {
    public static AttributeSupplier.Builder createMage2EntityAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.ZombieMageLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.ZombieMageLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.45D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.ZombieMageAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.ZombieMageAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 20.0D);
    }
 
@@ -89,7 +89,7 @@ public class Mage2Entity extends SpellcasterIllager {
       return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGE2ENTITY)
-            && Configs.instance.ZombieMageSpawn;
+            && MobZ.configs.ZombieMageSpawn;
 
    }
 

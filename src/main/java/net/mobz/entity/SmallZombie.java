@@ -10,7 +10,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class SmallZombie extends Zombie {
@@ -22,9 +22,9 @@ public class SmallZombie extends Zombie {
 
     public static AttributeSupplier.Builder createSmallZombieAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 6D * Configs.instance.LifeMultiplicatorMob)
+                .add(Attributes.MAX_HEALTH, 6D * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
-                .add(Attributes.ATTACK_DAMAGE, 3D * Configs.instance.DamageMultiplicatorMob)
+                .add(Attributes.ATTACK_DAMAGE, 3D * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 15.0D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
     }

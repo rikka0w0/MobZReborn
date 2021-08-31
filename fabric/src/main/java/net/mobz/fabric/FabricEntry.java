@@ -51,7 +51,7 @@ public class FabricEntry implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		// Config
-		Configs.instance = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
+		MobZ.configs = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
 
 		// Register items, blocks, entities
 		MobZ.invokeStaticFields();

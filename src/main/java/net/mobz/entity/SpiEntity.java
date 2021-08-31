@@ -14,7 +14,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class SpiEntity extends Spider {
@@ -25,9 +25,9 @@ public class SpiEntity extends Spider {
     public static AttributeSupplier.Builder createSpiEntityAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.BlueSpiderLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.BlueSpiderLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.31D).add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.BlueSpiderAttack * Configs.instance.DamageMultiplicatorMob);
+                        MobZ.configs.BlueSpiderAttack * MobZ.configs.DamageMultiplicatorMob);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SpiEntity extends Spider {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SPI)
-                && Configs.instance.BlueSpiderSpawn;
+                && MobZ.configs.BlueSpiderSpawn;
 
     }
 }

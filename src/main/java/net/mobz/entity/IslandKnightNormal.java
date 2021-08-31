@@ -17,7 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
 
@@ -30,10 +30,10 @@ public class IslandKnightNormal extends Vindicator {
   public static AttributeSupplier.Builder createIslandKnightNormalAttributes() {
     return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
-            Configs.instance.IslandKnightLife * Configs.instance.LifeMultiplicatorMob)
+            MobZ.configs.IslandKnightLife * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.32D)
         .add(Attributes.ATTACK_DAMAGE,
-            Configs.instance.IslandKnightAttack * Configs.instance.DamageMultiplicatorMob)
+            MobZ.configs.IslandKnightAttack * MobZ.configs.DamageMultiplicatorMob)
         .add(Attributes.FOLLOW_RANGE, 18.0D);
   }
 

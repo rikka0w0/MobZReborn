@@ -8,7 +8,7 @@ import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class skeli2 extends Skeleton {
@@ -20,7 +20,7 @@ public class skeli2 extends Skeleton {
     public static AttributeSupplier.Builder createskeli2Attributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.OvergrownSkeletonLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.OvergrownSkeletonLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D);
     }
 
@@ -31,7 +31,7 @@ public class skeli2 extends Skeleton {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI2)
-                && Configs.instance.OvergrownSkeletonSpawn;
+                && MobZ.configs.OvergrownSkeletonSpawn;
 
     }
 

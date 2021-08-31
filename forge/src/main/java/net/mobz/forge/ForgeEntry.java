@@ -4,12 +4,14 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.mobz.ILootTableAdder;
@@ -33,6 +35,7 @@ public class ForgeEntry {
             throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");
 
     	ForgeConfigManager.register();
+    	DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
     	MobZ.invokeStaticFields();
     	MobSpawnRestrictions.applyAll(SpawnPlacements::register);
