@@ -62,6 +62,7 @@ import net.mobz.entity.TadpoleEntity;
 import net.mobz.entity.TankEntity;
 import net.mobz.entity.TestEntity;
 import net.mobz.entity.ToadEntity;
+import net.mobz.entity.Wasp;
 import net.mobz.entity.WithEntity;
 import net.mobz.entity.Withender;
 import net.mobz.entity.skeli1;
@@ -285,6 +286,10 @@ public class MobZEntities {
 	public static final EntityType<GiantToad> TOAD_GIANT = register(EntityType.Builder
 			.of(GiantToad::new, MobCategory.CREATURE)
 			.sized(3.2F, 2.4F).clientTrackingRange(12), "toad_giant", ToadEntity::createEntityAttributes, 0x4b8252, 0x614d33);
+
+	public static final EntityType<Wasp> WASP = register(EntityType.Builder
+			.of(Wasp::new, MobCategory.CREATURE)
+			.sized(0.7F, 0.6F).clientTrackingRange(12), "wasp", Wasp::createAttributes, 0x4b8252, 0x614d33);
 
 	private static <T extends Entity> EntityType<T> register(EntityType.Builder<T> entityTypeBuilder, String name) {
 		EntityType<T> entityType = entityTypeBuilder.build(name);
