@@ -1,5 +1,5 @@
 # MobZ (Reborn)
-A port of Globox1997's MobZ, for Minecraft 1.16.5 and 1.7.1, Forge and Fabric.
+A port of [Globox1997's MobZ](https://www.curseforge.com/minecraft/mc-mods/mobz), for Minecraft 1.16.5 and 1.7.1, Forge and Fabric.
 
 1.16.5 only has the Forge version, for 1.16.5 Fabric version, check out [the original MobZ](https://github.com/Globox1997/MobZ).
 
@@ -7,12 +7,11 @@ This mod adds vanilla style mobs, blocks and items.
 
 ## Dependencies
 ### Forge Version
-You only need to install Forge and then install this mod. [Configured](https://www.curseforge.com/minecraft/mc-mods/configured)
-is highly recommended, it enables graphically configuration.
+Since 3.2.0 for Minecraft 1.17.1, the Forge version also depends on [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config-forge).
 
 ### Fabric Version
 You need to install Fabric Loader, [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api),
-[Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config) and then install this mod.
+[Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config) together with this mod.
 [Mod menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) is highly recommended.
 For version requirements, check out the release page of this repo.
 
@@ -23,7 +22,7 @@ If the forge part cannot be imported into Eclipse, please copy `gradlew`, `gradl
 
 Windows users need to replace `./` and `../` with `.\` and `..\` respectively.
 
-Since 1.17.1, MobZ (Reborn) for Fabric and Forge share common code as much as possible. The entire code base uses Minecraft official mapping.
+Since 1.17.1, MobZ (Reborn) for Fabric and Forge share the common code base as much as possible. The entire code base uses Minecraft official mapping.
 
 Intellij IDEA is also supported.
 
@@ -45,3 +44,5 @@ cd MobZReborn/forge
 ```
 ./gradlew -Dorg.gradle.java.home=/path_to_jdk_directory <commands>
 ```
+
+__Special thanks to Globox1997 who originally made this fantastic mod__
