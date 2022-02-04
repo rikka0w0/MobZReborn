@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "overrides": {
+    "mobz": {
+      "-depends": {
+        "minecraft": "IGNORED",
+        "fabricloader": "IGNORED",
+        "fabric": "IGNORED",
+        "cloth-config2": "IGNORED",
+        "fabricshieldlib": "IGNORED"
+      }
+    }
+  }
+} 

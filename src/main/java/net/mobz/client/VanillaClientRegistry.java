@@ -133,5 +133,8 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
+		
+		itemProperties.register(MobZItems.SHIELD, new ResourceLocation("blocking"), (itemStack, world, entity, seed) -> 
+			entity != null && entity.isUsingItem() && entity.getUseItem() == itemStack ? 1.0F : 0.0F);
 	}
 }

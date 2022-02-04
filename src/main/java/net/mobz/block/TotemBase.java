@@ -22,8 +22,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.TickPriority;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.server.level.ServerLevel;
 import net.mobz.entity.PillagerBoss;
 import net.mobz.init.MobZEntities;
@@ -64,7 +64,7 @@ public class TotemBase extends Block {
 
 	public void trigger(Level world, BlockPos pos) {
 		world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(TotemBase.ENABLED, true));
-		world.getBlockTicks().scheduleTick(pos, this, 100, TickPriority.HIGH);
+		world.scheduleTick(pos, this, 100, TickPriority.HIGH);
 	}
 
 	@Override

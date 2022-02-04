@@ -4,7 +4,7 @@
   "package": "net.mobz.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "PlayerEntityMixin"
+    "MetalShieldMixin"
   ],
   "client": [],
   "injectors": {

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)" #mandatory
+loaderVersion="[@fml_version@,)" #mandatory
 issueTrackerURL="https://github.com/rikka0w0/MobZReborn/issues" #optional
 license="MIT License"
 
@@ -26,7 +26,7 @@ Original: https://github.com/Globox1997/MobZ
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[37,)" #mandatory
+    versionRange="[@forge_version@,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -35,13 +35,13 @@ Original: https://github.com/Globox1997/MobZ
 [[dependencies.mobz]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.17.1,)"
+    versionRange="[@minecraft_version_min@,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.mobz]]
     modId = "cloth_config"
     mandatory=true
-    versionRange="[5.0.38,)"
+    versionRange="[@cloth_config_version@,)"
     ordering="NONE"
     side="BOTH"

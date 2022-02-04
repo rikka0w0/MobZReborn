@@ -5,7 +5,8 @@
   "name": "MobZ",
   "description": "More vanilla style mobs",
   "authors": [
-    "Globox_Z"
+    "Globox_Z",
+    "Rikka0w0"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/mobz",
@@ -30,10 +31,11 @@
     "mobz.mixins.json"
   ],
   "depends": {
+    "minecraft": ">=${minecraft_version_min}",
     "fabricloader": ">=${loader_version}",
     "fabric": ">=${fabric_version}",
     "cloth-config2": ">=${cloth_config_version}",
-    "minecraft": "1.17.x"
+    "fabricshieldlib": ">=${fabric_shield_lib_version}"
   },
   "suggests": {
     "flamingo": "*"
