@@ -7,12 +7,17 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
     }
 }
+
+repositories {
+    maven { url = 'https://maven.shedaniel.me/' }
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '3.0.1'
+version = '3.0.2'
 group = 'net.mobz' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'MobZReborn'
 
@@ -150,7 +155,7 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:4.13.49")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

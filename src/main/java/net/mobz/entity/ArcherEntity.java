@@ -25,7 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -39,10 +39,10 @@ public class ArcherEntity extends PillagerEntity {
     public static AttributeModifierMap.MutableAttribute createArcherEntityAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.BowmanLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.BowmanLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.33D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.BowmanAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.BowmanAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 34.0D);
     }
 
@@ -103,7 +103,7 @@ public class ArcherEntity extends PillagerEntity {
         return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
                         .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARCHERENTITY)
-                && Configs.instance.BowmanSpawn;
+                && MobZ.configs.BowmanSpawn;
 
     }
 

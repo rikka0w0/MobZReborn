@@ -9,7 +9,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -23,10 +23,10 @@ public class Illusioner extends net.minecraft.entity.monster.IllusionerEntity {
    public static AttributeModifierMap.MutableAttribute createAttributes() {
       return MonsterEntity.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.IllusionerLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.IllusionerLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.4D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.IllusionerAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.IllusionerAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 24.0D);
    }
 
@@ -52,7 +52,7 @@ public class Illusioner extends net.minecraft.entity.monster.IllusionerEntity {
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox()) && this.level.isDay()
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ILLUSIONER)
-            && Configs.instance.IllusionerSpawn;
+            && MobZ.configs.IllusionerSpawn;
 
    }
 }

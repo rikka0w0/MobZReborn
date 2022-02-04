@@ -29,7 +29,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
@@ -44,10 +44,10 @@ public class MetalGolem extends IronGolemEntity {
   public static AttributeModifierMap.MutableAttribute createMetalGolemAttributes() {
     return MobEntity.createMobAttributes()
         .add(Attributes.MAX_HEALTH,
-            Configs.instance.MetalGolemLife * Configs.instance.LifeMultiplicatorMob)
+            MobZ.configs.MetalGolemLife * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
         .add(Attributes.ATTACK_DAMAGE,
-            Configs.instance.MetalGolemAttack * Configs.instance.DamageMultiplicatorMob);
+            MobZ.configs.MetalGolemAttack * MobZ.configs.DamageMultiplicatorMob);
   }
 
   @Override
@@ -107,7 +107,7 @@ public class MetalGolem extends IronGolemEntity {
 
   @Override
   public boolean checkSpawnObstruction(IWorldReader view) {
-    return Configs.instance.MetalGolemSpawn;
+    return MobZ.configs.MetalGolemSpawn;
   }
 
   @Override

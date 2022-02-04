@@ -23,7 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
@@ -38,10 +38,10 @@ public class LavaGolem extends IronGolemEntity {
    public static AttributeModifierMap.MutableAttribute createLavaGolemAttributes() {
       return MonsterEntity.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.LavaGolemLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.LavaGolemLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.25D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.LavaGolemAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.LavaGolemAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 30.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
    }
 
@@ -95,7 +95,7 @@ public class LavaGolem extends IronGolemEntity {
             && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.LAVAGOLEM)
-            && Configs.instance.LavaGolemSpawn;
+            && MobZ.configs.LavaGolemSpawn;
 
    }
 

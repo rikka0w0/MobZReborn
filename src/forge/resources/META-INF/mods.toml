@@ -38,3 +38,10 @@ Original: https://github.com/Globox1997/MobZ
     versionRange="[1.16.2,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.mobz]]
+    modId = "cloth-config"
+    mandatory=true
+    versionRange="[4.13.49,)"
+    ordering="NONE"
+    side="BOTH"

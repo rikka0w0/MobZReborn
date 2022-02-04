@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -22,10 +22,10 @@ public class EnderZombieEntity extends ZombieEntity {
     public static AttributeModifierMap.MutableAttribute createEnderZombieEntityAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.EnderzombieLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.EnderzombieLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.EnderzombieAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.EnderzombieAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.ARMOR, 2D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
@@ -59,7 +59,7 @@ public class EnderZombieEntity extends ZombieEntity {
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.ENDERZOMBIE)
-                && Configs.instance.EnderzombieSpawn;
+                && MobZ.configs.EnderzombieSpawn;
 
     }
 

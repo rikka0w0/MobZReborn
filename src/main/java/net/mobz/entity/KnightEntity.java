@@ -27,7 +27,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
@@ -43,10 +43,10 @@ public class KnightEntity extends ZombieEntity {
     public static AttributeModifierMap.MutableAttribute createKnightEntityAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.TemplarLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.TemplarLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.TemplarAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.TemplarAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
     }
@@ -117,7 +117,7 @@ public class KnightEntity extends ZombieEntity {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox()) && this.level.isDay()
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
                         .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.KNIGHTENTITY)
-                && Configs.instance.TemplarSpawn;
+                && MobZ.configs.TemplarSpawn;
 
     }
 

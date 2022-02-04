@@ -11,7 +11,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -24,10 +24,10 @@ public class Dog extends WolfEntity {
     public static AttributeModifierMap.MutableAttribute createDogAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.NetherWolfLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.NetherWolfLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.NetherWolfAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.NetherWolfAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
@@ -59,7 +59,7 @@ public class Dog extends WolfEntity {
                 && this.level.getMaxLocalRawBrightness(posentity) <= 10
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.DOG)
-                && Configs.instance.NetherWolfSpawn;
+                && MobZ.configs.NetherWolfSpawn;
 
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class Slimo extends SlimeEntity {
@@ -31,7 +31,7 @@ public class Slimo extends SlimeEntity {
         return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SLIMO)
-                && Configs.instance.GrassSlimeSpawn;
+                && MobZ.configs.GrassSlimeSpawn;
 
     }
 

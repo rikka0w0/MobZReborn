@@ -12,7 +12,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -25,7 +25,7 @@ public class skeli3 extends SkeletonEntity {
     public static AttributeModifierMap.MutableAttribute createskeli3Attributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.NetherSkeletonLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.NetherSkeletonLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D).add(Attributes.FOLLOW_RANGE, 30.0D);
     }
 
@@ -63,7 +63,7 @@ public class skeli3 extends SkeletonEntity {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI3)
-                && Configs.instance.NetherSkeletonSpawn;
+                && MobZ.configs.NetherSkeletonSpawn;
 
     }
 

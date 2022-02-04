@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
@@ -32,10 +32,10 @@ public class BossEntity extends ZombieEntity {
     public static AttributeModifierMap.MutableAttribute createBossEntityAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.BossZombieLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.BossZombieLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.21D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.BossZombieAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.BossZombieAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 36.0D).add(Attributes.ARMOR, -4D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1D)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
@@ -95,7 +95,7 @@ public class BossEntity extends ZombieEntity {
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.BOSS)
-                && Configs.instance.BossZombieSpawn;
+                && MobZ.configs.BossZombieSpawn;
     }
 
     @Override

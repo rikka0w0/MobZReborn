@@ -8,7 +8,7 @@ import net.minecraft.entity.monster.CaveSpiderEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 
 public class SpiSmall extends CaveSpiderEntity {
 
@@ -21,9 +21,9 @@ public class SpiSmall extends CaveSpiderEntity {
 
     public static AttributeModifierMap.MutableAttribute createSpiSmallAttributes() {
         return MonsterEntity.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 5D * Configs.instance.LifeMultiplicatorMob)
+                .add(Attributes.MAX_HEALTH, 5D * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
-                .add(Attributes.ATTACK_DAMAGE, 3D * Configs.instance.DamageMultiplicatorMob)
+                .add(Attributes.ATTACK_DAMAGE, 3D * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 15.0D);
     }
 

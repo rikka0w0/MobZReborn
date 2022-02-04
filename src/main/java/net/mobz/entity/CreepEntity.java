@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -23,7 +23,7 @@ public class CreepEntity extends CreeperEntity {
    public static AttributeModifierMap.MutableAttribute createCreepEntityAttributes() {
       return MonsterEntity.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.FrostCreeperLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.FrostCreeperLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
    }
 
@@ -44,7 +44,7 @@ public class CreepEntity extends CreeperEntity {
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.CREEP)
-            && Configs.instance.FrostCreeperSpawn;
+            && MobZ.configs.FrostCreeperSpawn;
 
    }
 }

@@ -8,7 +8,7 @@ import net.mobz.item.SacrificeKnife;
 public class VanillaClientRegistry {
 	public static void registerItemModelProperties() {
 		// Ref: https://mcreator.net/forum/74855/tutorial-how-animate-custom-bow-pulling-116
-		ItemModelsProperties.register(MobZItems.SBOW, new ResourceLocation("pull"), 
+		ItemModelsProperties.register(MobZItems.SBOW, new ResourceLocation("pull"),
 				(itemstack, world, entity) -> {
 					if (entity == null) {
 						return 0.0F;
@@ -133,5 +133,8 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
+
+		ItemModelsProperties.register(MobZItems.SHIELD, new ResourceLocation("blocking"), (itemStack, world, entity) ->
+			entity != null && entity.isUsingItem() && entity.getUseItem() == itemStack ? 1.0F : 0.0F);
 	}
 }

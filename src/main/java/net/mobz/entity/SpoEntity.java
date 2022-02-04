@@ -14,7 +14,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class SpoEntity extends SpiderEntity {
@@ -25,9 +25,9 @@ public class SpoEntity extends SpiderEntity {
     public static AttributeModifierMap.MutableAttribute createSpoEntityAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.PurpleSpiderLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.PurpleSpiderLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.31D).add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.PurpleSpiderAttack * Configs.instance.DamageMultiplicatorMob);
+                        MobZ.configs.PurpleSpiderAttack * MobZ.configs.DamageMultiplicatorMob);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SpoEntity extends SpiderEntity {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SPO)
-                && Configs.instance.PurpleSpiderSpawn;
+                && MobZ.configs.PurpleSpiderSpawn;
 
     }
 

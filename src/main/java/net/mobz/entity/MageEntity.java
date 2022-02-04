@@ -40,7 +40,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -55,10 +55,10 @@ public class MageEntity extends SpellcastingIllagerEntity {
    public static AttributeModifierMap.MutableAttribute createMageEntityAttributes() {
       return MonsterEntity.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  Configs.instance.SpiderMageLife * Configs.instance.LifeMultiplicatorMob)
+                  MobZ.configs.SpiderMageLife * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.45D)
             .add(Attributes.ATTACK_DAMAGE,
-                  Configs.instance.SpiderMageAttack * Configs.instance.DamageMultiplicatorMob)
+                  MobZ.configs.SpiderMageAttack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 20.0D);
    }
 
@@ -94,7 +94,7 @@ public class MageEntity extends SpellcastingIllagerEntity {
       return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGEENTITY)
-            && Configs.instance.SpiderMageSpawn;
+            && MobZ.configs.SpiderMageSpawn;
 
    }
 

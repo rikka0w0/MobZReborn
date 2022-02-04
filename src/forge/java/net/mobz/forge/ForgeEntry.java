@@ -3,11 +3,13 @@ package net.mobz.forge;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 
 import net.mobz.ILootTableAdder;
@@ -22,12 +24,13 @@ public class ForgeEntry {
 	public static ForgeRegistryWrapper regWrapper;
 
 	public ForgeEntry() {
-    	if (instance == null) 
+    	if (instance == null)
             instance = this;
         else
             throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");
 
-    	ForgeConfigManager.register();
+    	MobZ.initConfig();
+    	DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
     	regWrapper = new ForgeRegistryWrapper();
     	MobZ.registerAll(regWrapper, EntitySpawnPlacementRegistry::register);

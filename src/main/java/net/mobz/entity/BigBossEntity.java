@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -24,10 +24,10 @@ public class BigBossEntity extends ZombieEntity {
     public static AttributeModifierMap.MutableAttribute createBigBossEntityAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.BigBossLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.BigBossLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.21D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.BigBossAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.BigBossAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
@@ -71,7 +71,7 @@ public class BigBossEntity extends ZombieEntity {
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.BIGBOSSENTITY)
-                && Configs.instance.BigBossSpawn;
+                && MobZ.configs.BigBossSpawn;
 
     }
 

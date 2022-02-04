@@ -24,7 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
@@ -38,10 +38,10 @@ public class StoneGolem extends IronGolemEntity {
     public static AttributeModifierMap.MutableAttribute createStoneGolemAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        Configs.instance.StoneGolemLife * Configs.instance.LifeMultiplicatorMob)
+                        MobZ.configs.StoneGolemLife * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        Configs.instance.StoneGolemAttack * Configs.instance.DamageMultiplicatorMob)
+                        MobZ.configs.StoneGolemAttack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.9D);
     }
@@ -98,7 +98,7 @@ public class StoneGolem extends IronGolemEntity {
                 && this.level.isDay() && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.STONEGOLEM)
-                && Configs.instance.StoneGolemSpawn;
+                && MobZ.configs.StoneGolemSpawn;
 
     }
 }

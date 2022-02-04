@@ -8,7 +8,7 @@ import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.mobz.Configs;
+import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class BabyravagerEntity extends RavagerEntity {
@@ -20,10 +20,10 @@ public class BabyravagerEntity extends RavagerEntity {
   public static AttributeModifierMap.MutableAttribute createBabyravagerEntityAttributes() {
     return MonsterEntity.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
-            Configs.instance.BabyRavagerLife * Configs.instance.LifeMultiplicatorMob)
+            MobZ.configs.BabyRavagerLife * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.3D)
         .add(Attributes.ATTACK_DAMAGE,
-            Configs.instance.BabyRavagerAttack * Configs.instance.DamageMultiplicatorMob)
+            MobZ.configs.BabyRavagerAttack * MobZ.configs.DamageMultiplicatorMob)
         .add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ARMOR, 1.5D)
         .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D).add(Attributes.ATTACK_KNOCKBACK, 1.5D);
   }
