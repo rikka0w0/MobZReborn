@@ -7,7 +7,7 @@ This mod adds vanilla style mobs, blocks and items.
 
 ## Dependencies
 ### Forge Version
-Since 3.2.0 for Minecraft 1.17.1, the Forge version also depends on [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config-forge).
+Since 3.2.0 for Minecraft 1.17.1 (including the patched 3.0.2 for Minecraft 1.16.5), the Forge version also depends on [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config-forge).
 
 ### Fabric Version
 Since 3.3.0 for Minecraft 1.18.1, the Fabric version starts to depend on [Fabric Shield Lib](https://www.curseforge.com/minecraft/mc-mods/fabric-shield-lib). Using this library alleviates the compatibility issue with other mods that add shields.
