@@ -1,6 +1,8 @@
 package net.mobz.entity;
 
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -17,6 +19,7 @@ public class Slimo extends Slime {
 
     public Slimo(EntityType<? extends Slime> entityType, Level world) {
         super(entityType, world);
+        this.xpReward = 1;
     }
 
     public static AttributeSupplier.Builder createSlimoAttributes() {
@@ -50,4 +53,8 @@ public class Slimo extends Slime {
         return ParticleTypes.FALLING_HONEY;
     }
 
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        return this.getType().getDimensions();
+    }
 }
