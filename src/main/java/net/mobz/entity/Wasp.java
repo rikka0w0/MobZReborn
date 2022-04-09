@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
@@ -395,7 +396,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	protected void jumpInLiquid(Tag<Fluid> p_27825_) {
+	protected void jumpInLiquid(TagKey<Fluid> p_27825_) {
 		this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
 	}
 

@@ -15,6 +15,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -427,7 +428,7 @@ public class ToadEntity extends Animal {
 			super.tick();
 
 			BlockPos blockPos = this.mob.blockPosition();
-			if(getMoveToTarget().closerThan(toad.position(), 2F))
+			if(getMoveToTarget().closerToCenterThan(toad.position(), 2.0D))
 			{
 				getNavigation().moveTo(blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F, 1F);
 			}
@@ -494,12 +495,12 @@ public class ToadEntity extends Animal {
 		return diff < FOV/2.0 && diff > -FOV/2.0;
 	}
 
-	public static Tag<Item> getToadFoodTag() {
-		return ItemTags.getAllTags().getTagOrEmpty(MobZ.TOAD_FOOD);
+	public static TagKey<Item> getToadFoodTag() {
+		return MobZ.TOAD_FOOD_TAG;
 	}
 
 	public boolean canToadTarget(LivingEntity entity) {
-		return EntityTypeTags.getAllTags().getTagOrEmpty(MobZ.TOAD_TARGET).contains(entity.getType());
+		return entity.getType().is(MobZ.TOAD_TARGET_TAG);
 	}
 
 	public void attackVictim(LivingEntity victim) {

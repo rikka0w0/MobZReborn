@@ -11,6 +11,7 @@ import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
@@ -41,7 +42,7 @@ public class FabricEntry implements ModInitializer {
 		Preconditions.checkState(id != Registry.ENTITY_TYPE.getDefaultKey(), "Unregistered entity type: %s", spawns.type);
 
 		BiomeModifications.create(id).add(ModificationPhase.ADDITIONS,
-				context -> biomeFilter.accept(context.getBiome().getBiomeCategory()),
+				context -> biomeFilter.accept(Biome.getBiomeCategory(context.getBiomeRegistryEntry())),
 				context -> context.getSpawnSettings().addSpawn(spawnGroup, spawns));
 	}
 
