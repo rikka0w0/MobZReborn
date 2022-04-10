@@ -41,7 +41,6 @@ import net.mobz.entity.IslandKnightSpecial2;
 import net.mobz.entity.IslandVexEntity;
 import net.mobz.entity.Knight2Entity;
 import net.mobz.entity.Knight3Entity;
-import net.mobz.entity.Knight4Entity;
 import net.mobz.entity.Knight5Entity;
 import net.mobz.entity.KnightEntity;
 import net.mobz.entity.LavaGolem;
@@ -203,18 +202,18 @@ public class MobZEntities {
 	public static final EntityType<Boar3> BOAR3 = register(EntityType.Builder.of(Boar3::new, MobCategory.CREATURE)
 			.clientTrackingRange(74).updateInterval(2).sized(0.9F, 0.9F), "boar3",
 			Boar3::createBoar3Attributes, 13284514, 2890508);
-	public static final EntityType<FriendEntity> FRIEND = register(EntityType.Builder
-			.of(FriendEntity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F), "friend",
-			FriendEntity::createFriendEntityAttributes, 5132380, 7164237);
+	public static final EntityType<FriendEntity.KatherineEntity> KATHERINE = register(EntityType.Builder
+			.of(FriendEntity.KatherineEntity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
+			.sized(0.6F, 1.99F), "katherine",
+			FriendEntity.KatherineEntity::createFriendEntityAttributes, 5132380, 7164237);
 	public static final EntityType<Knight3Entity> KNIGHT3ENTITY = register(EntityType.Builder
 			.of(Knight3Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F), "knight3",
 			Knight3Entity::createKnight3EntityAttributes, 1447190, 4917648);
-	public static final EntityType<Knight4Entity> KNIGHT4ENTITY = register(EntityType.Builder
-			.of(Knight4Entity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.99F), "knight4",
-			Knight4Entity::createKnight4EntityAttributes, 5308416, 16039829);
+	public static final EntityType<FriendEntity.FioraEntity> FIORA = register(EntityType.Builder
+			.of(FriendEntity.FioraEntity::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
+			.sized(0.6F, 1.99F), "fiora",
+			FriendEntity.FioraEntity::createKnight4EntityAttributes, 5308416, 16039829);
 	public static final EntityType<Knight5Entity> KNIGHT5ENTITY = register(EntityType.Builder
 			.of(Knight5Entity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F), "knight5",

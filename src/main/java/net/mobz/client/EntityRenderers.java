@@ -48,9 +48,9 @@ public class EntityRenderers {
 		registry.register(MobZEntities.BOAR, BoarRenderer::new);
 		registry.register(MobZEntities.BOAR2, Boar2Renderer::new);
 		registry.register(MobZEntities.BOAR3, Boar3Renderer::new);
-		registry.register(MobZEntities.FRIEND, FriendRenderer::new);
+		registry.register(MobZEntities.KATHERINE, FriendRenderer.KatherineRenderer::new);
 		registry.register(MobZEntities.KNIGHT3ENTITY, Knight3Renderer::new);
-		registry.register(MobZEntities.KNIGHT4ENTITY, Knight4Renderer::new);
+		registry.register(MobZEntities.FIORA, FriendRenderer.FioraRenderer::new);
 		registry.register(MobZEntities.KNIGHT5ENTITY, Knight5Renderer::new);
 		registry.register(MobZEntities.WITHENTITY, WithRenderer::new);
 		registry.register(MobZEntities.SKELI4, skeli4renderer::new);

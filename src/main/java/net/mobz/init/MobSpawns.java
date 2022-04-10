@@ -69,16 +69,16 @@ public class MobSpawns {
 					MobZEntities.BROWNBEAR, MobZ.configs.BrownBearSpawnRate, 2, 3));
 		}
 		if (MobZ.configs.AlexSpawn) {
-			spawnAdder.register(biomeSelector, MobZEntities.FRIEND.getCategory(),
-					new MobSpawnSettings.SpawnerData(MobZEntities.FRIEND, MobZ.configs.AlexSpawnRate, 1, 1));
+			spawnAdder.register(biomeSelector, MobZEntities.KATHERINE.getCategory(),
+					new MobSpawnSettings.SpawnerData(MobZEntities.KATHERINE, MobZ.configs.AlexSpawnRate, 1, 1));
 		}
 		if (MobZ.configs.GoldenChickenSpawn) {
 			spawnAdder.register(biomeSelector, MobZEntities.GCHICKEN.getCategory(), new MobSpawnSettings.SpawnerData(
 					MobZEntities.GCHICKEN, MobZ.configs.GoldenChickenSpawnRate, 1, 2));
 		}
 		if (MobZ.configs.FioraSpawn) {
-			spawnAdder.register(biomeSelector, MobZEntities.KNIGHT4ENTITY.getCategory(), new MobSpawnSettings.SpawnerData(
-					MobZEntities.KNIGHT4ENTITY, MobZ.configs.FioraSpawnRate, 1, 1));
+			spawnAdder.register(biomeSelector, MobZEntities.FIORA.getCategory(), new MobSpawnSettings.SpawnerData(
+					MobZEntities.FIORA, MobZ.configs.FioraSpawnRate, 1, 1));
 		}
 
 

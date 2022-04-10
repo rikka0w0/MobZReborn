@@ -55,7 +55,7 @@ public class MobSpawnRestrictions {
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.KNIGHT3ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
-		w.register(MobZEntities.KNIGHT4ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		w.register(MobZEntities.FIORA, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.KNIGHT5ENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
@@ -91,7 +91,7 @@ public class MobSpawnRestrictions {
 				Animal::checkAnimalSpawnRules);
 		w.register(MobZEntities.BOAR3, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Animal::checkAnimalSpawnRules);
-		w.register(MobZEntities.FRIEND, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		w.register(MobZEntities.KATHERINE, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				AgeableMob::checkMobSpawnRules);
 		w.register(MobZEntities.WITHENTITY, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);

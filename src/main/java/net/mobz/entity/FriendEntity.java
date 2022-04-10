@@ -46,11 +46,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
-import net.mobz.init.MobZEntities;
+import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
-public class FriendEntity extends TamableAnimal implements NeutralMob {
+public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     public static final Predicate<LivingEntity> FOLLOW_TAMED_PREDICATE;
 
     public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
@@ -77,11 +77,6 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
                 new NonTameRandomTargetGoal<>(this, Animal.class, false, FOLLOW_TAMED_PREDICATE));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
-    }
-
-    public static AttributeSupplier.Builder createFriendEntityAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D)
-                .add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
     @Override
@@ -139,14 +134,6 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
     @Override
     public void setTame(boolean tamed) {
         super.setTame(tamed);
-        if (tamed) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
-            this.setHealth(20.0F);
-        } else {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-        }
-
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
     }
 
     @Override
@@ -155,7 +142,7 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
         Item item = itemStack.getItem();
         if (this.level.isClientSide) {
             boolean bl = this.isOwnedBy(player) || this.isTame()
-                    || item == Items.BONE && !this.isTame() && !this.isAngry();
+                    || isTameItem(itemStack) && !this.isTame() && !this.isAngry();
             return bl ? InteractionResult.CONSUME : InteractionResult.PASS;
         } else {
             if (this.isTame()) {
@@ -168,12 +155,12 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
                     return InteractionResult.SUCCESS;
                 }
 
-                if (itemStack.sameItemStackIgnoreDurability(new ItemStack(Items.SHIELD))) {
-                    this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-                    return InteractionResult.SUCCESS;
+                if (this.canEquipItemFromPlayer(itemStack)) {
+                	ItemStack newStack = itemStack.copy();
+                	this.setItemSlot(EquipmentSlot.OFFHAND, newStack);
+                	return InteractionResult.SUCCESS;
                 }
-
-            } else if (item == Items.GOLD_NUGGET && !this.isAngry()) {
+            } else if (isTameItem(itemStack) && !this.isAngry()) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
                 }
@@ -197,7 +184,7 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
 
     @Override
 	public FriendEntity getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        FriendEntity FriendEntity = (FriendEntity) MobZEntities.FRIEND.create(this.level);
+        FriendEntity FriendEntity = (FriendEntity) this.getType().create(this.level);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {
             FriendEntity.setOwnerUUID(uUID);
@@ -269,4 +256,64 @@ public class FriendEntity extends TamableAnimal implements NeutralMob {
 
     }
 
+    protected abstract boolean isTameItem(ItemStack stack);
+    
+    protected abstract boolean canEquipItemFromPlayer(ItemStack stack);
+    
+	// Friend = Katherine
+	public static class KatherineEntity extends FriendEntity {
+		public KatherineEntity(EntityType<? extends KatherineEntity> entityType, Level world) {
+			super(entityType, world);
+		}
+
+		public static AttributeSupplier.Builder createFriendEntityAttributes() {
+			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
+					.add(Attributes.ATTACK_DAMAGE, 5.0D);
+		}
+		
+	    @Override
+	    public void setTame(boolean tamed) {
+	        super.setTame(tamed);
+	        if (tamed) {
+	            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
+	            this.setHealth(20.0F);
+	        } else {
+	            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+	        }
+
+	        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+	    }
+
+		@Override
+		protected boolean isTameItem(ItemStack stack) {
+			return stack.is(Items.GOLD_NUGGET);
+		}
+
+		@Override
+		protected boolean canEquipItemFromPlayer(ItemStack stack) {
+			return stack.is(MobZ.KATHERINE_EQUIP_TAG);
+		}
+	}
+
+	// Knight4 = Fiora
+	public static class FioraEntity extends FriendEntity {
+		public FioraEntity(EntityType<? extends FioraEntity> entityType, Level level) {
+			super(entityType, level);
+		}
+
+		public static AttributeSupplier.Builder createKnight4EntityAttributes() {
+			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
+					.add(Attributes.ATTACK_DAMAGE, 5.0D);
+		}
+
+		@Override
+		protected boolean isTameItem(ItemStack stack) {
+			return stack.is(Items.GOLD_NUGGET);
+		}
+
+		@Override
+		protected boolean canEquipItemFromPlayer(ItemStack stack) {
+			return stack.is(MobZ.FIORA_EQUIP_TAG);
+		}
+	}
 }
