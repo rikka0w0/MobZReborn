@@ -11,7 +11,6 @@ public class EntityRenderers {
 	public static void registerAll(IEntityRendererRegisterWrapper registry) {
 		registry.register(MobZEntities.TANK, TankRenderer::new);
 		registry.register(MobZEntities.FAST, FastRenderer::new);
-		registry.register(MobZEntities.TEST, TestRenderer::new);
 		registry.register(MobZEntities.ARMORED, ArmoredRenderer::new);
 		registry.register(MobZEntities.BOSS, BossRenderer::new);
 		registry.register(MobZEntities.CREEP, CreepRenderer::new);

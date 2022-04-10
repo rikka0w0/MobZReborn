@@ -60,7 +60,6 @@ import net.mobz.entity.StoneGolem;
 import net.mobz.entity.TSpider;
 import net.mobz.entity.TadpoleEntity;
 import net.mobz.entity.TankEntity;
-import net.mobz.entity.TestEntity;
 import net.mobz.entity.ToadEntity;
 import net.mobz.entity.Wasp;
 import net.mobz.entity.WithEntity;
@@ -80,9 +79,6 @@ public class MobZEntities {
 	public static final EntityType<FastEntity> FAST = register(EntityType.Builder
 			.of(FastEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F), "fast", FastEntity::createFastEntityAttributes, 6109639, 2968097);
-	public static final EntityType<TestEntity> TEST = register(EntityType.Builder
-			.of(TestEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.6F, 1.95F), "test", TestEntity::createTestEntityAttributes, 2039583, 9109643);
 	public static final EntityType<ArmoredEntity> ARMORED = register(EntityType.Builder
 			.of(ArmoredEntity::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.95F), "armored", ArmoredEntity::createArmoredEntityAttributes, 1397590, 3165729);
