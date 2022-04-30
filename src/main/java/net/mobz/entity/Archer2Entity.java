@@ -50,13 +50,13 @@ public class Archer2Entity extends Pillager {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.getMaterial().isLiquid()) {
-            this.playSound(MobZSounds.LEATHERWALKEVENT, 0.15F, 1F);
+            this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
         }
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Archer2Entity extends Pillager {
         return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.ARCHER2ENTITY)
+                        MobZEntities.ARCHER2ENTITY.get())
                 && MobZ.configs.ArcherSpawn;
 
     }

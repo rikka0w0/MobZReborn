@@ -52,17 +52,17 @@ public class PigmanEntity extends Piglin {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SAYPIGEVENT;
+        return MobZSounds.SAYPIGEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.HURTPIGEVENT;
+        return MobZSounds.HURTPIGEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.DEATHPIGEVENT;
+        return MobZSounds.DEATHPIGEVENT.get();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class PigmanEntity extends Piglin {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.PIG)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.PIG.get())
                 && MobZ.configs.PigmanSpawn;
 
     }

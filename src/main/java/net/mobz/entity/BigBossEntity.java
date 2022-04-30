@@ -70,29 +70,29 @@ public class BigBossEntity extends Zombie {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.BIGBOSSENTITY)
+                        MobZEntities.BIGBOSSENTITY.get())
                 && MobZ.configs.BigBossSpawn;
 
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.AMBIENTTANKEVENT;
+        return MobZSounds.AMBIENTTANKEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.HURTTANKEVENT;
+        return MobZSounds.HURTTANKEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.DEATHTANKEVENT;
+        return MobZSounds.DEATHTANKEVENT.get();
     }
 
     @Override
     protected SoundEvent getStepSound() {
-        return MobZSounds.STEPTANKEVENT;
+        return MobZSounds.STEPTANKEVENT.get();
     }
 
 }

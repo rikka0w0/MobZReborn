@@ -32,23 +32,23 @@ public class skeli1 extends Skeleton {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SKELASAYEVENT;
+        return MobZSounds.SKELASAYEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.SKELAHURTEVENT;
+        return MobZSounds.SKELAHURTEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.SKELADEATHEVENT;
+        return MobZSounds.SKELADEATHEVENT.get();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.getMaterial().isLiquid()) {
-            this.playSound(MobZSounds.SKELASTEPEVENT, 0.15F, 1F);
+            this.playSound(MobZSounds.SKELASTEPEVENT.get(), 0.15F, 1F);
         }
     }
 
@@ -58,7 +58,7 @@ public class skeli1 extends Skeleton {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI1)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI1.get())
                 && MobZ.configs.BossSkeletonSpawn;
     }
 }

@@ -59,7 +59,7 @@ public class TankEntity extends Zombie {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TANK)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TANK.get())
                 && MobZ.configs.TankSpawn;
 
     }
@@ -75,21 +75,21 @@ public class TankEntity extends Zombie {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.AMBIENTTANKEVENT;
+        return MobZSounds.AMBIENTTANKEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.HURTTANKEVENT;
+        return MobZSounds.HURTTANKEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.DEATHTANKEVENT;
+        return MobZSounds.DEATHTANKEVENT.get();
     }
 
     protected SoundEvent getStepSound() {
-        return MobZSounds.STEPTANKEVENT;
+        return MobZSounds.STEPTANKEVENT.get();
     }
 
     @Override

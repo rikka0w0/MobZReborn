@@ -37,28 +37,28 @@ public class skeli4 extends Skeleton {
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(difficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.VSword));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.VSword.get()));
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SKELASAYEVENT;
+        return MobZSounds.SKELASAYEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.SKELAHURTEVENT;
+        return MobZSounds.SKELAHURTEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.SKELADEATHEVENT;
+        return MobZSounds.SKELADEATHEVENT.get();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.getMaterial().isLiquid()) {
-            this.playSound(MobZSounds.SKELASTEPEVENT, 0.15F, 1F);
+            this.playSound(MobZSounds.SKELASTEPEVENT.get(), 0.15F, 1F);
         }
     }
 
@@ -68,7 +68,7 @@ public class skeli4 extends Skeleton {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI4)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI4.get())
                 && MobZ.configs.LostSkeletonSpawn;
 
     }

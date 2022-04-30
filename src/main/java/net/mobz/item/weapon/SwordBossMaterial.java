@@ -32,7 +32,7 @@ public class SwordBossMaterial implements Tier {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.of(MobZItems.BOSS_INGOT);
+        return Ingredient.of(MobZItems.BOSS_INGOT.get());
     }
 
 }

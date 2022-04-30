@@ -48,6 +48,8 @@ public class FabricEntry implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		MobZ.platform = new FabricRegistryWrapper();
+
 		// Config
 		MobZ.initConfig();
 

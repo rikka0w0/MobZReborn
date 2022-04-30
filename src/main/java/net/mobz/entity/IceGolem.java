@@ -67,7 +67,7 @@ public class IceGolem extends IronGolem {
                 && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
                 && this.level.isDay() && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.ICEGOLEM)
+                        MobZEntities.ICEGOLEM.get())
                 && MobZ.configs.IceGolemSpawn;
 
     }
@@ -86,17 +86,17 @@ public class IceGolem extends IronGolem {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.GOLEMHITEVENT;
+        return MobZSounds.GOLEMHITEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.GOLEMDEATHEVENT;
+        return MobZSounds.GOLEMDEATHEVENT.get();
     }
 
     @Override
     protected void playStepSound(BlockPos blockPos_1, BlockState blockState_1) {
-        this.playSound(MobZSounds.GOLEMWALKEVENT, 1.0F, 1.0F);
+        this.playSound(MobZSounds.GOLEMWALKEVENT.get(), 1.0F, 1.0F);
     }
 
     @Override

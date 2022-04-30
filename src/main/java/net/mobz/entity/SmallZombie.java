@@ -46,12 +46,12 @@ public class SmallZombie extends Zombie {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SAYSPEEDEVENT;
+        return MobZSounds.SAYSPEEDEVENT.get();
     }
 
     @Override
     protected SoundEvent getStepSound() {
-        return MobZSounds.STEPSPEEDEVENT;
+        return MobZSounds.STEPSPEEDEVENT.get();
     }
 
     @Override

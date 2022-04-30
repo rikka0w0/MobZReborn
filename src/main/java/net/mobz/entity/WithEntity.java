@@ -66,7 +66,7 @@ public class WithEntity extends Blaze {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.WITHENTITY)
+            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.WITHENTITY.get())
             && MobZ.configs.WitherBlazeSpawn;
 
    }
@@ -127,7 +127,7 @@ public class WithEntity extends Blaze {
 
       if (this.level.isClientSide) {
          if (this.random.nextInt(24) == 0 && !this.isSilent()) {
-            this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, MobZSounds.NOTHINGEVENT,
+            this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, MobZSounds.NOTHINGEVENT.get(),
                   this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F,
                   false);
          }

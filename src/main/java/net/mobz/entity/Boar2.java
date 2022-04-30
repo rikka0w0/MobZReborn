@@ -36,7 +36,7 @@ public class Boar2 extends Pig {
     }
 
     public Boar2 method_6574(AgeableMob passiveEntity_1) {
-        return (Boar2) MobZEntities.BOAR2.create(this.level);
+        return (Boar2) MobZEntities.BOAR2.get().create(this.level);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Boar2 extends Pig {
 
     @Override
 	public Boar2 getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        return (Boar2) MobZEntities.BOAR2.create(this.level);
+        return (Boar2) MobZEntities.BOAR2.get().create(this.level);
     }
 
     static {

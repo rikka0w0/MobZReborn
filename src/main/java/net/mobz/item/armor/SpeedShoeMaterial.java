@@ -33,7 +33,7 @@ public class SpeedShoeMaterial implements ArmorMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.of(MobZItems.BEARLEATHER);
+        return Ingredient.of(MobZItems.BEARLEATHER.get());
     }
 
     @Override

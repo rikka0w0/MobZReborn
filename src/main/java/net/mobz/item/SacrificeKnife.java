@@ -101,8 +101,8 @@ public class SacrificeKnife extends Item {
 		BlockState stateUp = world.getBlockState(pos.above());
 		BlockState stateDown = world.getBlockState(pos.below());
 
-		if (state.getBlock() == MobZBlocks.TOTEM_MIDDLE) {
-			if (stateUp.getBlock() == MobZBlocks.TOTEM_TOP && stateDown.getBlock() == MobZBlocks.TOTEM_BASE) {
+		if (state.getBlock() == MobZBlocks.TOTEM_MIDDLE.get()) {
+			if (stateUp.getBlock() == MobZBlocks.TOTEM_TOP.get() && stateDown.getBlock() == MobZBlocks.TOTEM_BASE.get()) {
 				if (MobZ.configs.PillagerBossSpawn) {
 					ItemStack itemStack = context.getItemInHand();
 					int bloodCounter = getBloodCounter(itemStack);
@@ -110,7 +110,7 @@ public class SacrificeKnife extends Item {
 					if (!stateDown.getValue(TotemBase.ENABLED)) {
 						if (bloodCounter > 4000) {
 							world.playSound(player, pos, SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1F, 1F);
-							MobZBlocks.TOTEM_BASE.trigger(world, pos.below());
+							MobZBlocks.TOTEM_BASE.get().trigger(world, pos.below());
 							setParam(itemStack, 0, 0);
 							return InteractionResult.SUCCESS;
 						} else {

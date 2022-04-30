@@ -39,10 +39,10 @@ public class BossArmorBase extends ArmorItem {
         LivingEntity bob = (LivingEntity) entity;
         MobEffectInstance spd = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 9, 0, false, false);
         MobEffectInstance str = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 9, 0, false, false);
-        if (bob.getItemBySlot(EquipmentSlot.FEET).sameItem(new ItemStack(MobZArmors.boss_boots))
-                && bob.getItemBySlot(EquipmentSlot.LEGS).sameItem(new ItemStack(MobZArmors.boss_leggings))
-                && bob.getItemBySlot(EquipmentSlot.CHEST).sameItem(new ItemStack(MobZArmors.boss_chestplate))
-                && bob.getItemBySlot(EquipmentSlot.HEAD).sameItem(new ItemStack(MobZArmors.boss_helmet))
+        if (bob.getItemBySlot(EquipmentSlot.FEET).sameItem(new ItemStack(MobZArmors.boss_boots.get()))
+                && bob.getItemBySlot(EquipmentSlot.LEGS).sameItem(new ItemStack(MobZArmors.boss_leggings.get()))
+                && bob.getItemBySlot(EquipmentSlot.CHEST).sameItem(new ItemStack(MobZArmors.boss_chestplate.get()))
+                && bob.getItemBySlot(EquipmentSlot.HEAD).sameItem(new ItemStack(MobZArmors.boss_helmet.get()))
                 && !world.isClientSide) {
             bob.addEffect(str);
             if (bob.isSprinting()) {

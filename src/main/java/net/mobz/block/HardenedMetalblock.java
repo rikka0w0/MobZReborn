@@ -62,7 +62,7 @@ public class HardenedMetalblock extends Block {
 			}
 
 			BlockPos spawnPos = blockpattern$patternhelper.getBlock(1, 2, 0).getPos();
-			MetalGolem golem = (MetalGolem) MobZEntities.METALGOLEM.create(world);
+			MetalGolem golem = (MetalGolem) MobZEntities.METALGOLEM.get().create(world);
 			golem.moveTo(spawnPos, 0.0F, 0.0F);
 			world.addFreshEntity(golem);
 		}

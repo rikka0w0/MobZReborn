@@ -30,7 +30,7 @@ public class IslandVexEntity extends Vex {
 
   @Override
   protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
     this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
   }
 

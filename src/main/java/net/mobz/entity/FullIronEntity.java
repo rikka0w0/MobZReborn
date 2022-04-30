@@ -56,7 +56,7 @@ public class FullIronEntity extends Zombie {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
-                  .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FULLIRONENTITY)
+                  .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FULLIRONENTITY.get())
             && MobZ.configs.SteveSpawn;
 
    }
@@ -97,7 +97,7 @@ public class FullIronEntity extends Zombie {
 
    @Override
    protected SoundEvent getAmbientSound() {
-      return MobZSounds.NOTHINGEVENT;
+      return MobZSounds.NOTHINGEVENT.get();
    }
 
    @Override
@@ -112,7 +112,7 @@ public class FullIronEntity extends Zombie {
 
    @Override
    protected SoundEvent getStepSound() {
-      return MobZSounds.LIGHTERARMORWALKEVENT;
+      return MobZSounds.LIGHTERARMORWALKEVENT.get();
    }
 
 }

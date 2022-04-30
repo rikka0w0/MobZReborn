@@ -56,7 +56,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
         super(entityType, world);
         this.setTame(false);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
     }
 
     @Override
@@ -81,12 +81,12 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(MobZSounds.LEATHERWALKEVENT, 0.15F, 1.0F);
+        this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1.0F);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 
     @Override
@@ -257,9 +257,9 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     protected abstract boolean isTameItem(ItemStack stack);
-    
+
     protected abstract boolean canEquipItemFromPlayer(ItemStack stack);
-    
+
 	// Friend = Katherine
 	public static class KatherineEntity extends FriendEntity {
 		public KatherineEntity(EntityType<? extends KatherineEntity> entityType, Level world) {
@@ -270,7 +270,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
 					.add(Attributes.ATTACK_DAMAGE, 5.0D);
 		}
-		
+
 	    @Override
 	    public void setTame(boolean tamed) {
 	        super.setTame(tamed);

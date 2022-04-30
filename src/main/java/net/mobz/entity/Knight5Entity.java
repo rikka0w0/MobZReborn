@@ -56,8 +56,8 @@ public class Knight5Entity extends Vindicator {
     protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
         super.populateDefaultEquipmentSlots(localDifficulty_1);
         if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WitherSword));
-            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZWeapons.WitherSword));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WitherSword.get()));
+            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZWeapons.WitherSword.get()));
         }
     }
 
@@ -68,17 +68,17 @@ public class Knight5Entity extends Vindicator {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.DARKIDLEEVENT;
+        return MobZSounds.DARKIDLEEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.DARKHITEVENT;
+        return MobZSounds.DARKHITEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.DARKDEATHEVENT;
+        return MobZSounds.DARKDEATHEVENT.get();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Knight5Entity extends Vindicator {
         return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.KNIGHT5ENTITY)
+                        MobZEntities.KNIGHT5ENTITY.get())
                 && MobZ.configs.LordofDarknessSpawn;
 
     }

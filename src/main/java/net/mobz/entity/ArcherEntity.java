@@ -48,7 +48,7 @@ public class ArcherEntity extends Pillager {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ArcherEntity extends Pillager {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.getMaterial().isLiquid()) {
-            this.playSound(MobZSounds.LEATHERWALKEVENT, 0.15F, 1F);
+            this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
         }
     }
 
@@ -102,7 +102,7 @@ public class ArcherEntity extends Pillager {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
-                        .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARCHERENTITY)
+                        .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARCHERENTITY.get())
                 && MobZ.configs.BowmanSpawn;
 
     }

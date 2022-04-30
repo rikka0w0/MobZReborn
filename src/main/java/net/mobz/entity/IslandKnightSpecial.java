@@ -66,8 +66,8 @@ public class IslandKnightSpecial extends Zombie {
   protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
     super.populateDefaultEquipmentSlots(localDifficulty_1);
     if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
-      this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD));
+      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
+      this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
     }
   }
 
@@ -88,7 +88,7 @@ public class IslandKnightSpecial extends Zombie {
 
   @Override
   protected SoundEvent getAmbientSound() {
-    return MobZSounds.NOTHINGEVENT;
+    return MobZSounds.NOTHINGEVENT.get();
   }
 
   @Override
@@ -108,7 +108,7 @@ public class IslandKnightSpecial extends Zombie {
 
   @Override
   protected SoundEvent getStepSound() {
-    return MobZSounds.ARMORWALKEVENT;
+    return MobZSounds.ARMORWALKEVENT.get();
   }
 
   @Override

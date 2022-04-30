@@ -65,12 +65,12 @@ public class BossEntity extends Zombie {
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty) {
         super.populateDefaultEquipmentSlots(localDifficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.BossSword));
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(MobZArmors.boss_chestplate));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(MobZArmors.boss_boots));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(MobZArmors.boss_leggings));
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MobZArmors.boss_helmet));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.BossSword.get()));
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(MobZArmors.boss_chestplate.get()));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(MobZArmors.boss_boots.get()));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(MobZArmors.boss_leggings.get()));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MobZArmors.boss_helmet.get()));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class BossEntity extends Zombie {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.BOSS)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.BOSS.get())
                 && MobZ.configs.BossZombieSpawn;
     }
 

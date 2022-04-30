@@ -30,12 +30,12 @@ public class SCreeperEntity extends Creeper {
 
   @Override
   protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-    return MobZSounds.SAYCREEPEVENT;
+    return MobZSounds.SAYCREEPEVENT.get();
   }
 
   @Override
   protected SoundEvent getDeathSound() {
-    return MobZSounds.DEATHCREEPEVENT;
+    return MobZSounds.DEATHCREEPEVENT.get();
   }
 
   @Override
@@ -44,7 +44,7 @@ public class SCreeperEntity extends Creeper {
     BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
     return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
         && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-        && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SCREEPER)
+        && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SCREEPER.get())
         && (this.level.getBlockState(blockunderentity).is(Blocks.SOUL_SAND)
             || this.level.getBlockState(blockunderentity).is(Blocks.SOUL_SOIL))
         && MobZ.configs.SoulCreeperSpawn;

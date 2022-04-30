@@ -44,7 +44,7 @@ public class IslandKnightSpecial2 extends Vindicator {
   @Override
   protected void playStepSound(BlockPos pos, BlockState state) {
     if (!state.getMaterial().isLiquid()) {
-      this.playSound(MobZSounds.LEATHERWALKEVENT, 0.15F, 1F);
+      this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
     }
   }
 
@@ -52,7 +52,7 @@ public class IslandKnightSpecial2 extends Vindicator {
   protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
     super.populateDefaultEquipmentSlots(localDifficulty_1);
     if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.FrozenSword));
+      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.FrozenSword.get()));
     }
   }
 
@@ -73,7 +73,7 @@ public class IslandKnightSpecial2 extends Vindicator {
 
   @Override
   protected SoundEvent getAmbientSound() {
-    return MobZSounds.NOTHINGEVENT;
+    return MobZSounds.NOTHINGEVENT.get();
   }
 
   @Override

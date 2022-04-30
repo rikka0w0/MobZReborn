@@ -44,17 +44,17 @@ public class ArmoredEntity extends Zombie {
    protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
       super.populateDefaultEquipmentSlots(localDifficulty_1);
       if (this.level.getDifficulty() == Difficulty.NORMAL) {
-         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
          this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
          this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
       } else {
          if (this.level.getDifficulty() == Difficulty.EASY) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
             this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
             this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
          } else {
             if (this.level.getDifficulty() == Difficulty.HARD) {
-               this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword));
+               this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
                this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
                this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
             } else {
@@ -74,7 +74,7 @@ public class ArmoredEntity extends Zombie {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARMORED)
+            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARMORED.get())
             && MobZ.configs.ArmoredZombieSpawn;
 
    }

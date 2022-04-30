@@ -35,17 +35,17 @@ public class Boar3 extends Pig {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.BOARSAYEVENT;
+        return MobZSounds.BOARSAYEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.BOARSAYEVENT;
+        return MobZSounds.BOARSAYEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.BOARDEATHEVENT;
+        return MobZSounds.BOARDEATHEVENT.get();
     }
 
     @Override
@@ -54,12 +54,12 @@ public class Boar3 extends Pig {
     }
 
     public Boar3 method_6574(AgeableMob passiveEntity_1) {
-        return (Boar3) MobZEntities.BOAR3.create(this.level);
+        return (Boar3) MobZEntities.BOAR3.get().create(this.level);
     }
 
     @Override
 	public Boar3 getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        return (Boar3) MobZEntities.BOAR3.create(this.level);
+        return (Boar3) MobZEntities.BOAR3.get().create(this.level);
     }
 
     @Override

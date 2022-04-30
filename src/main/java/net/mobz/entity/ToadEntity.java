@@ -110,7 +110,7 @@ public class ToadEntity extends Animal {
 	public void setTongueEntity(LivingEntity e) {
 		entityData.set(TONGUE_ENTITY, e.getId());
 		if(!level.isClientSide()) {
-			this.playSound(MobZSounds.TOAD_MOUTH, 1F, 1F + ((float) random.nextGaussian() / 5F));
+			this.playSound(MobZSounds.TOAD_MOUTH.get(), 1F, 1F + ((float) random.nextGaussian() / 5F));
 
 			synchronized (ToadEntity.class) {
 				ToadEntity.targetedEntities.add(e);
@@ -292,7 +292,7 @@ public class ToadEntity extends Animal {
 
 	protected SoundEvent getJumpSound()
 	{
-		return MobZSounds.TOAD_JUMP;
+		return MobZSounds.TOAD_JUMP.get();
 	}
 
 	public static AttributeSupplier.Builder createEntityAttributes() {
@@ -357,19 +357,19 @@ public class ToadEntity extends Animal {
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		return MobZSounds.TOAD_CROAK;
+		return MobZSounds.TOAD_CROAK.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		return MobZSounds.TOAD_DEATH;
+		return MobZSounds.TOAD_DEATH.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		return MobZSounds.TOAD_HURT;
+		return MobZSounds.TOAD_HURT.get();
 	}
 
 	@Override
@@ -438,10 +438,10 @@ public class ToadEntity extends Animal {
 				ServerLevel world = (ServerLevel) this.toad.level;
 				this.toad.setHasBaby(false);
 
-				TadpoleEntity tadpole = MobZEntities.TADPOLE.create(world);
+				TadpoleEntity tadpole = MobZEntities.TADPOLE.get().create(world);
 				if(tadpole != null)
 				{
-					world.playSound(null, blockPos, MobZSounds.TOAD_HAVE_BABY, SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
+					world.playSound(null, blockPos, MobZSounds.TOAD_HAVE_BABY.get(), SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
 					tadpole.setBaby(true);
 					tadpole.moveTo(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
 					world.addFreshEntityWithPassengers(tadpole);

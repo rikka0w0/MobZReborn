@@ -42,7 +42,7 @@ public class FastEntity extends Zombie {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FAST)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FAST.get())
                 && MobZ.configs.SpeedyZombieSpawn;
 
     }
@@ -54,12 +54,12 @@ public class FastEntity extends Zombie {
 
     @Override
     protected SoundEvent getStepSound() {
-        return MobZSounds.STEPSPEEDEVENT;
+        return MobZSounds.STEPSPEEDEVENT.get();
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SAYSPEEDEVENT;
+        return MobZSounds.SAYSPEEDEVENT.get();
     }
 
     @Override

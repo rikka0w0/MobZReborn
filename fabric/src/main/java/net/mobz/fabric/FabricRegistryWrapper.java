@@ -1,5 +1,9 @@
 package net.mobz.fabric;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -10,17 +14,87 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.mobz.IRegistryWrapper;
+import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
+import net.mobz.IAbstractedAPI;
 import net.mobz.MobZ;
 
-public class FabricRegistryWrapper implements IRegistryWrapper {
+public class FabricRegistryWrapper implements IAbstractedAPI {
+	private Set<Supplier<?>> setters = new HashSet<>();
+
 	private static ResourceLocation res(String name) {
 		return new ResourceLocation(MobZ.MODID, name);
+	}
+
+	@Override
+	public <T extends Item> Supplier<T> registerItem(String name, Supplier<T> constructor, Consumer<T> setter) {
+		T item = constructor.get();
+		Registry.register(Registry.ITEM, res(name), item);
+		if (setter != null) {
+			setters.add(() -> {
+				setter.accept(item);
+				return item;
+			});
+		}
+		return () -> item;
+	}
+
+	@Override
+	public <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> constructor,
+			Function<T, BlockItem> blockItemConstructor, Consumer<T> setter) {
+		T block = constructor.get();
+		BlockItem blockItem = blockItemConstructor.apply(block);
+		ResourceLocation regName = res(name);
+		Registry.register(Registry.BLOCK, regName, block);
+		Registry.register(Registry.ITEM, regName, blockItem);
+		if (setter != null) {
+			setters.add(() -> {
+				setter.accept(block);
+				return block;
+			});
+		}
+		return () -> block;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name,
+			Supplier<T> constructor, Supplier<Builder> attribModifierSupplier, Consumer<T> setter) {
+		T entityType = constructor.get();
+		Registry.register(Registry.ENTITY_TYPE, res(name), entityType);
+		if (attribModifierSupplier != null) {
+			FabricDefaultAttributeRegistry.register((EntityType<? extends LivingEntity>) entityType,
+					attribModifierSupplier.get());
+		}
+		if (setter != null) {
+			setters.add(() -> {
+				setter.accept(entityType);
+				return entityType;
+			});
+		}
+		return () -> entityType;
+	}
+
+	@Override
+	public Supplier<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+		SoundEvent soundEvent = new SoundEvent(resloc);
+		Registry.register(Registry.SOUND_EVENT, res(name), soundEvent);
+		if (setter != null) {
+			setters.add(() -> {
+				setter.accept(soundEvent);
+				return soundEvent;
+			});
+		}
+		return () -> soundEvent;
 	}
 
 	@Override
@@ -29,32 +103,22 @@ public class FabricRegistryWrapper implements IRegistryWrapper {
 	}
 
 	@Override
-	public Item register(String name, Item item) {
-		return Registry.register(Registry.ITEM, res(name), item);
+	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
+			int highlightColor, Item.Properties props) {
+		return () -> new FabricSpawnEgg(type.get(), backgroundColor, highlightColor, props);
 	}
 
 	@Override
-	public BlockItem register(String name, BlockItem blockItem) {
-		ResourceLocation regName = res(name);
-		Registry.register(Registry.ITEM, regName, blockItem);
-		Registry.register(Registry.BLOCK, regName, blockItem.getBlock());
-		return blockItem;
+	public Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier,
+			Item.Properties builder) {
+		return () -> new RecordItem(comparatorValue, soundSupplier.get(), builder) {};
 	}
 
 	@Override
-	public <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
-		return Registry.register(Registry.ENTITY_TYPE, res(name), entityType);
-	}
+	public Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
+			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
+			Item.Properties properties) {
 
-	@Override
-	public <T extends LivingEntity> EntityType<T> entityAttribModifier(EntityType<T> entityType,
-			Supplier<Builder> attribModifierSupplier) {
-		FabricDefaultAttributeRegistry.register(entityType, attribModifierSupplier.get());
-		return entityType;
-	}
-
-	@Override
-	public SoundEvent register(String name, SoundEvent sound) {
-		return Registry.register(Registry.SOUND_EVENT, res(name), sound);
+		return () -> new MobBucketItem(entitySupplier.get(), fluidSupplier.get(), soundSupplier.get(), properties);
 	}
 }

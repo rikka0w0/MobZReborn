@@ -43,7 +43,7 @@ public class TSpider extends Spider {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getMaxLocalRawBrightness(posentity) <= 7
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TSPIDER)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TSPIDER.get())
                 && MobZ.configs.TinySpiderSpawn;
 
     }
@@ -55,16 +55,16 @@ public class TSpider extends Spider {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 }

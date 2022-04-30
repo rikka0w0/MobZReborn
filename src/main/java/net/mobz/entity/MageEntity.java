@@ -93,7 +93,7 @@ public class MageEntity extends SpellcasterIllager {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGEENTITY)
+            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGEENTITY.get())
             && MobZ.configs.SpiderMageSpawn;
 
    }
@@ -135,17 +135,17 @@ public class MageEntity extends SpellcasterIllager {
 
    @Override
    protected SoundEvent getAmbientSound() {
-      return MobZSounds.EVEIDLEEVENT;
+      return MobZSounds.EVEIDLEEVENT.get();
    }
 
    @Override
    protected SoundEvent getDeathSound() {
-      return MobZSounds.EVEDEATHEVENT;
+      return MobZSounds.EVEDEATHEVENT.get();
    }
 
    @Override
    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-      return MobZSounds.EVEHURTEVENT;
+      return MobZSounds.EVEHURTEVENT.get();
    }
 
    private void setWololoTarget(@Nullable Sheep sheep) {
@@ -267,7 +267,7 @@ public class MageEntity extends SpellcasterIllager {
          for (int i = 0; i < 3; ++i) {
             BlockPos blockPos = MageEntity.this.blockPosition().offset(-2 + MageEntity.this.random.nextInt(5), 1,
                   -2 + MageEntity.this.random.nextInt(5));
-            SpiSmall vexEntity = (SpiSmall) MobZEntities.SPISMALL.create(MageEntity.this.level);
+            SpiSmall vexEntity = (SpiSmall) MobZEntities.SPISMALL.get().create(MageEntity.this.level);
             vexEntity.moveTo(blockPos, 0.0F, 0.0F);
 				vexEntity.finalizeSpawn(serverWorld, MageEntity.this.level.getCurrentDifficultyAt(blockPos),
                   MobSpawnType.MOB_SUMMONED, null, (CompoundTag) null);

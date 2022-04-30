@@ -31,23 +31,23 @@ public class skeli3 extends Skeleton {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SKELISAYEVENT;
+        return MobZSounds.SKELISAYEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.SKELIHURTEVENT;
+        return MobZSounds.SKELIHURTEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.SKELIDEATHEVENT;
+        return MobZSounds.SKELIDEATHEVENT.get();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.getMaterial().isLiquid()) {
-            this.playSound(MobZSounds.SKELISTEPEVENT, 0.15F, 1F);
+            this.playSound(MobZSounds.SKELISTEPEVENT.get(), 0.15F, 1F);
         }
     }
 
@@ -62,7 +62,7 @@ public class skeli3 extends Skeleton {
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI3)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI3.get())
                 && MobZ.configs.NetherSkeletonSpawn;
 
     }

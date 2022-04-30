@@ -72,17 +72,17 @@ public class StoneGolem extends IronGolem {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.GOLEMHITEVENT;
+        return MobZSounds.GOLEMHITEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.GOLEMDEATHEVENT;
+        return MobZSounds.GOLEMDEATHEVENT.get();
     }
 
     @Override
     protected void playStepSound(BlockPos blockPos_1, BlockState blockState_1) {
-        this.playSound(MobZSounds.GOLEMWALKEVENT, 1.0F, 1.0F);
+        this.playSound(MobZSounds.GOLEMWALKEVENT.get(), 1.0F, 1.0F);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class StoneGolem extends IronGolem {
                 && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
                 && this.level.isDay() && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.STONEGOLEM)
+                        MobZEntities.STONEGOLEM.get())
                 && MobZ.configs.StoneGolemSpawn;
 
     }

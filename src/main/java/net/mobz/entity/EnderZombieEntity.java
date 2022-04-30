@@ -33,22 +33,22 @@ public class EnderZombieEntity extends Zombie {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.SAYENDEVENT;
+        return MobZSounds.SAYENDEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.ENDHURTEVENT;
+        return MobZSounds.ENDHURTEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.DEATHENDEVENT;
+        return MobZSounds.DEATHENDEVENT.get();
     }
 
     @Override
     protected SoundEvent getStepSound() {
-        return MobZSounds.STEPTANKEVENT;
+        return MobZSounds.STEPTANKEVENT.get();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class EnderZombieEntity extends Zombie {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.ENDERZOMBIE)
+                        MobZEntities.ENDERZOMBIE.get())
                 && MobZ.configs.EnderzombieSpawn;
 
     }

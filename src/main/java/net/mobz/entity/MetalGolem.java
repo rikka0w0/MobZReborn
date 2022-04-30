@@ -74,7 +74,7 @@ public class MetalGolem extends IronGolem {
     IronGolem.Crackiness crack = this.getCrackiness();
     boolean bl = super.hurt(source, amount);
     if (bl && this.getCrackiness() != crack) {
-      this.playSound(MobZSounds.MGOLEMBREAKEVENT, 1.0F, 1.0F);
+      this.playSound(MobZSounds.MGOLEMBREAKEVENT.get(), 1.0F, 1.0F);
     }
 
     return bl;
@@ -82,17 +82,17 @@ public class MetalGolem extends IronGolem {
 
   @Override
   protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-    return MobZSounds.MGOLEMHITEVENT;
+    return MobZSounds.MGOLEMHITEVENT.get();
   }
 
   @Override
   protected SoundEvent getDeathSound() {
-    return MobZSounds.GOLEMDEATHEVENT;
+    return MobZSounds.GOLEMDEATHEVENT.get();
   }
 
   @Override
   protected void playStepSound(BlockPos blockPos_1, BlockState blockState_1) {
-    this.playSound(MobZSounds.GOLEMWALKEVENT, 1.0F, 1.0F);
+    this.playSound(MobZSounds.GOLEMWALKEVENT.get(), 1.0F, 1.0F);
   }
 
   @Override

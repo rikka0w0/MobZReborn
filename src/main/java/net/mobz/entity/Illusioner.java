@@ -32,17 +32,17 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
 
    @Override
    protected SoundEvent getAmbientSound() {
-      return MobZSounds.ILLUIDLEEVENT;
+      return MobZSounds.ILLUIDLEEVENT.get();
    }
 
    @Override
    protected SoundEvent getDeathSound() {
-      return MobZSounds.ILLUDEATHEVENT;
+      return MobZSounds.ILLUDEATHEVENT.get();
    }
 
    @Override
    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-      return MobZSounds.ILLUHURTEVENT;
+      return MobZSounds.ILLUHURTEVENT.get();
    }
 
    @Override
@@ -51,7 +51,7 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox()) && this.level.isDay()
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ILLUSIONER)
+            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ILLUSIONER.get())
             && MobZ.configs.IllusionerSpawn;
 
    }

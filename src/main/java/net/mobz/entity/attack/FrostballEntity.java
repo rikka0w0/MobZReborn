@@ -25,17 +25,17 @@ public class FrostballEntity extends Fireball {
 	}
 
     public FrostballEntity(Level world, LivingEntity livingEntity, double double_1, double double_2, double double_3) {
-        super(MobZEntities.FROSTBALLENTITY, livingEntity, double_1, double_2, double_3, world);
+        super(MobZEntities.FROSTBALLENTITY.get(), livingEntity, double_1, double_2, double_3, world);
     }
 
     public FrostballEntity(Level world, double double_1, double double_2, double double_3, double double_4,
             double double_5, double double_6) {
-        super(MobZEntities.FROSTBALLENTITY, double_1, double_2, double_3, double_4, double_5, double_6, world);
+        super(MobZEntities.FROSTBALLENTITY.get(), double_1, double_2, double_3, double_4, double_5, double_6, world);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(MobZItems.FROZENMEAL);
+        return new ItemStack(MobZItems.FROZENMEAL.get());
     }
 
 	@Override

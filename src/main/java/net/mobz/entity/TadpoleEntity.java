@@ -35,7 +35,7 @@ public class TadpoleEntity extends AbstractFish {
 			babyTime++;
 			if(!isBaby())
 			{
-				ToadEntity toad = MobZEntities.TOAD.create(level);
+				ToadEntity toad = MobZEntities.TOAD.get().create(level);
 				toad.moveTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
 				toad.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
 				((ServerLevel) level).addFreshEntityWithPassengers(toad);
@@ -99,7 +99,7 @@ public class TadpoleEntity extends AbstractFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(MobZItems.TADPOLE_BUCKET);
+		return new ItemStack(MobZItems.TADPOLE_BUCKET.get());
 	}
 
 	@Override

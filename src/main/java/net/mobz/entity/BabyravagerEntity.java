@@ -30,22 +30,22 @@ public class BabyravagerEntity extends Ravager {
 
   @Override
   public SoundEvent getCelebrateSound() {
-    return MobZSounds.NOTHINGEVENT;
+    return MobZSounds.NOTHINGEVENT.get();
   }
 
   @Override
   protected SoundEvent getAmbientSound() {
-    return MobZSounds.RAVIDLEEVENT;
+    return MobZSounds.RAVIDLEEVENT.get();
   }
 
   @Override
   protected SoundEvent getHurtSound(DamageSource source) {
-    return MobZSounds.RAVHURTEVENT;
+    return MobZSounds.RAVHURTEVENT.get();
   }
 
   @Override
   protected SoundEvent getDeathSound() {
-    return MobZSounds.RAVDEATHEVENT;
+    return MobZSounds.RAVDEATHEVENT.get();
   }
 
   @Override

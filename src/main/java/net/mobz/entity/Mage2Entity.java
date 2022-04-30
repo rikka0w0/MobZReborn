@@ -88,7 +88,7 @@ public class Mage2Entity extends SpellcasterIllager {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGE2ENTITY)
+            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGE2ENTITY.get())
             && MobZ.configs.ZombieMageSpawn;
 
    }
@@ -269,7 +269,7 @@ public class Mage2Entity extends SpellcasterIllager {
          for (int i = 0; i < 3; ++i) {
             BlockPos blockPos = Mage2Entity.this.blockPosition().offset(-2 + Mage2Entity.this.random.nextInt(5), 1,
                   -2 + Mage2Entity.this.random.nextInt(5));
-            SmallZombie SmallZombie = (SmallZombie) MobZEntities.SMALLZOMBIE.create(Mage2Entity.this.level);
+            SmallZombie SmallZombie = (SmallZombie) MobZEntities.SMALLZOMBIE.get().create(Mage2Entity.this.level);
             SmallZombie.moveTo(blockPos, 0.0F, 0.0F);
 				SmallZombie.finalizeSpawn(serverWorld, Mage2Entity.this.level.getCurrentDifficultyAt(blockPos),
                   MobSpawnType.MOB_SUMMONED, null, (CompoundTag) null);

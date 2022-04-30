@@ -83,7 +83,7 @@ public class Blackbear extends Panda {
 
    @Override
    public boolean doHurtTarget(Entity target) {
-      this.playSound(MobZSounds.PBITEEVENT, 1.0F, 1.0F);
+      this.playSound(MobZSounds.PBITEEVENT.get(), 1.0F, 1.0F);
       return super.doHurtTarget(target);
    }
 

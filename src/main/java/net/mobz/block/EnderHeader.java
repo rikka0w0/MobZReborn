@@ -39,9 +39,9 @@ public class EnderHeader extends AbstractHead {
 			if (top1.getBlock() == Blocks.SOUL_SAND) {
 				if (top2.getBlock() == Blocks.SOUL_SAND) {
 					if (top3.getBlock() == Blocks.SOUL_SAND) {
-						if (head1.getBlock() == MobZBlocks.ENDERHEADER) {
-							if (head2.getBlock() == MobZBlocks.ENDERHEADER) {
-								if (head3.getBlock() == MobZBlocks.ENDERHEADER) {
+						if (head1.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+							if (head2.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+								if (head3.getBlock() == MobZBlocks.ENDERHEADER.get()) {
 									world.removeBlock(pos, false);
 									world.removeBlock(pos.east(), false);
 									world.removeBlock(pos.west(), false);
@@ -67,9 +67,9 @@ public class EnderHeader extends AbstractHead {
 			if (top4.getBlock() == Blocks.SOUL_SAND) {
 				if (top2.getBlock() == Blocks.SOUL_SAND) {
 					if (top5.getBlock() == Blocks.SOUL_SAND) {
-						if (head4.getBlock() == MobZBlocks.ENDERHEADER) {
-							if (head2.getBlock() == MobZBlocks.ENDERHEADER) {
-								if (head5.getBlock() == MobZBlocks.ENDERHEADER) {
+						if (head4.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+							if (head2.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+								if (head5.getBlock() == MobZBlocks.ENDERHEADER.get()) {
 									world.removeBlock(pos, false);
 									world.removeBlock(pos.north(), false);
 									world.removeBlock(pos.south(), false);

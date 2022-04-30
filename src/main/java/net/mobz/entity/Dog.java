@@ -38,17 +38,17 @@ public class Dog extends Wolf {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.WGROWLEVENT;
+        return MobZSounds.WGROWLEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return MobZSounds.WHURTEVENT;
+        return MobZSounds.WHURTEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.WDEATHEVENT;
+        return MobZSounds.WDEATHEVENT.get();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Dog extends Wolf {
         return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getMaxLocalRawBrightness(posentity) <= 10
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.DOG)
+                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.DOG.get())
                 && MobZ.configs.NetherWolfSpawn;
 
     }

@@ -118,7 +118,7 @@ public class GChicken extends Chicken {
 
    @Override
 	public GChicken getBreedOffspring(ServerLevel world, AgeableMob passiveEntity_1) {
-      return (GChicken) MobZEntities.GCHICKEN.create(this.level);
+      return (GChicken) MobZEntities.GCHICKEN.get().create(this.level);
    }
 
    @Override

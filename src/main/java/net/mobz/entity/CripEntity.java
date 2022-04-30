@@ -29,12 +29,12 @@ public class CripEntity extends Creeper {
 
    @Override
    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-      return MobZSounds.SAYCRIPEVENT;
+      return MobZSounds.SAYCRIPEVENT.get();
    }
 
    @Override
    protected SoundEvent getDeathSound() {
-      return MobZSounds.DEATHCRIPEVENT;
+      return MobZSounds.DEATHCRIPEVENT.get();
    }
 
    @Override
@@ -43,7 +43,7 @@ public class CripEntity extends Creeper {
       BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.CRIP)
+            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.CRIP.get())
             && MobZ.configs.CookieCreeperSpawn;
 
    }

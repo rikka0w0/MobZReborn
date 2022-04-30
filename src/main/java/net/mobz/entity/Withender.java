@@ -64,17 +64,17 @@ public class Withender extends WitherBoss {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.WITHIDLEEVENT;
+        return MobZSounds.WITHIDLEEVENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.WITHHURTEVENT;
+        return MobZSounds.WITHHURTEVENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobZSounds.WITHDEATHEVENT;
+        return MobZSounds.WITHDEATHEVENT.get();
     }
 
     @Override

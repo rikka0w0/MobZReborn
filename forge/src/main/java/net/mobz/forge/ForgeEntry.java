@@ -20,13 +20,13 @@ import net.mobz.forge.datagen.SpawnEggItemModelDataProvider;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobSpawns;
-import net.mobz.portable.StaticAPIWrapper;
 
 @Mod(MobZ.MODID)
 public class ForgeEntry {
 	public static ForgeEntry instance;
 
-	private static ForgeMobSpawnAdder mobSpawns = new ForgeMobSpawnAdder();
+	private static final ForgeMobSpawnAdder mobSpawns = new ForgeMobSpawnAdder();
+	private static final ForgeRegistryWrapper registryWrapper = new ForgeRegistryWrapper();
 
 	public ForgeEntry() {
     	if (instance == null)
@@ -34,19 +34,21 @@ public class ForgeEntry {
         else
             throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");
 
+    	MobZ.platform = registryWrapper;
+
     	MobZ.initConfig();
     	DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
     	MobZ.invokeStaticFields();
-    	MobSpawnRestrictions.applyAll(SpawnPlacements::register);
-    	MobSpawns.addMobSpawns(mobSpawns);
 	}
 
-    @Mod.EventBusSubscriber(modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public final static class ModEventBusHandler {
+	@Mod.EventBusSubscriber(modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+	public final static class ModEventBusHandler {
     	@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
-    		((ForgeRegistryWrapper) StaticAPIWrapper.instance).applyGlobalEntityAttrib(event::put);
+    		registryWrapper.applyGlobalEntityAttrib(event::put);
+        	MobSpawnRestrictions.applyAll(SpawnPlacements::register);
+        	MobSpawns.addMobSpawns(mobSpawns);
     	}
 
     	@SubscribeEvent

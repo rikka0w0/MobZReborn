@@ -46,7 +46,7 @@ public class DwarfEntity extends Vindicator {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.getMaterial().isLiquid()) {
-            this.playSound(MobZSounds.LESSHEAVYARMORWALKEVENT, 0.15F, 1F);
+            this.playSound(MobZSounds.LESSHEAVYARMORWALKEVENT.get(), 0.15F, 1F);
         }
     }
 
@@ -63,8 +63,8 @@ public class DwarfEntity extends Vindicator {
     protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
         super.populateDefaultEquipmentSlots(localDifficulty_1);
         if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.Axe));
-            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.Axe.get()));
+            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
         }
     }
 
@@ -75,7 +75,7 @@ public class DwarfEntity extends Vindicator {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT;
+        return MobZSounds.NOTHINGEVENT.get();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class DwarfEntity extends Vindicator {
 
         return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
-                        .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.DWARFENTITY)
+                        .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.DWARFENTITY.get())
                 && MobZ.configs.DwarfSpawn;
 
     }
