@@ -90,8 +90,12 @@ public class Mage2Entity extends SpellcasterIllager {
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
             && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGE2ENTITY.get())
             && MobZ.configs.ZombieMageSpawn;
-
    }
+
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 
    @Override
    protected void defineSynchedData() {

@@ -83,4 +83,8 @@ public class IslandKnightNormal extends Vindicator {
     return SoundEvents.PLAYER_DEATH;
   }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 }

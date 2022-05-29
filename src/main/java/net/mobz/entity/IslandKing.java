@@ -121,4 +121,8 @@ public class IslandKing extends Vindicator {
     IslandKing.this.level.addFreshEntity(vexEntity);
   }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 }

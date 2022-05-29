@@ -96,15 +96,20 @@ public class ArcherEntity extends Pillager {
         this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(IceGolem.class));
     }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
+
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
         BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
         return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
+        		&& view.canSeeSky(blockunderentity)
                 && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
                         .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARCHERENTITY.get())
                 && MobZ.configs.BowmanSpawn;
-
     }
 
 }

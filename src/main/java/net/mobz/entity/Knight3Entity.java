@@ -97,6 +97,10 @@ public class Knight3Entity extends Vindicator {
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.KNIGHT3ENTITY.get())
                 && MobZ.configs.EnderKnightSpawn;
-
     }
+
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 }

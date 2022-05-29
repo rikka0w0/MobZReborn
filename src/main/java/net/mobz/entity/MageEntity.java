@@ -82,6 +82,11 @@ public class MageEntity extends SpellcasterIllager {
       this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
    }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
+
    @Override
    protected void defineSynchedData() {
       super.defineSynchedData();

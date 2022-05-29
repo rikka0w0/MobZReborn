@@ -45,6 +45,11 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
       return MobZSounds.ILLUHURTEVENT.get();
    }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
+
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
       BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());

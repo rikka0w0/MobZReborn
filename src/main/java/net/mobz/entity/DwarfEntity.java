@@ -104,4 +104,9 @@ public class DwarfEntity extends Vindicator {
                 && MobZ.configs.DwarfSpawn;
 
     }
+
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 }

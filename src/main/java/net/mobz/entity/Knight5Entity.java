@@ -90,7 +90,10 @@ public class Knight5Entity extends Vindicator {
                 && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
                         MobZEntities.KNIGHT5ENTITY.get())
                 && MobZ.configs.LordofDarknessSpawn;
-
     }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 }

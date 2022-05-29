@@ -71,6 +71,11 @@ public class Archer2Entity extends Pillager {
 
     }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
+
     @Override
     protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
         return;

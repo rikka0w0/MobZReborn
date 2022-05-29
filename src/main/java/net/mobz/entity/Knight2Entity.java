@@ -108,4 +108,8 @@ public class Knight2Entity extends Vindicator {
 
     }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+	}
 }
