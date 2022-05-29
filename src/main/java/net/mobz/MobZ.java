@@ -27,6 +27,10 @@ public class MobZ {
 	public final static TagKey<EntityType<?>> TOAD_TARGET_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(MODID, "toad_target"));
 	public final static TagKey<Item> FIORA_EQUIP_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "fiora_equip"));
 	public final static TagKey<Item> KATHERINE_EQUIP_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "katherine_equip"));
+	public final static TagKey<Item> FIORA_FOOD_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "fiora_food"));
+	public final static TagKey<Item> KATHERINE_FOOD_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "katherine_food"));
+	public final static TagKey<Item> FIORA_TAME_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "fiora_tame"));
+	public final static TagKey<Item> KATHERINE_TAME_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "katherine_tame"));
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {

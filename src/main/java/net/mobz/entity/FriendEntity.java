@@ -37,7 +37,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.InteractionHand;
@@ -160,6 +159,17 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                 	this.setItemSlot(EquipmentSlot.OFFHAND, newStack);
                 	return InteractionResult.SUCCESS;
                 }
+
+				InteractionResult interactionresult = super.mobInteract(player, hand);
+				if (this.isOwnedBy(player)) {
+					this.setOrderedToSit(!this.isOrderedToSit());
+					this.jumping = false;
+					this.navigation.stop();
+					this.setTarget((LivingEntity) null);
+					return InteractionResult.SUCCESS;
+				}
+
+				return interactionresult;
             } else if (isTameItem(itemStack) && !this.isAngry()) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -219,9 +229,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-    public boolean isFood(ItemStack stack) {
-        return stack.getItem() == Items.MELON_SLICE;
-    }
+    public abstract boolean isFood(ItemStack stack);
 
     static {
 
@@ -285,8 +293,13 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 	    }
 
 		@Override
+		public boolean isFood(ItemStack stack) {
+			return stack.is(MobZ.KATHERINE_FOOD_TAG);
+		}
+
+		@Override
 		protected boolean isTameItem(ItemStack stack) {
-			return stack.is(Items.GOLD_NUGGET);
+			return stack.is(MobZ.KATHERINE_TAME_TAG);
 		}
 
 		@Override
@@ -307,8 +320,13 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		}
 
 		@Override
+		public boolean isFood(ItemStack stack) {
+			return stack.is(MobZ.FIORA_FOOD_TAG);
+		}
+
+		@Override
 		protected boolean isTameItem(ItemStack stack) {
-			return stack.is(Items.GOLD_NUGGET);
+			return stack.is(MobZ.FIORA_TAME_TAG);
 		}
 
 		@Override
