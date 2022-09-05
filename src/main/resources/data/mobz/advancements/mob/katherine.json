@@ -5,10 +5,10 @@
             "item": "mobz:friendhead"
         },
         "title": {
-            "translate": "mobz.advancements.friend.title"
+            "translate": "mobz.advancements.katherine.title"
         },
         "description": {
-            "translate": "mobz.advancements.friend.description"
+            "translate": "mobz.advancements.katherine.description"
         },
         "frame": "goal",
         "show_toast": true,
@@ -20,7 +20,7 @@
             "trigger": "minecraft:player_hurt_entity",
             "conditions": {
                 "entity": {
-                    "type": "mobz:friend"
+                    "type": "mobz:katherine"
                 }
             }
         }

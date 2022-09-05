@@ -1,5 +1,5 @@
 {
-    "parent": "mobz:mob/friend",
+    "parent": "mobz:mob/katherine",
     "display": {
         "icon": {
             "item": "mobz:fiorahead"
@@ -20,7 +20,7 @@
             "trigger": "minecraft:player_hurt_entity",
             "conditions": {
                 "entity": {
-                    "type": "mobz:knight4"
+                    "type": "mobz:fiora"
                 }
             }
         }
