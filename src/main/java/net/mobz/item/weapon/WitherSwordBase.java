@@ -16,7 +16,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class WitherSwordBase extends SwordItem {
@@ -26,7 +25,7 @@ public class WitherSwordBase extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("item.mobz.wither_sword.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.wither_sword.tooltip"));
     }
 
     private static Supplier<MobEffectInstance> with1 = ()->new MobEffectInstance(MobEffects.WITHER, 60, 0, false, false, false);
@@ -36,7 +35,7 @@ public class WitherSwordBase extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {
-        itemStack_1.hurtAndBreak(1, (LivingEntity) livingEntity_2, (livingEntity_1x) -> 
+        itemStack_1.hurtAndBreak(1, (LivingEntity) livingEntity_2, (livingEntity_1x) ->
             ((LivingEntity) livingEntity_1x).broadcastBreakEvent(EquipmentSlot.MAINHAND));
 
 		Random random = new Random();

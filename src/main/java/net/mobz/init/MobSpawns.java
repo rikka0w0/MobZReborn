@@ -3,11 +3,11 @@ package net.mobz.init;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.mobz.MobZ;
-import net.mobz.IBiomeFilter;
-import net.mobz.IMobSpawnAdder;
 
 public class MobSpawns {
+	/*
 	public static void addMobSpawns(IMobSpawnAdder spawnAdder) {
+
 		normalSpawn(spawnAdder);
 		iceSpawn(spawnAdder);
 		netherSpawn(spawnAdder);
@@ -169,4 +169,5 @@ public class MobSpawns {
 		spawnAdder.register(biomeSelector, MobZEntities.CRIP.get().getCategory(),
 				new MobSpawnSettings.SpawnerData(MobZEntities.CRIP.get(), MobZ.configs.CookieCreeperSpawnRate, 1, 2));
 	}
+	*/
 }

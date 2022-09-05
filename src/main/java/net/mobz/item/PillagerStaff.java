@@ -17,7 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.mobz.block.EnderHeader;
 import net.mobz.entity.Withender;
@@ -34,25 +34,22 @@ public class PillagerStaff extends SimpleItem {
 		Level world = context.getLevel();
 		Player player = context.getPlayer();
 
-        if (world.isClientSide) {
-            return InteractionResult.PASS;
-        } else {
-            BlockState state = world.getBlockState(context.getClickedPos());
+        BlockState state = world.getBlockState(context.getClickedPos());
 
-            if (state.getBlock() == MobZBlocks.ENDERHEADER.get()) {
-                if (EnderHeader.isValid(world, context.getClickedPos(), state)) {
-                    Withender wither = (Withender) MobZEntities.WITHENDER.get().create(world);
-                    BlockPos oke = context.getClickedPos();
-                    wither.moveTo(oke, 0.0F, 0.0F);
-                    world.addFreshEntity(wither);
-                    return InteractionResult.SUCCESS;
-                } else {
-                    player.sendMessage(new TranslatableComponent("text.mobz.withendermissing"), player.getUUID());
-                }
+        if (state.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+            if (EnderHeader.isValid(world, context.getClickedPos(), state) && !world.isClientSide) {
+                Withender wither = (Withender) MobZEntities.WITHENDER.get().create(world);
+                BlockPos oke = context.getClickedPos();
+                wither.moveTo(oke, 0.0F, 0.0F);
+                world.addFreshEntity(wither);
+                return InteractionResult.SUCCESS;
+            } else if (world.isClientSide){
+            	// TODO: check this
+				player.displayClientMessage(Component.translatable("text.mobz.withendermissing"), true);
             }
-
-            return InteractionResult.PASS;
         }
+
+		return InteractionResult.PASS;
     }
 
     @Override

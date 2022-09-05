@@ -24,7 +24,7 @@ public class SpawnEggItemModelDataProvider extends ItemModelProvider {
 	protected void registerModels() {
 		// Spawn Eggs
 		Registry.ITEM.stream()
-			.filter((item) -> item instanceof SpawnEggItem && item.getRegistryName().getNamespace().equals(MobZ.MODID))
+			.filter((item) -> item instanceof SpawnEggItem && Registry.ITEM.getKey(item).getNamespace().equals(MobZ.MODID))
 			.forEach((item) -> spawnEggItemModel((SpawnEggItem) item));
 	}
 }

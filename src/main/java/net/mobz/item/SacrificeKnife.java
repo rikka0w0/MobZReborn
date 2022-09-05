@@ -20,7 +20,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.block.TotemBase;
@@ -54,8 +53,8 @@ public class SacrificeKnife extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip,
 			TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent("item.mobz.sacrificeknife.tooltip"));
-		tooltip.add(new TranslatableComponent("item.mobz.sacrificeknife.tooltip2"));
+		tooltip.add(Component.translatable("item.mobz.sacrificeknife.tooltip"));
+		tooltip.add(Component.translatable("item.mobz.sacrificeknife.tooltip2"));
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class SacrificeKnife extends Item {
 							setParam(itemStack, 0, 0);
 							return InteractionResult.SUCCESS;
 						} else {
-							player.displayClientMessage(new TranslatableComponent("text.mobz.sacrificeknifeblood"),
+							player.displayClientMessage(Component.translatable("text.mobz.sacrificeknifeblood"),
 									true);
 							return InteractionResult.PASS;
 						}
@@ -122,11 +121,11 @@ public class SacrificeKnife extends Item {
 
 					return InteractionResult.PASS;
 				} else {
-					player.displayClientMessage(new TranslatableComponent("text.mobz.pillagerspawnable"), true);
+					player.displayClientMessage(Component.translatable("text.mobz.pillagerspawnable"), true);
 					return InteractionResult.PASS;
 				}
 			} else {
-				player.displayClientMessage(new TranslatableComponent("text.mobz.pillagermissing"), true);
+				player.displayClientMessage(Component.translatable("text.mobz.pillagermissing"), true);
 				return InteractionResult.PASS;
 			}
 		} else {

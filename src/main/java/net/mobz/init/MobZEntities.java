@@ -232,7 +232,7 @@ public class MobZEntities {
 			Slimo::createSlimoAttributes, 16752702, 16564078);
 	public static final Supplier<EntityType<Withender>> WITHENDER = register(EntityType.Builder
 			.of(Withender::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2).fireImmune()
-			.sized(0.6F, 1.95F), "withender",
+			.sized(0.9F, 3.5F), "withender",
 			Withender::createWithenderAttributes, 1452605, 1982799);
 	public static final Supplier<EntityType<TSpider>> TSPIDER = register(EntityType.Builder.of(TSpider::new, MobCategory.AMBIENT)
 			.clientTrackingRange(74).updateInterval(2).sized(0.2F, 0.1F), "tspider",

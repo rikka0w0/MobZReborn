@@ -115,11 +115,6 @@ public class WithEntity extends Blaze {
    }
 
    @Override
-   public float getBrightness() {
-      return 1.0F;
-   }
-
-   @Override
    public void aiStep() {
       if (!this.onGround && this.getDeltaMovement().y < 0.0D) {
          this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D));

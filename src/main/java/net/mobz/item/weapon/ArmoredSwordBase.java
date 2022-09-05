@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class ArmoredSwordBase extends SwordItem {
@@ -20,6 +19,6 @@ public class ArmoredSwordBase extends SwordItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("item.mobz.armored_sword.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.armored_sword.tooltip"));
 	}
 }

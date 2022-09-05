@@ -23,7 +23,7 @@ public class EnderRenderer extends MobRenderer<EnderMan, EndermanModel<EnderMan>
     public EnderRenderer(EntityRendererProvider.Context context) {
         super(context, new EndermanModel<>(context.bakeLayer(ModelLayers.ENDERMAN)), 0.5F);
         this.addLayer(new EnderEyes<>(this));
-        this.addLayer(new CarriedBlockLayer(this));
+        this.addLayer(new CarriedBlockLayer(this, context.getBlockRenderDispatcher()));
     }
 
     @Override

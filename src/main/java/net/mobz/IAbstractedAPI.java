@@ -53,9 +53,14 @@ public interface IAbstractedAPI {
 	Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor,
 			Item.Properties props);
 
-	Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties builder);
+	Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties builder, int lengthInTicks);
 
 	Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties);
+
+	// TODO: Remove afterwards
+	default Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties builder) {
+		return newRecordItem(comparatorValue, soundSupplier, builder, 233);
+	}
 }

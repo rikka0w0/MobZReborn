@@ -16,7 +16,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class FrozenSwordBase extends SwordItem {
@@ -26,7 +25,7 @@ public class FrozenSwordBase extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("item.mobz.frozen_sword.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.frozen_sword.tooltip"));
     }
 
     private static Supplier<MobEffectInstance> slow1 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 50, 1, false, false, false);
@@ -35,7 +34,7 @@ public class FrozenSwordBase extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {
-        itemStack_1.hurtAndBreak(1, livingEntity_2, (livingEntity_1x) -> 
+        itemStack_1.hurtAndBreak(1, livingEntity_2, (livingEntity_1x) ->
             ((LivingEntity) livingEntity_1x).broadcastBreakEvent(EquipmentSlot.MAINHAND)
         );
 

@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.mobz.init.MobZArmors;
 
@@ -26,7 +25,7 @@ public class BossArmorBase extends ArmorItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("item.mobz.boss_armor.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.boss_armor.tooltip"));
     }
 
     @Override

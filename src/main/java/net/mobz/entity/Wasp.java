@@ -1,7 +1,6 @@
 package net.mobz.entity;
 
 import java.util.EnumSet;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -13,7 +12,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;

@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.BlockGetter;
 
 public class TotemTop extends AbstractHead {
@@ -29,6 +28,6 @@ public class TotemTop extends AbstractHead {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(new TranslatableComponent("block.mobz.totemtop.tooltip"));
+		tooltip.add(Component.translatable("block.mobz.totemtop.tooltip"));
 	}
 }

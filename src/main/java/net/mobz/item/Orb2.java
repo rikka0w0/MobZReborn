@@ -14,7 +14,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class Orb2 extends Item {
@@ -25,8 +24,8 @@ public class Orb2 extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip,
 			TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent("item.mobz.orb2.tooltip"));
-		tooltip.add(new TranslatableComponent("item.mobz.orb2.tooltip2"));
+		tooltip.add(Component.translatable("item.mobz.orb2.tooltip"));
+		tooltip.add(Component.translatable("item.mobz.orb2.tooltip2"));
 	}
 
 	@Override

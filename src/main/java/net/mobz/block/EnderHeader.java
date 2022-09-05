@@ -23,7 +23,7 @@ public class EnderHeader extends AbstractHead {
 	}
 
 	public static boolean isValid(Level world, BlockPos pos, BlockState state) {
-		if (state.getBlock() != MobZBlocks.ENDERHEADER) {
+		if (state.getBlock() != MobZBlocks.ENDERHEADER.get()) {
 			return false;
 		}
 

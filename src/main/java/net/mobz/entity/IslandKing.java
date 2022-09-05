@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -28,98 +29,98 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class IslandKing extends Vindicator {
-  private int cooldown = 0;
-  private final int requiredCooldown = 200;
+	private int cooldown = 0;
+	private final int requiredCooldown = 200;
 
-  public IslandKing(EntityType<? extends Vindicator> entityType, Level world) {
-    super(entityType, world);
-    this.xpReward = 50;
+	public IslandKing(EntityType<? extends Vindicator> entityType, Level world) {
+		super(entityType, world);
+		this.xpReward = 50;
 
-  }
+	}
 
-  public static AttributeSupplier.Builder createIslandKingAttributes() {
-    return Monster.createMonsterAttributes()
-        .add(Attributes.MAX_HEALTH,
-            MobZ.configs.KingCharlesLife * MobZ.configs.LifeMultiplicatorMob)
-        .add(Attributes.MOVEMENT_SPEED, 0.32D)
-        .add(Attributes.ATTACK_DAMAGE,
-            MobZ.configs.KingCharlesAttack * MobZ.configs.DamageMultiplicatorMob)
-        .add(Attributes.FOLLOW_RANGE, 18.0D);
-  }
+	public static AttributeSupplier.Builder createIslandKingAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.KingCharlesLife * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MOVEMENT_SPEED, 0.32D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.KingCharlesAttack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.FOLLOW_RANGE, 18.0D);
+	}
 
-  @Override
-  protected void playStepSound(BlockPos pos, BlockState state) {
-    if (!state.getMaterial().isLiquid()) {
-      this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
-    }
-  }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		if (!state.getMaterial().isLiquid()) {
+			this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
+		}
+	}
 
-  @Override
-  protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
-    super.populateDefaultEquipmentSlots(localDifficulty_1);
-    if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-      this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
-    }
-  }
+	@Override
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+		super.populateDefaultEquipmentSlots(random, difficulty);
+		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
+		}
+	}
 
-  @Override
-  public MobType getMobType() {
-    return MobType.UNDEFINED;
-  }
+	@Override
+	public MobType getMobType() {
+		return MobType.UNDEFINED;
+	}
 
-  @Override
-  protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
-    return;
-  }
+	@Override
+	protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
+		return;
+	}
 
-  @Override
-  public boolean requiresCustomPersistence() {
-    return true;
-  }
+	@Override
+	public boolean requiresCustomPersistence() {
+		return true;
+	}
 
-  @Override
-  protected SoundEvent getAmbientSound() {
-    return MobZSounds.NOTHINGEVENT.get();
-  }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.NOTHINGEVENT.get();
+	}
 
-  @Override
-  protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-    return SoundEvents.PLAYER_HURT;
-  }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return SoundEvents.PLAYER_HURT;
+	}
 
-  @Override
-  protected SoundEvent getDeathSound() {
-    return SoundEvents.PLAYER_DEATH;
-  }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.PLAYER_DEATH;
+	}
 
-  @Override
-  protected void customServerAiStep() {
-    MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
+	@Override
+	protected void customServerAiStep() {
+		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
 
-    if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
+		if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D
+				&& hasLineOfSight(getTarget())) {
 
-      cooldown++;
-      if (cooldown >= requiredCooldown) {
-        cooldown = 0;
-        attack(getTarget(), 1);
-      }
-      if (cooldown >= (requiredCooldown - 20)) {
-        getTarget().addEffect(slow);
-      }
-    } else {
-      cooldown = 0;
-    }
-  }
+			cooldown++;
+			if (cooldown >= requiredCooldown) {
+				cooldown = 0;
+				attack(getTarget(), 1);
+			}
+			if (cooldown >= (requiredCooldown - 20)) {
+				getTarget().addEffect(slow);
+			}
+		} else {
+			cooldown = 0;
+		}
+	}
 
-  public void attack(LivingEntity target, float f) {
-    BlockPos blockPos = IslandKing.this.blockPosition().offset(-2 + IslandKing.this.random.nextInt(5), 1,
-        -2 + IslandKing.this.random.nextInt(5));
-    IslandVexEntity vexEntity = (IslandVexEntity) MobZEntities.ISLANDVEXENTITY.get().create(IslandKing.this.level);
-    vexEntity.moveTo(blockPos, 0.0F, 0.0F);
-    vexEntity.finalizeSpawn((ServerLevelAccessor) IslandKing.this.level, IslandKing.this.level.getCurrentDifficultyAt(blockPos),
-        MobSpawnType.MOB_SUMMONED, null, (CompoundTag) null);
-    IslandKing.this.level.addFreshEntity(vexEntity);
-  }
+	public void attack(LivingEntity target, float f) {
+		BlockPos blockPos = IslandKing.this.blockPosition().offset(-2 + IslandKing.this.random.nextInt(5), 1,
+				-2 + IslandKing.this.random.nextInt(5));
+		IslandVexEntity vexEntity = (IslandVexEntity) MobZEntities.ISLANDVEXENTITY.get().create(IslandKing.this.level);
+		vexEntity.moveTo(blockPos, 0.0F, 0.0F);
+		vexEntity.finalizeSpawn((ServerLevelAccessor) IslandKing.this.level,
+				IslandKing.this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null,
+				(CompoundTag) null);
+		IslandKing.this.level.addFreshEntity(vexEntity);
+	}
 
 	@Override
 	public boolean canJoinRaid() {

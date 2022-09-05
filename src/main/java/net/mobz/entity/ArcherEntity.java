@@ -21,6 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
@@ -74,8 +75,8 @@ public class ArcherEntity extends Pillager {
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty_1) {
-        super.populateDefaultEquipmentSlots(localDifficulty_1);
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+        super.populateDefaultEquipmentSlots(random, difficulty);
         this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
     }
 

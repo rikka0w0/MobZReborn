@@ -13,7 +13,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.BlockGetter;
 
 public class TotemMiddle extends Block {
@@ -48,6 +47,6 @@ public class TotemMiddle extends Block {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(new TranslatableComponent("block.mobz.totemmiddle.tooltip"));
+		tooltip.add(Component.translatable("block.mobz.totemmiddle.tooltip"));
 	}
 }

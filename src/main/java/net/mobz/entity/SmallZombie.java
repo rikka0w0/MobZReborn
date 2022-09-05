@@ -55,7 +55,7 @@ public class SmallZombie extends Zombie {
     }
 
     @Override
-    protected boolean shouldDropExperience() {
+	public boolean shouldDropExperience() {
         return false;
     }
 

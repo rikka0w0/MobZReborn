@@ -20,6 +20,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
@@ -62,8 +63,8 @@ public class PillagerBoss extends Pillager {
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+    	// Must not have the cross bow
     }
 
     @Override

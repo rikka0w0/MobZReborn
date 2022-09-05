@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
@@ -63,8 +64,8 @@ public class BossEntity extends Zombie {
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance localDifficulty) {
-        super.populateDefaultEquipmentSlots(localDifficulty);
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+        super.populateDefaultEquipmentSlots(random, difficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.BossSword.get()));
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(MobZArmors.boss_chestplate.get()));

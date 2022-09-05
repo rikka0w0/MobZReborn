@@ -14,7 +14,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class VSwordBase extends SwordItem {
@@ -24,7 +23,7 @@ public class VSwordBase extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("item.mobz.v_sword.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.v_sword.tooltip"));
     }
 
     public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {

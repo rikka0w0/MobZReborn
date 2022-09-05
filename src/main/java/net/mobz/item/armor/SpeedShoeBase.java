@@ -18,7 +18,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class SpeedShoeBase extends ArmorItem {
@@ -35,7 +34,7 @@ public class SpeedShoeBase extends ArmorItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent("item.mobz.speed_boots.tooltip"));
+		tooltip.add(Component.translatable("item.mobz.speed_boots.tooltip"));
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class MetalGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<Ir
     public MetalGolemRenderer(EntityRendererProvider.Context context) {
         super(context, new IronGolemModel<>(context.bakeLayer(ModelLayers.IRON_GOLEM)), 0.7F);
         this.addLayer(new IronGolemCrackinessLayer(this));
-        this.addLayer(new IronGolemFlowerLayer(this));
+        this.addLayer(new IronGolemFlowerLayer(this, context.getBlockRenderDispatcher()));
     }
 
     @Override

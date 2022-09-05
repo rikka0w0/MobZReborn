@@ -22,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.mobz.init.MobZArmors;
 
@@ -39,7 +38,7 @@ public class AmatArmorBase extends ArmorItem {
 
     @Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("item.mobz.amat_armor.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.amat_armor.tooltip"));
     }
 
 	@Override

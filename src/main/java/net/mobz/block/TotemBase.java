@@ -1,7 +1,6 @@
 package net.mobz.block;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -14,13 +13,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.ticks.TickPriority;
@@ -68,7 +67,7 @@ public class TotemBase extends Block {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
 		if (state.getValue(TotemBase.ENABLED)) {
 			world.removeBlock(pos, false);
 			world.removeBlock(pos.above(), false);
@@ -83,7 +82,7 @@ public class TotemBase extends Block {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		if (state.getValue(ENABLED)) {
 			for (int i=0; i<10; i++) {
 		        double d = (double) pos.getX() + (double) rand.nextFloat();
@@ -106,6 +105,6 @@ public class TotemBase extends Block {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(new TranslatableComponent("block.mobz.totembase.tooltip"));
+		tooltip.add(Component.translatable("block.mobz.totembase.tooltip"));
 	}
 }

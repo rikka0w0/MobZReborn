@@ -1,13 +1,12 @@
 package net.mobz.item;
 
-import java.util.Random;
-
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
@@ -27,7 +26,7 @@ public class WitherMeal extends SimpleItem {
 		BlockState blockState = world.getBlockState(pos);
 
         if (blockState.getBlock() == Blocks.SOUL_SAND && !world.isClientSide) {
-            Random random = new Random();
+        	RandomSource random = world.random;
             int randomNumber = (random.nextInt() % 2);
             if (randomNumber < 0) {
                 randomNumber = randomNumber * (-1);
@@ -51,7 +50,7 @@ public class WitherMeal extends SimpleItem {
 
         if (((blockState.getBlock() == Blocks.SOUL_SAND || blockState.getBlock() == Blocks.FARMLAND)
                 && world.isClientSide)) {
-        	Random random = world.getRandom();
+        	RandomSource random = world.random;
             for (int i = 0; i < 12; ++i) {
                 double d = random.nextGaussian() * 0.02D;
                 double e = random.nextGaussian() * 0.02D;

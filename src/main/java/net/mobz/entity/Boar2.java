@@ -1,6 +1,7 @@
 package net.mobz.entity;
 
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -25,10 +26,10 @@ public class Boar2 extends Pig {
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
-    @Override
-    public boolean canBeControlledByRider() {
-        return false;
-    }
+	@Override
+	public Entity getControllingPassenger() {
+		return null;
+	}
 
     @Override
     public boolean isSaddled() {

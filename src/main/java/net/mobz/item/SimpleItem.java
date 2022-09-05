@@ -8,7 +8,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class SimpleItem extends Item {
@@ -23,6 +22,6 @@ public class SimpleItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
 		String str = this.getDescriptionId(itemStack);
-		tooltip.add(new TranslatableComponent(str+".tooltip"));
+		tooltip.add(Component.translatable(str+".tooltip"));
 	}
 }

@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 public class Sbow extends BowItem {
@@ -24,7 +23,7 @@ public class Sbow extends BowItem {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
 		String str = this.getDescriptionId(itemStack);
-		tooltip.add(new TranslatableComponent(str+".tooltip"));
+		tooltip.add(Component.translatable(str+".tooltip"));
 	}
 
     @Override
