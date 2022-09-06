@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#minecraft:allows_surface_slime_spawns",
+  "spawners": {
+    "type": "mobz:toad",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 8
+  }
+}

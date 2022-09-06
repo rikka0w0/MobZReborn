@@ -89,8 +89,8 @@ public class DwarfEntity extends Vindicator {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
-		BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
+		BlockPos blockunderentity = this.blockPosition().below();
+		BlockPos posentity = this.blockPosition();
 
 		if (MobZ.configs.DwarfSpawn_UndergroundOnly && posentity.getY() >= view.getSeaLevel() - 10) {
 			return false;

@@ -2,6 +2,7 @@ package net.mobz.forge.datagen;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -10,12 +11,16 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.mobz.MobZ;
 
 public class SpawnEggItemModelDataProvider extends ItemModelProvider {
-	public SpawnEggItemModelDataProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+	private final Registry<Item> registry;
+
+	public SpawnEggItemModelDataProvider(DataGenerator generator, Registry<Item> registry,
+			ExistingFileHelper existingFileHelper) {
 		super(generator, MobZ.MODID, existingFileHelper);
+		this.registry = registry;
 	}
 
 	private void spawnEggItemModel(SpawnEggItem egg) {
-		String itemModelPath = "item/" + Registry.ITEM.getKey(egg).getPath();
+		String itemModelPath = "item/" + this.registry.getKey(egg).getPath();
 		ItemModelBuilder itemModelBuilder = this.getBuilder(itemModelPath);
 		itemModelBuilder.parent(new ModelFile.ExistingModelFile(mcLoc("item/template_spawn_egg"), existingFileHelper));
 	}
@@ -23,8 +28,8 @@ public class SpawnEggItemModelDataProvider extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		// Spawn Eggs
-		Registry.ITEM.stream()
-			.filter((item) -> item instanceof SpawnEggItem && Registry.ITEM.getKey(item).getNamespace().equals(MobZ.MODID))
-			.forEach((item) -> spawnEggItemModel((SpawnEggItem) item));
+		this.registry.stream().filter(
+				(item) -> item instanceof SpawnEggItem && this.registry.getKey(item).getNamespace().equals(MobZ.MODID))
+				.forEach((item) -> spawnEggItemModel((SpawnEggItem) item));
 	}
 }

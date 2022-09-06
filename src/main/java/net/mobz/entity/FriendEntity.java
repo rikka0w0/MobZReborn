@@ -1,7 +1,6 @@
 package net.mobz.entity;
 
 import java.util.UUID;
-import java.util.function.Predicate;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.AgeableMob;
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -29,13 +27,11 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -50,8 +46,6 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
-    public static final Predicate<LivingEntity> FOLLOW_TAMED_PREDICATE;
-
     public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
         super(entityType, world);
         this.setTame(false);
@@ -72,8 +66,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
-        this.targetSelector.addGoal(5,
-                new NonTameRandomTargetGoal<>(this, Animal.class, false, FOLLOW_TAMED_PREDICATE));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
@@ -138,7 +130,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        Item item = itemStack.getItem();
         if (this.level.isClientSide) {
             boolean bl = this.isOwnedBy(player) || this.isTame()
                     || isTameItem(itemStack) && !this.isTame() && !this.isAngry();
@@ -150,7 +141,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                         itemStack.shrink(1);
                     }
 
-                    this.heal((float) item.getFoodProperties().getNutrition());
+                    this.heal((float) MobZ.platform.getFoodProperties(itemStack, player).getNutrition());
                     return InteractionResult.SUCCESS;
                 }
 
@@ -230,14 +221,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
     @Override
     public abstract boolean isFood(ItemStack stack);
-
-    static {
-
-        FOLLOW_TAMED_PREDICATE = (livingEntity) -> {
-            EntityType<?> entityType = livingEntity.getType();
-            return entityType == EntityType.SHEEP || entityType == EntityType.RABBIT || entityType == EntityType.FOX;
-        };
-    }
 
     @Override
     public int getRemainingPersistentAngerTime() {

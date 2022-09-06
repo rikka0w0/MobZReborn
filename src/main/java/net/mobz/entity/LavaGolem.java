@@ -89,8 +89,8 @@ public class LavaGolem extends IronGolem {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
-      BlockPos posentity = new BlockPos(this.getX(), this.getY(), this.getZ());
+      BlockPos blockunderentity = this.blockPosition().below();
+      BlockPos posentity = this.blockPosition();
       return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
             && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
             && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()

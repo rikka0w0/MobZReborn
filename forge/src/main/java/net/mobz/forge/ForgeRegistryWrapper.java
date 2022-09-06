@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -150,5 +151,10 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties) {
 		return () -> new MobBucketItem(entitySupplier, fluidSupplier, soundSupplier, properties);
+	}
+
+	@Override
+	public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
+		return stack.getFoodProperties(entity);
 	}
 }

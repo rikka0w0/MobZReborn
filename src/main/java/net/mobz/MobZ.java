@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
@@ -31,6 +32,9 @@ public class MobZ {
 	public final static TagKey<Item> KATHERINE_FOOD_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "katherine_food"));
 	public final static TagKey<Item> FIORA_TAME_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "fiora_tame"));
 	public final static TagKey<Item> KATHERINE_TAME_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "katherine_tame"));
+
+	public final static TagKey<Biome> SPAWN_NORMAL_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(MODID, "spawn_normal"));
+	public final static TagKey<Biome> SPAWN_ICY_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(MODID, "spawn_icy"));
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {

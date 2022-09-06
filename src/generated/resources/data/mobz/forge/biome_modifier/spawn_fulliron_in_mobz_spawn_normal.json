@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#mobz:spawn_normal",
+  "spawners": {
+    "type": "mobz:fulliron",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 2
+  }
+}
