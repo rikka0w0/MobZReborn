@@ -19,6 +19,7 @@ import net.mobz.init.MobZWeapons;
 public class MobZ {
 	public static final String MODID = "mobz";
 	public static IAbstractedAPI platform = null;
+	public static boolean isDebugMode = false;
 
 	// Configs
 	public static Configs configs = null;

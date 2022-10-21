@@ -33,15 +33,23 @@ public class MobZWeapons {
     public static final Tier AXEMATERIAL = new AxeMaterial();
     public static final Tier POISONSWORDMATERIAL = new PoisonSwordMaterial();
     public static final Tier WITHERSWORDMATERIAL = new WitherSwordMaterial();
-    public static final Tier DEBUGOMAT = new DebugoMat();
 
     public static final Supplier<Item> Axe = MobZ.platform.registerItem("axe", () -> new AxeBase(AXEMATERIAL, defaultItemProp));
     public static final Supplier<Item> ArmoredSword = MobZ.platform.registerItem("armored_sword", () -> new ArmoredSwordBase(ARMORED_MATERIAL, defaultItemProp));
     public static final Supplier<Item> BossSword = MobZ.platform.registerItem("boss_sword", () -> new BossSwordBase(BOSS_MATERIAL, defaultItemProp));
-    public static final Supplier<Item> Debuger = MobZ.platform.registerItem("debuger", () -> new Debugo(DEBUGOMAT, defaultItemProp));
+    public static final Supplier<Item> Debuger;
     public static final Supplier<Item> FrozenSword = MobZ.platform.registerItem("frozen_sword", () -> new FrozenSwordBase(POISONSWORDMATERIAL, defaultItemProp));
     public static final Supplier<Item> PoisonSword = MobZ.platform.registerItem("poison_sword", () -> new PoisonSwordBase(POISONSWORDMATERIAL, defaultItemProp));
     public static final Supplier<Item> Sword = MobZ.platform.registerItem("sword", () -> new SwordBase(SWORDMATERIAL, defaultItemProp));
     public static final Supplier<Item> VSword = MobZ.platform.registerItem("v_sword", () -> new VSwordBase(WITHERSWORDMATERIAL, defaultItemProp));
     public static final Supplier<Item> WitherSword = MobZ.platform.registerItem("wither_sword", () -> new WitherSwordBase(WITHERSWORDMATERIAL, defaultItemProp));
+
+    static {
+    	if (MobZ.isDebugMode) {
+        	Tier DEBUGOMAT = new DebugoMat();
+    		Debuger = MobZ.platform.registerItem("debuger", () -> new Debugo(DEBUGOMAT, defaultItemProp));
+    	} else {
+    		Debuger = null;
+    	}
+    }
 }
