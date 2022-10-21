@@ -1,7 +1,6 @@
 package net.mobz.fabric;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
@@ -20,7 +19,7 @@ public class FabricSpawnEgg extends SpawnEggItem {
 
 	@Override
 	public Component getDescription() {
-		return new TranslatableComponent("item.mobz.spawnegg", this.getType(null).getDescription().getString());
+		return Component.translatable("item.mobz.spawnegg", this.getType(null).getDescription().getString());
 	}
 
 	@Override

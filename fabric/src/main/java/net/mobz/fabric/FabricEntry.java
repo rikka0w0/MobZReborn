@@ -1,49 +1,34 @@
 package net.mobz.fabric;
 
-import com.google.common.base.Preconditions;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
-import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
-import net.minecraft.core.Registry;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.mobz.IBiomeFilter;
 import net.mobz.MobZ;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
-import net.mobz.init.MobSpawns;
 
-@SuppressWarnings("deprecation")
 public class FabricEntry implements ModInitializer {
 	public static void addRoll(ResourceLocation[] lootTableIDs, NumberProvider range, Builder<?> entryBuilder) {
-        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
         	for (ResourceLocation lootTableID: lootTableIDs) {
                 if (id.equals(lootTableID)) {
-                    supplier.withPool(FabricLootPoolBuilder.builder().setRolls(range).add(entryBuilder));
+                	tableBuilder.withPool(LootPool.lootPool().setRolls(range).add(entryBuilder));
                 }
         	}
-        });
-	}
-
-	public static void addMobSpawn(IBiomeFilter biomeFilter, MobCategory spawnGroup, SpawnerData spawns) {
-		// See constructor of SpawnSettings.SpawnEntry for context
-		Preconditions.checkArgument(spawns.type.getCategory() != MobCategory.MISC,
-				"Cannot add spawns for entities with spawnGroup=MISC since they'd be replaced by pigs.");
-
-		ResourceLocation id = Registry.ENTITY_TYPE.getKey(spawns.type);
-		Preconditions.checkState(id != Registry.ENTITY_TYPE.getDefaultKey(), "Unregistered entity type: %s", spawns.type);
-
-		BiomeModifications.create(id).add(ModificationPhase.ADDITIONS,
-				context -> biomeFilter.accept(Biome.getBiomeCategory(context.getBiomeRegistryEntry())),
-				context -> context.getSpawnSettings().addSpawn(spawnGroup, spawns));
+		});
 	}
 
 	@Override
@@ -55,11 +40,39 @@ public class FabricEntry implements ModInitializer {
 
 		// Register items, blocks, entities
 		MobZ.invokeStaticFields();
-		MobSpawnRestrictions.applyAll(SpawnRestrictionAccessor::callRegister);
+		MobSpawnRestrictions.applyAll(SpawnPlacements::register);
 
 		// Inject loot tables
 		LootTableModifier.loadAll(FabricEntry::addRoll);
+
 		// Add spawns
-		MobSpawns.addMobSpawns(FabricEntry::addMobSpawn);
+		ResourceManagerHelper.get(PackType.SERVER_DATA)
+				.registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+					@Override
+					public ResourceLocation getFabricId() {
+						return AddSpawnsBiomeModifier.resloc;
+					}
+
+					@Override
+					public CompletableFuture<Void> reload(PreparationBarrier preparationBarrier,
+							ResourceManager resourceManager, ProfilerFiller serverProfiler,
+							ProfilerFiller clientProfiler, Executor serverExecutor, Executor clientExecutor) {
+						return preparationBarrier.wait(null).thenRunAsync(() -> {
+							serverProfiler.startTick();
+							serverProfiler.push("Reloading MobZ spawns");
+							try {
+								AddSpawnsBiomeModifier.onDataPackReload(resourceManager);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							serverProfiler.pop();
+							serverProfiler.endTick();
+						});
+					}
+
+					@Override
+					public void onResourceManagerReload(ResourceManager resourceManager) {
+					}
+				});
 	}
 }

@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -110,8 +111,8 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 
 	@Override
 	public Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier,
-			Item.Properties builder) {
-		return () -> new RecordItem(comparatorValue, soundSupplier.get(), builder) {};
+			Item.Properties builder, int lengthInTicks) {
+		return () -> new RecordItem(comparatorValue, soundSupplier.get(), builder, lengthInTicks) {};
 	}
 
 	@Override
@@ -120,5 +121,10 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 			Item.Properties properties) {
 
 		return () -> new MobBucketItem(entitySupplier.get(), fluidSupplier.get(), soundSupplier.get(), properties);
+	}
+
+	@Override
+	public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
+		return stack.getItem().getFoodProperties();
 	}
 }

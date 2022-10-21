@@ -30,6 +30,7 @@
   "mixins": [
     "mobz.mixins.json"
   ],
+  "accessWidener" : "mobz.accesswidener",
   "depends": {
     "minecraft": ">=${minecraft_version_min}",
     "fabricloader": ">=${loader_version}",

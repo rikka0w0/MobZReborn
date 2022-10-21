@@ -7,7 +7,8 @@
         "fabricloader": "IGNORED",
         "fabric": "IGNORED",
         "cloth-config2": "IGNORED",
-        "fabricshieldlib": "IGNORED"
+        "fabricshieldlib": "IGNORED",
+        "mm": "IGNORED"
       }
     }
   }
