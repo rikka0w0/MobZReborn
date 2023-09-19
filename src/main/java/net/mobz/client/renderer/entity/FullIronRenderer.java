@@ -14,8 +14,8 @@ public class FullIronRenderer extends HumanoidMobRenderer<FullIronEntity, Player
         super(context, new PlayerModel<>(context.bakeLayer(ModelLayers.PLAYER), true), 0.5F);
         this.addLayer(new HumanoidArmorLayer<>(this,
                 new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
-                new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR))
-                ));
+                new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)),
+                context.getModelManager()));
     }
 
     @Override

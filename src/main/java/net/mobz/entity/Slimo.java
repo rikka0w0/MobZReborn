@@ -9,11 +9,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 
 public class Slimo extends Slime {
 
@@ -29,13 +27,9 @@ public class Slimo extends Slime {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SLIMO.get())
-                && MobZ.configs.GrassSlimeSpawn;
-
+        return MobZ.configs.GrassSlimeSpawn
+        		&& this.level().isDay()
+        		&& MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 
     @Override

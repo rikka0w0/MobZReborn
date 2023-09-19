@@ -28,7 +28,7 @@ public class Sbow extends BowItem {
 
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        MobEffectInstance spd = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 7, 1, false, false);
+        MobEffectInstance spd = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1, false, false);
         LivingEntity bob = (LivingEntity) entity;
         if (selected == true) {
            if (bob.isUsingItem()) {

@@ -9,14 +9,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZWeapons;
 
 public class ArmoredEntity extends Zombie {
@@ -44,17 +42,17 @@ public class ArmoredEntity extends Zombie {
    @Override
    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
        super.populateDefaultEquipmentSlots(random, difficulty);
-      if (this.level.getDifficulty() == Difficulty.NORMAL) {
+      if (this.level().getDifficulty() == Difficulty.NORMAL) {
          this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
          this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
          this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
       } else {
-         if (this.level.getDifficulty() == Difficulty.EASY) {
+         if (this.level().getDifficulty() == Difficulty.EASY) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
             this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
             this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
          } else {
-            if (this.level.getDifficulty() == Difficulty.HARD) {
+            if (this.level().getDifficulty() == Difficulty.HARD) {
                this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
                this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
                this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
@@ -71,12 +69,7 @@ public class ArmoredEntity extends Zombie {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARMORED.get())
-            && MobZ.configs.ArmoredZombieSpawn;
+      return MobZ.configs.ArmoredZombieSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
    }
 
    @Override

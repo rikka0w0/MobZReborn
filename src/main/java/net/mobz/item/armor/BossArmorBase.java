@@ -19,8 +19,8 @@ import net.minecraft.world.level.Level;
 import net.mobz.init.MobZArmors;
 
 public class BossArmorBase extends ArmorItem {
-    public BossArmorBase(ArmorMaterial material, EquipmentSlot slot, Item.Properties properties) {
-        super(material, slot, properties);
+    public BossArmorBase(ArmorMaterial material, ArmorItem.Type armorItemType, Item.Properties properties) {
+        super(material, armorItemType, properties);
     }
 
 	@Override
@@ -38,10 +38,10 @@ public class BossArmorBase extends ArmorItem {
         LivingEntity bob = (LivingEntity) entity;
         MobEffectInstance spd = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 9, 0, false, false);
         MobEffectInstance str = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 9, 0, false, false);
-        if (bob.getItemBySlot(EquipmentSlot.FEET).sameItem(new ItemStack(MobZArmors.boss_boots.get()))
-                && bob.getItemBySlot(EquipmentSlot.LEGS).sameItem(new ItemStack(MobZArmors.boss_leggings.get()))
-                && bob.getItemBySlot(EquipmentSlot.CHEST).sameItem(new ItemStack(MobZArmors.boss_chestplate.get()))
-                && bob.getItemBySlot(EquipmentSlot.HEAD).sameItem(new ItemStack(MobZArmors.boss_helmet.get()))
+        if (bob.getItemBySlot(EquipmentSlot.FEET).is(MobZArmors.boss_boots.get())
+                && bob.getItemBySlot(EquipmentSlot.LEGS).is(MobZArmors.boss_leggings.get())
+                && bob.getItemBySlot(EquipmentSlot.CHEST).is(MobZArmors.boss_chestplate.get())
+                && bob.getItemBySlot(EquipmentSlot.HEAD).is(MobZArmors.boss_helmet.get())
                 && !world.isClientSide) {
             bob.addEffect(str);
             if (bob.isSprinting()) {

@@ -11,11 +11,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 
 public class SpiEntity extends Spider {
     public SpiEntity(EntityType<? extends Spider> entityType, Level world) {
@@ -39,19 +37,13 @@ public class SpiEntity extends Spider {
         }
         LivingEntity bob = (LivingEntity) target;
         MobEffectInstance poison = new MobEffectInstance(MobEffects.POISON, 120, 0, false, false);
-        if (target instanceof LivingEntity && randomNumber == 3 && !level.isClientSide) {
+        if (target instanceof LivingEntity && randomNumber == 3 && !this.level().isClientSide) {
             bob.addEffect(poison);
         }
     }
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SPI.get())
-                && MobZ.configs.BlueSpiderSpawn;
-
+        return MobZ.configs.BlueSpiderSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

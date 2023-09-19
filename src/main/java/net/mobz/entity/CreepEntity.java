@@ -7,11 +7,9 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class CreepEntity extends Creeper {
@@ -39,12 +37,7 @@ public class CreepEntity extends Creeper {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.CREEP.get())
-            && MobZ.configs.FrostCreeperSpawn;
+      return MobZ.configs.FrostCreeperSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
    }
 }

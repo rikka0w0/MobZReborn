@@ -6,11 +6,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
@@ -47,17 +45,13 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 
-   @Override
-   public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox()) && this.level.isDay()
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ILLUSIONER.get())
-            && MobZ.configs.IllusionerSpawn;
-
-   }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.IllusionerSpawn
+				&& this.level().isDay()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

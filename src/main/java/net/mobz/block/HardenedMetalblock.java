@@ -8,8 +8,6 @@ import javax.annotation.Nullable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
@@ -39,7 +37,8 @@ public class HardenedMetalblock extends Block {
 			this.golemPattern = BlockPatternBuilder.start().aisle("~^~", "###", "~#~")
 					.where('^', BlockInWorld.hasState(IS_PUMPKIN))
 					.where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(this)))
-					.where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))).build();
+					.where('~', BlockInWorld.hasState((blockState) -> blockState.isAir()))
+					.build();
 		}
 
 		return this.golemPattern;
@@ -61,7 +60,7 @@ public class HardenedMetalblock extends Block {
 			}
 
 			BlockPos spawnPos = blockpattern$patternhelper.getBlock(1, 2, 0).getPos();
-			MetalGolem golem = (MetalGolem) MobZEntities.METALGOLEM.get().create(world);
+			MetalGolem golem = MobZEntities.METALGOLEM.get().create(world);
 			golem.moveTo(spawnPos, 0.0F, 0.0F);
 			world.addFreshEntity(golem);
 		}

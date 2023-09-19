@@ -27,8 +27,8 @@ public class LifeArmorBase extends ArmorItem {
             UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
             UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150") };
 
-    public LifeArmorBase(ArmorMaterial material, EquipmentSlot slot, Item.Properties properties, double lifeBoost) {
-        super(material, slot, properties);
+    public LifeArmorBase(ArmorMaterial material, ArmorItem.Type armorItemType, Item.Properties properties, double lifeBoost) {
+        super(material, armorItemType, properties);
         this.lifeBoost = lifeBoost;
     }
 
@@ -38,10 +38,10 @@ public class LifeArmorBase extends ArmorItem {
     }
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot_1) {
-		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot_1));
-		if (equipmentSlot_1 == this.slot) {
-			multimap_1.put(Attributes.MAX_HEALTH, new AttributeModifier(MODIFIERS[equipmentSlot_1.getIndex()],
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
+		if (equipmentSlot == this.getEquipmentSlot()) {
+			multimap_1.put(Attributes.MAX_HEALTH, new AttributeModifier(MODIFIERS[equipmentSlot.getIndex()],
 					"Life", this.lifeBoost, AttributeModifier.Operation.ADDITION));
 
 		}

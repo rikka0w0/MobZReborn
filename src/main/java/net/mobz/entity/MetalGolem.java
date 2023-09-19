@@ -128,7 +128,7 @@ public class MetalGolem extends IronGolem {
           itemStack.shrink(1);
         }
 
-        return InteractionResult.sidedSuccess(this.level.isClientSide);
+        return InteractionResult.sidedSuccess(this.level().isClientSide);
       }
     }
   }

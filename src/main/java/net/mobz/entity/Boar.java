@@ -1,8 +1,8 @@
 package net.mobz.entity;
 
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,7 +30,7 @@ public class Boar extends Pig {
     }
 
 	@Override
-	public Entity getControllingPassenger() {
+	public LivingEntity getControllingPassenger() {
 		return null;
 	}
 
@@ -54,10 +54,6 @@ public class Boar extends Pig {
         return false;
     }
 
-    public Boar method_6574(AgeableMob passiveEntity_1) {
-        return (Boar) MobZEntities.BOAR.get().create(this.level);
-    }
-
     @Override
     public boolean isFood(ItemStack stack) {
         return BREEDING_INGREDIENT.test(stack);
@@ -65,7 +61,7 @@ public class Boar extends Pig {
 
     @Override
 	public Boar getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        return (Boar) MobZEntities.BOAR.get().create(this.level);
+        return MobZEntities.BOAR.get().create(world);
     }
 
     static {

@@ -1,12 +1,17 @@
 package net.mobz.forge;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.entity.Entity;
@@ -22,6 +27,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,9 +44,11 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	private final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MobZ.MODID);
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MobZ.MODID);
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MobZ.MODID);
+	private final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MobZ.MODID);
 
 	private Set<Supplier<?>> setters = new HashSet<>();
 	private Set<Consumer<BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier>>> attribSuppliers = new HashSet<>();
+	private Map<CreativeModeTab, List<Supplier<? extends ItemLike>>> tabContents = new HashMap<>();
 
 	public ForgeRegistryWrapper() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -47,11 +56,17 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 		ITEMS.register(eventBus);
 		ENTITY_TYPES.register(eventBus);
 		SOUNDS.register(eventBus);
+		TABS.register(eventBus);
 	}
 
 	@Override
-	public <T extends Item> Supplier<T> registerItem(String name, Supplier<T> constructor, Consumer<T> setter) {
+	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab, Supplier<T> constructor, Consumer<T> setter) {
 		RegistryObject<T> regObj = ITEMS.register(name, constructor);
+
+		if (tab != null) {
+			tabContents.get(tab).add(regObj);
+		}
+
 		if (setter != null) {
 			setters.add(() -> {
 				T val = regObj.get();
@@ -63,9 +78,14 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> constructor,
+	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Supplier<T> constructor,
 			Function<T, BlockItem> blockItemConstructor, Consumer<T> setter) {
 		RegistryObject<T> regObj = BLOCKS.register(name, constructor);
+
+		if (tab != null) {
+			tabContents.get(tab).add(regObj);
+		}
+
 		if (setter != null) {
 			setters.add(() -> {
 				T val = regObj.get();
@@ -100,7 +120,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 
 	@Override
 	public Supplier<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
-		Supplier<SoundEvent> constructor = () -> new SoundEvent(resloc);
+		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(resloc);
 		RegistryObject<SoundEvent> regObj = SOUNDS.register(name, constructor);
 		if (setter != null) {
 			setters.add(() -> {
@@ -126,12 +146,25 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 
 	@Override
 	public CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier) {
-		return new CreativeModeTab(resLoc.getNamespace() + "." + resLoc.getPath()) {
-			@Override
-			public ItemStack makeIcon() {
-				return iconSupplier.get();
-			}
-		};
+		String displayNameKey = "itemGroup." + resLoc.getNamespace() + "." + resLoc.getPath();
+
+		List<Supplier<? extends ItemLike>> contents = new LinkedList<>();
+		CreativeModeTab tab = CreativeModeTab.builder()
+				.title(Component.translatable(displayNameKey))
+				.icon(iconSupplier)
+				.displayItems((params, output) -> {
+					contents.stream().map(Supplier::get).forEach(output::accept);
+				})
+				.build();
+
+		tabContents.put(tab, contents);
+		TABS.register(resLoc.getPath(), () -> tab);
+		return tab;
+	}
+
+	@Override
+	public void addToTab(CreativeModeTab tab, Supplier<? extends ItemLike> item) {
+		tabContents.get(tab).add(item);
 	}
 
 	@Override

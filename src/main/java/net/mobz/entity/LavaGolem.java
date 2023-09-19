@@ -25,7 +25,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class LavaGolem extends IronGolem {
@@ -87,16 +86,11 @@ public class LavaGolem extends IronGolem {
       return true;
    }
 
-   @Override
-   public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-            && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.LAVAGOLEM.get())
-            && MobZ.configs.LavaGolemSpawn;
-
-   }
-
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		BlockPos posentity = this.blockPosition();
+		return MobZ.configs.LavaGolemSpawn
+				&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

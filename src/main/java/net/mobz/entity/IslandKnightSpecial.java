@@ -64,7 +64,7 @@ public class IslandKnightSpecial extends Zombie {
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
 		}
@@ -114,7 +114,7 @@ public class IslandKnightSpecial extends Zombie {
 	public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
 		LivingEntity bob = (LivingEntity) target;
 		MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false);
-		if (target instanceof LivingEntity && !level.isClientSide) {
+		if (target instanceof LivingEntity && !this.level().isClientSide) {
 			bob.addEffect(weakness);
 		}
 	}

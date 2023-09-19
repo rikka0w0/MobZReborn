@@ -8,11 +8,9 @@ import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class PigmanEntity extends Piglin {
@@ -67,13 +65,6 @@ public class PigmanEntity extends Piglin {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.PIG.get())
-                && MobZ.configs.PigmanSpawn;
-
+        return MobZ.configs.PigmanSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
-
 }

@@ -306,8 +306,8 @@ public class MobZEntities {
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2) {
 		Supplier<EntityType<T>> entityTypeSupplier = MobZ.platform.registerEntityType(name, ()->entityTypeBuilder.build(name), attribModifierSupplier, null);
-		Supplier<SpawnEggItem> spawnEgg = MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, (new Item.Properties()).tab(MobZTabs.eggs));
-		MobZ.platform.registerItem("spawn_" + name, spawnEgg, null);
+		Supplier<SpawnEggItem> spawnEgg = MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, new Item.Properties());
+		MobZ.platform.registerItem("spawn_" + name, MobZTabs.eggs, spawnEgg, null);
 
 		return entityTypeSupplier;
 	}

@@ -38,7 +38,7 @@ public class IslandKnightNormal extends Vindicator {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		if (!state.getMaterial().isLiquid()) {
+		if (!state.liquid()) {
 			this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
 		}
 	}
@@ -46,7 +46,7 @@ public class IslandKnightNormal extends Vindicator {
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
 		}
@@ -84,6 +84,6 @@ public class IslandKnightNormal extends Vindicator {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 }

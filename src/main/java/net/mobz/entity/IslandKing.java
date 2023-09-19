@@ -48,7 +48,7 @@ public class IslandKing extends Vindicator {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		if (!state.getMaterial().isLiquid()) {
+		if (!state.liquid()) {
 			this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
 		}
 	}
@@ -56,7 +56,7 @@ public class IslandKing extends Vindicator {
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
 		}
 	}
@@ -95,7 +95,7 @@ public class IslandKing extends Vindicator {
 	protected void customServerAiStep() {
 		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
 
-		if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D
+		if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D
 				&& hasLineOfSight(getTarget())) {
 
 			cooldown++;
@@ -114,16 +114,16 @@ public class IslandKing extends Vindicator {
 	public void attack(LivingEntity target, float f) {
 		BlockPos blockPos = IslandKing.this.blockPosition().offset(-2 + IslandKing.this.random.nextInt(5), 1,
 				-2 + IslandKing.this.random.nextInt(5));
-		IslandVexEntity vexEntity = (IslandVexEntity) MobZEntities.ISLANDVEXENTITY.get().create(IslandKing.this.level);
+		IslandVexEntity vexEntity = MobZEntities.ISLANDVEXENTITY.get().create(this.level());
 		vexEntity.moveTo(blockPos, 0.0F, 0.0F);
-		vexEntity.finalizeSpawn((ServerLevelAccessor) IslandKing.this.level,
-				IslandKing.this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null,
+		vexEntity.finalizeSpawn((ServerLevelAccessor) this.level(),
+				IslandKing.this.level().getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null,
 				(CompoundTag) null);
-		IslandKing.this.level.addFreshEntity(vexEntity);
+		IslandKing.this.level().addFreshEntity(vexEntity);
 	}
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 }

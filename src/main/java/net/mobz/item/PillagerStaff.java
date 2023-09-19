@@ -12,7 +12,6 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -38,7 +37,7 @@ public class PillagerStaff extends SimpleItem {
 
         if (state.getBlock() == MobZBlocks.ENDERHEADER.get()) {
             if (EnderHeader.isValid(world, context.getClickedPos(), state) && !world.isClientSide) {
-                Withender wither = (Withender) MobZEntities.WITHENDER.get().create(world);
+                Withender wither = MobZEntities.WITHENDER.get().create(world);
                 BlockPos oke = context.getClickedPos();
                 wither.moveTo(oke, 0.0F, 0.0F);
                 world.addFreshEntity(wither);
@@ -65,7 +64,7 @@ public class PillagerStaff extends SimpleItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
         if (user instanceof Player) {
-            Player playerEntity = (Player) user;
+            Player playerEntity = user;
             if (!playerEntity.isCrouching()) {
                 Random random = new Random();
                 Random random2 = new Random();
@@ -84,7 +83,7 @@ public class PillagerStaff extends SimpleItem {
                 skull1.setPos(playerEntity.getX() + vec3d_1.x, playerEntity.getY() + 1.2D,
                         playerEntity.getZ() + vec3d_1.z);
                 world.addFreshEntity(skull1);
-                playerEntity.hurt(DamageSource.WITHER, 2F);
+                playerEntity.hurt(world.damageSources().wither(), 2F);
                 playerEntity.playSound(SoundEvents.WITHER_HURT, 1F, 1F);
                 if (world.isClientSide) {
                     for (int i = 0; i < 16; ++i) {

@@ -6,7 +6,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 
@@ -37,7 +36,7 @@ public class SpiSmall extends CaveSpider {
         super.tick();
         if (this.alive && --this.lifeTicks <= 0) {
             this.lifeTicks = 20;
-            this.hurt(DamageSource.STARVE, 1.0F);
+            this.hurt(this.damageSources().starve(), 1.0F);
         }
 
     }

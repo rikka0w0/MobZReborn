@@ -1,6 +1,6 @@
 package net.mobz.item.armor;
 
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.sounds.SoundEvent;
@@ -11,15 +11,15 @@ public class LifeArmorMaterial implements ArmorMaterial {
     private static final int[] BASE_DURABILITY = new int[] { 16, 18, 20, 14 };
     private static final int[] PROTECTION_AMOUNTS = new int[] { 2, 4, 5, 2 };
 
-    @Override
-    public int getDurabilityForSlot(EquipmentSlot equipmentSlot) {
-        return BASE_DURABILITY[equipmentSlot.getIndex()] * 25;
-    }
+	@Override
+	public int getDurabilityForType(ArmorItem.Type armorItemType) {
+		return BASE_DURABILITY[armorItemType.getSlot().getIndex()] * 25;
+	}
 
-    @Override
-    public int getDefenseForSlot(EquipmentSlot equipmentSlot) {
-        return PROTECTION_AMOUNTS[equipmentSlot.getIndex()];
-    }
+	@Override
+	public int getDefenseForType(ArmorItem.Type armorItemType) {
+		return PROTECTION_AMOUNTS[armorItemType.getSlot().getIndex()];
+	}
 
     @Override
     public int getEnchantmentValue() {

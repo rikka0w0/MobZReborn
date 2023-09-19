@@ -7,11 +7,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class EnderZombieEntity extends Zombie {
@@ -53,13 +51,7 @@ public class EnderZombieEntity extends Zombie {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.ENDERZOMBIE.get())
-                && MobZ.configs.EnderzombieSpawn;
+        return MobZ.configs.EnderzombieSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 

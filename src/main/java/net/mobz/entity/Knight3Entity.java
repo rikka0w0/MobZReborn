@@ -22,7 +22,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
@@ -46,7 +45,7 @@ public class Knight3Entity extends Vindicator {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.getMaterial().isLiquid()) {
+        if (!state.liquid()) {
             this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
         }
     }
@@ -55,7 +54,7 @@ public class Knight3Entity extends Vindicator {
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
         LivingEntity bob = (LivingEntity) target;
         MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false);
-        if (target instanceof LivingEntity && !level.isClientSide) {
+        if (target instanceof LivingEntity && !this.level().isClientSide) {
             bob.addEffect(weakness);
         }
     }
@@ -63,7 +62,7 @@ public class Knight3Entity extends Vindicator {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
-        if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+        if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WitherSword.get()));
 
         }
@@ -90,18 +89,14 @@ public class Knight3Entity extends Vindicator {
     }
 
     @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.KNIGHT3ENTITY.get())
-                && MobZ.configs.EnderKnightSpawn;
-    }
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.EnderKnightSpawn
+				&& !this.isPatrolLeader()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 }

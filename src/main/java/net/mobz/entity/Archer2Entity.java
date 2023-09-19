@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class Archer2Entity extends Pillager {
@@ -49,7 +48,7 @@ public class Archer2Entity extends Pillager {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.getMaterial().isLiquid()) {
+        if (!state.liquid()) {
             this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
         }
     }
@@ -61,19 +60,13 @@ public class Archer2Entity extends Pillager {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.ARCHER2ENTITY.get())
-                && MobZ.configs.ArcherSpawn;
+        return MobZ.configs.ArcherSpawn && !this.isPatrolLeader() && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 
     @Override

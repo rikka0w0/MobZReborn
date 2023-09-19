@@ -26,7 +26,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class IceGolem extends IronGolem {
@@ -61,15 +60,11 @@ public class IceGolem extends IronGolem {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
         BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
-                && this.level.isDay() && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.ICEGOLEM.get())
-                && MobZ.configs.IceGolemSpawn;
-
+        return MobZ.configs.IceGolemSpawn
+        		&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
+                && this.level().isDay()
+                && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 
     protected void initCustomGoals() {

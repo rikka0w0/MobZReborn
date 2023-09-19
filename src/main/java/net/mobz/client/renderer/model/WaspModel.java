@@ -58,18 +58,20 @@ public class WaspModel<T extends Wasp> extends AgeableListModel<T> {
       return LayerDefinition.create(meshdefinition, 64, 64);
    }
 
-   public void prepareMobModel(T p_102232_, float p_102233_, float p_102234_, float p_102235_) {
+   @Override
+public void prepareMobModel(T p_102232_, float p_102233_, float p_102234_, float p_102235_) {
       super.prepareMobModel(p_102232_, p_102233_, p_102234_, p_102235_);
       this.rollAmount = p_102232_.getRollAmount(p_102235_);
       this.stinger.visible = true;
    }
 
-   public void setupAnim(T p_102237_, float p_102238_, float p_102239_, float p_102240_, float p_102241_, float p_102242_) {
+   @Override
+public void setupAnim(T p_102237_, float p_102238_, float p_102239_, float p_102240_, float p_102241_, float p_102242_) {
       this.rightWing.xRot = 0.0F;
       this.leftAntenna.xRot = 0.0F;
       this.rightAntenna.xRot = 0.0F;
       this.bone.xRot = 0.0F;
-      boolean flag = p_102237_.isOnGround() && p_102237_.getDeltaMovement().lengthSqr() < 1.0E-7D;
+      boolean flag = p_102237_.onGround() && p_102237_.getDeltaMovement().lengthSqr() < 1.0E-7D;
       if (flag) {
          this.rightWing.yRot = -0.2618F;
          this.rightWing.zRot = 0.0F;
@@ -100,11 +102,13 @@ public class WaspModel<T extends Wasp> extends AgeableListModel<T> {
 
    }
 
-   protected Iterable<ModelPart> headParts() {
+   @Override
+protected Iterable<ModelPart> headParts() {
       return ImmutableList.of();
    }
 
-   protected Iterable<ModelPart> bodyParts() {
+   @Override
+protected Iterable<ModelPart> bodyParts() {
       return ImmutableList.of(this.bone);
    }
 }

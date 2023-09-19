@@ -28,12 +28,10 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 
@@ -62,12 +60,7 @@ public class WithEntity extends Blaze {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.WITHENTITY.get())
-            && MobZ.configs.WitherBlazeSpawn;
+      return MobZ.configs.WitherBlazeSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
    }
 
@@ -116,19 +109,19 @@ public class WithEntity extends Blaze {
 
    @Override
    public void aiStep() {
-      if (!this.onGround && this.getDeltaMovement().y < 0.0D) {
+      if (!this.onGround() && this.getDeltaMovement().y < 0.0D) {
          this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D));
       }
 
-      if (this.level.isClientSide) {
+      if (this.level().isClientSide) {
          if (this.random.nextInt(24) == 0 && !this.isSilent()) {
-            this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, MobZSounds.NOTHINGEVENT.get(),
+            this.level().playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, MobZSounds.NOTHINGEVENT.get(),
                   this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F,
                   false);
          }
 
          for (int int_1 = 0; int_1 < 2; ++int_1) {
-            this.level.addParticle(ParticleTypes.FALLING_LAVA, this.getRandomX(0.5D), this.getRandomY(),
+            this.level().addParticle(ParticleTypes.FALLING_LAVA, this.getRandomX(0.5D), this.getRandomY(),
                   this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
          }
       }
@@ -139,7 +132,7 @@ public class WithEntity extends Blaze {
    @Override
    protected void customServerAiStep() {
       if (this.isInWater()) {
-         this.hurt(DamageSource.DROWN, 1.0F);
+         this.hurt(this.damageSources().drown(), 1.0F);
       }
 
       --this.field_7215;
@@ -149,7 +142,7 @@ public class WithEntity extends Blaze {
       }
 
       LivingEntity livingEntity_1 = this.getTarget();
-      if (livingEntity_1 != null && livingEntity_1.getEyeY() > this.getEyeY() + (double) this.field_7214
+      if (livingEntity_1 != null && livingEntity_1.getEyeY() > this.getEyeY() + this.field_7214
             && this.canAttack(livingEntity_1)) {
          Vec3 vec3d_1 = this.getDeltaMovement();
          this.setDeltaMovement(
@@ -171,11 +164,11 @@ public class WithEntity extends Blaze {
    }
 
    private boolean isCharged() {
-      return ((Byte) this.entityData.get(BLAZE_FLAGS) & 1) != 0;
+      return (this.entityData.get(BLAZE_FLAGS) & 1) != 0;
    }
 
    private void setCharged(boolean boolean_1) {
-      byte byte_1 = (Byte) this.entityData.get(BLAZE_FLAGS);
+      byte byte_1 = this.entityData.get(BLAZE_FLAGS);
       if (boolean_1) {
          byte_1 = (byte) (byte_1 | 1);
       } else {
@@ -200,21 +193,25 @@ public class WithEntity extends Blaze {
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
       }
 
-      public boolean canUse() {
+      @Override
+	public boolean canUse() {
          LivingEntity livingEntity_1 = this.blaze.getTarget();
          return livingEntity_1 != null && livingEntity_1.isAlive() && this.blaze.canAttack(livingEntity_1);
       }
 
-      public void start() {
+      @Override
+	public void start() {
          this.field_7218 = 0;
       }
 
-      public void stop() {
+      @Override
+	public void stop() {
          this.blaze.setCharged(false);
          this.field_19420 = 0;
       }
 
-      public void tick() {
+      @Override
+	public void tick() {
          --this.field_7217;
          LivingEntity livingEntity_1 = this.blaze.getTarget();
          if (livingEntity_1 != null) {
@@ -257,15 +254,15 @@ public class WithEntity extends Blaze {
 
                   if (this.field_7218 > 1) {
                      double float_1 = Math.sqrt(Math.sqrt(double_1)) * 0.5F;
-                     this.blaze.level.levelEvent((Player) null, 1018, this.blaze.blockPosition(), 0);
+                     this.blaze.level().levelEvent((Player) null, 1018, this.blaze.blockPosition(), 0);
 
                      for (int int_1 = 0; int_1 < 1; ++int_1) {
-                        SmallFireball smallFireballEntity_1 = new SmallFireball(this.blaze.level,
-                              this.blaze, double_2 + this.blaze.getRandom().nextGaussian() * (double) float_1, double_3,
-                              double_4 + this.blaze.getRandom().nextGaussian() * (double) float_1);
+                        SmallFireball smallFireballEntity_1 = new SmallFireball(this.blaze.level(),
+                              this.blaze, double_2 + this.blaze.getRandom().nextGaussian() * float_1, double_3,
+                              double_4 + this.blaze.getRandom().nextGaussian() * float_1);
                         smallFireballEntity_1.absMoveTo(smallFireballEntity_1.getX(),
                               this.blaze.getY(0.5D) + 0.5D, smallFireballEntity_1.getZ());
-                        this.blaze.level.addFreshEntity(smallFireballEntity_1);
+                        this.blaze.level().addFreshEntity(smallFireballEntity_1);
                      }
                   }
                }

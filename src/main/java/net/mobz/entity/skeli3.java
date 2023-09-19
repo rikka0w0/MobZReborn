@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class skeli3 extends Skeleton {
@@ -46,7 +45,7 @@ public class skeli3 extends Skeleton {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.getMaterial().isLiquid()) {
+        if (!state.liquid()) {
             this.playSound(MobZSounds.SKELISTEPEVENT.get(), 0.15F, 1F);
         }
     }
@@ -58,13 +57,6 @@ public class skeli3 extends Skeleton {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.SKELI3.get())
-                && MobZ.configs.NetherSkeletonSpawn;
-
+        return MobZ.configs.NetherSkeletonSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
-
 }

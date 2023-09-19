@@ -12,14 +12,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.init.MobZArmors;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
@@ -90,14 +88,11 @@ public class BossEntity extends Zombie {
     }
 
     @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && this.level.isNight() && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.BOSS.get())
-                && MobZ.configs.BossZombieSpawn;
-    }
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.BossZombieSpawn
+				&& this.level().isNight()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
     @Override
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {

@@ -15,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class TSpider extends Spider {
@@ -38,14 +37,10 @@ public class TSpider extends Spider {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
         BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getMaxLocalRawBrightness(posentity) <= 7
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TSPIDER.get())
-                && MobZ.configs.TinySpiderSpawn;
-
+        return MobZ.configs.TinySpiderSpawn
+                && this.level().getMaxLocalRawBrightness(posentity) <= 7
+                && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 
     @Override

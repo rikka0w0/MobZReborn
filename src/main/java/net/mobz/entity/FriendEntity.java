@@ -113,8 +113,8 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
     @Override
     public boolean doHurtTarget(Entity target) {
-        boolean bl = target.hurt(DamageSource.mobAttack(this),
-                (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+        boolean bl = target.hurt(this.damageSources().mobAttack(this),
+                ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (bl) {
             this.doEnchantDamageEffects(this, target);
         }
@@ -130,7 +130,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             boolean bl = this.isOwnedBy(player) || this.isTame()
                     || isTameItem(itemStack) && !this.isTame() && !this.isAngry();
             return bl ? InteractionResult.CONSUME : InteractionResult.PASS;
@@ -141,7 +141,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                         itemStack.shrink(1);
                     }
 
-                    this.heal((float) MobZ.platform.getFoodProperties(itemStack, player).getNutrition());
+                    this.heal(MobZ.platform.getFoodProperties(itemStack, player).getNutrition());
                     return InteractionResult.SUCCESS;
                 }
 
@@ -171,9 +171,9 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                     this.navigation.stop();
                     this.setTarget((LivingEntity) null);
                     this.setOrderedToSit(true);
-                    this.level.broadcastEntityEvent(this, (byte) 7);
+                    this.level().broadcastEntityEvent(this, (byte) 7);
                 } else {
-                    this.level.broadcastEntityEvent(this, (byte) 6);
+                    this.level().broadcastEntityEvent(this, (byte) 6);
                 }
 
                 return InteractionResult.SUCCESS;
@@ -185,7 +185,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
     @Override
 	public FriendEntity getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        FriendEntity FriendEntity = (FriendEntity) this.getType().create(this.level);
+        FriendEntity FriendEntity = (FriendEntity) this.getType().create(world);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {
             FriendEntity.setOwnerUUID(uUID);

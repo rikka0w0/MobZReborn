@@ -26,7 +26,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.entity.attack.GolemAttack;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class StoneGolem extends IronGolem {
@@ -90,15 +89,12 @@ public class StoneGolem extends IronGolem {
         return true;
     }
 
-    public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
+    @Override
+	public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
-                && this.level.isDay() && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity,
-                        MobZEntities.STONEGOLEM.get())
-                && MobZ.configs.StoneGolemSpawn;
-
+        return MobZ.configs.StoneGolemSpawn
+        		&& this.level().isDay()
+                && this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
+                && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

@@ -14,9 +14,10 @@ public class PigmanRenderer extends HumanoidMobRenderer<PigmanEntity, PiglinMode
 
     public PigmanRenderer(EntityRendererProvider.Context context) {
         super(context, new PiglinModel<>(context.bakeLayer(ModelLayers.PIGLIN)), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
-        this.addLayer(
-                new HumanoidArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PIGLIN_INNER_ARMOR)),
-                        new HumanoidModel<>(context.bakeLayer(ModelLayers.PIGLIN_OUTER_ARMOR))));
+		this.addLayer(new HumanoidArmorLayer<>(this,
+				new HumanoidModel<>(context.bakeLayer(ModelLayers.PIGLIN_INNER_ARMOR)),
+				new HumanoidModel<>(context.bakeLayer(ModelLayers.PIGLIN_OUTER_ARMOR)),
+				context.getModelManager()));
     }
 
     @Override

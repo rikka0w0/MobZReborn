@@ -1,8 +1,8 @@
 package net.mobz.entity;
 
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,17 +27,13 @@ public class Boar2 extends Pig {
     }
 
 	@Override
-	public Entity getControllingPassenger() {
+	public LivingEntity getControllingPassenger() {
 		return null;
 	}
 
     @Override
     public boolean isSaddled() {
         return false;
-    }
-
-    public Boar2 method_6574(AgeableMob passiveEntity_1) {
-        return (Boar2) MobZEntities.BOAR2.get().create(this.level);
     }
 
     @Override
@@ -47,7 +43,7 @@ public class Boar2 extends Pig {
 
     @Override
 	public Boar2 getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        return (Boar2) MobZEntities.BOAR2.get().create(this.level);
+        return MobZEntities.BOAR2.get().create(world);
     }
 
     static {

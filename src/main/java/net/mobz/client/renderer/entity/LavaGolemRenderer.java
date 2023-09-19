@@ -10,7 +10,7 @@ import net.minecraft.client.model.IronGolemModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.resources.ResourceLocation;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 
 public class LavaGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<IronGolem>> {
     private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/lavagolem.png");
@@ -29,10 +29,10 @@ public class LavaGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<Iro
     @Override
     protected void setupRotations(IronGolem ironGolemEntity, PoseStack matrixStack, float f, float g, float h) {
         super.setupRotations(ironGolemEntity, matrixStack, f, g, h);
-        if ((double) ironGolemEntity.animationSpeed >= 0.01D) {
-            float j = ironGolemEntity.animationPosition - ironGolemEntity.animationSpeed * (1.0F - h) + 6.0F;
+        if ((double) ironGolemEntity.walkAnimation.speed() >= 0.01D) {
+            float j = ironGolemEntity.walkAnimation.position() - ironGolemEntity.walkAnimation.speed() * (1.0F - h) + 6.0F;
             float k = (Math.abs(j % 13.0F - 6.5F) - 3.25F) / 3.25F;
-            matrixStack.mulPose(Vector3f.ZP.rotationDegrees(6.5F * k));
+            matrixStack.mulPose(Axis.ZP.rotationDegrees(6.5F * k));
         }
     }
 }

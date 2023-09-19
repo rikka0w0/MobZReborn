@@ -14,7 +14,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
@@ -64,7 +63,7 @@ public class SacrificeKnife extends Item {
 		int bloodCounter = getBloodCounter(itemStack);
 		int dryingNumber = getDryingNumber(itemStack);
 		if (user.getHealth() > 2F) {
-			user.hurt(DamageSource.MAGIC, 2F);
+			user.hurt(world.damageSources().magic(), 2F);
 			if (dryingNumber < 4) {
 				dryingNumber = dryingNumber + 1;
 			}

@@ -84,7 +84,7 @@ public class MageEntity extends SpellcasterIllager {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 
    @Override
@@ -92,16 +92,12 @@ public class MageEntity extends SpellcasterIllager {
       super.defineSynchedData();
    }
 
-   @Override
-   public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !this.isPatrolLeader() && !level.containsAnyLiquid(this.getBoundingBox())
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-            && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.MAGEENTITY.get())
-            && MobZ.configs.SpiderMageSpawn;
-
-   }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.SpiderMageSpawn
+				&& !this.isPatrolLeader()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
    @Override
    public void readAdditionalSaveData(CompoundTag tag) {
@@ -181,37 +177,41 @@ public class MageEntity extends SpellcasterIllager {
          super();
       }
 
-      public boolean canUse() {
+      @Override
+	public boolean canUse() {
          if (MageEntity.this.getTarget() != null) {
             return false;
          } else if (MageEntity.this.isCastingSpell()) {
             return false;
          } else if (MageEntity.this.tickCount < this.nextAttackTickCount) {
             return false;
-         } else if (!MageEntity.this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+         } else if (!MageEntity.this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
             return false;
          } else {
-            List<Sheep> list = MageEntity.this.level.getNearbyEntities(Sheep.class, this.purpleSheepPredicate,
+            List<Sheep> list = MageEntity.this.level().getNearbyEntities(Sheep.class, this.purpleSheepPredicate,
                   MageEntity.this, MageEntity.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
             if (list.isEmpty()) {
                return false;
             } else {
-               MageEntity.this.setWololoTarget((Sheep) list.get(MageEntity.this.random.nextInt(list.size())));
+               MageEntity.this.setWololoTarget(list.get(MageEntity.this.random.nextInt(list.size())));
                return true;
             }
          }
       }
 
-      public boolean canContinueToUse() {
+      @Override
+	public boolean canContinueToUse() {
          return MageEntity.this.getWololoTarget() != null && this.attackWarmupDelay > 0;
       }
 
-      public void stop() {
+      @Override
+	public void stop() {
          super.stop();
          MageEntity.this.setWololoTarget((Sheep) null);
       }
 
-      protected void performSpellCasting() {
+      @Override
+	protected void performSpellCasting() {
          Sheep sheepEntity = MageEntity.this.getWololoTarget();
          if (sheepEntity != null && sheepEntity.isAlive()) {
             sheepEntity.setColor(DyeColor.RED);
@@ -219,23 +219,28 @@ public class MageEntity extends SpellcasterIllager {
 
       }
 
-      protected int getCastWarmupTime() {
+      @Override
+	protected int getCastWarmupTime() {
          return 40;
       }
 
-      protected int getCastingTime() {
+      @Override
+	protected int getCastingTime() {
          return 60;
       }
 
-      protected int getCastingInterval() {
+      @Override
+	protected int getCastingInterval() {
          return 140;
       }
 
-      protected SoundEvent getSpellPrepareSound() {
+      @Override
+	protected SoundEvent getSpellPrepareSound() {
          return SoundEvents.EVOKER_PREPARE_WOLOLO;
       }
 
-      protected SpellcasterIllager.IllagerSpell getSpell() {
+      @Override
+	protected SpellcasterIllager.IllagerSpell getSpell() {
          return SpellcasterIllager.IllagerSpell.WOLOLO;
       }
    }
@@ -248,47 +253,53 @@ public class MageEntity extends SpellcasterIllager {
          super();
       }
 
-      public boolean canUse() {
+      @Override
+	public boolean canUse() {
          if (!super.canUse()) {
             return false;
          } else {
-            int i = MageEntity.this.level.getNearbyEntities(SpiSmall.class, this.closeVexPredicate, MageEntity.this,
+            int i = MageEntity.this.level().getNearbyEntities(SpiSmall.class, this.closeVexPredicate, MageEntity.this,
                   MageEntity.this.getBoundingBox().inflate(16.0D)).size();
             return MageEntity.this.random.nextInt(8) + 1 > i;
          }
       }
 
-      protected int getCastingTime() {
+      @Override
+	protected int getCastingTime() {
          return 100;
       }
 
-      protected int getCastingInterval() {
+      @Override
+	protected int getCastingInterval() {
          return 340;
       }
 
-      protected void performSpellCasting() {
-			ServerLevel serverWorld = (ServerLevel) MageEntity.this.level;
+      @Override
+	protected void performSpellCasting() {
+			ServerLevel serverWorld = (ServerLevel) MageEntity.this.level();
 
          for (int i = 0; i < 3; ++i) {
             BlockPos blockPos = MageEntity.this.blockPosition().offset(-2 + MageEntity.this.random.nextInt(5), 1,
                   -2 + MageEntity.this.random.nextInt(5));
-            SpiSmall vexEntity = (SpiSmall) MobZEntities.SPISMALL.get().create(MageEntity.this.level);
+            SpiSmall vexEntity = MobZEntities.SPISMALL.get().create(MageEntity.this.level());
             vexEntity.moveTo(blockPos, 0.0F, 0.0F);
-				vexEntity.finalizeSpawn(serverWorld, MageEntity.this.level.getCurrentDifficultyAt(blockPos),
+				vexEntity.finalizeSpawn(serverWorld, MageEntity.this.level().getCurrentDifficultyAt(blockPos),
                   MobSpawnType.MOB_SUMMONED, null, (CompoundTag) null);
             // vexEntity.setOwner(MageEntity.this);
             // vexEntity.setBounds(blockPos);
             vexEntity.setLifeTicks(20 * (30 + MageEntity.this.random.nextInt(90)));
-            MageEntity.this.level.addFreshEntity(vexEntity);
+            MageEntity.this.level().addFreshEntity(vexEntity);
          }
 
       }
 
-      protected SoundEvent getSpellPrepareSound() {
+      @Override
+	protected SoundEvent getSpellPrepareSound() {
          return SoundEvents.EVOKER_PREPARE_SUMMON;
       }
 
-      protected SpellcasterIllager.IllagerSpell getSpell() {
+      @Override
+	protected SpellcasterIllager.IllagerSpell getSpell() {
          return SpellcasterIllager.IllagerSpell.SUMMON_VEX;
       }
    }
@@ -298,15 +309,18 @@ public class MageEntity extends SpellcasterIllager {
          super();
       }
 
-      protected int getCastingTime() {
+      @Override
+	protected int getCastingTime() {
          return 40;
       }
 
-      protected int getCastingInterval() {
+      @Override
+	protected int getCastingInterval() {
          return 100;
       }
 
-      protected void performSpellCasting() {
+      @Override
+	protected void performSpellCasting() {
          LivingEntity livingEntity = MageEntity.this.getTarget();
          double d = Math.min(livingEntity.getY(), MageEntity.this.getY());
          double e = Math.max(livingEntity.getY(), MageEntity.this.getY()) + 1.0D;
@@ -316,39 +330,39 @@ public class MageEntity extends SpellcasterIllager {
          if (MageEntity.this.distanceToSqr(livingEntity) < 9.0D) {
             float h;
             for (j = 0; j < 5; ++j) {
-               h = f + (float) j * 3.1415927F * 0.4F;
-               this.conjureFangs(MageEntity.this.getX() + (double) Mth.cos(h) * 1.5D,
-                     MageEntity.this.getZ() + (double) Mth.sin(h) * 1.5D, d, e, h, 0);
+               h = f + j * 3.1415927F * 0.4F;
+               this.conjureFangs(MageEntity.this.getX() + Mth.cos(h) * 1.5D,
+                     MageEntity.this.getZ() + Mth.sin(h) * 1.5D, d, e, h, 0);
             }
 
             for (j = 0; j < 8; ++j) {
-               h = f + (float) j * 3.1415927F * 2.0F / 8.0F + 1.2566371F;
-               this.conjureFangs(MageEntity.this.getX() + (double) Mth.cos(h) * 2.5D,
-                     MageEntity.this.getZ() + (double) Mth.sin(h) * 2.5D, d, e, h, 3);
+               h = f + j * 3.1415927F * 2.0F / 8.0F + 1.2566371F;
+               this.conjureFangs(MageEntity.this.getX() + Mth.cos(h) * 2.5D,
+                     MageEntity.this.getZ() + Mth.sin(h) * 2.5D, d, e, h, 3);
             }
          } else {
             for (j = 0; j < 16; ++j) {
-               double l = 1.25D * (double) (j + 1);
+               double l = 1.25D * (j + 1);
                int m = 1 * j;
-               this.conjureFangs(MageEntity.this.getX() + (double) Mth.cos(f) * l,
-                     MageEntity.this.getZ() + (double) Mth.sin(f) * l, d, e, f, m);
+               this.conjureFangs(MageEntity.this.getX() + Mth.cos(f) * l,
+                     MageEntity.this.getZ() + Mth.sin(f) * l, d, e, f, m);
             }
          }
 
       }
 
       private void conjureFangs(double x, double z, double maxY, double y, float f, int warmup) {
-         BlockPos blockPos = new BlockPos(x, y, z);
+         BlockPos blockPos = BlockPos.containing(x, y, z);
          boolean bl = false;
          double d = 0.0D;
 
          do {
             BlockPos blockPos2 = blockPos.below();
-            BlockState blockState = MageEntity.this.level.getBlockState(blockPos2);
-            if (blockState.isFaceSturdy(MageEntity.this.level, blockPos2, Direction.UP)) {
-               if (!MageEntity.this.level.isEmptyBlock(blockPos)) {
-                  BlockState blockState2 = MageEntity.this.level.getBlockState(blockPos);
-                  VoxelShape voxelShape = blockState2.getCollisionShape(MageEntity.this.level, blockPos);
+            BlockState blockState = MageEntity.this.level().getBlockState(blockPos2);
+            if (blockState.isFaceSturdy(MageEntity.this.level(), blockPos2, Direction.UP)) {
+               if (!MageEntity.this.level().isEmptyBlock(blockPos)) {
+                  BlockState blockState2 = MageEntity.this.level().getBlockState(blockPos);
+                  VoxelShape voxelShape = blockState2.getCollisionShape(MageEntity.this.level(), blockPos);
                   if (!voxelShape.isEmpty()) {
                      d = voxelShape.max(Direction.Axis.Y);
                   }
@@ -362,17 +376,19 @@ public class MageEntity extends SpellcasterIllager {
          } while (blockPos.getY() >= Mth.floor(maxY) - 1);
 
          if (bl) {
-            MageEntity.this.level.addFreshEntity(new EvokerFangs(MageEntity.this.level, x,
-                  (double) blockPos.getY() + d, z, f, warmup, MageEntity.this));
+            MageEntity.this.level().addFreshEntity(new EvokerFangs(MageEntity.this.level(), x,
+                  blockPos.getY() + d, z, f, warmup, MageEntity.this));
          }
 
       }
 
-      protected SoundEvent getSpellPrepareSound() {
+      @Override
+	protected SoundEvent getSpellPrepareSound() {
          return SoundEvents.EVOKER_PREPARE_ATTACK;
       }
 
-      protected SpellcasterIllager.IllagerSpell getSpell() {
+      @Override
+	protected SpellcasterIllager.IllagerSpell getSpell() {
          return SpellcasterIllager.IllagerSpell.FANGS;
       }
    }
@@ -382,13 +398,14 @@ public class MageEntity extends SpellcasterIllager {
          super();
       }
 
-      public void tick() {
+      @Override
+	public void tick() {
          if (MageEntity.this.getTarget() != null) {
             MageEntity.this.getLookControl().setLookAt(MageEntity.this.getTarget(),
-                  (float) MageEntity.this.getMaxHeadYRot(), (float) MageEntity.this.getMaxHeadXRot());
+                  MageEntity.this.getMaxHeadYRot(), MageEntity.this.getMaxHeadXRot());
          } else if (MageEntity.this.getWololoTarget() != null) {
             MageEntity.this.getLookControl().setLookAt(MageEntity.this.getWololoTarget(),
-                  (float) MageEntity.this.getMaxHeadYRot(), (float) MageEntity.this.getMaxHeadXRot());
+                  MageEntity.this.getMaxHeadYRot(), MageEntity.this.getMaxHeadXRot());
          }
 
       }

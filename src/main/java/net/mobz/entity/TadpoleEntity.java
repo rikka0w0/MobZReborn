@@ -30,21 +30,22 @@ public class TadpoleEntity extends AbstractFish {
 	public void tick()
 	{
 		super.tick();
-		if(!level.isClientSide())
+		if(!this.level().isClientSide())
 		{
 			babyTime++;
 			if(!isBaby())
 			{
-				ToadEntity toad = MobZEntities.TOAD.get().create(level);
+				ToadEntity toad = MobZEntities.TOAD.get().create(this.level());
 				toad.moveTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
 				toad.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
-				((ServerLevel) level).addFreshEntityWithPassengers(toad);
+				((ServerLevel) this.level()).addFreshEntityWithPassengers(toad);
 
 				this.discard();
 			}
 		}
 	}
 
+	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand)
 	{
 		ItemStack itemStack = player.getItemInHand(hand);
@@ -54,10 +55,10 @@ public class TadpoleEntity extends AbstractFish {
 			{
 				itemStack.shrink(1);
 				this.growUp(Math.abs(babyTime / 20));
-				return InteractionResult.sidedSuccess(this.level.isClientSide);
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			}
 
-			if(this.level.isClientSide)
+			if(this.level().isClientSide)
 			{
 				return InteractionResult.CONSUME;
 			}

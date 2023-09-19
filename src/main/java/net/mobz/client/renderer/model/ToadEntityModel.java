@@ -1,10 +1,12 @@
 package net.mobz.client.renderer.model;
 
+import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -14,6 +16,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.mobz.entity.ToadEntity;
@@ -21,6 +24,8 @@ import net.mobz.MathUtils;
 import net.mobz.MobZ;
 
 public class ToadEntityModel extends EntityModel<ToadEntity> {
+	private static final Set<Direction> ALL_VISIBLE = EnumSet.allOf(Direction.class);
+
 	public static final Random random = new Random();
 
 	private final float bodyScale;
@@ -127,7 +132,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		this.frontlegw.xRot = Mth.cos(limbAngle * 1) * 1.4F * limbDistance;
 		this.backlegw.xRot = Mth.cos(limbAngle * 1 + pi) * legAmount * limbDistance;
 
-		if(!entity.isOnGround()) {
+		if(!entity.onGround()) {
 			this.backlegw.xRot = 2F;
 			this.backlege.xRot = 2F;
 		}
@@ -201,17 +206,17 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 
 		//matrices.mulPose(Vector3f.XP.rotation(tongue_xRot));
 		if (xRot != 0.0F) {
-			matrices.mulPose(Vector3f.XP.rotation(xRot));
+			matrices.mulPose(Axis.XP.rotation(xRot));
 		}
 
 		if (tongue_yRot != 0.0F) {
-			matrices.mulPose(Vector3f.YP.rotation(tongue_yRot));
+			matrices.mulPose(Axis.YP.rotation(tongue_yRot));
 		}
 
 		//matrices.scale(1, 1, tongueDistance / this.bodyScale * 16F);
 		matrices.scale(1, 1, len / this.bodyScale * 16F);
 
-		ModelPart.Cube cuboid = new ModelPart.Cube(16, 0, -1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0, 0, 0, false, 64, 64);
+		ModelPart.Cube cuboid = new ModelPart.Cube(16, 0, -1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0, 0, 0, false, 64, 64, ALL_VISIBLE);
 		cuboid.compile(matrices.last(), vertexConsumer, light, overlay, 1, 0, 0, 0);
 
 		matrices.popPose();

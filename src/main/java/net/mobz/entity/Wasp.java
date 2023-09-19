@@ -80,7 +80,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, (double) 1.4F, true));
+		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.4F, true));
 		// this.goalSelector.addGoal(1, new Bee.BeeEnterHiveGoal());
 		// this.goalSelector.addGoal(5, new Bee.BeeLocateHiveGoal());
 		// this.goToHiveGoal = new Bee.BeeGoToHiveGoal();
@@ -124,16 +124,16 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean doHurtTarget(Entity p_27722_) {
-		boolean flag = p_27722_.hurt(DamageSource.sting(this),
-				(float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+		boolean flag = p_27722_.hurt(this.damageSources().sting(this),
+				((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
 		if (flag) {
 			this.doEnchantDamageEffects(this, p_27722_);
 			if (p_27722_ instanceof LivingEntity) {
 				((LivingEntity) p_27722_).setStingerCount(((LivingEntity) p_27722_).getStingerCount() + 1);
 				int i = 0;
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					i = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					i = 18;
 				}
 
@@ -174,7 +174,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 			l = i1 / 2;
 		}
 
-		Vec3 vec31 = AirRandomPos.getPosTowards(this, k, l, i, vec3, (double) ((float) Math.PI / 10F));
+		Vec3 vec31 = AirRandomPos.getPosTowards(this, k, l, i, vec3, (float) Math.PI / 10F);
 		if (vec31 != null) {
 			this.navigation.setMaxVisitedNodesMultiplier(0.5F);
 			this.navigation.moveTo(vec31.x, vec31.y, vec31.z, 1.0D);
@@ -191,7 +191,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	boolean wantsToEnterHive() {
 		if (this.stayOutOfHiveCountdown <= 0 && this.getTarget() == null) {
-			boolean flag = this.level.isRaining() || this.level.isNight();
+			boolean flag = this.level().isRaining() || this.level().isNight();
 			return flag && !this.isHiveNearFire();
 		} else {
 			return false;
@@ -225,7 +225,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		}
 
 		if (this.underWaterTicks > 20) {
-			this.hurt(DamageSource.DROWN, 1.0F);
+			this.hurt(this.damageSources().drown(), 1.0F);
 		}
 	}
 
@@ -233,14 +233,14 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		if (this.hivePos == null) {
 			return false;
 		} else {
-			BlockEntity blockentity = this.level.getBlockEntity(this.hivePos);
+			BlockEntity blockentity = this.level().getBlockEntity(this.hivePos);
 			return blockentity instanceof BeehiveBlockEntity
 					&& ((BeehiveBlockEntity) blockentity).isFireNearby();
 		}
 	}
 
 	private boolean doesHiveHaveSpace(BlockPos p_27885_) {
-		BlockEntity blockentity = this.level.getBlockEntity(p_27885_);
+		BlockEntity blockentity = this.level().getBlockEntity(p_27885_);
 		if (blockentity instanceof BeehiveBlockEntity) {
 			return !((BeehiveBlockEntity) blockentity).isFull();
 		} else {
@@ -264,7 +264,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (this.stayOutOfHiveCountdown > 0) {
 				--this.stayOutOfHiveCountdown;
 			}
@@ -285,7 +285,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		if (!this.hasHive()) {
 			return false;
 		} else {
-			BlockEntity blockentity = this.level.getBlockEntity(this.hivePos);
+			BlockEntity blockentity = this.level().getBlockEntity(this.hivePos);
 			// TODO: Wasp nest
 			return blockentity instanceof BeehiveBlockEntity;
 		}
@@ -318,15 +318,16 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D)
-				.add(Attributes.FLYING_SPEED, (double) 1.2F).add(Attributes.MOVEMENT_SPEED, (double) 1.2F)
+				.add(Attributes.FLYING_SPEED, 1.2F).add(Attributes.MOVEMENT_SPEED, 1.2F)
 				.add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.FOLLOW_RANGE, 48.0D);
 	}
 
 	@Override
 	protected PathNavigation createNavigation(Level p_27815_) {
 		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_27815_) {
+			@Override
 			public boolean isStableDestination(BlockPos p_27947_) {
-				return !this.level.getBlockState(p_27947_.below()).isAir();
+				return !Wasp.this.level().getBlockState(p_27947_.below()).isAir();
 			}
 		};
 		flyingpathnavigation.setCanOpenDoors(false);
@@ -376,7 +377,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean isFlying() {
-		return !this.onGround;
+		return !this.onGround();
 	}
 
 	@Override
@@ -400,11 +401,11 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public Vec3 getLeashOffset() {
-		return new Vec3(0.0D, (double) (0.5F * this.getEyeHeight()), (double) (this.getBbWidth() * 0.2F));
+		return new Vec3(0.0D, 0.5F * this.getEyeHeight(), this.getBbWidth() * 0.2F);
 	}
 
 	boolean closerThan(BlockPos p_27817_, int p_27818_) {
-		return p_27817_.closerThan(this.blockPosition(), (double) p_27818_);
+		return p_27817_.closerThan(this.blockPosition(), p_27818_);
 	}
 
 	class BeeWanderGoal extends Goal {
@@ -426,7 +427,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		public void start() {
 			Vec3 vec3 = this.findPos();
 			if (vec3 != null) {
-				Wasp.this.navigation.moveTo(Wasp.this.navigation.createPath(new BlockPos(vec3), 1), 1.0D);
+				Wasp.this.navigation.moveTo(Wasp.this.navigation.createPath(BlockPos.containing(vec3), 1), 1.0D);
 			}
 		}
 
@@ -438,7 +439,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 			return vec32 != null
 					? vec32
 					: AirAndWaterRandomPos.getPos(Wasp.this, 8, 4, -2, vec3.x, vec3.z,
-							(double) ((float) Math.PI / 2F));
+							(float) Math.PI / 2F);
 		}
 	}
 }

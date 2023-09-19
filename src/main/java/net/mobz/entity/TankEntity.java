@@ -11,11 +11,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class TankEntity extends Zombie {
@@ -55,20 +53,14 @@ public class TankEntity extends Zombie {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis()
-                && this.level.getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.TANK.get())
-                && MobZ.configs.TankSpawn;
-
+        return MobZ.configs.TankSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 
     @Override
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
         LivingEntity bob = (LivingEntity) target;
         MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false);
-        if (target instanceof LivingEntity && !level.isClientSide) {
+        if (target instanceof LivingEntity && !this.level().isClientSide) {
             bob.addEffect(weakness);
         }
     }
@@ -88,7 +80,8 @@ public class TankEntity extends Zombie {
         return MobZSounds.DEATHTANKEVENT.get();
     }
 
-    protected SoundEvent getStepSound() {
+    @Override
+	protected SoundEvent getStepSound() {
         return MobZSounds.STEPTANKEVENT.get();
     }
 

@@ -20,7 +20,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Random;
+
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
@@ -29,7 +33,6 @@ import net.mobz.init.MobZWeapons;
 
 public class PillagerBoss extends Pillager {
     private int cooldown = 0;
-    private final int requiredCooldown = 120;
 
     public PillagerBoss(EntityType<PillagerBoss> entityType_1, Level world_1) {
         super(entityType_1, world_1);
@@ -70,8 +73,9 @@ public class PillagerBoss extends Pillager {
     @Override
     protected void customServerAiStep() {
         MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false);
+        int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ? 35 : 60;
 
-        if (getTarget() != null && !level.isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
+        if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
 
             cooldown++;
             if (cooldown >= requiredCooldown) {
@@ -95,26 +99,25 @@ public class PillagerBoss extends Pillager {
     public void performRangedAttack(LivingEntity target, float f) {
         Vec3 vec3d_1 = this.getViewVector(1.0F);
         double double_3 = target.getX() - (this.getX() + vec3d_1.x * 2.0D);
-        double double_4 = target.getBoundingBox().getYsize() + (double) (target.getBbHeight() / 2.0F)
-                - (0.5D + this.getY() + (double) (this.getBbHeight() / 2.0F)) + 1D;
+        double double_4 = this.getY() - target.getBoundingBox().getYsize() + target.getBbHeight() / 2.0F
+                - (0.5D + this.getY() + this.getBbHeight() / 2.0F) + 1D;
         double double_5 = target.getZ() - (this.getZ() + vec3d_1.z * 2.0D);
-        double double_9 = target.getBoundingBox().getYsize() + (double) (target.getBbHeight() / 2.0F)
-                - (0.5D + this.getY() + (double) (this.getBbHeight() / 2.0F)) + 0.7D;
+        double double_9 = this.getY() - target.getBoundingBox().getYsize() + target.getBbHeight() / 2.0F
+                - (0.5D + this.getY() + this.getBbHeight() / 2.0F) + 0.7D;
         double double_10 = target.getZ() - (this.getZ() + vec3d_1.z * 2.0D) + 0.7D;
         double double_11 = target.getZ() - (this.getZ() + vec3d_1.z * 2.0D) - 0.7D;
-        WitherSkull skull1 = new WitherSkull(level, this, double_3, double_4, double_5);
-        WitherSkull skull2 = new WitherSkull(level, this, double_3, double_9, double_10);
-        WitherSkull skull3 = new WitherSkull(level, this, double_3, double_9, double_11);
+        WitherSkull skull1 = new WitherSkull(this.level(), this, double_3, double_4, double_5);
+        WitherSkull skull2 = new WitherSkull(this.level(), this, double_3, double_9, double_10);
+        WitherSkull skull3 = new WitherSkull(this.level(), this, double_3, double_9, double_11);
         double double_6 = this.getX() + vec3d_1.x * 2.0D;
-        double double_7 = this.getY() + (double) this.getBbHeight();
+        double double_7 = this.getY() + this.getBbHeight();
         double double_8 = this.getZ() + vec3d_1.z * 2.0D;
-        skull1.absMoveTo(double_6, double_7, double_8);
-        skull2.absMoveTo(double_6, double_7, double_8);
-        skull3.absMoveTo(double_6, double_7, double_8);
-        level.addFreshEntity(skull1);
-        level.addFreshEntity(skull2);
-        level.addFreshEntity(skull3);
-
+        skull1.setPosRaw(double_6, double_7, double_8);
+        skull2.setPosRaw(double_6, double_7, double_8);
+        skull3.setPosRaw(double_6, double_7, double_8);
+        this.level().addFreshEntity(skull1);
+        this.level().addFreshEntity(skull2);
+        this.level().addFreshEntity(skull3);
     }
 
     @Override

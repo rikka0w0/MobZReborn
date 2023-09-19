@@ -106,7 +106,7 @@ public class ToadEntity extends Animal {
 
 	public void setTongueEntity(LivingEntity e) {
 		entityData.set(TONGUE_ENTITY, e.getId());
-		if(!level.isClientSide()) {
+		if(!this.level().isClientSide()) {
 			this.playSound(MobZSounds.TOAD_MOUTH.get(), 1F, 1F + ((float) random.nextGaussian() / 5F));
 
 			synchronized (ToadEntity.class) {
@@ -121,11 +121,11 @@ public class ToadEntity extends Animal {
 
 	@Nullable
 	public Entity getTongueEntity() {
-		return this.level.getEntity(entityData.get(TONGUE_ENTITY));
+		return this.level().getEntity(entityData.get(TONGUE_ENTITY));
 	}
 
 	public void clearTongueEntity() {
-		if (!level.isClientSide()) {
+		if (!this.level().isClientSide()) {
 			Entity e = this.getTongueEntity();
 			if (e != null) {
 				synchronized (ToadEntity.class) {
@@ -137,6 +137,7 @@ public class ToadEntity extends Animal {
 		entityData.set(TONGUE_ENTITY, -1);
 	}
 
+	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader world)
 	{
 		if(world.getBlockState(pos).is(Blocks.LILY_PAD)) return 100;
@@ -232,6 +233,7 @@ public class ToadEntity extends Animal {
 		return !this.isPassenger();
 	}
 
+	@Override
 	public boolean isFood(ItemStack stack)
 	{
 		return stack.is(getToadFoodTag());
@@ -245,11 +247,11 @@ public class ToadEntity extends Animal {
 		if(eatCooldown <= 0 && !hasTongueEntity())
 		{
 			double spotRange = getSpotRange();
-			List<LivingEntity> targets = level.getEntities(
+			List<LivingEntity> targets = this.level().getEntities(
 					EntityTypeTest.forClass(LivingEntity.class),
 					getBoundingBox().inflate(spotRange, spotRange, spotRange),
 					this::isToadTarget);
-			LivingEntity closest = level.getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
+			LivingEntity closest = this.level().getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
 
 			if(!canUseTongue() || closest == null || closest.isPassenger() || targets.isEmpty()) {
 				clearTongueEntity();
@@ -279,12 +281,12 @@ public class ToadEntity extends Animal {
 			this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 		}
 
-		if(onGround && !onGroundPrev)
+		if(this.onGround() && !onGroundPrev)
 		{
 			this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD);
 		}
 
-		onGroundPrev = onGround;
+		onGroundPrev = this.onGround();
 	}
 
 	protected SoundEvent getJumpSound()
@@ -317,6 +319,7 @@ public class ToadEntity extends Animal {
 		this.hasBaby = hasBaby;
 	}
 
+	@Override
 	public void spawnChildFromBreeding(ServerLevel serverWorld, Animal other)
 	{
 
@@ -409,11 +412,13 @@ public class ToadEntity extends Animal {
 			this.toad = toad;
 		}
 
+		@Override
 		public boolean canUse()
 		{
 			return this.toad.hasBaby && super.canUse();
 		}
 
+		@Override
 		public boolean canContinueToUse()
 		{
 			return super.canContinueToUse() && this.toad.hasBaby;
@@ -432,7 +437,7 @@ public class ToadEntity extends Animal {
 
 			if(toad.isInWater())
 			{
-				ServerLevel world = (ServerLevel) this.toad.level;
+				ServerLevel world = (ServerLevel) this.toad.level();
 				this.toad.setHasBaby(false);
 
 				TadpoleEntity tadpole = MobZEntities.TADPOLE.get().create(world);
@@ -447,6 +452,7 @@ public class ToadEntity extends Animal {
 
 		}
 
+		@Override
 		public double acceptedDistance()
 		{
 			return 0.0D;
@@ -502,9 +508,9 @@ public class ToadEntity extends Animal {
 
 	public void attackVictim(LivingEntity victim) {
 		if (victim instanceof Player) {
-			victim.hurt(DamageSource.indirectMobAttack(this, null), 1F);
+			victim.hurt(this.damageSources().mobProjectile(this, null), 1F);
 		} else {
-			victim.hurt(DamageSource.indirectMobAttack(this, null), Float.MAX_VALUE);
+			victim.hurt(this.damageSources().mobProjectile(this, null), Float.MAX_VALUE);
 		}
 	}
 

@@ -20,13 +20,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class FullIronEntity extends Zombie {
@@ -53,19 +51,13 @@ public class FullIronEntity extends Zombie {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      BlockPos blockunderentity = this.blockPosition().below();
-      BlockPos posentity = this.blockPosition();
-      return view.isUnobstructed(this) && !level.containsAnyLiquid(this.getBoundingBox())
-            && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
-                  .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.FULLIRONENTITY.get())
-            && MobZ.configs.SteveSpawn;
-
+      return MobZ.configs.SteveSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
    }
 
    @Override
    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
        super.populateDefaultEquipmentSlots(random, difficulty);
-      if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+      if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
          this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
          this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
          this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));

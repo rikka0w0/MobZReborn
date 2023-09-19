@@ -73,20 +73,20 @@ public class GChicken extends Chicken {
 		super.aiStep();
 		this.field_6736 = this.field_6741;
 		this.field_6738 = this.field_6743;
-		this.field_6743 = (float) ((double) this.field_6743 + (double) (this.onGround ? -1 : 4) * 0.3D);
+		this.field_6743 = (float) (this.field_6743 + (this.onGround() ? -1 : 4) * 0.3D);
 		this.field_6743 = Mth.clamp(this.field_6743, 0.0F, 1.0F);
-		if (!this.onGround && this.field_6737 < 1.0F) {
+		if (!this.onGround() && this.field_6737 < 1.0F) {
 			this.field_6737 = 1.0F;
 		}
 
-		this.field_6737 = (float) ((double) this.field_6737 * 0.9D);
+		this.field_6737 = (float) (this.field_6737 * 0.9D);
 		Vec3 vec3d_1 = this.getDeltaMovement();
-		if (!this.onGround && vec3d_1.y < 0.0D) {
+		if (!this.onGround() && vec3d_1.y < 0.0D) {
 			this.setDeltaMovement(vec3d_1.multiply(1.0D, 0.6D, 1.0D));
 		}
 
 		this.field_6741 += this.field_6737 * 2.0F;
-		if (!this.level.isClientSide && this.isAlive() && !this.isBaby() && !this.isChickenJockey()
+		if (!this.level().isClientSide && this.isAlive() && !this.isBaby() && !this.isChickenJockey()
 				&& --this.eggTime <= 0) {
 			this.playSound(SoundEvents.CHICKEN_EGG, 1.0F,
 					(this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
@@ -118,7 +118,7 @@ public class GChicken extends Chicken {
 
 	@Override
 	public GChicken getBreedOffspring(ServerLevel world, AgeableMob passiveEntity_1) {
-		return (GChicken) MobZEntities.GCHICKEN.get().create(this.level);
+		return MobZEntities.GCHICKEN.get().create(world);
 	}
 
 	@Override

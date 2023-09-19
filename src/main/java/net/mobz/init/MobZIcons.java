@@ -48,6 +48,6 @@ public class MobZIcons {
 	public static final Supplier<SimpleItem> SCREEPERHEAD = simpleItem("screeperhead");
 
 	private static Supplier<SimpleItem> simpleItem(String name) {
-		return MobZ.platform.registerItem(name, () -> new SimpleItem(new Item.Properties()));
+		return MobZ.platform.registerItem(name, null, () -> new SimpleItem(new Item.Properties()));
 	}
 }

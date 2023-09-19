@@ -1,7 +1,7 @@
 package net.mobz.forge.datagen;
 
 import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -13,9 +13,9 @@ import net.mobz.MobZ;
 public class SpawnEggItemModelDataProvider extends ItemModelProvider {
 	private final Registry<Item> registry;
 
-	public SpawnEggItemModelDataProvider(DataGenerator generator, Registry<Item> registry,
+	public SpawnEggItemModelDataProvider(PackOutput output, Registry<Item> registry,
 			ExistingFileHelper existingFileHelper) {
-		super(generator, MobZ.MODID, existingFileHelper);
+		super(output, MobZ.MODID, existingFileHelper);
 		this.registry = registry;
 	}
 

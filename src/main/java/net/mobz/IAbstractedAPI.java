@@ -21,20 +21,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 public interface IAbstractedAPI {
-	<T extends Item> Supplier<T> registerItem(String name, Supplier<T> constructor, @Nullable Consumer<T> setter);
-	default <T extends Item> Supplier<T> registerItem(String name, Supplier<T> constructor) {
-		return registerItem(name, constructor, null);
+	<T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor, @Nullable Consumer<T> setter);
+	default <T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor) {
+		return registerItem(name, tab, constructor, null);
 	}
 
-	<T extends Block> Supplier<T> registerBlock(String name, Supplier<T> constructor,
+	<T extends Block> Supplier<T> registerBlock(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor,
 			Function<T, BlockItem> blockItemConstructor, @Nullable Consumer<T> setter);
-	default <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> constructor,
+	default <T extends Block> Supplier<T> registerBlock(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor,
 			Function<T, BlockItem> blockItemConstructor) {
-		return registerBlock(name, constructor, blockItemConstructor, null);
+		return registerBlock(name, tab, constructor, blockItemConstructor, null);
 	}
 
 	<E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name, Supplier<T> constructor,
@@ -51,6 +52,8 @@ public interface IAbstractedAPI {
 	}
 
 	CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier);
+
+	void addToTab(CreativeModeTab tab, Supplier<? extends ItemLike> item);
 
 	Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor,
 			Item.Properties props);

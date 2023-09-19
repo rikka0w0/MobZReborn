@@ -32,8 +32,8 @@ public class AmatArmorBase extends ArmorItem {
             UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
             UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150") };
 
-    public AmatArmorBase(ArmorMaterial material, EquipmentSlot slot, Item.Properties properties) {
-        super(material, slot, properties);
+    public AmatArmorBase(ArmorMaterial material, ArmorItem.Type armorItemType, Item.Properties properties) {
+        super(material, armorItemType, properties);
     }
 
     @Override
@@ -42,10 +42,10 @@ public class AmatArmorBase extends ArmorItem {
     }
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot_1) {
-		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot_1));
-		if (equipmentSlot_1 == this.slot) {
-			multimap_1.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(MODIFIERS[equipmentSlot_1.getIndex()],
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
+		if (equipmentSlot == this.getEquipmentSlot()) {
+			multimap_1.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(MODIFIERS[equipmentSlot.getIndex()],
 					"amatattackbonus", this.attackSpeedBonus, AttributeModifier.Operation.ADDITION));
 		}
 
@@ -56,10 +56,10 @@ public class AmatArmorBase extends ArmorItem {
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         LivingEntity bob = (LivingEntity) entity;
         MobEffectInstance fireResistance = new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 9, 0, false, false);
-        if (bob.getItemBySlot(EquipmentSlot.FEET).sameItem(new ItemStack(MobZArmors.amat_boots.get()))
-                && bob.getItemBySlot(EquipmentSlot.LEGS).sameItem(new ItemStack(MobZArmors.amat_leggings.get()))
-                && bob.getItemBySlot(EquipmentSlot.CHEST).sameItem(new ItemStack(MobZArmors.amat_chestplate.get()))
-                && bob.getItemBySlot(EquipmentSlot.HEAD).sameItem(new ItemStack(MobZArmors.amat_helmet.get()))
+        if (bob.getItemBySlot(EquipmentSlot.FEET).is(MobZArmors.amat_boots.get())
+                && bob.getItemBySlot(EquipmentSlot.LEGS).is(MobZArmors.amat_leggings.get())
+                && bob.getItemBySlot(EquipmentSlot.CHEST).is(MobZArmors.amat_chestplate.get())
+                && bob.getItemBySlot(EquipmentSlot.HEAD).is(MobZArmors.amat_helmet.get())
                 && !world.isClientSide) {
             bob.addEffect(fireResistance);
         }

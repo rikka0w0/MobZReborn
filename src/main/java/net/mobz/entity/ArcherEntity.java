@@ -27,7 +27,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
-import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
 public class ArcherEntity extends Pillager {
@@ -64,7 +63,7 @@ public class ArcherEntity extends Pillager {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.getMaterial().isLiquid()) {
+        if (!state.liquid()) {
             this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
         }
     }
@@ -99,18 +98,13 @@ public class ArcherEntity extends Pillager {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level.canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
 	}
 
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos blockunderentity = this.blockPosition().below();
-        BlockPos posentity = this.blockPosition();
-        return view.isUnobstructed(this) && this.level.isDay() && !level.containsAnyLiquid(this.getBoundingBox())
-        		&& view.canSeeSky(posentity)
-                && this.level.getBlockState(posentity).getBlock().isPossibleToRespawnInThis() && this.level
-                        .getBlockState(blockunderentity).isValidSpawn(view, blockunderentity, MobZEntities.ARCHERENTITY.get())
-                && MobZ.configs.BowmanSpawn;
-    }
-
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		BlockPos posentity = this.blockPosition();
+		return MobZ.configs.BowmanSpawn && this.level().isDay() && view.canSeeSky(posentity)
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }
