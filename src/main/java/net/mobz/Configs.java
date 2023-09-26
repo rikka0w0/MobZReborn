@@ -426,4 +426,10 @@ public class Configs implements ConfigData {
     @ConfigEntry.Category("miscsetting")
     @ConfigEntry.Gui.PrefixText
     public int SpawnCountBabyRavagerBlock = 12;
+    @ConfigEntry.Category("miscsetting")
+    @ConfigEntry.Gui.PrefixText
+    public int PillagerBossAttackCooldown = 60;
+    @ConfigEntry.Category("miscsetting")
+    @ConfigEntry.Gui.PrefixText
+    public int PillagerBossAttackCooldownHard = 45;
 }

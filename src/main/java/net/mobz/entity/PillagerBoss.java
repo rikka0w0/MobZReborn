@@ -20,9 +20,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Random;
-
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -73,7 +70,8 @@ public class PillagerBoss extends Pillager {
     @Override
     protected void customServerAiStep() {
         MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false);
-        int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ? 35 : 60;
+        int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ?
+        		MobZ.configs.PillagerBossAttackCooldownHard : MobZ.configs.PillagerBossAttackCooldown;
 
         if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
 

@@ -403,6 +403,8 @@
     "text.autoconfig.mobz.option.SoulCreeperSpawn": "Soul Creeper Spawn",
     "text.autoconfig.mobz.option.SoulCreeperLife": "Soul Creeper Life Points",
     "text.autoconfig.mobz.option.SoulCreeperSpawnRate": "Soul Creeper Spawnrate",
+    "text.autoconfig.mobz.option.PillagerBossAttackCooldown": "Ticks between each Pillager Boss' wither attack",
+    "text.autoconfig.mobz.option.PillagerBossAttackCooldownHard": "Ticks between each Pillager Boss' wither attack in hard mode",
     "text.autoconfig.mobz.option.ToadSpawnRate": "Toad Spawnrate",
 
     "mobz.advancements.archer.title": "Bowman",
