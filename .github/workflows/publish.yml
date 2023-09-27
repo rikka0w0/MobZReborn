@@ -24,10 +24,13 @@ jobs:
 
     - name: Make Gradle Wrapper Executable
       if: ${{ runner.os != 'Windows' }}
-      run: chmod +x ./gradlew
+      run: chmod +x ./forge/gradlew && chmod +x ./fabric/gradlew
 
-    - name: Build
-      run: ./gradlew clean build
+    - name: Build Forge
+      run: cd forge && ./gradlew clean build && cd ..
+
+    - name: Build Fabric
+      run: cd fabric && ./gradlew clean build && cd ..
 
     - name: Publish (CurseForge/Modrinth/GitHub)
       uses: Kir-Antipov/mc-publish@v3.3
