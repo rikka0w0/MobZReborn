@@ -42,4 +42,4 @@ jobs:
         # Only include this section if you wish to publish your assets on GitHub.
         github-token: ${{ secrets.GITHUB_TOKEN }}
         github-draft: true
-        changelog-file: CHANGELOG.*
+        changelog-file: CHANGELOG.txt
