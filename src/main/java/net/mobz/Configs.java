@@ -430,6 +430,5 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.PrefixText
     public int PillagerBossAttackCooldown = 60;
     @ConfigEntry.Category("miscsetting")
-    @ConfigEntry.Gui.PrefixText
     public int PillagerBossAttackCooldownHard = 45;
 }

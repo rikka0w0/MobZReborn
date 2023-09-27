@@ -53,3 +53,4 @@ Minecraft 1.17.1 requires Java 16. Minecraft 1.16.5 and below work best with Jav
 ```
 
 __Special thanks to Globox1997 who originally made this fantastic mod__
+__感谢mcmod.cn的天涯提供的中文本地化__
