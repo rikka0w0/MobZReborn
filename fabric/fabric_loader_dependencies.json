@@ -5,7 +5,7 @@
       "-depends": {
         "minecraft": "IGNORED",
         "fabricloader": "IGNORED",
-        "fabric": "IGNORED",
+        "fabric-api": "IGNORED",
         "cloth-config2": "IGNORED",
         "fabricshieldlib": "IGNORED",
         "mm": "IGNORED"

@@ -163,11 +163,6 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public void addToTab(CreativeModeTab tab, Supplier<? extends ItemLike> item) {
-		tabContents.get(tab).add(item);
-	}
-
-	@Override
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
 		return () -> new ForgeSpawnEgg(type, highlightColor, highlightColor, props);

@@ -9,7 +9,7 @@ import net.mobz.item.Shield;
 @Mixin(Shield.class)
 public abstract class MetalShieldMixin implements FabricShield {
 	@Override
-	public int getCooldownTicks() {
+	public int getCoolDownTicks() {
 		return 100;
 	}
 

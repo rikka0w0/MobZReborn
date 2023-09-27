@@ -283,7 +283,7 @@ public class ToadEntity extends Animal {
 
 		if(this.onGround() && !onGroundPrev)
 		{
-			this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD);
+			this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD.getId());
 		}
 
 		onGroundPrev = this.onGround();

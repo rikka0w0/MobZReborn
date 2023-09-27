@@ -1,5 +1,10 @@
 # MobZ (Reborn)
-A port of [Globox1997's MobZ](https://www.curseforge.com/minecraft/mc-mods/mobz), for Minecraft 1.20.1, 1.19.2, 1.18.2, 1.17.1, and 1.16.5. Supports both Forge and Fabric.
+A port of [Globox1997's MobZ](https://www.curseforge.com/minecraft/mc-mods/mobz), for Minecraft versions (Supports both Forge and Fabric):
+* 1.20.2
+* 1.19.2
+* 1.18.2
+* 1.17.1
+* 1.16.5
 
 1.16.5 only has Forge version, for 1.16.5 Fabric version, check out [the original MobZ](https://github.com/Globox1997/MobZ).
 

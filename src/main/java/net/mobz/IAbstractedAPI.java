@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
@@ -52,8 +51,6 @@ public interface IAbstractedAPI {
 	}
 
 	CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier);
-
-	void addToTab(CreativeModeTab tab, Supplier<? extends ItemLike> item);
 
 	Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor,
 			Item.Properties props);

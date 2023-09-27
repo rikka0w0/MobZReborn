@@ -6,8 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
 
 public class Rottenflesh extends SimpleItem {
@@ -19,7 +19,7 @@ public class Rottenflesh extends SimpleItem {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-		MobEffectInstance hunger = new MobEffectInstance(MobEffect.byId(17), 600, 0, true, false);
+		MobEffectInstance hunger = new MobEffectInstance(MobEffects.HUNGER, 600, 0, true, false);
 		Random random = new Random();
 		int randomNumber = random.nextInt() % 2;
 

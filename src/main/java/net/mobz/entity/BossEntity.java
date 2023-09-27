@@ -9,8 +9,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -97,7 +97,7 @@ public class BossEntity extends Zombie {
     @Override
     public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
         LivingEntity bob = (LivingEntity) target;
-        MobEffectInstance fatigue = new MobEffectInstance(MobEffect.byId(4), 120, 0, false, false);
+        MobEffectInstance fatigue = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120, 0, false, false);
         if (target instanceof LivingEntity) {
             bob.addEffect(fatigue);
         }
