@@ -43,3 +43,9 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         github-draft: true
         changelog-file: CHANGELOG.txt
+
+        files: |
+          forge/build/libs/!(*-@(dev|sources|javadoc)).jar
+          forge/build/libs/*-@(dev|sources|javadoc).jar
+          fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          fabric/build/libs/*-@(dev|sources|javadoc).jar
