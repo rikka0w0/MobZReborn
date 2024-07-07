@@ -1,0 +1,49 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}" #mandatory
+issueTrackerURL="https://github.com/rikka0w0/MobZReborn/issues" #optional
+license="MIT License"
+
+[[mods]] #mandatory
+modId="${mod_id}"
+version="${mod_version}"
+displayName="MobZ"
+# updateJSONURL="http://myurl.me/" #optional
+displayURL="https://github.com/rikka0w0/MobZReborn"
+logoFile="mobz_logo.png" #optional
+credits="Globox1997"
+authors="Rikka0_0"
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+More vanilla style mobs
+MobZ port for Neoforge
+Original: https://github.com/Globox1997/MobZ
+'''
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.mobz]] #optional
+    # the modid of the dependency
+    modId="neoforge" #mandatory
+    # The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
+    # 'required' requires the mod to exist, 'optional' does not
+    # 'incompatible' will prevent the game from loading when the mod exists, and 'discouraged' will show a warning
+    type="required" #mandatory
+    # The version range of the dependency
+    versionRange="${neo_version_range}" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+
+[[dependencies.mobz]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.mobz]]
+    modId = "cloth_config"
+    type="required"
+    versionRange="[${cloth_config_version},)"
+    ordering="NONE"
+    side="BOTH"

@@ -10,9 +10,14 @@ repositories {
 }
 
 // Load the common property
-Properties props = new Properties();
-props.load(new FileInputStream("$project.rootDir/../fabric/gradle.properties"));
-props.each {prop -> project.ext.set(prop.key, prop.value)};
+Properties commonProps = new Properties();
+commonProps.load(new FileInputStream("$project.rootDir/../common.properties"));
+commonProps.each { prop ->
+    // Loader-specific gradle.properties takes priority
+    if (!project.hasProperty(prop.key)) {
+        project.ext.set(prop.key, prop.value);
+    }
+}
 
 project.ext.mod_id = project.archives_base_name;
 project.ext.minecraft_version_range = '[' + project.minecraft_version_min + ', ' + project.minecraft_version_max + ')';

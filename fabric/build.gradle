@@ -3,6 +3,15 @@ plugins {
 	id 'maven-publish'
 }
 
+Properties commonProps = new Properties();
+commonProps.load(new FileInputStream("$project.rootDir/../common.properties"));
+commonProps.each { prop ->
+    // Loader-specific gradle.properties takes priority
+    if (!project.hasProperty(prop.key)) {
+        project.ext.set(prop.key, prop.value);
+    }
+}
+
 repositories {
     // Auto Config & Cloth Config
     maven { url 'https://maven.shedaniel.me/' }
@@ -38,7 +47,7 @@ dependencies {
 	}
 
 	// Fabric Shield Lib
-	modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:v${project.fabric_shield_lib_version}"
+	modImplementation "com.github.StellarWind22:Fabric-Shield-Lib:v${project.fabric_shield_lib_version}"
 
 	// javax.annotation.Nullable
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.1'
