@@ -17,12 +17,12 @@ public class OvergrownSkeleton extends Skeleton {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.OvergrownSkeletonLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.OvergrownSkeleton.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D);
     }
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.OvergrownSkeletonSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.OvergrownSkeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

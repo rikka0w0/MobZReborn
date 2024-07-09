@@ -40,9 +40,9 @@ public class William extends Zombie {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.WilliamLife * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.William.life * MobZ.configs.LifeMultiplicatorMob)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.WilliamAttack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.William.attack * MobZ.configs.DamageMultiplicatorMob)
 				.add(Attributes.FOLLOW_RANGE, 18.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
 	}
 

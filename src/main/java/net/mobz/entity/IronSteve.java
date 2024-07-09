@@ -37,10 +37,10 @@ public class IronSteve extends Zombie {
    public static AttributeSupplier.Builder createMobzEntityAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.SteveLife * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.Steve.life * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.26D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.SteveAttack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.Steve.attack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
    }
 
@@ -51,7 +51,7 @@ public class IronSteve extends Zombie {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      return MobZ.configs.SteveSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+      return MobZ.configs.Steve.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
    }
 
    @Override

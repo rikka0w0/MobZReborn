@@ -55,10 +55,10 @@ public class SpiderMage extends SpellcasterIllager {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.SpiderMageLife * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.SpiderMage.life * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.45D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.SpiderMageAttack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.SpiderMage.attack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 20.0D);
    }
 
@@ -94,7 +94,7 @@ public class SpiderMage extends SpellcasterIllager {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.SpiderMageSpawn
+		return MobZ.configs.SpiderMage.spawn
 				&& !this.isPatrolLeader()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

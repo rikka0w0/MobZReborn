@@ -35,9 +35,9 @@ public class Dwarf extends Vindicator {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.DwarfLife * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.Dwarf.life * MobZ.configs.LifeMultiplicatorMob)
 				.add(Attributes.MOVEMENT_SPEED, 0.3D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.DwarfAttack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.Dwarf.attack * MobZ.configs.DamageMultiplicatorMob)
 				.add(Attributes.FOLLOW_RANGE, 24.0D);
 	}
 
@@ -90,11 +90,11 @@ public class Dwarf extends Vindicator {
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
 
-		if (MobZ.configs.DwarfSpawn_UndergroundOnly && posentity.getY() >= view.getSeaLevel() - 10) {
+		if (MobZ.configs.Dwarf.undergroundOnly && posentity.getY() >= view.getSeaLevel() - 10) {
 			return false;
 		}
 
-		return MobZ.configs.DwarfSpawn
+		return MobZ.configs.Dwarf.spawn
 				&& !this.isPatrolLeader()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

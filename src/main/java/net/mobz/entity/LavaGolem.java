@@ -37,10 +37,10 @@ public class LavaGolem extends IronGolem {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.LavaGolemLife * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.LavaGolem.life * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.25D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.LavaGolemAttack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.LavaGolem.attack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 30.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
    }
 
@@ -89,7 +89,7 @@ public class LavaGolem extends IronGolem {
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
-		return MobZ.configs.LavaGolemSpawn
+		return MobZ.configs.LavaGolem.spawn
 				&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

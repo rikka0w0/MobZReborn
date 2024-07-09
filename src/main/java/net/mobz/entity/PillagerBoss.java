@@ -43,10 +43,10 @@ public class PillagerBoss extends Pillager {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.PillagerBossLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.PillagerBoss.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.PillagerBossAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.PillagerBoss.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1D);
     }
@@ -71,7 +71,7 @@ public class PillagerBoss extends Pillager {
     protected void customServerAiStep() {
         MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false);
         int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ?
-        		MobZ.configs.PillagerBossAttackCooldownHard : MobZ.configs.PillagerBossAttackCooldown;
+        		MobZ.configs.PillagerBoss.attackCooldownHard : MobZ.configs.PillagerBoss.attackCooldown;
 
         if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D && hasLineOfSight(getTarget())) {
 

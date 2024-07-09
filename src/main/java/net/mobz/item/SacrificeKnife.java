@@ -101,7 +101,7 @@ public class SacrificeKnife extends Item {
 
 		if (state.getBlock() == MobZBlocks.TOTEM_MIDDLE.get()) {
 			if (stateUp.getBlock() == MobZBlocks.TOTEM_TOP.get() && stateDown.getBlock() == MobZBlocks.TOTEM_BASE.get()) {
-				if (MobZ.configs.PillagerBossSpawn) {
+				if (MobZ.configs.PillagerBoss.enabled) {
 					ItemStack itemStack = context.getItemInHand();
 					int bloodCounter = getBloodCounter(itemStack);
 

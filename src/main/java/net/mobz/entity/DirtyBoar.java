@@ -14,6 +14,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 
@@ -25,7 +26,8 @@ public class DirtyBoar extends Pig {
     }
 
     public static AttributeSupplier.Builder createMobzAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D)
+        return Mob.createMobAttributes()
+        		.add(Attributes.MAX_HEALTH, MobZ.configs.DirtyBoar.life)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 

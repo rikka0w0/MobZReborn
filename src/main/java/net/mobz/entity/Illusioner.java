@@ -21,10 +21,10 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.IllusionerLife * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.Illusioner.life * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.4D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.IllusionerAttack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.Illusioner.attack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 24.0D);
    }
 
@@ -50,7 +50,7 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.IllusionerSpawn
+		return MobZ.configs.Illusioner.spawn
 				&& this.level().isDay()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

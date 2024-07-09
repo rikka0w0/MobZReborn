@@ -37,9 +37,9 @@ public class Warrior extends Vindicator {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.WarriorLife * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.Warrior.life * MobZ.configs.LifeMultiplicatorMob)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.WarriorAttack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.Warrior.attack * MobZ.configs.DamageMultiplicatorMob)
 				.add(Attributes.FOLLOW_RANGE, 26.0D);
 	}
 
@@ -96,7 +96,7 @@ public class Warrior extends Vindicator {
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
-		return MobZ.configs.WarriorSpawn
+		return MobZ.configs.Warrior.spawn
 				&& this.level().getMaxLocalRawBrightness(posentity) < 10
 				&& !this.isPatrolLeader()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);

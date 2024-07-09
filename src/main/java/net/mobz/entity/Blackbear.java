@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class Blackbear extends Panda {
@@ -22,8 +23,16 @@ public class Blackbear extends Panda {
    }
 
    public static AttributeSupplier.Builder createMobzAttributes() {
-      return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.17D)
-            .add(Attributes.ATTACK_DAMAGE, 6.0D);
+      return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, MobZ.configs.BlackBear.life)
+    		.add(Attributes.MOVEMENT_SPEED, 0.17D)
+            .add(Attributes.ATTACK_DAMAGE, MobZ.configs.BlackBear.attack);
+   }
+
+   @Override
+   public void setAttributes() {
+	   // Need this to set life properly!
+	   this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MobZ.configs.BlackBear.life);
    }
 
    @Override

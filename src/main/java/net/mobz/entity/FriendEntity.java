@@ -258,8 +258,9 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		}
 
 		public static AttributeSupplier.Builder createMobzAttributes() {
-			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
-					.add(Attributes.ATTACK_DAMAGE, 5.0D);
+			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D)
+					.add(Attributes.MAX_HEALTH, MobZ.configs.Alex.life)
+					.add(Attributes.ATTACK_DAMAGE, MobZ.configs.Alex.attack);
 		}
 
 	    @Override

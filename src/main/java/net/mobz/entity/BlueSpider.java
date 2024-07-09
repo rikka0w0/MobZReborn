@@ -23,9 +23,9 @@ public class BlueSpider extends Spider {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.BlueSpiderLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.BlueSpider.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.31D).add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.BlueSpiderAttack * MobZ.configs.DamageMultiplicatorMob);
+                        MobZ.configs.BlueSpider.attack * MobZ.configs.DamageMultiplicatorMob);
     }
 
     @Override
@@ -44,6 +44,6 @@ public class BlueSpider extends Spider {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.BlueSpiderSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.BlueSpider.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

@@ -20,10 +20,10 @@ public class EnderZombie extends Zombie {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.EnderzombieLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.Enderzombie.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.EnderzombieAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.Enderzombie.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.ARMOR, 2D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
@@ -51,7 +51,7 @@ public class EnderZombie extends Zombie {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.EnderzombieSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.Enderzombie.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 

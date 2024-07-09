@@ -24,7 +24,7 @@ public class BossSkeleton extends Skeleton {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.BossSkeletonLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.BossSkeleton.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.ARMOR, 2D);
     }
@@ -53,7 +53,7 @@ public class BossSkeleton extends Skeleton {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.BossSkeletonSpawn
+        return MobZ.configs.BossSkeleton.spawn
         		&& this.level().isNight()
                 && MobSpawnHelper.checkSpawnObstruction(this, view);
     }

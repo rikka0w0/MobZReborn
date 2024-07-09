@@ -38,10 +38,10 @@ public class IceGolem extends IronGolem {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.IceGolemLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.IceGolem.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.IceGolemAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.IceGolem.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
     }
@@ -61,7 +61,7 @@ public class IceGolem extends IronGolem {
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos posentity = this.blockPosition();
-        return MobZ.configs.IceGolemSpawn
+        return MobZ.configs.IceGolem.spawn
         		&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
                 && this.level().isDay()
                 && MobSpawnHelper.checkSpawnObstruction(this, view);

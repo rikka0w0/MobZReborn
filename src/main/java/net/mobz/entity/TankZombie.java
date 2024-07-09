@@ -26,10 +26,10 @@ public class TankZombie extends Zombie {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.TankLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.Tank.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.TankAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.Tank.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
                 .add(Attributes.ATTACK_KNOCKBACK, 1.2D).add(Attributes.ARMOR, 3D)
@@ -53,7 +53,7 @@ public class TankZombie extends Zombie {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.TankSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.Tank.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 
     @Override

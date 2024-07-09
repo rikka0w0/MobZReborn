@@ -21,8 +21,8 @@ public class IslandVex extends Vex {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.DeathSpiritLife * MobZ.configs.LifeMultiplicatorMob)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.DeathSpiritAttack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.DeathSpirit.life * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.DeathSpirit.attack * MobZ.configs.DamageMultiplicatorMob)
 				.add(Attributes.FOLLOW_RANGE, 18.0D);
 	}
 

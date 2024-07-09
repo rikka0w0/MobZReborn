@@ -55,10 +55,10 @@ public class ZombieMage extends SpellcasterIllager {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.ZombieMageLife * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.ZombieMage.life * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.45D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.ZombieMageAttack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.ZombieMage.attack * MobZ.configs.DamageMultiplicatorMob)
             .add(Attributes.FOLLOW_RANGE, 20.0D);
    }
 
@@ -84,7 +84,7 @@ public class ZombieMage extends SpellcasterIllager {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.ZombieMageSpawn
+		return MobZ.configs.ZombieMage.spawn
 				&& !this.isPatrolLeader()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

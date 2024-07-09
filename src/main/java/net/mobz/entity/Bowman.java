@@ -39,10 +39,10 @@ public class Bowman extends Pillager {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.BowmanLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.Bowman.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.33D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.BowmanAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.Bowman.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 34.0D);
     }
 
@@ -104,7 +104,7 @@ public class Bowman extends Pillager {
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
-		return MobZ.configs.BowmanSpawn && this.level().isDay() && view.canSeeSky(posentity)
+		return MobZ.configs.Bowman.spawn && this.level().isDay() && view.canSeeSky(posentity)
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 }

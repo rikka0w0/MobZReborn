@@ -8,427 +8,214 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 @Config(name = MobZ.MODID)
 @Config.Gui.Background("minecraft:textures/block/oak_planks.png")
 public class Configs implements ConfigData {
-    @ConfigEntry.Category("spawnsetting")
-    @ConfigEntry.Gui.PrefixText
-    public boolean AlexSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean ArcherSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean ArmoredZombieSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BigBossSpawn = false;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BlackBearSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BlueSpiderSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BoarSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BossSkeletonSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BossZombieSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BowmanSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean BrownBearSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean CookieCreeperSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean DirtyBoarSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean DwarfSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean DwarfSpawn_UndergroundOnly = false;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean EnderKnightSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean EndermanSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean EnderzombieSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean FioraSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean FrostBlazeSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean FrostCreeperSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean GoldenChickenSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean GrassSlimeSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean IceGolemSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean IllusionerSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean LavaGolemSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean LordofDarknessSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean LostSkeletonSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean MetalGolemSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean NetherSkeletonSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean NetherWolfSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean OvergrownSkeletonSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean PigmanSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean PillagerBossSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean PurpleSpiderSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean SoulCreeperSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean SpeedyZombieSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean SpiderMageSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean SteveSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean StoneGolemSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean TankSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean TemplarSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean TinySpiderSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean WarriorSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean WildBoarSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean WithenderSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean WitherBlazeSpawn = true;
-    @ConfigEntry.Category("spawnsetting")
-    public boolean ZombieMageSpawn = true;
+	/**
+	 * A mob that does not spawn naturally
+	 */
+	public static class MobSummonable {
+		public boolean enabled;
+		public double life;
+		public double attack;
 
-    @ConfigEntry.Category("lifesetting")
-    @ConfigEntry.Gui.PrefixText
-    public double AlexLife = 30D;
-    @ConfigEntry.Category("lifesetting")
-    public double ArcherLife = 32D;
-    @ConfigEntry.Category("lifesetting")
-    public double ArmoredZombieLife = 20D;
-    @ConfigEntry.Category("lifesetting")
-    public double BigBossLife = 400D;
-    @ConfigEntry.Category("lifesetting")
-    public double BlueSpiderLife = 24D;
-    @ConfigEntry.Category("lifesetting")
-    public double BossSkeletonLife = 60D;
-    @ConfigEntry.Category("lifesetting")
-    public double BossZombieLife = 400D;
-    @ConfigEntry.Category("lifesetting")
-    public double BowmanLife = 32D;
-    @ConfigEntry.Category("lifesetting")
-    public double CookieCreeperLife = 24D;
-    @ConfigEntry.Category("lifesetting")
-    public double DwarfLife = 70D;
-    @ConfigEntry.Category("lifesetting")
-    public double EnderKnightLife = 48D;
-    @ConfigEntry.Category("lifesetting")
-    public double EndermanLife = 46D;
-    @ConfigEntry.Category("lifesetting")
-    public double EnderzombieLife = 20D;
-    @ConfigEntry.Category("lifesetting")
-    public double FioraLife = 30D;
-    @ConfigEntry.Category("lifesetting")
-    public double FrostBlazeLife = 26D;
-    @ConfigEntry.Category("lifesetting")
-    public double FrostCreeperLife = 18D;
-    @ConfigEntry.Category("lifesetting")
-    public double IceGolemLife = 52D;
-    @ConfigEntry.Category("lifesetting")
-    public double IllusionerLife = 16D;
-    @ConfigEntry.Category("lifesetting")
-    public double LavaGolemLife = 48D;
-    @ConfigEntry.Category("lifesetting")
-    public double LordofDarknessLife = 72D;
-    @ConfigEntry.Category("lifesetting")
-    public double LostSkeletonLife = 20D;
-    @ConfigEntry.Category("lifesetting")
-    public double MetalGolemLife = 160D;
-    @ConfigEntry.Category("lifesetting")
-    public double NetherSkeletonLife = 28D;
-    @ConfigEntry.Category("lifesetting")
-    public double NetherWolfLife = 20D;
-    @ConfigEntry.Category("lifesetting")
-    public double OvergrownSkeletonLife = 26D;
-    @ConfigEntry.Category("lifesetting")
-    public double PigmanLife = 24D;
-    @ConfigEntry.Category("lifesetting")
-    public double PillagerBossLife = 300D;
-    @ConfigEntry.Category("lifesetting")
-    public double PurpleSpiderLife = 26D;
-    @ConfigEntry.Category("lifesetting")
-    public double SoulCreeperLife = 25D;
-    @ConfigEntry.Category("lifesetting")
-    public double SpeedyZombieLife = 15D;
-    @ConfigEntry.Category("lifesetting")
-    public double SpiderMageLife = 32D;
-    @ConfigEntry.Category("lifesetting")
-    public double SteveLife = 32D;
-    @ConfigEntry.Category("lifesetting")
-    public double StoneGolemLife = 64D;
-    @ConfigEntry.Category("lifesetting")
-    public double TankLife = 56D;
-    @ConfigEntry.Category("lifesetting")
-    public double TemplarLife = 34D;
-    @ConfigEntry.Category("lifesetting")
-    public double TinySpiderLife = 1D;
-    @ConfigEntry.Category("lifesetting")
-    public double WarriorLife = 48D;
-    @ConfigEntry.Category("lifesetting")
-    public double WithenderLife = 400D;
-    @ConfigEntry.Category("lifesetting")
-    public double WitherBlazeLife = 26D;
-    @ConfigEntry.Category("lifesetting")
-    public double ZombieMageLife = 28D;
-    @ConfigEntry.Category("lifesetting")
-    public double KingCharlesLife = 120D;
-    @ConfigEntry.Category("lifesetting")
-    public double WilliamLife = 60D;
-    @ConfigEntry.Category("lifesetting")
-    public double AndriuLife = 60D;
-    @ConfigEntry.Category("lifesetting")
-    public double IslandKnightLife = 26D;
-    @ConfigEntry.Category("lifesetting")
-    public double DeathSpiritLife = 16D;
-    @ConfigEntry.Category("lifesetting")
-    public double BabyRavagerLife = 40D;
-    @ConfigEntry.Category("lifesetting")
+		public MobSummonable(boolean enabled, double life, double attack) {
+			this.enabled = enabled;
+			this.life = life;
+			this.attack = attack;
+		}
+	}
+
+	/**
+	 * A mob that does not spawn naturally
+	 */
+	public static class MobSummonableAlwaysEnable {
+		public double life;
+		public double attack;
+
+		public MobSummonableAlwaysEnable(double life, double attack) {
+			this.life = life;
+			this.attack = attack;
+		}
+	}
+
+	/**
+	 * A mob that does not spawn naturally that doesnt use melee attack, e.g. pig, creeper, and skeleton
+	 */
+	public static class MobSummonableNoAttack {
+		public boolean enabled;
+		public double life;
+
+		public MobSummonableNoAttack(boolean enabled, double life) {
+			this.enabled = enabled;
+			this.life = life;
+		}
+	}
+
+	/**
+	 * A passive mob or a mob that doesnt use melee attack, e.g. pig, creeper, and skeleton
+	 */
+	public static class MobNoAttack {
+		public boolean spawn;
+	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+		public int spawnRate;
+		public double life;
+
+		public MobNoAttack(boolean spawn, int spawnRate, double life) {
+			this.spawn = spawn;
+			this.spawnRate = spawnRate;
+			this.life = life;
+		}
+	}
+
+	public static class Mob {
+		public boolean spawn;
+	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+		public int spawnRate;
+		public double life;
+		public double attack;
+
+		public Mob(boolean spawn, int spawnRate, double life, double attack) {
+			this.spawn = spawn;
+			this.spawnRate = spawnRate;
+			this.life = life;
+			this.attack = attack;
+		}
+	}
+
+	public static class Dwarf {
+		public boolean spawn = true;
+	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+		public int spawnRate = 3;
+		public double life = 70D;
+		public double attack = 7D;
+		public boolean undergroundOnly = false;
+	}
+
+	public static class PillagerBoss {
+		public boolean enabled = true;
+		public double life = 300D;
+		public double attack = 12D;
+	    public int attackCooldown = 60;
+	    public int attackCooldownHard = 45;
+	}
+
+	public static class BabyRavager {
+		public double life = 40D;
+		public double attack = 10D;
+
+	    // Not sure what is this
+		public int spawnCount = 12;
+	}
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Alex = new Mob(true, 2, 20D, 5D);// Katherine
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Archer = new Mob(true, 2, 32D, 6D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob ArmoredZombie = new Mob(true, 15, 20D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob BigBoss = new Mob(false, 1, 400D, 9D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob BlackBear = new Mob(true, 5, 20D, 6D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob BlueSpider = new Mob(true, 20, 24D, 6D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack Boar = new MobNoAttack(true, 5, 16D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack BossSkeleton = new MobNoAttack(true, 3, 60D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob BossZombie = new Mob(true, 1, 400D, 10D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Bowman = new Mob(true, 5, 32D, 8D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob BrownBear = new Mob(true, 5, 30.0D, 6.0D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack CookieCreeper = new MobNoAttack(true, 10, 24D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack DirtyBoar = new MobNoAttack(true, 5, 10.0D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Dwarf Dwarf = new Dwarf();
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob EnderKnight = new Mob(true, 3, 48D, 8D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Enderman = new Mob(true, 8, 46D, 9D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Enderzombie = new Mob(true, 8, 20D, 5D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Fiora = new Mob(true, 2, 30D, 5D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob FrostBlaze = new Mob(true, 10, 26D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack FrostCreeper = new MobNoAttack(true, 10, 18D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack GoldenChicken = new MobNoAttack(true, 3, 4D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob HoneySlime = new Mob(true, 3, 4D, 1D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob IceGolem = new Mob(true, 5, 52D, 14D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Illusioner = new Mob(true, 2, 16D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob LavaGolem = new Mob(true, 10, 48D, 14D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob LordofDarkness = new Mob(true, 3, 72D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob LostSkeleton = new Mob(true, 10, 20D, 5D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonable MetalGolem = new MobSummonable(true, 160D, 16D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack NetherSkeleton = new MobNoAttack(true, 6, 28D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob NetherWolf = new Mob(true, 5, 20D, 6D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack OvergrownSkeleton = new MobNoAttack(true, 15, 26D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Pigman = new Mob(true, 10, 24D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public PillagerBoss PillagerBoss = new PillagerBoss();
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob PurpleSpider = new Mob(true, 15, 26D, 5D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack SoulCreeper = new MobNoAttack(true, 5, 25D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob SpeedyZombie = new Mob(true, 30, 15D, 4D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob SpiderMage = new Mob(true, 6, 32D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Steve = new Mob(true, 2, 32D, 9D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob StoneGolem = new Mob(true, 2, 64D, 14D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Tank = new Mob(true, 30, 56D, 9D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Templar = new Mob(true, 2, 34D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob TinySpider = new Mob(true, 5, 1D, 0D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob Warrior = new Mob(true, 3, 48D, 6D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack WildBoar = new MobNoAttack(true, 5, 12.0D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonableNoAttack Withender = new MobSummonableNoAttack(true, 400D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob WitherBlaze = new Mob(true, 6, 26D, 8D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public Mob ZombieMage = new Mob(true, 5, 28D, 7D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonableAlwaysEnable KingCharles = new MobSummonableAlwaysEnable(120D, 10D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonableAlwaysEnable William = new MobSummonableAlwaysEnable(60D, 8D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonableAlwaysEnable Andriu = new MobSummonableAlwaysEnable(60D, 8D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonableAlwaysEnable IslandKnight = new MobSummonableAlwaysEnable(26D, 6D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobSummonableAlwaysEnable DeathSpirit = new MobSummonableAlwaysEnable(16D, 5D);
+    @ConfigEntry.Gui.CollapsibleObject
+    public BabyRavager BabyRavager = new BabyRavager();
+    @ConfigEntry.Gui.CollapsibleObject
+    public MobNoAttack Toad = new MobNoAttack(false, 8, 10.0D);
+
     @Comment("Be carefull with this setting! Multiplicator must be > 0!")
     public double LifeMultiplicatorMob = 1.0D;
-
-    @ConfigEntry.Category("damagesetting")
-    @ConfigEntry.Gui.PrefixText
-    public double AlexAttack = 5D;
-    @ConfigEntry.Category("damagesetting")
-    public double ArcherAttack = 6D;
-    @ConfigEntry.Category("damagesetting")
-    public double ArmoredZombieAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double BigBossAttack = 9D;
-    @ConfigEntry.Category("damagesetting")
-    public double BlueSpiderAttack = 6D;
-    @ConfigEntry.Category("damagesetting")
-    public double BossZombieAttack = 10D;
-    @ConfigEntry.Category("damagesetting")
-    public double BowmanAttack = 8D;
-    @ConfigEntry.Category("damagesetting")
-    public double DwarfAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double EnderKnightAttack = 8D;
-    @ConfigEntry.Category("damagesetting")
-    public double EndermanAttack = 9D;
-    @ConfigEntry.Category("damagesetting")
-    public double EnderzombieAttack = 5D;
-    @ConfigEntry.Category("damagesetting")
-    public double FioraAttack = 5D;
-    @ConfigEntry.Category("damagesetting")
-    public double FrostBlazeAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double IceGolemAttack = 14D;
-    @ConfigEntry.Category("damagesetting")
-    public double IllusionerAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double LavaGolemAttack = 14D;
-    @ConfigEntry.Category("damagesetting")
-    public double LordofDarknessAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double LostSkeletonAttack = 5D;
-    @ConfigEntry.Category("damagesetting")
-    public double MetalGolemAttack = 16D;
-    @ConfigEntry.Category("damagesetting")
-    public double NetherWolfAttack = 6D;
-    @ConfigEntry.Category("damagesetting")
-    public double PigmanAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double PillagerBossAttack = 12D;
-    @ConfigEntry.Category("damagesetting")
-    public double PurpleSpiderAttack = 5D;
-    @ConfigEntry.Category("damagesetting")
-    public double SpeedyZombieAttack = 4D;
-    @ConfigEntry.Category("damagesetting")
-    public double SpiderMageAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double SteveAttack = 9D;
-    @ConfigEntry.Category("damagesetting")
-    public double StoneGolemAttack = 14D;
-    @ConfigEntry.Category("damagesetting")
-    public double TankAttack = 9D;
-    @ConfigEntry.Category("damagesetting")
-    public double TemplarAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double TinySpiderAttack = 0D;
-    @ConfigEntry.Category("damagesetting")
-    public double WarriorAttack = 6D;
-    @ConfigEntry.Category("damagesetting")
-    public double WitherBlazeAttack = 8D;
-    @ConfigEntry.Category("damagesetting")
-    public double ZombieMageAttack = 7D;
-    @ConfigEntry.Category("damagesetting")
-    public double KingCharlesAttack = 10D;
-    @ConfigEntry.Category("damagesetting")
-    public double WilliamAttack = 8D;
-    @ConfigEntry.Category("damagesetting")
-    public double AndriuAttack = 8D;
-    @ConfigEntry.Category("damagesetting")
-    public double IslandKnightAttack = 6D;
-    @ConfigEntry.Category("damagesetting")
-    public double DeathSpiritAttack = 5D;
-    @ConfigEntry.Category("damagesetting")
-    public double BabyRavagerAttack = 10D;
-    @ConfigEntry.Category("damagesetting")
     @Comment("Be carefull with this setting! Multiplicator must be > 0!")
     public double DamageMultiplicatorMob = 1.0D;
-
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.Gui.PrefixText
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int AlexSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int ArcherSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int ArmoredZombieSpawnRate = 15;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BigBossSpawnRate = 1;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BlackBearSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BlueSpiderSpawnRate = 20;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BoarSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BossSkeletonSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BossZombieSpawnRate = 1;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BowmanSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int BrownBearSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int CookieCreeperSpawnRate = 10;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int DirtyBoarSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int DwarfSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int EnderKnightSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int EndermanSpawnRate = 8;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int EnderzombieSpawnRate = 8;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int FioraSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int FrostBlazeSpawnRate = 10;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int FrostCreeperSpawnRate = 10;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int GoldenChickenSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int GrassSlimeSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int IceGolemSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int IllusionerSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int LavaGolemSpawnRate = 10;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int LordofDarknessSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int LostSkeletonSpawnRate = 10;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int NetherSkeletonSpawnRate = 6;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int NetherWolfSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int OvergrownSkeletonSpawnRate = 15;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int PigmanSpawnRate = 10;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int PurpleSpiderSpawnRate = 15;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int SoulCreeperSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int SpeedyZombieSpawnRate = 30;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int SpiderMageSpawnRate = 6;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int SteveSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int StoneGolemSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int TankSpawnRate = 30;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int TemplarSpawnRate = 2;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int TinySpiderSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int WarriorSpawnRate = 3;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int WildBoarSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int WitherBlazeSpawnRate = 6;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-    public int ZombieMageSpawnRate = 5;
-    @ConfigEntry.Category("spawnratesetting")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-	public int ToadSpawnRate = 8;
-
-    @ConfigEntry.Category("miscsetting")
-    @ConfigEntry.Gui.PrefixText
-    public int SpawnCountBabyRavagerBlock = 12;
-    @ConfigEntry.Category("miscsetting")
-    @ConfigEntry.Gui.PrefixText
-    public int PillagerBossAttackCooldown = 60;
-    @ConfigEntry.Category("miscsetting")
-    public int PillagerBossAttackCooldownHard = 45;
 }

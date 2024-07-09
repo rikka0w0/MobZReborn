@@ -22,10 +22,10 @@ public class BigBoss extends Zombie {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.BigBossLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.BigBoss.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.21D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.BigBossAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.BigBoss.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
@@ -63,7 +63,7 @@ public class BigBoss extends Zombie {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.BigBossSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.BigBoss.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 

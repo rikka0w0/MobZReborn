@@ -21,13 +21,15 @@ public class HoneySlime extends Slime {
     }
 
     public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 1D);
+        return Monster.createMonsterAttributes()
+        		.add(Attributes.MAX_HEALTH, MobZ.configs.HoneySlime.life)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.HoneySlime.attack);
     }
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.GrassSlimeSpawn
+        return MobZ.configs.HoneySlime.spawn
         		&& this.level().isDay()
         		&& MobSpawnHelper.checkSpawnObstruction(this, view);
     }

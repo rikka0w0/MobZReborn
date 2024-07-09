@@ -31,10 +31,10 @@ public class BossZombie extends Zombie {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.BossZombieLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.BossZombie.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.21D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.BossZombieAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.BossZombie.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 36.0D).add(Attributes.ARMOR, -4D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1D)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
@@ -89,7 +89,7 @@ public class BossZombie extends Zombie {
 
     @Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.BossZombieSpawn
+		return MobZ.configs.BossZombie.spawn
 				&& this.level().isNight()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

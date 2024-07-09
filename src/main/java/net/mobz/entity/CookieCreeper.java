@@ -21,7 +21,7 @@ public class CookieCreeper extends Creeper {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.CookieCreeperLife * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.CookieCreeper.life * MobZ.configs.LifeMultiplicatorMob)
             .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
    }
 
@@ -37,7 +37,7 @@ public class CookieCreeper extends Creeper {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      return MobZ.configs.CookieCreeperSpawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+      return MobZ.configs.CookieCreeper.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
    }
 }

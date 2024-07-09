@@ -30,9 +30,9 @@ public class Knight extends Vindicator {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.IslandKnightLife * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.IslandKnight.life * MobZ.configs.LifeMultiplicatorMob)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.IslandKnightAttack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.IslandKnight.attack * MobZ.configs.DamageMultiplicatorMob)
 				.add(Attributes.FOLLOW_RANGE, 18.0D);
 	}
 

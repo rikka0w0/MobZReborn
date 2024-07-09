@@ -30,6 +30,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class GoldenChicken extends Chicken {
@@ -48,7 +49,9 @@ public class GoldenChicken extends Chicken {
 	}
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+		return Mob.createMobAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.GoldenChicken.life)
+				.add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 
 	@Override

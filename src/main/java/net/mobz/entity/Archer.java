@@ -29,10 +29,10 @@ public class Archer extends Pillager {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.ArcherLife * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.Archer.life * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.345D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.ArcherAttack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.Archer.attack * MobZ.configs.DamageMultiplicatorMob)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
@@ -60,7 +60,7 @@ public class Archer extends Pillager {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.ArcherSpawn && !this.isPatrolLeader() && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.Archer.spawn && !this.isPatrolLeader() && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 

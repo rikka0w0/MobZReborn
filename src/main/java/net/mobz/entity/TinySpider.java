@@ -24,9 +24,9 @@ public class TinySpider extends Spider {
 
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, MobZ.configs.TinySpiderLife)
+                .add(Attributes.MAX_HEALTH, MobZ.configs.TinySpider.life)
                 .add(Attributes.MOVEMENT_SPEED, 0.1D)
-                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.TinySpiderAttack);
+                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.TinySpider.attack);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TinySpider extends Spider {
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos posentity = this.blockPosition();
-        return MobZ.configs.TinySpiderSpawn
+        return MobZ.configs.TinySpider.spawn
                 && this.level().getMaxLocalRawBrightness(posentity) <= 7
                 && MobSpawnHelper.checkSpawnObstruction(this, view);
     }

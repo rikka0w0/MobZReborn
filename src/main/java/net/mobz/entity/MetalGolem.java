@@ -44,10 +44,10 @@ public class MetalGolem extends IronGolem {
   public static AttributeSupplier.Builder createMobzAttributes() {
     return Mob.createMobAttributes()
         .add(Attributes.MAX_HEALTH,
-            MobZ.configs.MetalGolemLife * MobZ.configs.LifeMultiplicatorMob)
+            MobZ.configs.MetalGolem.life * MobZ.configs.LifeMultiplicatorMob)
         .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
         .add(Attributes.ATTACK_DAMAGE,
-            MobZ.configs.MetalGolemAttack * MobZ.configs.DamageMultiplicatorMob);
+            MobZ.configs.MetalGolem.attack * MobZ.configs.DamageMultiplicatorMob);
   }
 
   @Override
@@ -107,7 +107,7 @@ public class MetalGolem extends IronGolem {
 
   @Override
   public boolean checkSpawnObstruction(LevelReader view) {
-    return MobZ.configs.MetalGolemSpawn;
+    return MobZ.configs.MetalGolem.enabled;
   }
 
   @Override
