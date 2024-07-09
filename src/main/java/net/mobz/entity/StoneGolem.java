@@ -34,7 +34,7 @@ public class StoneGolem extends IronGolem {
         this.xpReward = 20;
     }
 
-    public static AttributeSupplier.Builder createStoneGolemAttributes() {
+    public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         MobZ.configs.StoneGolemLife * MobZ.configs.LifeMultiplicatorMob)
@@ -63,10 +63,10 @@ public class StoneGolem extends IronGolem {
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Spider.class));
         this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Creeper.class));
         this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Slime.class));
-        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(DwarfEntity.class));
-        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(FastEntity.class));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(TankEntity.class));
-        this.targetSelector.addGoal(9, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(skeli2.class));
+        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Dwarf.class));
+        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(FastZombie.class));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(TankZombie.class));
+        this.targetSelector.addGoal(9, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(OvergrownSkeleton.class));
     }
 
     @Override

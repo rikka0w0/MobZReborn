@@ -41,7 +41,7 @@ public class MobZ {
 	public static void invokeStaticFields() {
     	MobZItems.BOSS_INGOT.getClass();
     	MobZBlocks.BOSS_BLOCK.getClass();
-    	MobZEntities.BOSS.getClass();
+    	MobZEntities.BOSS_ZOMBIE.getClass();
     	MobZArmors.boss_boots.getClass();
     	MobZWeapons.BossSword.getClass();
     	MobZSounds.MEDIVEALSOUNDEVENT.getClass();

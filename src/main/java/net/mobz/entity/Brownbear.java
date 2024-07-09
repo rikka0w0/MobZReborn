@@ -13,7 +13,7 @@ public class Brownbear extends PolarBear {
         super(entityType, world);
     }
 
-    public static AttributeSupplier.Builder createBrownbearAttributes() {
+    public static AttributeSupplier.Builder createMobzAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0D)
                 .add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D);

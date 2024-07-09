@@ -7,9 +7,9 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PiglinModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.resources.ResourceLocation;
-import net.mobz.entity.PigmanEntity;
+import net.mobz.entity.Pigman;
 
-public class PigmanRenderer extends HumanoidMobRenderer<PigmanEntity, PiglinModel<PigmanEntity>> {
+public class PigmanRenderer extends HumanoidMobRenderer<Pigman, PiglinModel<Pigman>> {
     private final ResourceLocation texture;
 
     public PigmanRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
@@ -22,7 +22,7 @@ public class PigmanRenderer extends HumanoidMobRenderer<PigmanEntity, PiglinMode
     }
 
     @Override
-    public ResourceLocation getTextureLocation(PigmanEntity mobEntity) {
+    public ResourceLocation getTextureLocation(Pigman mobEntity) {
         return this.texture;
     }
 }

@@ -20,7 +20,7 @@ public class SmallZombie extends Zombie {
         super(entityType, world);
     }
 
-    public static AttributeSupplier.Builder createSmallZombieAttributes() {
+    public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 6D * MobZ.configs.LifeMultiplicatorMob)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
@@ -68,7 +68,7 @@ public class SmallZombie extends Zombie {
         return false;
     }
 
-    public void setOwner(Mage2Entity mage2Entity) {
+    public void setOwner(ZombieMage zombieMage) {
     }
 
     public void setBounds(BlockPos blockPos_1) {
@@ -76,7 +76,7 @@ public class SmallZombie extends Zombie {
     }
 
     public void setOwner(Mob owner) {
-        Mob.class.equals(Mage2Entity.class);
+        Mob.class.equals(ZombieMage.class);
     }
 
     public Entity getOwner() {

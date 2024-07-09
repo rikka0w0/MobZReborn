@@ -40,7 +40,7 @@ public class PillagerBoss extends Pillager {
         this.setItemSlot(EquipmentSlot.OFFHAND, itemStack);
     }
 
-    public static AttributeSupplier.Builder createPillagerBossAttributes() {
+    public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         MobZ.configs.PillagerBossLife * MobZ.configs.LifeMultiplicatorMob)

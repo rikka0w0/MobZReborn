@@ -41,7 +41,7 @@ public class MetalGolem extends IronGolem {
     this.xpReward = 25;
   }
 
-  public static AttributeSupplier.Builder createMetalGolemAttributes() {
+  public static AttributeSupplier.Builder createMobzAttributes() {
     return Mob.createMobAttributes()
         .add(Attributes.MAX_HEALTH,
             MobZ.configs.MetalGolemLife * MobZ.configs.LifeMultiplicatorMob)

@@ -18,7 +18,7 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
       this.xpReward = 20;
    }
 
-   public static AttributeSupplier.Builder createAttributes() {
+   public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
                   MobZ.configs.IllusionerLife * MobZ.configs.LifeMultiplicatorMob)

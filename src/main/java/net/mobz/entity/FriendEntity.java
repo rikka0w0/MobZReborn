@@ -257,7 +257,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 			super(entityType, world);
 		}
 
-		public static AttributeSupplier.Builder createFriendEntityAttributes() {
+		public static AttributeSupplier.Builder createMobzAttributes() {
 			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
 					.add(Attributes.ATTACK_DAMAGE, 5.0D);
 		}
@@ -297,7 +297,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 			super(entityType, level);
 		}
 
-		public static AttributeSupplier.Builder createKnight4EntityAttributes() {
+		public static AttributeSupplier.Builder createMobzAttributes() {
 			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
 					.add(Attributes.ATTACK_DAMAGE, 5.0D);
 		}

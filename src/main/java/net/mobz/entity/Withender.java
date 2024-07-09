@@ -35,7 +35,7 @@ public class Withender extends WitherBoss {
         this.xpReward = 50;
     }
 
-    public static AttributeSupplier.Builder createWithenderAttributes() {
+    public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         MobZ.configs.WithenderLife * MobZ.configs.LifeMultiplicatorMob)
@@ -51,7 +51,7 @@ public class Withender extends WitherBoss {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(EnderMan.class));
-        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(EnderEntity.class));
+        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Ender.class));
         this.targetSelector.addGoal(3,
                 new NearestAttackableTargetGoal<>(this, Mob.class, 0, false, false, CAN_ATTACK_PREDICATE));
     }

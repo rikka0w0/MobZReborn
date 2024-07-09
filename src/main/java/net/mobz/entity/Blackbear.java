@@ -21,7 +21,7 @@ public class Blackbear extends Panda {
       super(entityType, world);
    }
 
-   public static AttributeSupplier.Builder createBlackbearAttributes() {
+   public static AttributeSupplier.Builder createMobzAttributes() {
       return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.17D)
             .add(Attributes.ATTACK_DAMAGE, 6.0D);
    }

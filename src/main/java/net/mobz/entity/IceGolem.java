@@ -35,7 +35,7 @@ public class IceGolem extends IronGolem {
         this.xpReward = 20;
     }
 
-    public static AttributeSupplier.Builder createIceGolemAttributes() {
+    public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
                         MobZ.configs.IceGolemLife * MobZ.configs.LifeMultiplicatorMob)
@@ -73,9 +73,9 @@ public class IceGolem extends IronGolem {
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Spider.class));
         this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Creeper.class));
         this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Slime.class));
-        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(FrostEntity.class));
-        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(CreepEntity.class));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Boar2.class));
+        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Frost.class));
+        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(FrostCreeper.class));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Boar.class));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Blackbear.class));
     }
 

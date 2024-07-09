@@ -10,12 +10,9 @@ import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.mobz.init.MobZEntities;
-import net.mobz.init.MobZSounds;
 
 public class Boar extends Pig {
     private static final Ingredient BREEDING_INGREDIENT;
@@ -24,8 +21,8 @@ public class Boar extends Pig {
         super(entityType, world);
     }
 
-    public static AttributeSupplier.Builder createBoarAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D)
+    public static AttributeSupplier.Builder createMobzAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
@@ -33,21 +30,6 @@ public class Boar extends Pig {
 	public LivingEntity getControllingPassenger() {
 		return null;
 	}
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.BOARSAYEVENT.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.BOARSAYEVENT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MobZSounds.BOARDEATHEVENT.get();
-    }
 
     @Override
     public boolean isSaddled() {
@@ -65,6 +47,7 @@ public class Boar extends Pig {
     }
 
     static {
+
         BREEDING_INGREDIENT = Ingredient.of(Items.CARROT, Items.POTATO, Items.BEETROOT);
     }
 

@@ -73,7 +73,7 @@ public class TotemBase extends Block {
 			world.removeBlock(pos.above(), false);
 			world.removeBlock(pos.above().above(), false);
 
-			PillagerBoss pillager = (PillagerBoss) MobZEntities.PILLAGERBOSS.get().create(world);
+			PillagerBoss pillager = (PillagerBoss) MobZEntities.PILLAGER_BOSS.get().create(world);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
 			pillager.moveTo(spawnPos, 0.0F, 0.0F);
 			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.HOSTILE, 1F, 1F);
