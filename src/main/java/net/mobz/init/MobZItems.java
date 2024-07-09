@@ -36,6 +36,7 @@ public class MobZItems {
 	public static final Supplier<SimpleItem> BEARLEATHER = MobZ.platform.registerItem("bearleather", MobZTabs.tab, () -> new SimpleItem(defItemProp()));
 	public static final Supplier<SimpleItem> BOSS_INGOT = MobZ.platform.registerItem("boss_ingot", MobZTabs.tab, () -> new SimpleItem(defItemProp()) {
 		@Override
+
 		public boolean isFoil(ItemStack itemStack) {
 			return true;
 		}
@@ -52,7 +53,7 @@ public class MobZItems {
 	public static final Supplier<Sbow> SBOW = MobZ.platform.registerItem("sbow", MobZTabs.tab, () -> new Sbow(defItemProp().durability(461)));
 	public static final Supplier<SimpleItem> SEALITEM = MobZ.platform.registerItem("sealitem", MobZTabs.tab, () -> new SimpleItem(nonStackable()));
 	public static final Supplier<Shield> SHIELD = MobZ.platform.registerItem("shield", MobZTabs.tab, () -> new Shield(defItemProp().durability(589)));
-	public static final Supplier<SimpleItem> SHOWEGG = MobZ.platform.registerItem("showegg", MobZTabs.tab, () -> new SimpleItem(new Item.Properties()));
+	public static final Supplier<SimpleItem> SHOWEGG = MobZ.platform.registerItem("showegg", null, () -> new SimpleItem(new Item.Properties()));
 	public static final Supplier<WhiteBag> WHITEBAG = MobZ.platform.registerItem("whitebag", MobZTabs.tab, () -> new WhiteBag(nonStackable()));
 
 	public static final Supplier<WitherMeal> WITHERMEAL = MobZ.platform.registerItem("withermeal", MobZTabs.tab,

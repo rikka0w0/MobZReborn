@@ -1,11 +1,11 @@
 {
-    "parent": "mobz:mob/steve",
+    "parent": "mobz:mob/iron_steve",
     "display": {
         "icon": {
-            "item": "mobz:dwarfhead"
+            "item": "mobz:head_dwarf"
         },
         "title": {
-            "translate": "mobz.advancements.dwarf.title"
+            "translate": "entity.mobz.dwarf"
         },
         "description": {
             "translate": "mobz.advancements.dwarf.description"

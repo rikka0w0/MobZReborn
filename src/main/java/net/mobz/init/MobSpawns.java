@@ -39,7 +39,7 @@ public class MobSpawns {
 	public static void collectAll(Map<ResourceLocation, Pair<TagKey<Biome>, List<MobSpawnSettings.SpawnerData>>> map) {
 		// Normal spawns
 		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
-				new MobSpawnSettings.SpawnerData(MobZEntities.ARCHERENTITY.get(), MobZ.configs.BowmanSpawnRate, 1, 2));
+				new MobSpawnSettings.SpawnerData(MobZEntities.BOWMAN.get(), MobZ.configs.BowmanSpawnRate, 1, 2));
 		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.ARMORED.get(), MobZ.configs.ArmoredZombieSpawnRate, 1, 2));
 		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
@@ -140,7 +140,7 @@ public class MobSpawns {
 		addSpawnToBiome(map, BiomeTags.IS_BADLANDS,
 				new MobSpawnSettings.SpawnerData(MobZEntities.BIGBOSSENTITY.get(), MobZ.configs.BigBossSpawnRate, 1, 1));
 		addSpawnToBiome(map, BiomeTags.IS_BADLANDS,
-				new MobSpawnSettings.SpawnerData(MobZEntities.ARCHER2ENTITY.get(), MobZ.configs.ArcherSpawnRate, 1, 2));
+				new MobSpawnSettings.SpawnerData(MobZEntities.ARCHER.get(), MobZ.configs.ArcherSpawnRate, 1, 2));
 		addSpawnToBiome(map, BiomeTags.IS_BADLANDS,
 				new MobSpawnSettings.SpawnerData(MobZEntities.BOSS.get(), MobZ.configs.BossZombieSpawnRate, 1, 1));
 		addSpawnToBiome(map, BiomeTags.IS_BADLANDS,

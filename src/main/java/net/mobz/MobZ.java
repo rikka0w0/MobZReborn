@@ -45,7 +45,7 @@ public class MobZ {
     	MobZArmors.boss_boots.getClass();
     	MobZWeapons.BossSword.getClass();
     	MobZSounds.MEDIVEALSOUNDEVENT.getClass();
-    	MobZIcons.BOSSHEAD.getClass();
+    	MobZIcons.headNames.getClass();
     	MobZTabs.tab.getClass();
     	MobZTabs.eggs.getClass();
 	}

@@ -43,9 +43,9 @@ public class MobSpawnRestrictions {
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.SKELI4.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
-		w.register(MobZEntities.ARCHERENTITY.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		w.register(MobZEntities.BOWMAN.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkAnyLightMonsterSpawnRules);
-		w.register(MobZEntities.ARCHER2ENTITY.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		w.register(MobZEntities.ARCHER.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkAnyLightMonsterSpawnRules);
 		w.register(MobZEntities.BIGBOSSENTITY.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);

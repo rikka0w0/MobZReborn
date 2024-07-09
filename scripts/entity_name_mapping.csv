@@ -1,0 +1,59 @@
+New Key,Old Key,Value
+entity.mobz.tank_zombie,entity.mobz.tank,Tank
+entity.mobz.fast_zombie,entity.mobz.fast,Speedy Zombie
+entity.mobz.blue_spider,entity.mobz.spi,Blue Spider
+entity.mobz.purple_spider,entity.mobz.spo,Purple Spider
+entity.mobz.frost_creeper,entity.mobz.creep,Frost Creeper
+entity.mobz.armored_zombie,entity.mobz.armored,Armored Zombie
+entity.mobz.boss_zombie,entity.mobz.boss,Boss Zombie
+entity.mobz.ender,entity.mobz.ender,Enderman
+entity.mobz.ender_zombie,entity.mobz.enderzombie,Ender Zombie
+entity.mobz.cookie_creeper,entity.mobz.crip,Cookie Creeper
+entity.mobz.lava_golem,entity.mobz.lavagolem,Lava Golem
+entity.mobz.ice_golem,entity.mobz.icegolem,Ice Golem
+entity.mobz.boss_skeleton,entity.mobz.skeli1,Boss Skeleton
+entity.mobz.overgrown_skeleton,entity.mobz.skeli2,Overgrown Skeleton
+entity.mobz.nether_skeleton,entity.mobz.skeli3,Nether Skeleton
+entity.mobz.pigman,entity.mobz.pigman,Pigman
+entity.mobz.bowman,entity.mobz.archer,Bowman
+entity.mobz.archer,entity.mobz.archer2,Archer
+entity.mobz.bigboss,entity.mobz.bigboss,Big Boss
+entity.mobz.spider_mage,entity.mobz.mage,Spider Mage
+entity.mobz.zombie_mage,entity.mobz.mage2,Zombie Mage
+entity.mobz.templar,entity.mobz.knight,Templar
+entity.mobz.warrior,entity.mobz.knight2,Warrior
+entity.mobz.small_zombie,entity.mobz.smallzombie,Small Zombie
+entity.mobz.iron_steve,entity.mobz.fulliron,Iron Steve
+entity.mobz.frost,entity.mobz.frost,Frost Blaze
+entity.mobz.nether_wolf,entity.mobz.dog,Nether Wolf
+entity.mobz.stone_golem,entity.mobz.stonegolem,Stone Golem
+entity.mobz.illusioner,entity.mobz.illusioner,Illusioner
+entity.mobz.dwarf,entity.mobz.dwarf,Dwarf
+entity.mobz.small_spider,entity.mobz.spismall,Small Spider
+entity.mobz.black_bear,entity.mobz.blackbear,Black Bear
+entity.mobz.brown_bear,entity.mobz.brownbear,Brown Bear
+entity.mobz.golden_chicken,entity.mobz.gchicken,Golden Chicken
+entity.mobz.wild_boar,entity.mobz.boar,Wild Boar
+entity.mobz.boar,entity.mobz.boar2,Boar
+entity.mobz.dirty_boar,entity.mobz.boar3,Dirty Boar
+entity.mobz.katherine,entity.mobz.katherine,Katherine
+entity.mobz.wither_blaze,entity.mobz.with,Wither Blaze
+entity.mobz.ender_knight,entity.mobz.knight3,Ender Knight
+entity.mobz.fiora,entity.mobz.fiora,Fiora
+entity.mobz.lord_of_darkness,entity.mobz.knight5,Lord of Darkness
+entity.mobz.lost_skeleton,entity.mobz.skeli4,Lost Skeleton
+entity.mobz.honey_slime,entity.mobz.slimo,Honey Slime
+entity.mobz.withender,entity.mobz.withender,Withender
+entity.mobz.tiny_spider,entity.mobz.tspider,Tiny Spider
+entity.mobz.pillager_boss,entity.mobz.pillagerboss,Pillager Boss
+entity.mobz.baby_ravager,entity.mobz.babyravager,Baby Ravager
+entity.mobz.charles,entity.mobz.islandking,King Charles
+entity.mobz.knight,entity.mobz.islandknightnormal,Knight
+entity.mobz.william,entity.mobz.islandknightspecial,William the Strong
+entity.mobz.andriu,entity.mobz.islandknightspecial2,Andriu the Humble
+entity.mobz.islandvex,entity.mobz.islandvex,Spirit of Death
+entity.mobz.metal_golem,entity.mobz.metalgolem,Metal Golem
+entity.mobz.soul_creeper,entity.mobz.screeper,Soul Creeper
+entity.mobz.tadpode,entity.mobz.tadpode,Tadpole
+entity.mobz.toad,entity.mobz.toad,Toad
+entity.mobz.toad_giant,entity.mobz.toad_giant,Giant Toad

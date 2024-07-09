@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "mobz:starthead"
+            "item": "mobz:head_start"
         },
         "title": {
             "translate": "mobz.advancements.start.title"

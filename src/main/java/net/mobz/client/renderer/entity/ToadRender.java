@@ -25,12 +25,14 @@ public class ToadRender extends MobRenderer<ToadEntity, ToadEntityModel> {
 		}
 	}
 
-	public ToadRender(EntityRendererProvider.Context context, float bodyScale) {
-		super(context, new ToadEntityModel(context.bakeLayer(ToadEntityModel.modelResLoc), bodyScale), 0.25F);
+	public static class Normal extends ToadRender {
+		public Normal(EntityRendererProvider.Context context) {
+			super(context, 1.0F);
+		}
 	}
 
-	public ToadRender(EntityRendererProvider.Context context) {
-		this(context, 1.0F);
+	private ToadRender(EntityRendererProvider.Context context, float bodyScale) {
+		super(context, new ToadEntityModel(context.bakeLayer(ToadEntityModel.modelResLoc), bodyScale), 0.25F);
 	}
 
 	@Override

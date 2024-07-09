@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/ender_knight",
+    "display": {
+        "icon": {
+            "item": "mobz:head_lord_of_darkness"
+        },
+        "title": {
+            "translate": "entity.mobz.lord_of_darkness"
+        },
+        "description": {
+            "translate": "mobz.advancements.lord_of_darkness.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "knighting5": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:lord_of_darkness"
+                }
+            }
+        }
+    }
+}

@@ -9,10 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.SpiSmall;
 
 public class SpiSmallRenderer extends SpiderRenderer<SpiSmall> {
-    public SpiSmallRenderer(EntityRendererProvider.Context context) {
+    private final ResourceLocation texture;
+
+    public SpiSmallRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context);
         this.shadowRadius *= 0.7F;
         this.addLayer(new SpiderEyesLayer<>(this));
+        this.texture = texture;
     }
 
     @Override
@@ -22,6 +25,6 @@ public class SpiSmallRenderer extends SpiderRenderer<SpiSmall> {
 
     @Override
     public ResourceLocation getTextureLocation(SpiSmall SpiSmalll) {
-        return new ResourceLocation("mobz:textures/entity/spismall.png");
+        return this.texture;
     }
 }

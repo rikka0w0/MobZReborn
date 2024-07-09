@@ -1,11 +1,11 @@
 {
-    "parent": "mobz:mob/knight2",
+    "parent": "mobz:mob/bowman",
     "display": {
         "icon": {
-            "item": "mobz:archerhead"
+            "item": "mobz:head_archer"
         },
         "title": {
-            "translate": "mobz.advancements.archer.title"
+            "translate": "entity.mobz.archer"
         },
         "description": {
             "translate": "mobz.advancements.archer.description"
@@ -16,7 +16,7 @@
         "hidden": false
     },
     "criteria": {
-        "archering": {
+        "archering2": {
             "trigger": "minecraft:player_killed_entity",
             "conditions": {
                 "entity": {

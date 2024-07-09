@@ -1,11 +1,11 @@
 {
-    "parent": "mobz:mob/knight5",
+    "parent": "mobz:mob/lord_of_darkness",
     "display": {
         "icon": {
-            "item": "mobz:withenderhead"
+            "item": "mobz:head_withender"
         },
         "title": {
-            "translate": "mobz.advancements.withender.title"
+            "translate": "entity.mobz.withender"
         },
         "description": {
             "translate": "mobz.advancements.withender.description"

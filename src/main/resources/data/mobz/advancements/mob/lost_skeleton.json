@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/started",
+    "display": {
+        "icon": {
+            "item": "mobz:head_lost_skeleton"
+        },
+        "title": {
+            "translate": "entity.mobz.lost_skeleton"
+        },
+        "description": {
+            "translate": "mobz.advancements.lost_skeleton.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "skeliing1": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:lost_skeleton"
+                }
+            }
+        }
+    }
+}

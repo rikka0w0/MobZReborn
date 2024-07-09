@@ -11,11 +11,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.PillagerBoss;
 
 public class PillagerBossRenderer extends IllagerRenderer<PillagerBoss> {
-    private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/pillagerboss.png");
+    private final ResourceLocation texture;
 
-    public PillagerBossRenderer(EntityRendererProvider.Context context) {
+    public PillagerBossRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context, new IllagerModel<>(context.bakeLayer(ModelLayers.PILLAGER)), 0.5F);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+        this.texture = texture;
     }
 
     @Override
@@ -25,6 +26,6 @@ public class PillagerBossRenderer extends IllagerRenderer<PillagerBoss> {
 
     @Override
     public ResourceLocation getTextureLocation(PillagerBoss entity) {
-        return SKIN;
+        return this.texture;
     }
 }

@@ -10,18 +10,19 @@ import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.PigmanEntity;
 
 public class PigmanRenderer extends HumanoidMobRenderer<PigmanEntity, PiglinModel<PigmanEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("mobz:textures/entity/pigman.png");
+    private final ResourceLocation texture;
 
-    public PigmanRenderer(EntityRendererProvider.Context context) {
+    public PigmanRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context, new PiglinModel<>(context.bakeLayer(ModelLayers.PIGLIN)), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
 		this.addLayer(new HumanoidArmorLayer<>(this,
 				new HumanoidModel<>(context.bakeLayer(ModelLayers.PIGLIN_INNER_ARMOR)),
 				new HumanoidModel<>(context.bakeLayer(ModelLayers.PIGLIN_OUTER_ARMOR)),
 				context.getModelManager()));
+		this.texture = texture;
     }
 
     @Override
     public ResourceLocation getTextureLocation(PigmanEntity mobEntity) {
-        return TEXTURE;
+        return this.texture;
     }
 }

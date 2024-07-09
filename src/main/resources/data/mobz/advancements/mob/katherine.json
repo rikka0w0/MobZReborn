@@ -1,11 +1,11 @@
 {
-    "parent": "mobz:mob/steve",
+    "parent": "mobz:mob/iron_steve",
     "display": {
         "icon": {
-            "item": "mobz:friendhead"
+            "item": "mobz:head_katherine"
         },
         "title": {
-            "translate": "mobz.advancements.katherine.title"
+            "translate": "entity.mobz.katherine"
         },
         "description": {
             "translate": "mobz.advancements.katherine.description"

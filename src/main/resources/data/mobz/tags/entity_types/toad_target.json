@@ -4,9 +4,9 @@
     "minecraft:spider",
     "minecraft:cave_spider",
     "minecraft:silverfish",
-    "mobz:tspider",
-    "mobz:spi",
-    "mobz:spismall",
-    "mobz:spo"
+    "mobz:tiny_spider",
+    "mobz:blue_spider",
+    "mobz:small_spider",
+    "mobz:purple_spider"
   ]
 }

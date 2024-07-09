@@ -10,15 +10,16 @@ import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.resources.ResourceLocation;
 
 public class BabyravagerRenderer extends MobRenderer<Ravager, RavagerModel> {
-    private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/ravo.png");
+	private final ResourceLocation texture;
 
-    public BabyravagerRenderer(EntityRendererProvider.Context context) {
+    public BabyravagerRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context, new RavagerModel(context.bakeLayer(ModelLayers.RAVAGER)), 0.4F);
+        this.texture = texture;
     }
 
     @Override
     public ResourceLocation getTextureLocation(Ravager ravagerEntity) {
-        return SKIN;
+        return this.texture;
     }
 
     @Override

@@ -13,25 +13,26 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class SlimoRenderer extends MobRenderer<Slime, SlimeModel<Slime>> {
-    private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/grassslime.png");
+    private final ResourceLocation texture;
 
-    public SlimoRenderer(EntityRendererProvider.Context context) {
+    public SlimoRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context, new SlimeModel<>(context.bakeLayer(ModelLayers.SLIME)), 0.25F);
         this.addLayer(new SlimeOuterLayer<>(this, context.getModelSet()));
+        this.texture = texture;
     }
 
     @Override
     public void render(Slime slimeEntity, float f, float g, PoseStack matrixStack,
             MultiBufferSource vertexConsumerProvider, int i) {
-        this.shadowRadius = 0.25F * (float) slimeEntity.getSize();
-        super.render((Slime) slimeEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        this.shadowRadius = 0.25F * slimeEntity.getSize();
+        super.render(slimeEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 
     @Override
     protected void scale(Slime slimeEntity, PoseStack matrixStack, float f) {
         matrixStack.scale(0.999F, 0.999F, 0.999F);
         matrixStack.translate(0.0D, 0.0010000000474974513D, 0.0D);
-        float h = (float) slimeEntity.getSize();
+        float h = slimeEntity.getSize();
         float i = Mth.lerp(f, slimeEntity.oSquish, slimeEntity.squish) / (h * 0.5F + 1.0F);
         float j = 1.0F / (i + 1.0F);
         matrixStack.scale(j * h, 1.0F / j * h, j * h);
@@ -39,6 +40,6 @@ public class SlimoRenderer extends MobRenderer<Slime, SlimeModel<Slime>> {
 
     @Override
     public ResourceLocation getTextureLocation(Slime slimeEntity) {
-        return SKIN;
+        return this.texture;
     }
 }

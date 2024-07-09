@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/fast_zombie",
+    "display": {
+        "icon": {
+            "item": "mobz:head_fast_zombie"
+        },
+        "title": {
+            "translate": "entity.mobz.tank_zombie"
+        },
+        "description": {
+            "translate": "mobz.advancements.tank_zombie.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "tanking": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:tank_zombie"
+                }
+            }
+        }
+    }
+}

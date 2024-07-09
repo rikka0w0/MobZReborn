@@ -1,29 +1,22 @@
 package net.mobz.client.renderer.entity;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.IronGolemCrackinessLayer;
-import net.minecraft.client.renderer.entity.layers.IronGolemFlowerLayer;
 import net.minecraft.client.model.IronGolemModel;
-import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.resources.ResourceLocation;
-import com.mojang.math.Axis;
 
-public class MetalGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<IronGolem>> {
-    private static final ResourceLocation SKIN = new ResourceLocation("mobz:textures/entity/metalgolem.png");
-
-    public MetalGolemRenderer(EntityRendererProvider.Context context) {
-        super(context, new IronGolemModel<>(context.bakeLayer(ModelLayers.IRON_GOLEM)), 0.7F);
-        this.addLayer(new IronGolemCrackinessLayer(this));
-        this.addLayer(new IronGolemFlowerLayer(this, context.getBlockRenderDispatcher()));
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(IronGolem lava) {
-        return SKIN;
+public class MetalGolemRenderer extends EasyGolemRenderer {
+    public MetalGolemRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+        super(context, texture, false);
+        this.addLayer(new MetalGolemCrack(this));
     }
 
     @Override
@@ -31,13 +24,33 @@ public class MetalGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<Ir
         matrixStack.scale(1.15F, 1.15F, 1.15F);
     }
 
-    @Override
-    protected void setupRotations(IronGolem ironGolemEntity, PoseStack matrixStack, float f, float g, float h) {
-        super.setupRotations(ironGolemEntity, matrixStack, f, g, h);
-        if ((double) ironGolemEntity.walkAnimation.speed() >= 0.01D) {
-            float j = ironGolemEntity.walkAnimation.position() - ironGolemEntity.walkAnimation.speed() * (1.0F - h) + 6.0F;
-            float k = (Math.abs(j % 13.0F - 6.5F) - 3.25F) / 3.25F;
-            matrixStack.mulPose(Axis.ZP.rotationDegrees(6.5F * k));
-        }
+    public static class MetalGolemCrack extends RenderLayer<IronGolem, IronGolemModel<IronGolem>> {
+    	private static final Map<IronGolem.Crackiness, ResourceLocation> DAMAGE_TO_TEXTURE;
+
+    	public MetalGolemCrack(RenderLayerParent<IronGolem, IronGolemModel<IronGolem>> featureRendererContext) {
+    		super(featureRendererContext);
+    	}
+
+    	@Override
+    	public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i,
+    			IronGolem ironGolemEntity, float f, float g, float h, float j, float k, float l) {
+    		if (!ironGolemEntity.isInvisible()) {
+    			IronGolem.Crackiness crack = ironGolemEntity.getCrackiness();
+    			if (crack != IronGolem.Crackiness.NONE) {
+    				ResourceLocation identifier = DAMAGE_TO_TEXTURE.get(crack);
+    				renderColoredCutoutModel(this.getParentModel(), identifier, matrixStack, vertexConsumerProvider, i,
+    						ironGolemEntity, 1.0F, 1.0F, 1.0F);
+    			}
+    		}
+    	}
+
+    	static {
+    		DAMAGE_TO_TEXTURE = ImmutableMap.of(IronGolem.Crackiness.LOW,
+    				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_low.png"),
+    				IronGolem.Crackiness.MEDIUM,
+    				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_medium.png"),
+    				IronGolem.Crackiness.HIGH,
+    				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_high.png"));
+    	}
     }
 }

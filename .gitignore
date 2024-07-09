@@ -27,3 +27,4 @@ forge*changelog.txt
 
 # Minecraft data generator cache
 .cache
+src/generated/

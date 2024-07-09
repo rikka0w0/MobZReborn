@@ -10,16 +10,19 @@ import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.resources.ResourceLocation;
 
 public class IslandVexEntityRenderer extends MobRenderer<Vex, VexModel> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("mobz:textures/entity/islandvex.png");
-    private static final ResourceLocation CHARGING_TEXTURE = new ResourceLocation("mobz:textures/entity/islandvex.png");
+    private final ResourceLocation texture;
+    private final ResourceLocation charging_texture;
 
-    public IslandVexEntityRenderer(EntityRendererProvider.Context context) {
+    public IslandVexEntityRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context, new VexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F);
+        this.texture = texture;
+        String eyePath = texture.getPath().replace(".png", "_charging.png");
+        this.charging_texture = new ResourceLocation(texture.getNamespace(), eyePath);
     }
 
     @Override
     public ResourceLocation getTextureLocation(Vex vexEntity) {
-        return vexEntity.isCharging() ? CHARGING_TEXTURE : TEXTURE;
+        return vexEntity.isCharging() ? this.charging_texture : this.texture;
     }
 
     @Override

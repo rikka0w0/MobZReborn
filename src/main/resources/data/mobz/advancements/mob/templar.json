@@ -1,0 +1,28 @@
+{
+    "parent": "mobz:mob/dwarf",
+    "display": {
+        "icon": {
+            "item": "mobz:head_templar"
+        },
+        "title": {
+            "translate": "entity.mobz.templar"
+        },
+        "description": {
+            "translate": "mobz.advancements.templar.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "knighting": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "mobz:templar"
+                }
+            }
+        }
+    }
+}

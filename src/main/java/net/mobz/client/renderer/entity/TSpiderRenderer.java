@@ -11,12 +11,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.mobz.entity.TSpider;
 
 public class TSpiderRenderer extends MobRenderer<TSpider, SpiderModel<TSpider>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(
-			"mobz:textures/entity/tspider.png");
+    private final ResourceLocation texture;
 
-	public TSpiderRenderer(EntityRendererProvider.Context context) {
+	public TSpiderRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
 		super(context, new SpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 0.1F);
 		this.addLayer(new SpiderEyesLayer<>(this));
+		this.texture = texture;
 	}
 
 	@Override
@@ -31,6 +31,6 @@ public class TSpiderRenderer extends MobRenderer<TSpider, SpiderModel<TSpider>> 
 
 	@Override
 	public ResourceLocation getTextureLocation(TSpider TSpiderl) {
-		return TEXTURE;
+		return this.texture;
 	}
 }

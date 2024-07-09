@@ -1,11 +1,11 @@
 {
-    "parent": "mobz:mob/enderzombie",
+    "parent": "mobz:mob/ender_zombie",
     "display": {
         "icon": {
-            "item": "mobz:enderhead"
+            "item": "mobz:head_ender"
         },
         "title": {
-            "translate": "mobz.advancements.ender.title"
+            "translate": "entity.mobz.ender"
         },
         "description": {
             "translate": "mobz.advancements.ender.description"

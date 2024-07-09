@@ -52,7 +52,7 @@ import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobSpawns;
 import net.mobz.neoforge.datagen.SpawnBiomeTagProvider;
-import net.mobz.neoforge.datagen.SpawnEggItemModelDataProvider;
+import net.mobz.neoforge.datagen.ItemModelDataProvider;
 
 @Mod(MobZ.MODID)
 public class NeoforgeEntry {
@@ -125,7 +125,7 @@ public class NeoforgeEntry {
 			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider, exfh));
 
 			// Resource: SpawnEgg items
-			generator.addProvider(event.includeClient(), new SpawnEggItemModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  exfh));
+			generator.addProvider(event.includeClient(), new ItemModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  exfh));
 		}
 	}
 
