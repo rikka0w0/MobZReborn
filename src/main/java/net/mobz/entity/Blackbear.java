@@ -24,15 +24,15 @@ public class Blackbear extends Panda {
 
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, MobZ.configs.BlackBear.life)
+            .add(Attributes.MAX_HEALTH, MobZ.configs.black_bear.life)
     		.add(Attributes.MOVEMENT_SPEED, 0.17D)
-            .add(Attributes.ATTACK_DAMAGE, MobZ.configs.BlackBear.attack);
+            .add(Attributes.ATTACK_DAMAGE, MobZ.configs.black_bear.attack);
    }
 
    @Override
    public void setAttributes() {
 	   // Need this to set life properly!
-	   this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MobZ.configs.BlackBear.life);
+	   this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MobZ.configs.black_bear.life);
    }
 
    @Override

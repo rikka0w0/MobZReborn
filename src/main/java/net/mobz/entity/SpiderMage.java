@@ -55,10 +55,10 @@ public class SpiderMage extends SpellcasterIllager {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.SpiderMage.life * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.spider_mage.life * MobZ.configs.life_multiplier)
             .add(Attributes.MOVEMENT_SPEED, 0.45D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.SpiderMage.attack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.spider_mage.attack * MobZ.configs.damage_multiplier)
             .add(Attributes.FOLLOW_RANGE, 20.0D);
    }
 
@@ -94,7 +94,7 @@ public class SpiderMage extends SpellcasterIllager {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.SpiderMage.spawn
+		return MobZ.configs.spider_mage.spawn
 				&& !this.isPatrolLeader()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
@@ -285,7 +285,7 @@ public class SpiderMage extends SpellcasterIllager {
             vexEntity.moveTo(blockPos, 0.0F, 0.0F);
 				vexEntity.finalizeSpawn(serverWorld, SpiderMage.this.level().getCurrentDifficultyAt(blockPos),
                   MobSpawnType.MOB_SUMMONED, null, (CompoundTag) null);
-            // vexEntity.setOwner(SpiderMage.this);
+            // vexEntity.setOwner(spider_mage.this);
             // vexEntity.setBounds(blockPos);
             vexEntity.setLifeTicks(20 * (30 + SpiderMage.this.random.nextInt(90)));
             SpiderMage.this.level().addFreshEntity(vexEntity);

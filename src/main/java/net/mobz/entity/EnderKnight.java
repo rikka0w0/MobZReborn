@@ -36,10 +36,10 @@ public class EnderKnight extends Vindicator {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.EnderKnight.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.ender_knight.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.EnderKnight.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.ender_knight.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 26.0D);
     }
 
@@ -90,7 +90,7 @@ public class EnderKnight extends Vindicator {
 
     @Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.EnderKnight.spawn
+		return MobZ.configs.ender_knight.spawn
 				&& !this.isPatrolLeader()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

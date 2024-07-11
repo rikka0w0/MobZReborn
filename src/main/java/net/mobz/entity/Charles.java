@@ -28,11 +28,10 @@ import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
-public class Charies extends Vindicator {
+public class Charles extends Vindicator {
 	private int cooldown = 0;
-	private final int requiredCooldown = 200;
 
-	public Charies(EntityType<? extends Vindicator> entityType, Level world) {
+	public Charles(EntityType<? extends Vindicator> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 50;
 
@@ -40,9 +39,9 @@ public class Charies extends Vindicator {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.KingCharles.life * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.charles.life * MobZ.configs.life_multiplier)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.KingCharles.attack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.charles.attack * MobZ.configs.damage_multiplier)
 				.add(Attributes.FOLLOW_RANGE, 18.0D);
 	}
 
@@ -94,32 +93,36 @@ public class Charies extends Vindicator {
 	@Override
 	protected void customServerAiStep() {
 		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
+		int cooldownMax = Math.max(MobZ.configs.charles.vex_summon_cooldown, MobZ.configs.charles.slowdown_attack_cooldown);
+		LivingEntity target = getTarget();
 
-		if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D
-				&& hasLineOfSight(getTarget())) {
-
-			cooldown++;
-			if (cooldown >= requiredCooldown) {
-				cooldown = 0;
-				attack(getTarget(), 1);
+		if (!this.level().isClientSide && target != null && distanceToSqr(target) < 4096D && hasLineOfSight(target)) {
+			this.cooldown++;
+			if (this.cooldown >= MobZ.configs.charles.vex_summon_cooldown) {
+				summonVexToAttack(getTarget());
 			}
-			if (cooldown >= (requiredCooldown - 20)) {
+
+			if (this.cooldown >= MobZ.configs.charles.slowdown_attack_cooldown) {
 				getTarget().addEffect(slow);
 			}
+
+			if (this.cooldown >= cooldownMax) {
+				this.cooldown = 0;
+			}
 		} else {
-			cooldown = 0;
+			this.cooldown = 0;
 		}
 	}
 
-	public void attack(LivingEntity target, float f) {
-		BlockPos blockPos = Charies.this.blockPosition().offset(-2 + Charies.this.random.nextInt(5), 1,
-				-2 + Charies.this.random.nextInt(5));
-		IslandVex vexEntity = MobZEntities.ISLANDVEX.get().create(this.level());
+	public void summonVexToAttack(LivingEntity target) {
+		BlockPos blockPos = Charles.this.blockPosition().offset(-2 + Charles.this.random.nextInt(5), 1,
+				-2 + Charles.this.random.nextInt(5));
+		SpiritOfDeath vexEntity = MobZEntities.SPIRIT_OF_DEATH.get().create(this.level());
 		vexEntity.moveTo(blockPos, 0.0F, 0.0F);
 		vexEntity.finalizeSpawn((ServerLevelAccessor) this.level(),
-				Charies.this.level().getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null,
+				Charles.this.level().getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null,
 				(CompoundTag) null);
-		Charies.this.level().addFreshEntity(vexEntity);
+		Charles.this.level().addFreshEntity(vexEntity);
 	}
 
 	@Override

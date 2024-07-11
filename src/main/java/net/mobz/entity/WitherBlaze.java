@@ -51,16 +51,16 @@ public class WitherBlaze extends Blaze {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.WitherBlaze.life * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.wither_blaze.life * MobZ.configs.life_multiplier)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.WitherBlaze.attack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.wither_blaze.attack * MobZ.configs.damage_multiplier)
             .add(Attributes.FOLLOW_RANGE, 48.0D);
    }
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      return MobZ.configs.WitherBlaze.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+      return MobZ.configs.wither_blaze.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
    }
 

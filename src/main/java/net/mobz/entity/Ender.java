@@ -18,10 +18,10 @@ public class Ender extends EnderMan {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.Enderman.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.ender.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.Enderman.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.ender.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 64.0D);
     }
 
@@ -37,7 +37,7 @@ public class Ender extends EnderMan {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.Enderman.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.ender.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 }

@@ -16,8 +16,8 @@ public class Brownbear extends PolarBear {
 
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Mob.createMobAttributes()
-        		.add(Attributes.MAX_HEALTH, MobZ.configs.BrownBear.life)
+        		.add(Attributes.MAX_HEALTH, MobZ.configs.brown_bear.life)
                 .add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.BrownBear.attack);
+                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.brown_bear.attack);
     }
 }

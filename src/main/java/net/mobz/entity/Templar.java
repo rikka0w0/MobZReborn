@@ -42,10 +42,10 @@ public class Templar extends Zombie {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.Templar.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.templar.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.Templar.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.templar.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
     }
@@ -111,7 +111,7 @@ public class Templar extends Zombie {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.Templar.spawn
+        return MobZ.configs.templar.spawn
         		&& this.level().isDay()
         		&& MobSpawnHelper.checkSpawnObstruction(this, view);
     }

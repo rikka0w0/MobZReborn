@@ -1,11 +1,10 @@
 package net.mobz.neoforge;
 
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.renderer.item.ItemProperties;
 
-import net.mobz.Configs;
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
+import net.mobz.client.MobZComposedGuiRegistryAccess;
 import net.mobz.client.VanillaClientRegistry;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -29,6 +28,7 @@ public class ClientRegistrationHandler {
 	}
 
 	public static void registerConfigGui() {
-		ModLoadingContext.get().registerExtensionPoint(ConfigScreenFactory.class, () -> new ConfigScreenFactory((client, parent) -> AutoConfig.getConfigScreen(Configs.class, parent).get()));
+		ModLoadingContext.get().registerExtensionPoint(ConfigScreenFactory.class,
+				() -> new ConfigScreenFactory((client, parent) -> MobZComposedGuiRegistryAccess.buildScreen(parent)));
 	}
 }

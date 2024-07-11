@@ -26,10 +26,10 @@ public class ArmoredZombie extends Zombie {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.ArmoredZombie.life * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.armored_zombie.life * MobZ.configs.life_multiplier)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.ArmoredZombie.attack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.armored_zombie.attack * MobZ.configs.damage_multiplier)
             .add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.ARMOR, 3D)
             .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
    }
@@ -69,7 +69,7 @@ public class ArmoredZombie extends Zombie {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      return MobZ.configs.ArmoredZombie.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+      return MobZ.configs.armored_zombie.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
    }
 
    @Override

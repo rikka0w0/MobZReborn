@@ -28,10 +28,10 @@ public class LostSkeleton extends Skeleton {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.LostSkeleton.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.lost_skeleton.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.255D).add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.LostSkeleton.attack * MobZ.configs.DamageMultiplicatorMob);
+                        MobZ.configs.lost_skeleton.attack * MobZ.configs.damage_multiplier);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class LostSkeleton extends Skeleton {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.LostSkeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.lost_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
     }
 }

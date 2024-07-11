@@ -33,10 +33,10 @@ public class LordOfDarkness extends Vindicator {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.LordofDarkness.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.lord_of_darkness.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.LordofDarkness.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.lord_of_darkness.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 26.0D);
     }
 
@@ -82,7 +82,7 @@ public class LordOfDarkness extends Vindicator {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.LordofDarkness.spawn
+        return MobZ.configs.lord_of_darkness.spawn
         		&& !this.isPatrolLeader()
         		&& MobSpawnHelper.checkSpawnObstruction(this, view);
     }

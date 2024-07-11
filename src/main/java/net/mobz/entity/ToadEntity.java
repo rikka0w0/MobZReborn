@@ -296,7 +296,7 @@ public class ToadEntity extends Animal {
 
 	public static AttributeSupplier.Builder createEntityAttributes() {
 		return Mob.createMobAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.Toad.life)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.toad.life)
 				.add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 

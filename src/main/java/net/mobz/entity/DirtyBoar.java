@@ -27,7 +27,7 @@ public class DirtyBoar extends Pig {
 
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Mob.createMobAttributes()
-        		.add(Attributes.MAX_HEALTH, MobZ.configs.DirtyBoar.life)
+        		.add(Attributes.MAX_HEALTH, MobZ.configs.dirty_boar.life)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 

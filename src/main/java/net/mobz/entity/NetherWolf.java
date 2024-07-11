@@ -23,10 +23,10 @@ public class NetherWolf extends Wolf {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.NetherWolf.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.nether_wolf.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.NetherWolf.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.nether_wolf.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
@@ -53,7 +53,7 @@ public class NetherWolf extends Wolf {
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
     	BlockPos posentity = this.blockPosition();
-        return MobZ.configs.NetherWolf.spawn
+        return MobZ.configs.nether_wolf.spawn
         		&& this.level().getMaxLocalRawBrightness(posentity) <= 10
         		&& MobSpawnHelper.checkSpawnObstruction(this, view);
     }

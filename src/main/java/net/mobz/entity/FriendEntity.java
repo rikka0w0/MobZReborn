@@ -259,8 +259,8 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
 		public static AttributeSupplier.Builder createMobzAttributes() {
 			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D)
-					.add(Attributes.MAX_HEALTH, MobZ.configs.Alex.life)
-					.add(Attributes.ATTACK_DAMAGE, MobZ.configs.Alex.attack);
+					.add(Attributes.MAX_HEALTH, MobZ.configs.katherine.life)
+					.add(Attributes.ATTACK_DAMAGE, MobZ.configs.katherine.attack);
 		}
 
 	    @Override
@@ -292,7 +292,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		}
 	}
 
-	// Knight4 = Fiora
+	// Knight4 = fiora
 	public static class FioraEntity extends FriendEntity {
 		public FioraEntity(EntityType<? extends FioraEntity> entityType, Level level) {
 			super(entityType, level);

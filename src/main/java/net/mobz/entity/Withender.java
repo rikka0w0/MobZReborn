@@ -38,7 +38,7 @@ public class Withender extends WitherBoss {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.Withender.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.withender.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.6D).add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(Attributes.ARMOR, 4.0D);
     }
@@ -80,7 +80,7 @@ public class Withender extends WitherBoss {
     @Override
     public boolean checkSpawnObstruction(LevelReader viewableWorld_1) {
         return viewableWorld_1.isUnobstructed(this)
-                && MobZ.configs.Withender.enabled;
+                && MobZ.configs.withender.enabled;
 
     }
 

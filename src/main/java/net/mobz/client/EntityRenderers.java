@@ -35,7 +35,7 @@ public class EntityRenderers {
 		registry.register(MobZEntities.ZOMBIE_MAGE.get(), EasyEvokerRenderer::new);
 		registry.register(MobZEntities.SMALL_ZOMBIE.get(), SmallZombieRenderer::new);
 		registry.register(MobZEntities.IRON_STEVE.get(), EasyHumanoidRenderer::new);
-		registry.register(MobZEntities.FROST.get(), EasyBlazeRenderer::new);
+		registry.register(MobZEntities.FROST_BLAZE.get(), EasyBlazeRenderer::new);
         registry.register(MobZEntities.FROSTBALL.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		registry.register(MobZEntities.NETHER_WOLF.get(), NetherWolfRenderer::new);
 		registry.register(MobZEntities.STONEGOLEM.get(), EasyGolemRenderer::new);
@@ -63,7 +63,7 @@ public class EntityRenderers {
 		registry.register(MobZEntities.KNIGHT.get(), EasyHumanoidRenderer::new);
 		registry.register(MobZEntities.WILLIAM.get(), EasyHumanoidRenderer::new);
 		registry.register(MobZEntities.ANDRIU.get(), EasyHumanoidRenderer::new);
-		registry.register(MobZEntities.ISLANDVEX.get(), IslandVexRenderer::new);
+		registry.register(MobZEntities.SPIRIT_OF_DEATH.get(), SpiritOfDeathRenderer::new);
 		registry.register(MobZEntities.METALGOLEM.get(), MetalGolemRenderer::new);
 		registry.register(MobZEntities.SOUL_CREEPER.get(), EasyCreeperRenderer::new);
 

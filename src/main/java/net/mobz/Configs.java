@@ -55,12 +55,12 @@ public class Configs implements ConfigData {
 	public static class MobNoAttack {
 		public boolean spawn;
 	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-		public int spawnRate;
+		public int spawn_rate;
 		public double life;
 
-		public MobNoAttack(boolean spawn, int spawnRate, double life) {
+		public MobNoAttack(boolean spawn, int spawn_rate, double life) {
 			this.spawn = spawn;
-			this.spawnRate = spawnRate;
+			this.spawn_rate = spawn_rate;
 			this.life = life;
 		}
 	}
@@ -68,13 +68,13 @@ public class Configs implements ConfigData {
 	public static class Mob {
 		public boolean spawn;
 	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-		public int spawnRate;
+		public int spawn_rate;
 		public double life;
 		public double attack;
 
-		public Mob(boolean spawn, int spawnRate, double life, double attack) {
+		public Mob(boolean spawn, int spawn_rate, double life, double attack) {
 			this.spawn = spawn;
-			this.spawnRate = spawnRate;
+			this.spawn_rate = spawn_rate;
 			this.life = life;
 			this.attack = attack;
 		}
@@ -83,18 +83,29 @@ public class Configs implements ConfigData {
 	public static class Dwarf {
 		public boolean spawn = true;
 	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
-		public int spawnRate = 3;
+		public int spawn_rate = 3;
 		public double life = 70D;
 		public double attack = 7D;
-		public boolean undergroundOnly = false;
+		public boolean underground_only = false;
+	}
+
+	public static class Charles {
+		public double life = 120D;
+		public double attack = 10D;
+		@ConfigEntry.BoundedDiscrete(min = 0, max = 200)
+		public int slowdown_attack_cooldown = 180;
+		@ConfigEntry.BoundedDiscrete(min = 0, max = 200)
+		public int vex_summon_cooldown = 200;
 	}
 
 	public static class PillagerBoss {
 		public boolean enabled = true;
 		public double life = 300D;
 		public double attack = 12D;
-	    public int attackCooldown = 60;
-	    public int attackCooldownHard = 45;
+
+		@ConfigEntry.Gui.PrefixText
+	    public int wither_attack_cooldown = 60;
+	    public int wither_attack_cooldown_hard = 45;
 	}
 
 	public static class BabyRavager {
@@ -102,120 +113,120 @@ public class Configs implements ConfigData {
 		public double attack = 10D;
 
 	    // Not sure what is this
-		public int spawnCount = 12;
+		public int spawn_count = 12;
 	}
 
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Alex = new Mob(true, 2, 20D, 5D);// Katherine
+    public Mob katherine = new Mob(true, 2, 20D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Archer = new Mob(true, 2, 32D, 6D);
+    public Mob archer = new Mob(true, 2, 32D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob ArmoredZombie = new Mob(true, 15, 20D, 7D);
+    public Mob armored_zombie = new Mob(true, 15, 20D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob BigBoss = new Mob(false, 1, 400D, 9D);
+    public Mob bigboss = new Mob(false, 1, 400D, 9D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob BlackBear = new Mob(true, 5, 20D, 6D);
+    public Mob black_bear = new Mob(true, 5, 20D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob BlueSpider = new Mob(true, 20, 24D, 6D);
+    public Mob blue_spider = new Mob(true, 20, 24D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack Boar = new MobNoAttack(true, 5, 16D);
+    public MobNoAttack boar = new MobNoAttack(true, 5, 16D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack BossSkeleton = new MobNoAttack(true, 3, 60D);
+    public MobNoAttack boss_skeleton = new MobNoAttack(true, 3, 60D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob BossZombie = new Mob(true, 1, 400D, 10D);
+    public Mob boss_zombie = new Mob(true, 1, 400D, 10D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Bowman = new Mob(true, 5, 32D, 8D);
+    public Mob bowman = new Mob(true, 5, 32D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob BrownBear = new Mob(true, 5, 30.0D, 6.0D);
+    public Mob brown_bear = new Mob(true, 5, 30.0D, 6.0D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack CookieCreeper = new MobNoAttack(true, 10, 24D);
+    public MobNoAttack cookie_creeper = new MobNoAttack(true, 10, 24D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack DirtyBoar = new MobNoAttack(true, 5, 10.0D);
+    public MobNoAttack dirty_boar = new MobNoAttack(true, 5, 10.0D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Dwarf Dwarf = new Dwarf();
+    public Dwarf dwarf = new Dwarf();
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob EnderKnight = new Mob(true, 3, 48D, 8D);
+    public Mob ender_knight = new Mob(true, 3, 48D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Enderman = new Mob(true, 8, 46D, 9D);
+    public Mob ender = new Mob(true, 8, 46D, 9D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Enderzombie = new Mob(true, 8, 20D, 5D);
+    public Mob ender_zombie = new Mob(true, 8, 20D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Fiora = new Mob(true, 2, 30D, 5D);
+    public Mob fiora = new Mob(true, 2, 30D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob FrostBlaze = new Mob(true, 10, 26D, 7D);
+    public Mob frost_blaze = new Mob(true, 10, 26D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack FrostCreeper = new MobNoAttack(true, 10, 18D);
+    public MobNoAttack frost_creeper = new MobNoAttack(true, 10, 18D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack GoldenChicken = new MobNoAttack(true, 3, 4D);
+    public MobNoAttack golden_chicken = new MobNoAttack(true, 3, 4D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob HoneySlime = new Mob(true, 3, 4D, 1D);
+    public Mob honey_slime = new Mob(true, 3, 4D, 1D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob IceGolem = new Mob(true, 5, 52D, 14D);
+    public Mob ice_golem = new Mob(true, 5, 52D, 14D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Illusioner = new Mob(true, 2, 16D, 7D);
+    public Mob illusioner = new Mob(true, 2, 16D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob LavaGolem = new Mob(true, 10, 48D, 14D);
+    public Mob lava_golem = new Mob(true, 10, 48D, 14D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob LordofDarkness = new Mob(true, 3, 72D, 7D);
+    public Mob lord_of_darkness = new Mob(true, 3, 72D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob LostSkeleton = new Mob(true, 10, 20D, 5D);
+    public Mob lost_skeleton = new Mob(true, 10, 20D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonable MetalGolem = new MobSummonable(true, 160D, 16D);
+    public MobSummonable metal_golem = new MobSummonable(true, 160D, 16D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack NetherSkeleton = new MobNoAttack(true, 6, 28D);
+    public MobNoAttack nether_skeleton = new MobNoAttack(true, 6, 28D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob NetherWolf = new Mob(true, 5, 20D, 6D);
+    public Mob nether_wolf = new Mob(true, 5, 20D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack OvergrownSkeleton = new MobNoAttack(true, 15, 26D);
+    public MobNoAttack overgrown_skeleton = new MobNoAttack(true, 15, 26D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Pigman = new Mob(true, 10, 24D, 7D);
+    public Mob pigman = new Mob(true, 10, 24D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public PillagerBoss PillagerBoss = new PillagerBoss();
+    public PillagerBoss pillager_boss = new PillagerBoss();
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob PurpleSpider = new Mob(true, 15, 26D, 5D);
+    public Mob purple_spider = new Mob(true, 15, 26D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack SoulCreeper = new MobNoAttack(true, 5, 25D);
+    public MobNoAttack soul_creeper = new MobNoAttack(true, 5, 25D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob SpeedyZombie = new Mob(true, 30, 15D, 4D);
+    public Mob fast_zombie = new Mob(true, 30, 15D, 4D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob SpiderMage = new Mob(true, 6, 32D, 7D);
+    public Mob spider_mage = new Mob(true, 6, 32D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Steve = new Mob(true, 2, 32D, 9D);
+    public Mob iron_steve = new Mob(true, 2, 32D, 9D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob StoneGolem = new Mob(true, 2, 64D, 14D);
+    public Mob stone_golem = new Mob(true, 2, 64D, 14D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Tank = new Mob(true, 30, 56D, 9D);
+    public Mob tank_zombie = new Mob(true, 30, 56D, 9D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Templar = new Mob(true, 2, 34D, 7D);
+    public Mob templar = new Mob(true, 2, 34D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob TinySpider = new Mob(true, 5, 1D, 0D);
+    public Mob tiny_spider = new Mob(true, 5, 1D, 0D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob Warrior = new Mob(true, 3, 48D, 6D);
+    public Mob warrior = new Mob(true, 3, 48D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack WildBoar = new MobNoAttack(true, 5, 12.0D);
+    public MobNoAttack wild_boar = new MobNoAttack(true, 5, 12.0D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableNoAttack Withender = new MobSummonableNoAttack(true, 400D);
+    public MobSummonableNoAttack withender = new MobSummonableNoAttack(true, 400D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob WitherBlaze = new Mob(true, 6, 26D, 8D);
+    public Mob wither_blaze = new Mob(true, 6, 26D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob ZombieMage = new Mob(true, 5, 28D, 7D);
+    public Mob zombie_mage = new Mob(true, 5, 28D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable KingCharles = new MobSummonableAlwaysEnable(120D, 10D);
+    public Charles charles = new Charles();
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable William = new MobSummonableAlwaysEnable(60D, 8D);
+    public MobSummonableAlwaysEnable william = new MobSummonableAlwaysEnable(60D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable Andriu = new MobSummonableAlwaysEnable(60D, 8D);
+    public MobSummonableAlwaysEnable andriu = new MobSummonableAlwaysEnable(60D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable IslandKnight = new MobSummonableAlwaysEnable(26D, 6D);
+    public MobSummonableAlwaysEnable knight = new MobSummonableAlwaysEnable(26D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable DeathSpirit = new MobSummonableAlwaysEnable(16D, 5D);
+    public MobSummonableAlwaysEnable spirit_of_death = new MobSummonableAlwaysEnable(16D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public BabyRavager BabyRavager = new BabyRavager();
+    public BabyRavager baby_ravager = new BabyRavager();
     @ConfigEntry.Gui.CollapsibleObject
-    public MobNoAttack Toad = new MobNoAttack(false, 8, 10.0D);
+    public MobNoAttack toad = new MobNoAttack(false, 8, 10.0D);
 
     @Comment("Be carefull with this setting! Multiplicator must be > 0!")
-    public double LifeMultiplicatorMob = 1.0D;
+    public double life_multiplier = 1.0D;
     @Comment("Be carefull with this setting! Multiplicator must be > 0!")
-    public double DamageMultiplicatorMob = 1.0D;
+    public double damage_multiplier = 1.0D;
 }

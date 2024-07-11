@@ -20,9 +20,9 @@ public class SmallSpider extends CaveSpider {
 
     public static AttributeSupplier.Builder createSpiSmallAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 5D * MobZ.configs.LifeMultiplicatorMob)
+                .add(Attributes.MAX_HEALTH, 5D * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
-                .add(Attributes.ATTACK_DAMAGE, 3D * MobZ.configs.DamageMultiplicatorMob)
+                .add(Attributes.ATTACK_DAMAGE, 3D * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 15.0D);
     }
 

@@ -22,10 +22,10 @@ public class Pigman extends Piglin {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.Pigman.attack * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.pigman.attack * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D).add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.Pigman.attack * MobZ.configs.DamageMultiplicatorMob);
+                        MobZ.configs.pigman.attack * MobZ.configs.damage_multiplier);
     }
 
     @Override
@@ -65,6 +65,6 @@ public class Pigman extends Piglin {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.Pigman.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.pigman.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

@@ -21,7 +21,7 @@ public class FrostCreeper extends Creeper {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.FrostCreeper.life * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.frost_creeper.life * MobZ.configs.life_multiplier)
             .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
    }
 
@@ -37,7 +37,7 @@ public class FrostCreeper extends Creeper {
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      return MobZ.configs.FrostCreeper.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+      return MobZ.configs.frost_creeper.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
    }
 }

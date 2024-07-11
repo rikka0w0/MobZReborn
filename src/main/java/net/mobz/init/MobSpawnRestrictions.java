@@ -67,7 +67,7 @@ public class MobSpawnRestrictions {
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.SMALL_ZOMBIE.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
-		w.register(MobZEntities.FROST.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		w.register(MobZEntities.FROST_BLAZE.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.NETHER_WOLF.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				AgeableMob::checkMobSpawnRules);
@@ -113,7 +113,7 @@ public class MobSpawnRestrictions {
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.ANDRIU.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
-		w.register(MobZEntities.ISLANDVEX.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		w.register(MobZEntities.SPIRIT_OF_DEATH.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				Monster::checkMonsterSpawnRules);
 		w.register(MobZEntities.METALGOLEM.get(), Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				AgeableMob::checkMobSpawnRules);

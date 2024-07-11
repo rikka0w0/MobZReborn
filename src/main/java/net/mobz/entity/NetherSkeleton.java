@@ -24,7 +24,7 @@ public class NetherSkeleton extends Skeleton {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.NetherSkeleton.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.nether_skeleton.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D).add(Attributes.FOLLOW_RANGE, 30.0D);
     }
 
@@ -57,6 +57,6 @@ public class NetherSkeleton extends Skeleton {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.NetherSkeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.nether_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

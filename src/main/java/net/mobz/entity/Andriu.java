@@ -34,9 +34,9 @@ public class Andriu extends Vindicator {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.Andriu.life * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.andriu.life * MobZ.configs.life_multiplier)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.Andriu.attack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.andriu.attack * MobZ.configs.damage_multiplier)
 				.add(Attributes.FOLLOW_RANGE, 18.0D);
 	}
 

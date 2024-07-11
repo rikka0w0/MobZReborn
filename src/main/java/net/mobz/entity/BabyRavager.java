@@ -20,9 +20,9 @@ public class BabyRavager extends Ravager {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.BabyRavager.life * MobZ.configs.LifeMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.baby_ravager.life * MobZ.configs.life_multiplier)
 				.add(Attributes.MOVEMENT_SPEED, 0.3D)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.BabyRavager.attack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.baby_ravager.attack * MobZ.configs.damage_multiplier)
 				.add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ARMOR, 1.5D)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 0.5D).add(Attributes.ATTACK_KNOCKBACK, 1.5D);
 	}

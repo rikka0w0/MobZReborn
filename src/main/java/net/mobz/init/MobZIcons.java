@@ -11,7 +11,7 @@ public class MobZIcons {
 		    "head_archer",
 		    "head_fast_zombie",
 		    "head_baby_ravager",
-		    "head_frost",
+		    "head_frost_blaze",
 		    "head_boss_zombie",
 		    "head_frost_creeper",
 		    "head_cookie_creeper",

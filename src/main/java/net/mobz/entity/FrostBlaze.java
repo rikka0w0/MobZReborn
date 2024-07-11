@@ -32,12 +32,12 @@ import net.mobz.MobZ;
 import net.mobz.entity.attack.FrostballEntity;
 import net.mobz.init.MobZSounds;
 
-public class Frost extends Blaze {
+public class FrostBlaze extends Blaze {
    private float field_7214 = 0.5F;
    private int field_7215;
    private static final EntityDataAccessor<Byte> BLAZE_FLAGS;
 
-   public Frost(EntityType<? extends Frost> entityType_1, Level world_1) {
+   public FrostBlaze(EntityType<? extends FrostBlaze> entityType_1, Level world_1) {
       super(entityType_1, world_1);
       this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
       this.xpReward = 10;
@@ -46,22 +46,22 @@ public class Frost extends Blaze {
    public static AttributeSupplier.Builder createMobzAttributes() {
       return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH,
-                  MobZ.configs.FrostBlaze.life * MobZ.configs.LifeMultiplicatorMob)
+                  MobZ.configs.frost_blaze.life * MobZ.configs.life_multiplier)
             .add(Attributes.MOVEMENT_SPEED, 0.23D)
             .add(Attributes.ATTACK_DAMAGE,
-                  MobZ.configs.FrostBlaze.attack * MobZ.configs.DamageMultiplicatorMob)
+                  MobZ.configs.frost_blaze.attack * MobZ.configs.damage_multiplier)
             .add(Attributes.FOLLOW_RANGE, 48.0D);
    }
 
    @Override
    public boolean checkSpawnObstruction(LevelReader view) {
-      return MobZ.configs.FrostBlaze.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+      return MobZ.configs.frost_blaze.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
 
    }
 
    @Override
    protected void registerGoals() {
-      this.goalSelector.addGoal(4, new Frost.ShootFireballGoal(this));
+      this.goalSelector.addGoal(4, new FrostBlaze.ShootFireballGoal(this));
       this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
       this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
       this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -178,16 +178,16 @@ public class Frost extends Blaze {
 
    /////////////////////////////////////
    static {
-      BLAZE_FLAGS = SynchedEntityData.defineId(Frost.class, EntityDataSerializers.BYTE);
+      BLAZE_FLAGS = SynchedEntityData.defineId(FrostBlaze.class, EntityDataSerializers.BYTE);
    }
 
    static class ShootFireballGoal extends Goal {
-      private final Frost blaze;
+      private final FrostBlaze blaze;
       private int field_7218;
       private int field_7217;
       private int field_19420;
 
-      public ShootFireballGoal(Frost blazeEntity_1) {
+      public ShootFireballGoal(FrostBlaze blazeEntity_1) {
          this.blaze = blazeEntity_1;
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
       }

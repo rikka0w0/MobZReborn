@@ -37,10 +37,10 @@ public class StoneGolem extends IronGolem {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.StoneGolem.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.stone_golem.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.StoneGolem.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.stone_golem.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.9D);
     }
@@ -92,7 +92,7 @@ public class StoneGolem extends IronGolem {
     @Override
 	public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos posentity = this.blockPosition();
-        return MobZ.configs.StoneGolem.spawn
+        return MobZ.configs.stone_golem.spawn
         		&& this.level().isDay()
                 && this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
                 && MobSpawnHelper.checkSpawnObstruction(this, view);

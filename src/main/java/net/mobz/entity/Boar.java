@@ -24,7 +24,7 @@ public class Boar extends Pig {
 
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Mob.createMobAttributes()
-        		.add(Attributes.MAX_HEALTH, MobZ.configs.Boar.life)
+        		.add(Attributes.MAX_HEALTH, MobZ.configs.boar.life)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 

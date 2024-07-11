@@ -38,10 +38,10 @@ public class IceGolem extends IronGolem {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.IceGolem.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.ice_golem.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.IceGolem.attack * MobZ.configs.DamageMultiplicatorMob)
+                        MobZ.configs.ice_golem.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 30.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
     }
@@ -61,7 +61,7 @@ public class IceGolem extends IronGolem {
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
         BlockPos posentity = this.blockPosition();
-        return MobZ.configs.IceGolem.spawn
+        return MobZ.configs.ice_golem.spawn
         		&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
                 && this.level().isDay()
                 && MobSpawnHelper.checkSpawnObstruction(this, view);
@@ -73,7 +73,7 @@ public class IceGolem extends IronGolem {
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Spider.class));
         this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Creeper.class));
         this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Slime.class));
-        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Frost.class));
+        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(FrostBlaze.class));
         this.targetSelector.addGoal(7, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(FrostCreeper.class));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Boar.class));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(Blackbear.class));

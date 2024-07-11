@@ -22,14 +22,14 @@ public class HoneySlime extends Slime {
 
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
-        		.add(Attributes.MAX_HEALTH, MobZ.configs.HoneySlime.life)
+        		.add(Attributes.MAX_HEALTH, MobZ.configs.honey_slime.life)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.HoneySlime.attack);
+                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.honey_slime.attack);
     }
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.HoneySlime.spawn
+        return MobZ.configs.honey_slime.spawn
         		&& this.level().isDay()
         		&& MobSpawnHelper.checkSpawnObstruction(this, view);
     }

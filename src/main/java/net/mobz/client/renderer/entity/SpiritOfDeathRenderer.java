@@ -9,11 +9,11 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.resources.ResourceLocation;
 
-public class IslandVexRenderer extends MobRenderer<Vex, VexModel> {
+public class SpiritOfDeathRenderer extends MobRenderer<Vex, VexModel> {
     private final ResourceLocation texture;
     private final ResourceLocation charging_texture;
 
-    public IslandVexRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+    public SpiritOfDeathRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
         super(context, new VexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F);
         this.texture = texture;
         String eyePath = texture.getPath().replace(".png", "_charging.png");

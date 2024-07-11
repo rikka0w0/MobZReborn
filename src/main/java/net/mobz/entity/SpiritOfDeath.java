@@ -13,16 +13,16 @@ import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.init.MobZWeapons;
 
-public class IslandVex extends Vex {
-	public IslandVex(EntityType<? extends Vex> entityType, Level world) {
+public class SpiritOfDeath extends Vex {
+	public SpiritOfDeath(EntityType<? extends Vex> entityType, Level world) {
 		super(entityType, world);
 
 	}
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.DeathSpirit.life * MobZ.configs.LifeMultiplicatorMob)
-				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.DeathSpirit.attack * MobZ.configs.DamageMultiplicatorMob)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.spirit_of_death.life * MobZ.configs.life_multiplier)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.spirit_of_death.attack * MobZ.configs.damage_multiplier)
 				.add(Attributes.FOLLOW_RANGE, 18.0D);
 	}
 

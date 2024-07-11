@@ -31,17 +31,17 @@ import net.mobz.entity.Ender;
 import net.mobz.entity.EnderZombie;
 import net.mobz.entity.FastZombie;
 import net.mobz.entity.FriendEntity;
-import net.mobz.entity.Frost;
+import net.mobz.entity.FrostBlaze;
 import net.mobz.entity.IronSteve;
 import net.mobz.entity.GoldenChicken;
 import net.mobz.entity.GiantToad;
 import net.mobz.entity.IceGolem;
 import net.mobz.entity.Illusioner;
-import net.mobz.entity.Charies;
+import net.mobz.entity.Charles;
 import net.mobz.entity.Knight;
 import net.mobz.entity.William;
 import net.mobz.entity.Andriu;
-import net.mobz.entity.IslandVex;
+import net.mobz.entity.SpiritOfDeath;
 import net.mobz.entity.Warrior;
 import net.mobz.entity.EnderKnight;
 import net.mobz.entity.LordOfDarkness;
@@ -158,13 +158,13 @@ public class MobZEntities {
 			.of(IronSteve::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F), "iron_steve",
 			IronSteve::createMobzEntityAttributes, 888205, 4800672);
-	public static final Supplier<EntityType<Frost>> FROST = register(EntityType.Builder
-			.of(Frost::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.6F, 1.8F), "frost",
-			Frost::createMobzAttributes, 8709375, 86111);
+	public static final Supplier<EntityType<FrostBlaze>> FROST_BLAZE = register(EntityType.Builder
+			.of(FrostBlaze::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
+			.sized(0.6F, 1.8F), "frost_blaze",
+			FrostBlaze::createMobzAttributes, 8709375, 86111);
 	public static final Supplier<EntityType<FrostballEntity>> FROSTBALL = register(EntityType.Builder
             .<FrostballEntity>of(FrostballEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F)
-            .clientTrackingRange(4).updateInterval(10), "frostball");
+            .clientTrackingRange(4).updateInterval(10), "frost_ball");
 	public static final Supplier<EntityType<NetherWolf>> NETHER_WOLF = register(EntityType.Builder.of(NetherWolf::new, MobCategory.MONSTER)
 			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 0.85F), "nether_wolf",
 			NetherWolf::createMobzAttributes, 4785691, 6700094);
@@ -245,10 +245,10 @@ public class MobZEntities {
 			.of(BabyRavager::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.78F, 0.88F), "baby_ravager",
 			BabyRavager::createMobzAttributes, 6315866, 4538432);
-	public static final Supplier<EntityType<Charies>> CHARLES = register(EntityType.Builder
-			.of(Charies::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
+	public static final Supplier<EntityType<Charles>> CHARLES = register(EntityType.Builder
+			.of(Charles::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F), "charles",
-			Charies::createMobzAttributes, 8222839, 12891527);
+			Charles::createMobzAttributes, 8222839, 12891527);
 	public static final Supplier<EntityType<Knight>> KNIGHT = register(EntityType.Builder
 			.of(Knight::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F), "knight",
@@ -261,10 +261,10 @@ public class MobZEntities {
 			.of(Andriu::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(0.6F, 1.99F), "andriu",
 			Andriu::createMobzAttributes, 3882305, 3161413);
-	public static final Supplier<EntityType<IslandVex>> ISLANDVEX = register(EntityType.Builder
-			.of(IslandVex::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
-			.sized(0.4F, 0.8F), "islandvex",
-			IslandVex::createMobzAttributes, 2039583, 9014412);
+	public static final Supplier<EntityType<SpiritOfDeath>> SPIRIT_OF_DEATH = register(EntityType.Builder
+			.of(SpiritOfDeath::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
+			.sized(0.4F, 0.8F), "spirit_of_death",
+			SpiritOfDeath::createMobzAttributes, 2039583, 9014412);
 	public static final Supplier<EntityType<MetalGolem>> METALGOLEM = register(EntityType.Builder
 			.of(MetalGolem::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
 			.sized(1.59F, 3F), "metal_golem",

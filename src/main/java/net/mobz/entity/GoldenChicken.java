@@ -50,7 +50,7 @@ public class GoldenChicken extends Chicken {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Mob.createMobAttributes()
-				.add(Attributes.MAX_HEALTH, MobZ.configs.GoldenChicken.life)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.golden_chicken.life)
 				.add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 

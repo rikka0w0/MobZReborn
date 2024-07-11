@@ -23,7 +23,7 @@ public class SoulCreeper extends Creeper {
   public static AttributeSupplier.Builder createMobzAttributes() {
     return Monster.createMonsterAttributes()
         .add(Attributes.MAX_HEALTH,
-            MobZ.configs.SoulCreeper.life * MobZ.configs.LifeMultiplicatorMob)
+            MobZ.configs.soul_creeper.life * MobZ.configs.life_multiplier)
         .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
   }
 
@@ -41,7 +41,7 @@ public class SoulCreeper extends Creeper {
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos blockunderentity = this.blockPosition().below();
 
-		return MobZ.configs.SoulCreeper.spawn
+		return MobZ.configs.soul_creeper.spawn
 				&& (this.level().getBlockState(blockunderentity).is(Blocks.SOUL_SAND)
 						|| this.level().getBlockState(blockunderentity).is(Blocks.SOUL_SOIL))
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);

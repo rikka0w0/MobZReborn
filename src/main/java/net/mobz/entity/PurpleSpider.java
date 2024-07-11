@@ -23,9 +23,9 @@ public class PurpleSpider extends Spider {
     public static AttributeSupplier.Builder createMobzAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.PurpleSpider.life * MobZ.configs.LifeMultiplicatorMob)
+                        MobZ.configs.purple_spider.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.31D).add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.PurpleSpider.attack * MobZ.configs.DamageMultiplicatorMob);
+                        MobZ.configs.purple_spider.attack * MobZ.configs.damage_multiplier);
     }
 
     @Override
@@ -44,6 +44,6 @@ public class PurpleSpider extends Spider {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.PurpleSpider.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+        return MobZ.configs.purple_spider.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 }

@@ -2,13 +2,13 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_frost"
+            "item": "mobz:head_frost_blaze"
         },
         "title": {
-            "translate": "entity.mobz.frost"
+            "translate": "entity.mobz.frost_blaze"
         },
         "description": {
-            "translate": "mobz.advancements.frost.description"
+            "translate": "mobz.advancements.frost_blaze.description"
         },
         "frame": "goal",
         "show_toast": true,
@@ -20,7 +20,7 @@
             "trigger": "minecraft:player_killed_entity",
             "conditions": {
                 "entity": {
-                    "type": "mobz:frost"
+                    "type": "mobz:frost_blaze"
                 }
             }
         }
