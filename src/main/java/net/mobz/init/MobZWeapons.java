@@ -34,14 +34,14 @@ public class MobZWeapons {
     public static final Tier POISONSWORDMATERIAL = new PoisonSwordMaterial();
     public static final Tier WITHERSWORDMATERIAL = new WitherSwordMaterial();
 
-    public static final Supplier<Item> Axe = MobZ.platform.registerItem("axe", MobZTabs.tab, () -> new AxeBase(AXEMATERIAL, defaultItemProp));
+    public static final Supplier<Item> Axe = MobZ.platform.registerItem("eragons_axe", MobZTabs.tab, () -> new AxeBase(AXEMATERIAL, defaultItemProp));
     public static final Supplier<Item> ArmoredSword = MobZ.platform.registerItem("armored_sword", MobZTabs.tab, () -> new ArmoredSwordBase(ARMORED_MATERIAL, defaultItemProp));
     public static final Supplier<Item> BossSword = MobZ.platform.registerItem("boss_sword", MobZTabs.tab, () -> new BossSwordBase(BOSS_MATERIAL, defaultItemProp));
     public static final Supplier<Item> Debuger;
     public static final Supplier<Item> FrozenSword = MobZ.platform.registerItem("frozen_sword", MobZTabs.tab, () -> new FrozenSwordBase(POISONSWORDMATERIAL, defaultItemProp));
     public static final Supplier<Item> PoisonSword = MobZ.platform.registerItem("poison_sword", MobZTabs.tab, () -> new PoisonSwordBase(POISONSWORDMATERIAL, defaultItemProp));
-    public static final Supplier<Item> Sword = MobZ.platform.registerItem("sword", MobZTabs.tab, () -> new SwordBase(SWORDMATERIAL, defaultItemProp));
-    public static final Supplier<Item> VSword = MobZ.platform.registerItem("v_sword", MobZTabs.tab, () -> new VSwordBase(WITHERSWORDMATERIAL, defaultItemProp));
+    public static final Supplier<Item> Sword = MobZ.platform.registerItem("rainbow_sword", MobZTabs.tab, () -> new SwordBase(SWORDMATERIAL, defaultItemProp));
+    public static final Supplier<Item> VSword = MobZ.platform.registerItem("stone_tomahawk", MobZTabs.tab, () -> new VSwordBase(WITHERSWORDMATERIAL, defaultItemProp));
     public static final Supplier<Item> WitherSword = MobZ.platform.registerItem("wither_sword", MobZTabs.tab, () -> new WitherSwordBase(WITHERSWORDMATERIAL, defaultItemProp));
 
     static {

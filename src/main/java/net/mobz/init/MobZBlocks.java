@@ -29,13 +29,13 @@ public class MobZBlocks {
 
 	public static final Supplier<Block> AMAT_BLOCK = register("amat_block", () -> new Block(IRON_BLOCK_PROP.emissiveRendering((blockstate, world, pos) -> true)), itemPropTabMobz);
 	public static final Supplier<Block> BOSS_BLOCK = register("boss_block", () -> new Block(IRON_BLOCK_PROP.emissiveRendering((blockstate, world, pos) -> true)), itemPropTabMobz);
-	public static final Supplier<BossTrophy> BOSS_TROPHY = register("bosstrophy", () -> new BossTrophy(ZOMBIE_HEAD_PROP), itemPropTabMobz);
-	public static final Supplier<EnderHeader> ENDERHEADER = register("enderheader", () -> new EnderHeader(ZOMBIE_HEAD_PROP), itemPropTabMobz);
-	public static final Supplier<HardenedMetalblock> HARDENED_METALBLOCK = register("hardenedmetal_block", () -> new HardenedMetalblock(IRON_BLOCK_PROP), itemPropTabMobz);
+	public static final Supplier<BossTrophy> BOSS_TROPHY = register("boss_trophy", () -> new BossTrophy(ZOMBIE_HEAD_PROP), itemPropTabMobz);
+	public static final Supplier<EnderHeader> ENDERHEADER = register("ender_header", () -> new EnderHeader(ZOMBIE_HEAD_PROP), itemPropTabMobz);
+	public static final Supplier<HardenedMetalblock> HARDENED_METALBLOCK = register("hardened_metal_block", () -> new HardenedMetalblock(IRON_BLOCK_PROP), itemPropTabMobz);
 
-	public static final Supplier<TotemBase> TOTEM_BASE = register("totembase",  () -> new TotemBase(OAK_LOG_PROP), itemPropTabMobz);
-	public static final Supplier<TotemMiddle> TOTEM_MIDDLE = register("totemmiddle", () -> new TotemMiddle(OAK_LOG_PROP), itemPropTabMobz);
-	public static final Supplier<TotemTop> TOTEM_TOP = register("totemtop", () -> new TotemTop(OAK_LOG_PROP), itemPropTabMobz);
+	public static final Supplier<TotemBase> TOTEM_BASE = register("totem_base",  () -> new TotemBase(OAK_LOG_PROP), itemPropTabMobz);
+	public static final Supplier<TotemMiddle> TOTEM_MIDDLE = register("totem_middle", () -> new TotemMiddle(OAK_LOG_PROP), itemPropTabMobz);
+	public static final Supplier<TotemTop> TOTEM_TOP = register("totem_top", () -> new TotemTop(OAK_LOG_PROP), itemPropTabMobz);
 
 	private static <T extends Block> Supplier<T> register(String name, Supplier<T> constructor, Item.Properties blockItemProps) {
 		return MobZ.platform.registerBlock(name, MobZTabs.tab, constructor, (block) -> new BlockItem(block, blockItemProps));

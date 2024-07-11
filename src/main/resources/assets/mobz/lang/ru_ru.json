@@ -79,14 +79,14 @@
     "item.mobz.mediveal_disc.desc": "Z418 mediveal",
     "item.mobz.mediveal_disc_2.desc": "Z418 mediveal II",
 
-    "item.mobz.axe": "§5Топор Эрагона",
-    "item.mobz.axe.tooltip": "§bRare",
+    "item.mobz.eragons_axe": "§5Топор Эрагона",
+    "item.mobz.eragons_axe.tooltip": "§bRare",
 
     "item.mobz.shield": "§5Щит Эрагона",
     "item.mobz.shield.tooltip": "§2Uncommon",
 
-    "item.mobz.sword": "Радужный меч",
-    "item.mobz.sword.tooltip": "§6Legendary",
+    "item.mobz.rainbow_sword": "Радужный меч",
+    "item.mobz.rainbow_sword.tooltip": "§6Legendary",
 
     "item.mobz.hardened_metal_ingot": "§7Металлический слиток",
     "item.mobz.hardened_metal_ingot.tooltip": "Необычный материал",
@@ -132,8 +132,8 @@
     "item.mobz.bear_leather": "Кожа медведя",
     "item.mobz.bear_leather.tooltip": "§7Common",
 
-    "item.mobz.v_sword": "Видимый меч",
-    "item.mobz.v_sword.tooltip": "§2Uncommon",
+    "item.mobz.stone_tomahawk": "Видимый меч",
+    "item.mobz.stone_tomahawk.tooltip": "§2Uncommon",
 
     "item.mobz.lilith_bow": "§5Лук Лилит",
     "item.mobz.lilith_bow.tooltip": "§bRare",
@@ -167,20 +167,20 @@
     "block.mobz.amat_block": "Nether Reinforced Block",
     "block.mobz.amat_block.tooltip": "§2Uncommon Material",
 
-    "block.mobz.hardenedmetal_block": "§7Металлический блок",
-    "block.mobz.hardenedmetal_block.tooltip": "§2Uncommon Material",
+    "block.mobz.hardened_metal_block": "§7Металлический блок",
+    "block.mobz.hardened_metal_block.tooltip": "§2Uncommon Material",
 
-    "block.mobz.bosstrophy": "§eТрофейная голова босса",
+    "block.mobz.boss_trophy": "§eТрофейная голова босса",
 
-    "block.mobz.totembase": "Основание тотема разбойника",
-    "block.mobz.totemmiddle": "Середина тотема разбойника",
-    "block.mobz.totemtop": "Вершина тотема разбойника",
+    "block.mobz.totem_base": "Основание тотема разбойника",
+    "block.mobz.totem_middle": "Середина тотема разбойника",
+    "block.mobz.totem_top": "Вершина тотема разбойника",
 
-    "block.mobz.totembase.tooltip": "§bRare",
-    "block.mobz.totemmiddle.tooltip": "§7Common",
-    "block.mobz.totemtop.tooltip": "§bRare",
+    "block.mobz.totem_base.tooltip": "§bRare",
+    "block.mobz.totem_middle.tooltip": "§7Common",
+    "block.mobz.totem_top.tooltip": "§bRare",
 
-    "block.mobz.enderheader": "§eГолова эндермена",
+    "block.mobz.ender_header": "§eГолова эндермена",
     "block.mobz.spawnblock": "Ограниченный спаунер маленького разорителя",
 
     "block.mobz.treasure_block": "Sealed Stone Brick",

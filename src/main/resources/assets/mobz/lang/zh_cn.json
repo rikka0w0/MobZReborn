@@ -79,14 +79,14 @@
     "item.mobz.mediveal_disc.desc": "Z418 中世纪",
     "item.mobz.mediveal_disc_2.desc": "Z418 中世纪 II",
 
-    "item.mobz.axe": "龙骑士的斧子",
-    "item.mobz.axe.tooltip": "§b罕见",
+    "item.mobz.eragons_axe": "龙骑士的斧子",
+    "item.mobz.eragons_axe.tooltip": "§b罕见",
 
     "item.mobz.shield": "金属盾牌",
     "item.mobz.shield.tooltip": "§2不常见",
 
-    "item.mobz.sword": "彩虹剑",
-    "item.mobz.sword.tooltip": "§6传奇",
+    "item.mobz.rainbow_sword": "彩虹剑",
+    "item.mobz.rainbow_sword.tooltip": "§6传奇",
 
     "item.mobz.hardened_metal_ingot": "硬金属锭",
     "item.mobz.hardened_metal_ingot.tooltip": "§2不常见的材料",
@@ -132,8 +132,8 @@
     "item.mobz.bear_leather": "熊皮革",
     "item.mobz.bear_leather.tooltip": "§7常见",
 
-    "item.mobz.v_sword": "石战斧",
-    "item.mobz.v_sword.tooltip": "§2不常见",
+    "item.mobz.stone_tomahawk": "石战斧",
+    "item.mobz.stone_tomahawk.tooltip": "§2不常见",
 
     "item.mobz.lilith_bow": "莉莉丝之弓",
     "item.mobz.lilith_bow.tooltip": "§b罕见",
@@ -167,20 +167,20 @@
     "block.mobz.amat_block": "下界强化块",
     "block.mobz.amat_block.tooltip": "§2不常见的材料",
 
-    "block.mobz.hardenedmetal_block": "金属块",
-    "block.mobz.hardenedmetal_block.tooltip": "§2常见材料",
+    "block.mobz.hardened_metal_block": "金属块",
+    "block.mobz.hardened_metal_block.tooltip": "§2常见材料",
 
-    "block.mobz.bosstrophy": "皇冠头颅",
+    "block.mobz.boss_trophy": "皇冠头颅",
 
-    "block.mobz.totembase": "掠夺者图腾底座",
-    "block.mobz.totemmiddle": "掠夺者图腾中部",
-    "block.mobz.totemtop": "掠夺者图腾顶部",
+    "block.mobz.totem_base": "掠夺者图腾底座",
+    "block.mobz.totem_middle": "掠夺者图腾中部",
+    "block.mobz.totem_top": "掠夺者图腾顶部",
 
-    "block.mobz.totembase.tooltip": "§b罕见",
-    "block.mobz.totemmiddle.tooltip": "§7常见",
-    "block.mobz.totemtop.tooltip": "§b罕见",
+    "block.mobz.totem_base.tooltip": "§b罕见",
+    "block.mobz.totem_middle.tooltip": "§7常见",
+    "block.mobz.totem_top.tooltip": "§b罕见",
 
-    "block.mobz.enderheader": "末影人的头颅",
+    "block.mobz.ender_header": "末影人的头颅",
     "block.mobz.spawn_block": "有限的掠夺兽刷怪笼",
 
     "block.mobz.treasure_block": "密封石砖",

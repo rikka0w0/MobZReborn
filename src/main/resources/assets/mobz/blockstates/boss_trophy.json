@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mobz:block/boss_trophy",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mobz:block/boss_trophy",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "mobz:block/boss_trophy",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mobz:block/boss_trophy",
+      "y": 270
+    }
+  }
+}

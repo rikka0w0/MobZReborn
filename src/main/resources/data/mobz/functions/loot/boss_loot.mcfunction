@@ -1,2 +1,2 @@
-give @s mobz:bosstrophy
+give @s mobz:boss_trophy
 give @s mobz:white_bag

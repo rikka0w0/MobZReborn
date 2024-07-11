@@ -23,7 +23,7 @@ public class VSwordBase extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.v_sword.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.stone_tomahawk.tooltip"));
     }
 
     public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {

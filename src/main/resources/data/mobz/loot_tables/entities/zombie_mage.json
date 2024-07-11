@@ -32,7 +32,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "mobz:totemtop"
+					"name": "mobz:totem_top"
 				}
 			],
 			"conditions": [

@@ -62,7 +62,7 @@
                 },
                 {
                     "type": "minecraft:item",
-                    "name": "mobz:axe"
+                    "name": "mobz:eragons_axe"
                 }
             ],
             "conditions": [

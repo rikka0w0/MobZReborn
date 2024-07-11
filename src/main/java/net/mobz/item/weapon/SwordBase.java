@@ -19,6 +19,6 @@ public class SwordBase extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.sword.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.rainbow_sword.tooltip"));
     }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ddd",
+    "ddd",
+    "ddd"
+  ],
+  "key": {
+    "d": {
+      "item": "mobz:hardened_metal_ingot"
+    }
+  },
+  "result": {
+    "item": "mobz:hardened_metal_block"
+  }
+}

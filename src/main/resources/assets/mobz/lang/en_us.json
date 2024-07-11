@@ -79,14 +79,14 @@
     "item.mobz.mediveal_disc.desc": "Z418 Mediveal",
     "item.mobz.mediveal_disc_2.desc": "Z418 Mediveal II",
     
-    "item.mobz.axe": "Eragons Axe",
-    "item.mobz.axe.tooltip": "§bRare",
+    "item.mobz.eragons_axe": "Eragons Axe",
+    "item.mobz.eragons_axe.tooltip": "§bRare",
 
     "item.mobz.shield": "Metal Shield",
     "item.mobz.shield.tooltip": "§2Uncommon",
 
-    "item.mobz.sword": "Rainbow Sword",
-    "item.mobz.sword.tooltip": "§6Legendary",
+    "item.mobz.rainbow_sword": "Rainbow Sword",
+    "item.mobz.rainbow_sword.tooltip": "§6Legendary",
 
     "item.mobz.hardened_metal_ingot": "Metal Ingot",
     "item.mobz.hardened_metal_ingot.tooltip": "§2Uncommon Material",
@@ -132,8 +132,8 @@
     "item.mobz.bear_leather": "Bear Leather",
     "item.mobz.bear_leather.tooltip": "§7Common",
 
-    "item.mobz.v_sword": "Stone Tomahawk",
-    "item.mobz.v_sword.tooltip": "§2Uncommon",
+    "item.mobz.stone_tomahawk": "Stone Tomahawk",
+    "item.mobz.stone_tomahawk.tooltip": "§2Uncommon",
 
     "item.mobz.lilith_bow": "Lilith´s Bow",
     "item.mobz.lilith_bow.tooltip": "§bRare",
@@ -167,20 +167,20 @@
     "block.mobz.amat_block": "Nether Reinforced Block",
     "block.mobz.amat_block.tooltip": "§2Uncommon Material",
 
-    "block.mobz.hardenedmetal_block": "Metal Block",
-    "block.mobz.hardenedmetal_block.tooltip": "§2Uncommon Material",
+    "block.mobz.hardened_metal_block": "Metal Block",
+    "block.mobz.hardened_metal_block.tooltip": "§2Uncommon Material",
 
-    "block.mobz.bosstrophy": "§eBoss Head Trophy",
+    "block.mobz.boss_trophy": "§eBoss Head Trophy",
 
-    "block.mobz.totembase": "Pillager Totem Base",
-    "block.mobz.totemmiddle": "Pillager Totem Middle",
-    "block.mobz.totemtop": "Pillager Totem Top",
+    "block.mobz.totem_base": "Pillager Totem Base",
+    "block.mobz.totem_middle": "Pillager Totem Middle",
+    "block.mobz.totem_top": "Pillager Totem Top",
 
-    "block.mobz.totembase.tooltip": "§bRare",
-    "block.mobz.totemmiddle.tooltip": "§7Common",
-    "block.mobz.totemtop.tooltip": "§bRare",
+    "block.mobz.totem_base.tooltip": "§bRare",
+    "block.mobz.totem_middle.tooltip": "§7Common",
+    "block.mobz.totem_top.tooltip": "§bRare",
 
-    "block.mobz.enderheader": "§eEnderman Head",
+    "block.mobz.ender_header": "§eEnderman Head",
     "block.mobz.spawn_block": "Limited Baby Ravager Spawner",
 
     "block.mobz.treasure_block": "Sealed Stone Brick",

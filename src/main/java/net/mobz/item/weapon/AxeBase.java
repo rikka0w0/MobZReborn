@@ -25,7 +25,7 @@ public class AxeBase extends SwordItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.axe.tooltip"));
+		tooltip.add(Component.translatable("item.mobz.eragons_axe.tooltip"));
 	}
 
 	private static Supplier<MobEffectInstance> slow1 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0, false, false, false);

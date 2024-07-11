@@ -105,6 +105,6 @@ public class TotemBase extends Block {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(Component.translatable("block.mobz.totembase.tooltip"));
+		tooltip.add(Component.translatable("block.mobz.totem_base.tooltip"));
 	}
 }

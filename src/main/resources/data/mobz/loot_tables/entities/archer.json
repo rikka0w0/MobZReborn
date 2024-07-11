@@ -40,7 +40,7 @@
 				},
 				{
 					"type": "minecraft:item",
-					"name": "mobz:totembase"
+					"name": "mobz:totem_base"
 				}
 			],
 			"conditions": [

@@ -76,6 +76,6 @@ public class HardenedMetalblock extends Block {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(Component.translatable("block.mobz.hardenedmetal_block.tooltip"));
+		tooltip.add(Component.translatable("block.mobz.hardened_metal_block.tooltip"));
 	}
 }

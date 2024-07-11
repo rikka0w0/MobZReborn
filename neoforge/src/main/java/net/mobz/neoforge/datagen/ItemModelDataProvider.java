@@ -10,8 +10,10 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.mobz.MobZ;
+import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZIcons;
 import net.mobz.init.MobZItems;
+import net.mobz.init.MobZWeapons;
 
 public class ItemModelDataProvider extends ItemModelProvider {
 	private final Registry<Item> registry;
@@ -87,5 +89,28 @@ public class ItemModelDataProvider extends ItemModelProvider {
 		simpleItemModel(MobZItems.WITHERMEAL.get());
 		simpleItemModel(MobZItems.MEDIVEAL_DISC.get());
 		simpleItemModel(MobZItems.MEDIVEAL_DISC2.get());
+
+		// Weapon
+		simpleItemModel(MobZWeapons.ArmoredSword.get());
+		simpleItemModel(MobZWeapons.BossSword.get());
+		simpleItemModel(MobZWeapons.PoisonSword.get());
+		simpleItemModel(MobZWeapons.Sword.get());
+		simpleItemModel(MobZWeapons.VSword.get());
+
+		// Armor
+		simpleItemModel(MobZArmors.amat_helmet.get());
+		simpleItemModel(MobZArmors.amat_chestplate.get());
+		simpleItemModel(MobZArmors.amat_leggings.get());
+		simpleItemModel(MobZArmors.amat_boots.get());
+		simpleItemModel(MobZArmors.boss_helmet.get());
+		simpleItemModel(MobZArmors.boss_chestplate.get());
+		simpleItemModel(MobZArmors.boss_leggings.get());
+		simpleItemModel(MobZArmors.boss_boots.get());
+		simpleItemModel(MobZArmors.life_helmet.get());
+		simpleItemModel(MobZArmors.life_chestplate.get());
+		simpleItemModel(MobZArmors.life_leggings.get());
+		simpleItemModel(MobZArmors.life_boots.get());
+		simpleItemModel(MobZArmors.speed_boots.get());
+		simpleItemModel(MobZArmors.speed2_boots.get());
 	}
 }

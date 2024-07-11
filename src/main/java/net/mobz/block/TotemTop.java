@@ -28,6 +28,6 @@ public class TotemTop extends AbstractHead {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(Component.translatable("block.mobz.totemtop.tooltip"));
+		tooltip.add(Component.translatable("block.mobz.totem_top.tooltip"));
 	}
 }

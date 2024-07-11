@@ -2,8 +2,8 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mobz:hardenedmetal_block",
-      "mobz:hardenedmetal_block2",
+      "mobz:hardened_metal_block",
+      "mobz:hardened_metal_block2",
       "mobz:hardened_metal_ingot",
       "mobz:shield",
       "mobz:life_boots",
