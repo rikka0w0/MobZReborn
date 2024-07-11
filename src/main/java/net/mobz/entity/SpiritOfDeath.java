@@ -28,7 +28,7 @@ public class SpiritOfDeath extends Vex {
 
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
 		this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
 	}
 }

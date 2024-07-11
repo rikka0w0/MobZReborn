@@ -16,8 +16,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
-public class Orb2 extends Item {
-	public Orb2(Item.Properties properties) {
+public class LevitationOrb extends Item {
+	public LevitationOrb(Item.Properties properties) {
 		super(properties);
 	}
 

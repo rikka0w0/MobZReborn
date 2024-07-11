@@ -35,7 +35,7 @@ public class FrostballEntity extends Fireball {
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(MobZItems.FROZENMEAL.get());
+        return new ItemStack(MobZItems.FROZEN_POWDER.get());
     }
 
 	@Override

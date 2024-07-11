@@ -65,7 +65,7 @@ public class William extends Zombie {
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
 		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
 		}
 	}

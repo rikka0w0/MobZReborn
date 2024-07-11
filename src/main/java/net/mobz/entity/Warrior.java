@@ -63,7 +63,7 @@ public class Warrior extends Vindicator {
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
 		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.PoisonSword.get()));
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.POISON_SWORD.get()));
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
 		}
 	}

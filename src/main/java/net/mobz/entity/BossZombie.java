@@ -64,12 +64,12 @@ public class BossZombie extends Zombie {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.BossSword.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.BOSS_SWORD.get()));
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(MobZArmors.boss_chestplate.get()));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(MobZArmors.boss_boots.get()));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(MobZArmors.boss_leggings.get()));
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MobZArmors.boss_helmet.get()));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(MobZArmors.BOSS_CHESTPLATE.get()));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(MobZArmors.BOSS_BOOTS.get()));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(MobZArmors.BOSS_LEGGINGS.get()));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(MobZArmors.BOSS_HELMET.get()));
     }
 
     @Override

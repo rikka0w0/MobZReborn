@@ -71,46 +71,46 @@ public class ItemModelDataProvider extends ItemModelProvider {
 		}
 
 		simpleItemModel(MobZItems.AMAT_INGOT.get());
-		simpleItemModel(MobZItems.BEARLEATHER.get());
+		simpleItemModel(MobZItems.BEAR_LEATHER.get());
 		simpleItemModel(MobZItems.BOSS_INGOT.get());
-		simpleItemModel(MobZItems.FROZENMEAL.get());
+		simpleItemModel(MobZItems.FROZEN_POWDER.get());
 		simpleItemModel(MobZItems.HARDENEDMETAL_INGOT.get());
 
-		simpleItemModel(MobZItems.ORB.get());
-		simpleItemModel(MobZItems.ORB_2.get());
-		simpleItemModel(MobZItems.ROTTENFLESH.get());
+		simpleItemModel(MobZItems.IMMUNITY_ORB.get());
+		simpleItemModel(MobZItems.LEVITATION_ORB.get());
+		simpleItemModel(MobZItems.ROTTEN_FLESH.get());
 		this.sacrificeKnifeSubTexture();
 
 		this.lilithBowSubTexture();
-		simpleItemModel(MobZItems.SEALITEM.get());
-		simpleItemModel(MobZItems.SHOWEGG.get());
-		simpleItemModel(MobZItems.WHITEBAG.get());
+		simpleItemModel(MobZItems.SEAL_KEY.get());
+		simpleItemModel(MobZItems.SPAWN_EGG.get());
+		simpleItemModel(MobZItems.WHITE_BAG.get());
 
-		simpleItemModel(MobZItems.WITHERMEAL.get());
+		simpleItemModel(MobZItems.WITHER_POWDER.get());
 		simpleItemModel(MobZItems.MEDIVEAL_DISC.get());
 		simpleItemModel(MobZItems.MEDIVEAL_DISC2.get());
 
 		// Weapon
-		simpleItemModel(MobZWeapons.ArmoredSword.get());
-		simpleItemModel(MobZWeapons.BossSword.get());
-		simpleItemModel(MobZWeapons.PoisonSword.get());
-		simpleItemModel(MobZWeapons.Sword.get());
-		simpleItemModel(MobZWeapons.VSword.get());
+		simpleItemModel(MobZWeapons.ARMORED_SWORD.get());
+		simpleItemModel(MobZWeapons.BOSS_SWORD.get());
+		simpleItemModel(MobZWeapons.POISON_SWORD.get());
+		simpleItemModel(MobZWeapons.RAINBOW_SWORD.get());
+		simpleItemModel(MobZWeapons.STONE_TOMAHAWK.get());
 
 		// Armor
-		simpleItemModel(MobZArmors.amat_helmet.get());
-		simpleItemModel(MobZArmors.amat_chestplate.get());
-		simpleItemModel(MobZArmors.amat_leggings.get());
-		simpleItemModel(MobZArmors.amat_boots.get());
-		simpleItemModel(MobZArmors.boss_helmet.get());
-		simpleItemModel(MobZArmors.boss_chestplate.get());
-		simpleItemModel(MobZArmors.boss_leggings.get());
-		simpleItemModel(MobZArmors.boss_boots.get());
-		simpleItemModel(MobZArmors.life_helmet.get());
-		simpleItemModel(MobZArmors.life_chestplate.get());
-		simpleItemModel(MobZArmors.life_leggings.get());
-		simpleItemModel(MobZArmors.life_boots.get());
-		simpleItemModel(MobZArmors.speed_boots.get());
-		simpleItemModel(MobZArmors.speed2_boots.get());
+		simpleItemModel(MobZArmors.AMAT_HELMET.get());
+		simpleItemModel(MobZArmors.AMAT_CHESTPLATE.get());
+		simpleItemModel(MobZArmors.AMAT_LEGGINGS.get());
+		simpleItemModel(MobZArmors.AMAT_BOOTS.get());
+		simpleItemModel(MobZArmors.BOSS_HELMET.get());
+		simpleItemModel(MobZArmors.BOSS_CHESTPLATE.get());
+		simpleItemModel(MobZArmors.BOSS_LEGGINGS.get());
+		simpleItemModel(MobZArmors.BOSS_BOOTS.get());
+		simpleItemModel(MobZArmors.LIFE_HELMET.get());
+		simpleItemModel(MobZArmors.LIFE_CHESTPLATE.get());
+		simpleItemModel(MobZArmors.LIFE_LEGGINGS.get());
+		simpleItemModel(MobZArmors.LIFE_BOOTS.get());
+		simpleItemModel(MobZArmors.SPEED_BOOTS.get());
+		simpleItemModel(MobZArmors.SPEED2_BOOTS.get());
 	}
 }

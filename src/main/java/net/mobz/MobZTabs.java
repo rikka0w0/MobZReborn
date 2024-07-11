@@ -12,5 +12,5 @@ public class MobZTabs {
 			new ResourceLocation(MobZ.MODID, "glomod"), () -> new ItemStack(MobZBlocks.BOSS_TROPHY.get()));
 
 	public final static CreativeModeTab eggs = MobZ.platform.tab(
-			new ResourceLocation(MobZ.MODID, "glomodegg"), () -> new ItemStack(MobZItems.SHOWEGG.get()));
+			new ResourceLocation(MobZ.MODID, "glomodegg"), () -> new ItemStack(MobZItems.SPAWN_EGG.get()));
 }

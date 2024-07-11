@@ -23,7 +23,7 @@ public class EnderHeader extends AbstractHead {
 	}
 
 	public static boolean isValid(Level world, BlockPos pos, BlockState state) {
-		if (state.getBlock() != MobZBlocks.ENDERHEADER.get()) {
+		if (state.getBlock() != MobZBlocks.ENDER_HEADER.get()) {
 			return false;
 		}
 
@@ -39,9 +39,9 @@ public class EnderHeader extends AbstractHead {
 			if (top1.getBlock() == Blocks.SOUL_SAND) {
 				if (top2.getBlock() == Blocks.SOUL_SAND) {
 					if (top3.getBlock() == Blocks.SOUL_SAND) {
-						if (head1.getBlock() == MobZBlocks.ENDERHEADER.get()) {
-							if (head2.getBlock() == MobZBlocks.ENDERHEADER.get()) {
-								if (head3.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+						if (head1.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
+							if (head2.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
+								if (head3.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
 									world.removeBlock(pos, false);
 									world.removeBlock(pos.east(), false);
 									world.removeBlock(pos.west(), false);
@@ -67,9 +67,9 @@ public class EnderHeader extends AbstractHead {
 			if (top4.getBlock() == Blocks.SOUL_SAND) {
 				if (top2.getBlock() == Blocks.SOUL_SAND) {
 					if (top5.getBlock() == Blocks.SOUL_SAND) {
-						if (head4.getBlock() == MobZBlocks.ENDERHEADER.get()) {
-							if (head2.getBlock() == MobZBlocks.ENDERHEADER.get()) {
-								if (head5.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+						if (head4.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
+							if (head2.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
+								if (head5.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
 									world.removeBlock(pos, false);
 									world.removeBlock(pos.north(), false);
 									world.removeBlock(pos.south(), false);
@@ -93,7 +93,7 @@ public class EnderHeader extends AbstractHead {
 
 /*
  * public void onStacksDropped(BlockState state, World world, BlockPos pos,
- * ItemStack stack) { ItemStack headdrop = new ItemStack(Blocks.ENDERHEADER);
+ * ItemStack stack) { ItemStack headdrop = new ItemStack(Blocks.ENDER_HEADER);
  * super.onStacksDropped(state, world, pos, stack); if
  * (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 1) {
  * Block.dropStack(world, pos, headdrop); } }

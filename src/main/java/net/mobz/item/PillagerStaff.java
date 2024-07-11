@@ -35,7 +35,7 @@ public class PillagerStaff extends SimpleItem {
 
         BlockState state = world.getBlockState(context.getClickedPos());
 
-        if (state.getBlock() == MobZBlocks.ENDERHEADER.get()) {
+        if (state.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
             if (EnderHeader.isValid(world, context.getClickedPos(), state) && !world.isClientSide) {
                 Withender wither = MobZEntities.WITHENDER.get().create(world);
                 BlockPos oke = context.getClickedPos();

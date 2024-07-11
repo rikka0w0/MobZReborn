@@ -34,8 +34,8 @@ public class PillagerBoss extends Pillager {
     public PillagerBoss(EntityType<PillagerBoss> entityType_1, Level world_1) {
         super(entityType_1, world_1);
         this.xpReward = 50;
-        ItemStack itemStack = new ItemStack(MobZWeapons.ArmoredSword.get());
-        ItemStack itemStack2 = new ItemStack(MobZItems.PILLAGERSTAFF.get());
+        ItemStack itemStack = new ItemStack(MobZWeapons.ARMORED_SWORD.get());
+        ItemStack itemStack2 = new ItemStack(MobZItems.PILLAGER_STAFF.get());
         this.setItemSlot(EquipmentSlot.MAINHAND, itemStack2);
         this.setItemSlot(EquipmentSlot.OFFHAND, itemStack);
     }

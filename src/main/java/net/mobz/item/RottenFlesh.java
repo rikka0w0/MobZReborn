@@ -10,10 +10,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
 
-public class Rottenflesh extends SimpleItem {
+public class RottenFlesh extends SimpleItem {
 	public static final FoodProperties FOOD_COMPONENT = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.8F).meat().build();
 
-	public Rottenflesh(Item.Properties properties) {
+	public RottenFlesh(Item.Properties properties) {
 		super(properties.food(FOOD_COMPONENT));
 	}
 

@@ -49,7 +49,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
         super(entityType, world);
         this.setTame(false);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ArmoredSword.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
     }
 
     @Override

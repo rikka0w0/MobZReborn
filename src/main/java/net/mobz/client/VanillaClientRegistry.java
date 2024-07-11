@@ -8,7 +8,7 @@ import net.mobz.item.SacrificeKnife;
 public class VanillaClientRegistry {
 	public static void registerItemModelProperties(IItemModelPredicateWrapper itemProperties) {
 		// Ref: https://mcreator.net/forum/74855/tutorial-how-animate-custom-bow-pulling-116
-		itemProperties.register(MobZItems.SBOW.get(), new ResourceLocation("pull"),
+		itemProperties.register(MobZItems.LILITH_BOW.get(), new ResourceLocation("pull"),
 				(itemstack, world, entity, seed) -> {
 					if (entity == null) {
 						return 0.0F;
@@ -18,13 +18,13 @@ public class VanillaClientRegistry {
 				}
 			);
 
-		itemProperties.register(MobZItems.SBOW.get(), new ResourceLocation("pulling"),
+		itemProperties.register(MobZItems.LILITH_BOW.get(), new ResourceLocation("pulling"),
 				(itemstack, world, entity, seed) -> {
 					return entity != null && entity.isUsingItem() && entity.getUseItem() == itemstack ? 1.0F : 0.0F;
 				}
 			);
 
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("pulling"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("pulling"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -34,7 +34,7 @@ public class VanillaClientRegistry {
 					return 0F;
 				}
 			);
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -43,7 +43,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood3"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood3"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -52,7 +52,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood4"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood4"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -61,7 +61,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood1dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood1dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -70,7 +70,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood1dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood1dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -79,7 +79,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood2dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood2dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -88,7 +88,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood2dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood2dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -97,7 +97,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood3dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood3dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -106,7 +106,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood3dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood3dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -115,7 +115,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood4dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood4dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -124,7 +124,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICEKNIFE.get(), new ResourceLocation("blood4dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood4dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);

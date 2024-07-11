@@ -13,8 +13,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
-public class Orb extends Item {
-    public Orb(Item.Properties properties) {
+public class ImmunityOrb extends Item {
+    public ImmunityOrb(Item.Properties properties) {
         super(properties);
     }
 

@@ -12,8 +12,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-public class WitherMeal extends SimpleItem {
-	public WitherMeal(Properties properties) {
+public class WitherPowder extends SimpleItem {
+	public WitherPowder(Properties properties) {
 		super(properties);
 	}
 

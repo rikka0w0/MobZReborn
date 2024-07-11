@@ -21,14 +21,14 @@ import net.minecraft.world.level.Level;
 import net.mobz.entity.MetalGolem;
 import net.mobz.init.MobZEntities;
 
-public class HardenedMetalblock extends Block {
+public class HardenedMetalBlock extends Block {
 	@Nullable
 	private BlockPattern golemPattern;
 	private static final Predicate<BlockState> IS_PUMPKIN = (state) -> {
 		return state != null && (state.is(Blocks.CARVED_PUMPKIN) || state.is(Blocks.JACK_O_LANTERN));
 	};
 
-	public HardenedMetalblock(Properties settings) {
+	public HardenedMetalBlock(Properties settings) {
 		super(settings);
 	}
 

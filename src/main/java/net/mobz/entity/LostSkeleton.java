@@ -37,7 +37,7 @@ public class LostSkeleton extends Skeleton {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.VSword.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.STONE_TOMAHAWK.get()));
     }
 
     @Override

@@ -61,7 +61,7 @@ public class Dwarf extends Vindicator {
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
 		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.Axe.get()));
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ERAGONS_AXE.get()));
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZItems.SHIELD.get()));
 		}
 	}

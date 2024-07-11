@@ -15,8 +15,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
-public class Sbow extends BowItem {
-    public Sbow(Item.Properties properties) {
+public class LilithBow extends BowItem {
+    public LilithBow(Item.Properties properties) {
         super(properties);
     }
 

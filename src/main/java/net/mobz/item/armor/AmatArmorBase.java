@@ -56,10 +56,10 @@ public class AmatArmorBase extends ArmorItem {
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         LivingEntity bob = (LivingEntity) entity;
         MobEffectInstance fireResistance = new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 9, 0, false, false);
-        if (bob.getItemBySlot(EquipmentSlot.FEET).is(MobZArmors.amat_boots.get())
-                && bob.getItemBySlot(EquipmentSlot.LEGS).is(MobZArmors.amat_leggings.get())
-                && bob.getItemBySlot(EquipmentSlot.CHEST).is(MobZArmors.amat_chestplate.get())
-                && bob.getItemBySlot(EquipmentSlot.HEAD).is(MobZArmors.amat_helmet.get())
+        if (bob.getItemBySlot(EquipmentSlot.FEET).is(MobZArmors.AMAT_BOOTS.get())
+                && bob.getItemBySlot(EquipmentSlot.LEGS).is(MobZArmors.AMAT_LEGGINGS.get())
+                && bob.getItemBySlot(EquipmentSlot.CHEST).is(MobZArmors.AMAT_CHESTPLATE.get())
+                && bob.getItemBySlot(EquipmentSlot.HEAD).is(MobZArmors.AMAT_HELMET.get())
                 && !world.isClientSide) {
             bob.addEffect(fireResistance);
         }

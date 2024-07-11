@@ -33,11 +33,11 @@ public class WhiteBag extends SimpleItem {
         if (!world.isClientSide) {
             switch (randomNumber) {
                 case 0:
-                    return new ItemStack(MobZWeapons.Axe.get());
+                    return new ItemStack(MobZWeapons.ERAGONS_AXE.get());
                 case 1:
-                    return new ItemStack(MobZWeapons.Sword.get());
+                    return new ItemStack(MobZWeapons.RAINBOW_SWORD.get());
                 case 2:
-                    return new ItemStack(MobZItems.ORB_2.get());
+                    return new ItemStack(MobZItems.LEVITATION_ORB.get());
                 case 3:
                     return new ItemStack(MobZItems.BOSS_INGOT.get(), 2);
                 default:

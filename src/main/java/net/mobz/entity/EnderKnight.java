@@ -63,7 +63,7 @@ public class EnderKnight extends Vindicator {
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
         if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WitherSword.get()));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WITHER_SWORD.get()));
 
         }
     }

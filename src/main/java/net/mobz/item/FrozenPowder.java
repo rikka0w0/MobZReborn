@@ -16,8 +16,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 
-public class FrozenMeal extends SimpleItem {
-	public FrozenMeal(Properties properties) {
+public class FrozenPowder extends SimpleItem {
+	public FrozenPowder(Properties properties) {
 		super(properties);
 	}
 
