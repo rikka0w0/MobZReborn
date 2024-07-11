@@ -52,8 +52,8 @@ public class SacrificeKnife extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip,
 			TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.sacrificeknife.tooltip"));
-		tooltip.add(Component.translatable("item.mobz.sacrificeknife.tooltip2"));
+		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip"));
+		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip2"));
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class SacrificeKnife extends Item {
 							setParam(itemStack, 0, 0);
 							return InteractionResult.SUCCESS;
 						} else {
-							player.displayClientMessage(Component.translatable("text.mobz.sacrificeknifeblood"),
+							player.displayClientMessage(Component.translatable("text.mobz.sacrifice_knife_blood"),
 									true);
 							return InteractionResult.PASS;
 						}

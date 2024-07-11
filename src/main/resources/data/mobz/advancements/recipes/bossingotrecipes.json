@@ -4,7 +4,7 @@
     "recipes": [
       "mobz:boss_block",
       "mobz:boss_block2",
-      "mobz:hardenedmetal_ingot",
+      "mobz:hardened_metal_ingot",
       "mobz:boss_boots",
       "mobz:boss_chestplate",
       "mobz:boss_helmet",
@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "item": "mobz:hardenedmetal_ingot"
+            "item": "mobz:hardened_metal_ingot"
           }
         ]
       }

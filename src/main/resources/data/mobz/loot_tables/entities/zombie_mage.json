@@ -51,7 +51,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "mobz:medivealdisc2"
+					"name": "mobz:mediveal_disc_2"
 				}
 			],
 			"conditions": [

@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mobz:withermeal",
+      "mobz:wither_powder",
       "mobz:wither_sword"
     ]
   },
   "criteria": {
-    "got_the_withermeal": {
+    "got_the_wither_powder": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mobz:withermeal"
+            "item": "mobz:wither_powder"
           }
         ]
       }

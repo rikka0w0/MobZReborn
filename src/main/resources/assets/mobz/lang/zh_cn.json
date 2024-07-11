@@ -74,10 +74,10 @@
     "item.mobz.boss_ingot": "魔法金锭",
     "item.mobz.boss_ingot.tooltip": "§5史诗材料",
 
-    "item.mobz.medivealdisc": "中世纪音碟",
-    "item.mobz.medivealdisc2": "中世纪音碟II",
-    "item.mobz.medivealdisc.desc": "Z418 中世纪",
-    "item.mobz.medivealdisc2.desc": "Z418 中世纪 II",
+    "item.mobz.mediveal_disc": "中世纪音碟",
+    "item.mobz.mediveal_disc_2": "中世纪音碟II",
+    "item.mobz.mediveal_disc.desc": "Z418 中世纪",
+    "item.mobz.mediveal_disc_2.desc": "Z418 中世纪 II",
 
     "item.mobz.axe": "龙骑士的斧子",
     "item.mobz.axe.tooltip": "§b罕见",
@@ -88,8 +88,8 @@
     "item.mobz.sword": "彩虹剑",
     "item.mobz.sword.tooltip": "§6传奇",
 
-    "item.mobz.hardenedmetal_ingot": "硬金属锭",
-    "item.mobz.hardenedmetal_ingot.tooltip": "§2不常见的材料",
+    "item.mobz.hardened_metal_ingot": "硬金属锭",
+    "item.mobz.hardened_metal_ingot.tooltip": "§2不常见的材料",
 
     "item.mobz.speed_boots": "速度之靴",
     "item.mobz.speed_boots.tooltip": "§2不常见",
@@ -109,8 +109,8 @@
     "item.mobz.frozen_sword": "冰冻之剑",
     "item.mobz.frozen_sword.tooltip": "§2不常见",
 
-    "item.mobz.rottenflesh": "厚腐肉",
-    "item.mobz.rottenflesh.tooltip": "§7常见",
+    "item.mobz.rotten_flesh": "厚腐肉",
+    "item.mobz.rotten_flesh.tooltip": "§7常见",
 
     "item.mobz.amat_boots": "阿丽亚金靴",
     "item.mobz.amat_chestplate": "阿丽亚胸甲",
@@ -124,42 +124,42 @@
     "item.mobz.wither_sword": "亚瑟之剑",
     "item.mobz.wither_sword.tooltip": "§2不常见",
 
-    "item.mobz.withermeal": "凋零粉",
-    "item.mobz.withermeal.tooltip": "§2不常见的材料",
-    "item.mobz.frozenmeal": "冻粉",
-    "item.mobz.frozenmeal.tooltip": "§2不常见的材料",
+    "item.mobz.wither_powder": "凋零粉",
+    "item.mobz.wither_powder.tooltip": "§2不常见的材料",
+    "item.mobz.frozen_power": "冻粉",
+    "item.mobz.frozen_power.tooltip": "§2不常见的材料",
 
-    "item.mobz.bearleather": "熊皮革",
-    "item.mobz.bearleather.tooltip": "§7常见",
+    "item.mobz.bear_leather": "熊皮革",
+    "item.mobz.bear_leather.tooltip": "§7常见",
 
     "item.mobz.v_sword": "石战斧",
     "item.mobz.v_sword.tooltip": "§2不常见",
 
-    "item.mobz.sbow": "莉莉丝之弓",
-    "item.mobz.sbow.tooltip": "§b罕见",
+    "item.mobz.lilith_bow": "莉莉丝之弓",
+    "item.mobz.lilith_bow.tooltip": "§b罕见",
 
-    "item.mobz.orb": "免疫球",
-    "item.mobz.orb.tooltip": "§9免疫凋零+中毒",
-    "item.mobz.orb.tooltip2": "§5史诗",
+    "item.mobz.immunity_orb": "免疫球",
+    "item.mobz.immunity_orb.tooltip": "§9免疫凋零+中毒",
+    "item.mobz.immunity_orb.tooltip2": "§5史诗",
 
     "item.mobz.debuger": "调试棒",
 
-    "item.mobz.whitebag": "白色的包",
-    "item.mobz.whitebag.tooltip": "§6传奇",
+    "item.mobz.white_bag": "白色的包",
+    "item.mobz.white_bag.tooltip": "§6传奇",
 
-    "item.mobz.orb2": "悬浮球",
-    "item.mobz.orb2.tooltip": "§9悬浮",
-    "item.mobz.orb2.tooltip2": "§6传奇",
+    "item.mobz.levitation_orb": "悬浮球",
+    "item.mobz.levitation_orb.tooltip": "§9悬浮",
+    "item.mobz.levitation_orb.tooltip2": "§6传奇",
 
-    "item.mobz.showegg": "Spawn Egg",
+    "item.mobz.spawn_egg": "Spawn Egg",
     "item.mobz.spawnegg": "%s 刷怪蛋",
 
-    "item.mobz.pillagerstaff": "大掠夺者之杖",
-    "item.mobz.pillagerstaff.tooltip": "§5史诗",
+    "item.mobz.pillager_staff": "大掠夺者之杖",
+    "item.mobz.pillager_staff.tooltip": "§5史诗",
 
-    "item.mobz.sacrificeknife": "献祭刀",
-    "item.mobz.sacrificeknife.tooltip": "§4以血还血",
-    "item.mobz.sacrificeknife.tooltip2": "§2不常见",
+    "item.mobz.sacrifice_knife": "献祭刀",
+    "item.mobz.sacrifice_knife.tooltip": "§4以血还血",
+    "item.mobz.sacrifice_knife.tooltip2": "§2不常见",
 
     "block.mobz.boss_block": "魔法金块",
     "block.mobz.boss_block.tooltip": "§6传奇材料",
@@ -185,8 +185,8 @@
 
     "block.mobz.treasure_block": "密封石砖",
     "block.mobz.treasure_block.tooltip": "§b罕见",
-    "item.mobz.sealitem": "密封的关键",
-    "item.mobz.sealitem.tooltip": "§b罕见",
+    "item.mobz.seal_key": "密封的关键",
+    "item.mobz.seal_key.tooltip": "§b罕见",
 
     "itemGroup.mobz.glomod": "MobZ",
     "itemGroup.mobz.glomodegg": "MobZ刷怪蛋",
@@ -252,5 +252,5 @@
     "text.mobz.withendermissing": "似乎缺了点什么...",
     "text.mobz.pillagermissing": "缺失图腾",
     "text.mobz.pillagerspawnable": "掠夺者首领被禁用了",
-    "text.mobz.sacrificeknifeblood": "刀上的血还不够"
+    "text.mobz.sacrifice_knife_blood": "刀上的血还不够"
 }

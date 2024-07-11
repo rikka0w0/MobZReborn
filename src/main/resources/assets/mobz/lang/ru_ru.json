@@ -74,10 +74,10 @@
     "item.mobz.boss_ingot": "§6Зачарованный золотой слиток",
     "item.mobz.boss_ingot.tooltip": "Редкий материал",
 
-    "item.mobz.medivealdisc": "§bСредневековая пластинка",
-    "item.mobz.medivealdisc2": "§bСредневековая пластинка II",
-    "item.mobz.medivealdisc.desc": "Z418 mediveal",
-    "item.mobz.medivealdisc2.desc": "Z418 mediveal II",
+    "item.mobz.mediveal_disc": "§bСредневековая пластинка",
+    "item.mobz.mediveal_disc_2": "§bСредневековая пластинка II",
+    "item.mobz.mediveal_disc.desc": "Z418 mediveal",
+    "item.mobz.mediveal_disc_2.desc": "Z418 mediveal II",
 
     "item.mobz.axe": "§5Топор Эрагона",
     "item.mobz.axe.tooltip": "§bRare",
@@ -88,8 +88,8 @@
     "item.mobz.sword": "Радужный меч",
     "item.mobz.sword.tooltip": "§6Legendary",
 
-    "item.mobz.hardenedmetal_ingot": "§7Металлический слиток",
-    "item.mobz.hardenedmetal_ingot.tooltip": "Необычный материал",
+    "item.mobz.hardened_metal_ingot": "§7Металлический слиток",
+    "item.mobz.hardened_metal_ingot.tooltip": "Необычный материал",
 
     "item.mobz.speed_boots": "Ботинки скорости",
     "item.mobz.speed_boots.tooltip": "§2Uncommon",
@@ -109,8 +109,8 @@
     "item.mobz.frozen_sword": "§3Замороженный меч",
     "item.mobz.frozen_sword.tooltip": "§2Uncommon",
 
-    "item.mobz.rottenflesh": "Плотная гнилая плоть",
-    "item.mobz.rottenflesh.tooltip": "§7Common",
+    "item.mobz.rotten_flesh": "Плотная гнилая плоть",
+    "item.mobz.rotten_flesh.tooltip": "§7Common",
 
     "item.mobz.amat_boots": "§4Ботинки Ариаса",
     "item.mobz.amat_chestplate": "§4Нагрудник Ариаса",
@@ -124,42 +124,42 @@
     "item.mobz.wither_sword": "§8Меч Артуса",
     "item.mobz.wither_sword.tooltip": "§2Uncommon",
 
-    "item.mobz.withermeal": "Порошок иссушителя",
-    "item.mobz.withermeal.tooltip": "§2Uncommon Material",
-    "item.mobz.frozenmeal": "Frozen Powder",
-    "item.mobz.frozenmeal.tooltip": "§2Uncommon Material",
+    "item.mobz.wither_powder": "Порошок иссушителя",
+    "item.mobz.wither_powder.tooltip": "§2Uncommon Material",
+    "item.mobz.frozen_power": "Frozen Powder",
+    "item.mobz.frozen_power.tooltip": "§2Uncommon Material",
 
-    "item.mobz.bearleather": "Кожа медведя",
-    "item.mobz.bearleather.tooltip": "§7Common",
+    "item.mobz.bear_leather": "Кожа медведя",
+    "item.mobz.bear_leather.tooltip": "§7Common",
 
     "item.mobz.v_sword": "Видимый меч",
     "item.mobz.v_sword.tooltip": "§2Uncommon",
 
-    "item.mobz.sbow": "§5Лук Лилит",
-    "item.mobz.sbow.tooltip": "§bRare",
+    "item.mobz.lilith_bow": "§5Лук Лилит",
+    "item.mobz.lilith_bow.tooltip": "§bRare",
 
-    "item.mobz.orb": "§5Сфера неприкосновенности",
-    "item.mobz.orb.tooltip": "§9Иммунтитет к иссушению + отравлению",
-    "item.mobz.orb.tooltip2": "§5Epic",
+    "item.mobz.immunity_orb": "§5Сфера неприкосновенности",
+    "item.mobz.immunity_orb.tooltip": "§9Иммунтитет к иссушению + отравлению",
+    "item.mobz.immunity_orb.tooltip2": "§5Epic",
 
     "item.mobz.debuger": "Отладочная палка",
 
-    "item.mobz.whitebag": "Белая сумка",
-    "item.mobz.whitebag.tooltip": "Крайне редкий",
+    "item.mobz.white_bag": "Белая сумка",
+    "item.mobz.white_bag.tooltip": "Крайне редкий",
 
-    "item.mobz.orb2": "§5Сфера левитации",
-    "item.mobz.orb2.tooltip": "§9Левитация",
-    "item.mobz.orb2.tooltip2": "Используйте правую кнопку для активации",
+    "item.mobz.levitation_orb": "§5Сфера левитации",
+    "item.mobz.levitation_orb.tooltip": "§9Левитация",
+    "item.mobz.levitation_orb.tooltip2": "Используйте правую кнопку для активации",
 
-    "item.mobz.showegg": "Яйцо призывания",
+    "item.mobz.spawn_egg": "Яйцо призывания",
     "item.mobz.spawnegg": "%s Яйцо призывания",
 
-    "item.mobz.pillagerstaff": "§6Посох могущественного разбойника",
-    "item.mobz.pillagerstaff.tooltip": "Наполнен иссушением",
+    "item.mobz.pillager_staff": "§6Посох могущественного разбойника",
+    "item.mobz.pillager_staff.tooltip": "Наполнен иссушением",
 
-    "item.mobz.sacrificeknife": "Нож для жертвоприношений",
-    "item.mobz.sacrificeknife.tooltip": "§4Кровь за кровь",
-    "item.mobz.sacrificeknife.tooltip2": "§2Uncommon",
+    "item.mobz.sacrifice_knife": "Нож для жертвоприношений",
+    "item.mobz.sacrifice_knife.tooltip": "§4Кровь за кровь",
+    "item.mobz.sacrifice_knife.tooltip2": "§2Uncommon",
 
     "block.mobz.boss_block": "Enchanted Gold Block",
     "block.mobz.boss_block.tooltip": "§6Legendary Material",
@@ -185,8 +185,8 @@
 
     "block.mobz.treasure_block": "Sealed Stone Brick",
     "block.mobz.treasure_block.tooltip": "§bRare",
-    "item.mobz.sealitem": "Seal Key",
-    "item.mobz.sealitem.tooltip": "§bRare",
+    "item.mobz.seal_key": "Seal Key",
+    "item.mobz.seal_key.tooltip": "§bRare",
 
     "itemGroup.mobz.glomod": "MobZ",
     "itemGroup.mobz.glomodegg": "Яйца призыва MobZ",
@@ -251,5 +251,5 @@
     "text.mobz.withendermissing": "Чего-то не хватает",
     "text.mobz.pillagermissing": "Часть тотема отсутствует",
     "text.mobz.pillagerspawnable": "Значение спауна установлено в false",
-    "text.mobz.sacrificeknifeblood": "Нож недостаточно кровавый"
+    "text.mobz.sacrifice_knife_blood": "Нож недостаточно кровавый"
 }

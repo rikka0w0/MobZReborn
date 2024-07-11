@@ -32,7 +32,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "mobz:medivealdisc"
+					"name": "mobz:mediveal_disc"
 				}
 			],
 			"conditions": [

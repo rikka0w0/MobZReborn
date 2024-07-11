@@ -6,13 +6,13 @@
   ],
   "key": {
     "d": {
-      "item": "mobz:hardenedmetal_ingot"
+      "item": "mobz:hardened_metal_ingot"
     },
     "e": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "mobz:sacrificeknife"
+    "item": "mobz:sacrifice_knife"
   }
 }

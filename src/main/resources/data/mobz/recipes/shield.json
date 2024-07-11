@@ -7,13 +7,13 @@
   ],
   "key": {
     "d": {
-      "item": "mobz:hardenedmetal_ingot"
+      "item": "mobz:hardened_metal_ingot"
     },
     "e": {
       "tag": "minecraft:planks"
     },
     "f": {
-      "item": "mobz:bearleather"
+      "item": "mobz:bear_leather"
     }
   },
   "result": {

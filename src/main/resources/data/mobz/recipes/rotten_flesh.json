@@ -1,7 +1,7 @@
 {
     "type": "minecraft:smelting",
     "ingredient": {
-        "item": "mobz:rottenflesh"
+        "item": "mobz:rotten_flesh"
     },
     "result": "minecraft:leather",
     "experience": 0.1,

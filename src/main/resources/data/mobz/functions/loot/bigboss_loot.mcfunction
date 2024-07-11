@@ -1,1 +1,1 @@
-give @s mobz:whitebag
+give @s mobz:white_bag

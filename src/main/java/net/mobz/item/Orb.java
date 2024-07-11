@@ -20,8 +20,8 @@ public class Orb extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.orb.tooltip"));
-        tooltip.add(Component.translatable("item.mobz.orb.tooltip2"));
+        tooltip.add(Component.translatable("item.mobz.immunity_orb.tooltip"));
+        tooltip.add(Component.translatable("item.mobz.immunity_orb.tooltip2"));
     }
 
     @Override

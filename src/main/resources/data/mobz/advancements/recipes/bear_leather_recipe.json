@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mobz:bearleather",
+      "mobz:bear_leather",
       "mobz:speed_boots"
     ]
   },
   "criteria": {
-    "got_the_bearleather": {
+    "got_the_bear_leather": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mobz:bearleather"
+            "item": "mobz:bear_leather"
           }
         ]
       }

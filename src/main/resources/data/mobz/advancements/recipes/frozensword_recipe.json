@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "got_the_frozenmeal": {
+    "got_the_frozen_power": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mobz:frozenmeal"
+            "item": "mobz:frozen_power"
           }
         ]
       }

@@ -32,7 +32,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "mobz:whitebag"
+					"name": "mobz:white_bag"
 				}
 			],
 			"conditions": [

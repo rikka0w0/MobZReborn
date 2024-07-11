@@ -74,10 +74,10 @@
     "item.mobz.boss_ingot": "Enchanted Gold Ingot",
     "item.mobz.boss_ingot.tooltip": "§5Epic Material",
 
-    "item.mobz.medivealdisc": "§bMediveal Music Disc",
-    "item.mobz.medivealdisc2": "§bMediveal Music Disc II",
-    "item.mobz.medivealdisc.desc": "Z418 Mediveal",
-    "item.mobz.medivealdisc2.desc": "Z418 Mediveal II",
+    "item.mobz.mediveal_disc": "§bMediveal Music Disc",
+    "item.mobz.mediveal_disc_2": "§bMediveal Music Disc II",
+    "item.mobz.mediveal_disc.desc": "Z418 Mediveal",
+    "item.mobz.mediveal_disc_2.desc": "Z418 Mediveal II",
     
     "item.mobz.axe": "Eragons Axe",
     "item.mobz.axe.tooltip": "§bRare",
@@ -88,8 +88,8 @@
     "item.mobz.sword": "Rainbow Sword",
     "item.mobz.sword.tooltip": "§6Legendary",
 
-    "item.mobz.hardenedmetal_ingot": "Metal Ingot",
-    "item.mobz.hardenedmetal_ingot.tooltip": "§2Uncommon Material",
+    "item.mobz.hardened_metal_ingot": "Metal Ingot",
+    "item.mobz.hardened_metal_ingot.tooltip": "§2Uncommon Material",
 
     "item.mobz.speed_boots": "Speed Boots",
     "item.mobz.speed_boots.tooltip": "§2Uncommon",
@@ -109,8 +109,8 @@
     "item.mobz.frozen_sword": "Frozen Sword",
     "item.mobz.frozen_sword.tooltip": "§2Uncommon",
 
-    "item.mobz.rottenflesh": "Thick Rotten Flesh",
-    "item.mobz.rottenflesh.tooltip": "§7Common",
+    "item.mobz.rotten_flesh": "Thick Rotten Flesh",
+    "item.mobz.rotten_flesh.tooltip": "§7Common",
 
     "item.mobz.amat_boots": "Aryas Boots",
     "item.mobz.amat_chestplate": "Aryas Chestplate",
@@ -124,42 +124,42 @@
     "item.mobz.wither_sword": "Artus Sword",
     "item.mobz.wither_sword.tooltip": "§2Uncommon",
 
-    "item.mobz.withermeal": "Wither Powder",
-    "item.mobz.withermeal.tooltip": "§2Uncommon Material",
-    "item.mobz.frozenmeal": "Frozen Powder",
-    "item.mobz.frozenmeal.tooltip": "§2Uncommon Material",
+    "item.mobz.wither_powder": "Wither Powder",
+    "item.mobz.wither_powder.tooltip": "§2Uncommon Material",
+    "item.mobz.frozen_power": "Frozen Powder",
+    "item.mobz.frozen_power.tooltip": "§2Uncommon Material",
 
-    "item.mobz.bearleather": "Bear Leather",
-    "item.mobz.bearleather.tooltip": "§7Common",
+    "item.mobz.bear_leather": "Bear Leather",
+    "item.mobz.bear_leather.tooltip": "§7Common",
 
     "item.mobz.v_sword": "Stone Tomahawk",
     "item.mobz.v_sword.tooltip": "§2Uncommon",
 
-    "item.mobz.sbow": "Lilith´s Bow",
-    "item.mobz.sbow.tooltip": "§bRare",
+    "item.mobz.lilith_bow": "Lilith´s Bow",
+    "item.mobz.lilith_bow.tooltip": "§bRare",
 
-    "item.mobz.orb": "Orb of Immunity",
-    "item.mobz.orb.tooltip": "§9Immune to Wither + Poison",
-    "item.mobz.orb.tooltip2": "§5Epic",
+    "item.mobz.immunity_orb": "Orb of Immunity",
+    "item.mobz.immunity_orb.tooltip": "§9Immune to Wither + Poison",
+    "item.mobz.immunity_orb.tooltip2": "§5Epic",
 
     "item.mobz.debuger": "Debug Stick",
 
-    "item.mobz.whitebag": "White Bag",
-    "item.mobz.whitebag.tooltip": "§6Legendary",
+    "item.mobz.white_bag": "White Bag",
+    "item.mobz.white_bag.tooltip": "§6Legendary",
 
-    "item.mobz.orb2": "Orb of Levitation",
-    "item.mobz.orb2.tooltip": "§9Levitation",
-    "item.mobz.orb2.tooltip2": "§6Legendary",
+    "item.mobz.levitation_orb": "Orb of Levitation",
+    "item.mobz.levitation_orb.tooltip": "§9Levitation",
+    "item.mobz.levitation_orb.tooltip2": "§6Legendary",
 
-    "item.mobz.showegg": "Spawn Egg",
+    "item.mobz.spawn_egg": "Spawn Egg",
     "item.mobz.spawnegg": "%s Spawn Egg",
 
-    "item.mobz.pillagerstaff": "Staff of the Mighty Pillager",
-    "item.mobz.pillagerstaff.tooltip": "§5Epic",
+    "item.mobz.pillager_staff": "Staff of the Mighty Pillager",
+    "item.mobz.pillager_staff.tooltip": "§5Epic",
 
-    "item.mobz.sacrificeknife": "Sacrifice Knife",
-    "item.mobz.sacrificeknife.tooltip": "§4Blood for blood",
-    "item.mobz.sacrificeknife.tooltip2": "§2Uncommon",
+    "item.mobz.sacrifice_knife": "Sacrifice Knife",
+    "item.mobz.sacrifice_knife.tooltip": "§4Blood for blood",
+    "item.mobz.sacrifice_knife.tooltip2": "§2Uncommon",
 
     "block.mobz.boss_block": "Enchanted Gold Block",
     "block.mobz.boss_block.tooltip": "§6Legendary Material",
@@ -185,8 +185,8 @@
 
     "block.mobz.treasure_block": "Sealed Stone Brick",
     "block.mobz.treasure_block.tooltip": "§bRare",
-    "item.mobz.sealitem": "Seal Key",
-    "item.mobz.sealitem.tooltip": "§bRare",
+    "item.mobz.seal_key": "Seal Key",
+    "item.mobz.seal_key.tooltip": "§bRare",
 
     "itemGroup.mobz.glomod": "MobZ",
     "itemGroup.mobz.glomodegg": "MobZ Spawn Eggs",
@@ -252,5 +252,5 @@
     "text.mobz.withendermissing": "Something is missing",
     "text.mobz.pillagermissing": "Totem Part is missing",
     "text.mobz.pillagerspawnable": "Spawn is set to false",
-    "text.mobz.sacrificeknifeblood": "Knife is too less bloody"
+    "text.mobz.sacrifice_knife_blood": "Knife is too less bloody"
 }

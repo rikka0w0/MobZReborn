@@ -51,7 +51,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "mobz:pillagerstaff"
+          "name": "mobz:pillager_staff"
         }
       ],
       "conditions": [

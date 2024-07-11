@@ -32,7 +32,7 @@
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "mobz:bearleather"
+                    "name": "mobz:bear_leather"
                 }
             ],
             "conditions": [

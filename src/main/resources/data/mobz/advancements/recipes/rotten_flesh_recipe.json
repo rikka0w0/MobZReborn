@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mobz:rottenflesh"
+      "mobz:rotten_flesh"
     ]
   },
   "criteria": {
-    "got_the_rottenflesh": {
+    "got_the_rotten_flesh": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mobz:rottenflesh"
+            "item": "mobz:rotten_flesh"
           }
         ]
       }
