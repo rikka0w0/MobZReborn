@@ -7,13 +7,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.fabricmc.fabric.impl.biome.modification.BiomeModificationImpl;
 import net.minecraft.core.RegistryAccess;
-
-import net.mobz.fabric.AddSpawnsBiomeModifier;
+import net.mobz.fabric.biome.BiomeModifierRegistry;
 
 @Mixin(BiomeModificationImpl.class)
 public abstract class BiomeModificationImplMixin {
 	@Inject(method = "finalizeWorldGen", at = @At(value = "HEAD"))
 	private void parseBiomeModifiers(RegistryAccess impl, CallbackInfo ci) {
-		AddSpawnsBiomeModifier.parseBiomeModifiers(impl);
+		BiomeModifierRegistry.applyAll(impl);
 	}
 }

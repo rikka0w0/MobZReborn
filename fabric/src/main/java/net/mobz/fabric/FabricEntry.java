@@ -7,7 +7,9 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+
 import net.mobz.MobZ;
+import net.mobz.fabric.biome.BiomeModifierRegistry;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
 
@@ -37,6 +39,6 @@ public class FabricEntry implements ModInitializer {
 		LootTableModifier.loadAll(FabricEntry::addRoll);
 
 		// Add spawns
-		AddSpawnsBiomeModifier.FOLDER_NAME.getClass();
+		BiomeModifierRegistry.REGISTRY_KEY.getClass();
 	}
 }
