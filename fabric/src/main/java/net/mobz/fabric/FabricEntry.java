@@ -1,17 +1,8 @@
 package net.mobz.fabric;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder;
@@ -46,33 +37,6 @@ public class FabricEntry implements ModInitializer {
 		LootTableModifier.loadAll(FabricEntry::addRoll);
 
 		// Add spawns
-		ResourceManagerHelper.get(PackType.SERVER_DATA)
-				.registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-					@Override
-					public ResourceLocation getFabricId() {
-						return AddSpawnsBiomeModifier.resloc;
-					}
-
-					@Override
-					public CompletableFuture<Void> reload(PreparationBarrier preparationBarrier,
-							ResourceManager resourceManager, ProfilerFiller serverProfiler,
-							ProfilerFiller clientProfiler, Executor serverExecutor, Executor clientExecutor) {
-						return preparationBarrier.wait(null).thenRunAsync(() -> {
-							serverProfiler.startTick();
-							serverProfiler.push("Reloading MobZ spawns");
-							try {
-								AddSpawnsBiomeModifier.onDataPackReload(resourceManager);
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-							serverProfiler.pop();
-							serverProfiler.endTick();
-						});
-					}
-
-					@Override
-					public void onResourceManagerReload(ResourceManager resourceManager) {
-					}
-				});
+		AddSpawnsBiomeModifier.FOLDER_NAME.getClass();
 	}
 }

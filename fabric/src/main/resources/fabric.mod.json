@@ -17,6 +17,9 @@
   "icon": "mobz_logo.png",
   "environment": "*",
   "entrypoints": {
+    "fabric-datagen": [
+      "net.mobz.fabric.DataGeneratorEntry"
+    ],
     "main": [
       "net.mobz.fabric.FabricEntry"
     ],

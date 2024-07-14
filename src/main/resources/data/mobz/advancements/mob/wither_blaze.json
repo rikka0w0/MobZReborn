@@ -1,5 +1,5 @@
 {
-    "parent": "mobz:mob/frost",
+    "parent": "mobz:mob/frost_blaze",
     "display": {
         "icon": {
             "item": "mobz:head_wither_blaze"

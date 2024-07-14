@@ -66,7 +66,7 @@ runs {
 		workingDirectory project.file('run-data')
 
 		// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-		programArguments.addAll '--mod', mod_id, '--all', '--output', file('../src/generated/resources/').getAbsolutePath(), '--existing', file('../src/main/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+		programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('../src/main/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
 	}
 }
 
@@ -86,7 +86,7 @@ sourceSets {
 		}
 		resources {
 			srcDir "../src/main/resources"
-			srcDir "../src/generated/resources"
+			srcDir "src/generated/resources"
 			exclude '.cache'
 			exclude 'Thumbs.db'
 		}

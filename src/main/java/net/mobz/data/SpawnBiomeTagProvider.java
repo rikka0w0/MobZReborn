@@ -1,8 +1,6 @@
-package net.mobz.neoforge.datagen;
+package net.mobz.data;
 
 import java.util.concurrent.CompletableFuture;
-
-import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
@@ -11,14 +9,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
 import net.mobz.MobZ;
 
 public class SpawnBiomeTagProvider extends TagsProvider<Biome> {
 	public SpawnBiomeTagProvider(PackOutput packOutput,
-			CompletableFuture<HolderLookup.Provider> lookupProvider,
-			@Nullable ExistingFileHelper existingFileHelper) {
-		super(packOutput, Registries.BIOME, lookupProvider, MobZ.MODID, existingFileHelper);;
+			CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, Registries.BIOME, lookupProvider);
 	}
 
 	@Override
@@ -34,4 +31,9 @@ public class SpawnBiomeTagProvider extends TagsProvider<Biome> {
 		this.tag(MobZ.SPAWN_ICY_TAG).add(Biomes.SNOWY_PLAINS).add(Biomes.ICE_SPIKES).add(Biomes.SNOWY_TAIGA)
 				.add(Biomes.GROVE).add(Biomes.SNOWY_SLOPES).add(Biomes.FROZEN_PEAKS).add(Biomes.JAGGED_PEAKS);
 	}
+
+    @Override
+    public String getName() {
+        return "Tags for " + this.registryKey.location() + " mod id " + MobZ.MODID;
+    }
 }
