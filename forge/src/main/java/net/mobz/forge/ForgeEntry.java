@@ -27,7 +27,9 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -44,8 +46,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
-import net.mobz.forge.datagen.SpawnBiomeTagProvider;
-import net.mobz.forge.datagen.SpawnEggItemModelDataProvider;
+import net.mobz.data.ItemModelDataProvider;
+import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
 import net.mobz.init.MobSpawns;
@@ -116,10 +118,10 @@ public class ForgeEntry {
 			);
 
 			// Data: Biome tags for spawns
-			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider, exfh));
+			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider));
 
 			// Resource: SpawnEgg items
-			generator.addProvider(event.includeClient(), new SpawnEggItemModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  exfh));
+			generator.addProvider(event.includeClient(), new ItemModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
 		}
 	}
 

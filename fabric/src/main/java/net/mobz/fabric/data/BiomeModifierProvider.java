@@ -84,10 +84,10 @@ public class BiomeModifierProvider implements DataProvider {
 
 			return CompletableFuture.allOf(lookup.listElements().map(entry -> {
 				Path path = outputFolder.resolve(outputDir + "/" + entry.key().location().getPath() + ".json");
-				BiomeModifier modifier = entry.value();
+				BiomeModifier biomeModifier = entry.value();
 				JsonObject rootJSON = new JsonObject();
-				JsonElement result = BiomeModifierRegistry.DIRECT_CODEC.encode(modifier, dynamicOps, rootJSON)
-						.result().get();
+				JsonElement result = BiomeModifierRegistry.DIRECT_CODEC
+						.encode(biomeModifier, dynamicOps, rootJSON).result().get();
 
 				return DataProvider.saveStable(cachedOutput, result, path);
 			}).toArray(CompletableFuture[]::new));
@@ -96,6 +96,6 @@ public class BiomeModifierProvider implements DataProvider {
 
 	@Override
 	public String getName() {
-		return "QAQ!!!";
+		return "BiomeModifiers for " + BiomeModifierRegistry.REGISTRY_KEY.location() + " mod id "  + MobZ.MODID;
 	}
 }
