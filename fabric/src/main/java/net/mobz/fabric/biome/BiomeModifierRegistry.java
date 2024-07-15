@@ -1,5 +1,7 @@
 package net.mobz.fabric.biome;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 import com.mojang.serialization.Codec;
@@ -10,7 +12,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -33,8 +34,16 @@ public class BiomeModifierRegistry {
 
 	public static void applyAll(RegistryAccess registryAccess) {
 		RegistryLookup<BiomeModifier> registry = registryAccess.lookupOrThrow(BiomeModifierRegistry.REGISTRY_KEY);
-		BiomeModification bm = BiomeModifications.create(REGISTRY_KEY.location());
-		registry.listElements().map(Holder.Reference::value).forEach(result -> result.apply(bm));
+		Map<ResourceLocation, BiomeModification> biomeModificationMap = new HashMap<>();
+		registry.listElements().forEach(holder -> {
+			// Per-mod based BiomeModification
+			ResourceLocation resLoc = new ResourceLocation(holder.key().location().getNamespace(),
+					BiomeModifierRegistry.REGISTRY_KEY.location().getPath());
+			BiomeModification biomeModification =
+					biomeModificationMap.computeIfAbsent(resLoc, (key) -> BiomeModifications.create(key));
+			holder.value().apply(biomeModification);
+		});
+//		biomeModificationMap.keySet().forEach(System.out::println);
 	}
 
 	static {
