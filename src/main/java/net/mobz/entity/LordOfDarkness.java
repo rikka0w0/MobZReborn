@@ -18,6 +18,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
@@ -89,6 +90,6 @@ public class LordOfDarkness extends Vindicator {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && MobZ.configs.lord_of_darkness.can_join_raid.check(this);
 	}
 }

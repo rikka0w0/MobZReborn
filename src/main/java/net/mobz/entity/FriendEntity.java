@@ -41,6 +41,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
@@ -251,7 +252,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
     protected abstract boolean canEquipItemFromPlayer(ItemStack stack);
 
-	// Friend = Katherine
 	public static class KatherineEntity extends FriendEntity {
 		public KatherineEntity(EntityType<? extends KatherineEntity> entityType, Level world) {
 			super(entityType, world);
@@ -292,7 +292,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		}
 	}
 
-	// Knight4 = fiora
 	public static class FioraEntity extends FriendEntity {
 		public FioraEntity(EntityType<? extends FioraEntity> entityType, Level level) {
 			super(entityType, level);

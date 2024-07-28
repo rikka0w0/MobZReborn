@@ -21,7 +21,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
+import net.mobz.config.CanJoinRaid;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
@@ -96,6 +98,6 @@ public class Andriu extends Vindicator {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && MobZ.configs.andriu.can_join_raid.check(this);
 	}
 }

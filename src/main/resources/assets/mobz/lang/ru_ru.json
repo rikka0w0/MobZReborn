@@ -197,6 +197,8 @@
     "text.autoconfig.mobz.option.spawn_rate": "Скорость спавна",
     "text.autoconfig.mobz.option.life": "Очки здоровья",
     "text.autoconfig.mobz.option.attack": "Урон",
+    "text.autoconfig.mobz.option.can_join_raid": "Join raid",
+    "text.autoconfig.mobz.option.can_join_raid.@Tooltip": "NEVER: cannot join\nSURFACE_ONLY: only those on ground may join\nALWAYS: always join",
     "text.autoconfig.mobz.option.underground_only": "Only spawns underground",
     "text.autoconfig.mobz.option.wither_attack_cooldown.@PrefixText": "Ticks between each wither attack",
     "text.autoconfig.mobz.option.wither_attack_cooldown": "in easy and normal modes",

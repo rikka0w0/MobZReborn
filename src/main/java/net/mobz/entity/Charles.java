@@ -23,6 +23,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
@@ -127,6 +128,6 @@ public class Charles extends Vindicator {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && MobZ.configs.charles.can_join_raid.check(this);
 	}
 }

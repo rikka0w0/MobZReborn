@@ -40,6 +40,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
@@ -84,7 +85,7 @@ public class SpiderMage extends SpellcasterIllager {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && MobZ.configs.spider_mage.can_join_raid.check(this);
 	}
 
    @Override

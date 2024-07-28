@@ -15,7 +15,9 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.damagesource.DamageSource;
@@ -26,6 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
@@ -41,9 +44,19 @@ public class Bowman extends Pillager {
                 .add(Attributes.MAX_HEALTH,
                         MobZ.configs.bowman.life * MobZ.configs.life_multiplier)
                 .add(Attributes.MOVEMENT_SPEED, 0.33D)
-                .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.bowman.attack * MobZ.configs.damage_multiplier)
                 .add(Attributes.FOLLOW_RANGE, 34.0D);
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {
+    	float attack = (float) (MobZ.configs.bowman.attack* MobZ.configs.damage_multiplier);
+        this.performCrossbowAttack(this, attack);
+    }
+
+    @Override
+    public void shootCrossbowProjectile(LivingEntity pTarget, ItemStack pCrossbowStack, Projectile pProjectile, float pProjectileAngle) {
+    	float attack = (float) (MobZ.configs.bowman.attack* MobZ.configs.damage_multiplier);
+        this.shootCrossbowProjectile(this, pTarget, pProjectile, pProjectileAngle, attack);
     }
 
     @Override
@@ -98,7 +111,7 @@ public class Bowman extends Pillager {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && MobZ.configs.bowman.can_join_raid.check(this);
 	}
 
 	@Override

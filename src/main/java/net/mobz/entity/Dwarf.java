@@ -21,6 +21,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
@@ -101,6 +102,6 @@ public class Dwarf extends Vindicator {
 
 	@Override
 	public boolean canJoinRaid() {
-		return super.canJoinRaid() && this.level().canSeeSky(this.blockPosition());
+		return super.canJoinRaid() && MobZ.configs.dwarf.can_join_raid.check(this);
 	}
 }

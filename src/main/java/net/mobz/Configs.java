@@ -5,6 +5,9 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
+import net.mobz.config.CanJoinRaid;
+import net.mobz.config.CollapsibleObjectEx;
+
 @Config(name = MobZ.MODID)
 @Config.Gui.Background("minecraft:textures/block/oak_planks.png")
 public class Configs implements ConfigData {
@@ -26,11 +29,11 @@ public class Configs implements ConfigData {
 	/**
 	 * A mob that does not spawn naturally
 	 */
-	public static class MobSummonableAlwaysEnable {
+	public static class MobNoNaturalSpawn {
 		public double life;
 		public double attack;
 
-		public MobSummonableAlwaysEnable(double life, double attack) {
+		public MobNoNaturalSpawn(double life, double attack) {
 			this.life = life;
 			this.attack = attack;
 		}
@@ -80,18 +83,61 @@ public class Configs implements ConfigData {
 		}
 	}
 
+	public static class Pillager {
+		public boolean spawn;
+	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+		public int spawn_rate;
+		public double life;
+		public double attack;
+
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
+
+		public Pillager(boolean spawn, int spawn_rate, double life, double attack) {
+			this.spawn = spawn;
+			this.spawn_rate = spawn_rate;
+			this.life = life;
+			this.attack = attack;
+		}
+	}
+
 	public static class Dwarf {
 		public boolean spawn = true;
 	    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
 		public int spawn_rate = 3;
 		public double life = 70D;
 		public double attack = 7D;
+
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
+
 		public boolean underground_only = false;
+	}
+
+	public static class PillagerSummonOnly {
+		public double life;
+		public double attack;
+
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
+
+		public PillagerSummonOnly(double life, double attack) {
+			this.life = life;
+			this.attack = attack;
+		}
 	}
 
 	public static class Charles {
 		public double life = 120D;
 		public double attack = 10D;
+
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
+
 		@ConfigEntry.BoundedDiscrete(min = 0, max = 200)
 		public int slowdown_attack_cooldown = 180;
 		@ConfigEntry.BoundedDiscrete(min = 0, max = 200)
@@ -102,6 +148,10 @@ public class Configs implements ConfigData {
 		public boolean enabled = true;
 		public double life = 300D;
 		public double attack = 12D;
+
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
 
 		@ConfigEntry.Gui.PrefixText
 	    public int wither_attack_cooldown = 60;
@@ -119,7 +169,7 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Mob katherine = new Mob(true, 2, 20D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob archer = new Mob(true, 2, 32D, 6D);
+    public Pillager archer = new Pillager(true, 2, 32D, 1.6D);
     @ConfigEntry.Gui.CollapsibleObject
     public Mob armored_zombie = new Mob(true, 15, 20D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
@@ -135,7 +185,7 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Mob boss_zombie = new Mob(true, 1, 400D, 10D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob bowman = new Mob(true, 5, 32D, 8D);
+    public Pillager bowman = new Pillager(true, 5, 32D, 1.6D);
     @ConfigEntry.Gui.CollapsibleObject
     public Mob brown_bear = new Mob(true, 5, 30.0D, 6.0D);
     @ConfigEntry.Gui.CollapsibleObject
@@ -145,7 +195,7 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Dwarf dwarf = new Dwarf();
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob ender_knight = new Mob(true, 3, 48D, 8D);
+    public Pillager ender_knight = new Pillager(true, 3, 48D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
     public Mob ender = new Mob(true, 8, 46D, 9D);
     @ConfigEntry.Gui.CollapsibleObject
@@ -163,11 +213,11 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Mob ice_golem = new Mob(true, 5, 52D, 14D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob illusioner = new Mob(true, 2, 16D, 7D);
+    public Pillager illusioner = new Pillager(true, 2, 16D, 1.6D);
     @ConfigEntry.Gui.CollapsibleObject
     public Mob lava_golem = new Mob(true, 10, 48D, 14D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob lord_of_darkness = new Mob(true, 3, 72D, 7D);
+    public Pillager lord_of_darkness = new Pillager(true, 3, 72D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
     public Mob lost_skeleton = new Mob(true, 10, 20D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
@@ -189,7 +239,7 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Mob fast_zombie = new Mob(true, 30, 15D, 4D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob spider_mage = new Mob(true, 6, 32D, 7D);
+    public Pillager spider_mage = new Pillager(true, 6, 32D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
     public Mob iron_steve = new Mob(true, 2, 32D, 9D);
     @ConfigEntry.Gui.CollapsibleObject
@@ -201,7 +251,7 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Mob tiny_spider = new Mob(true, 5, 1D, 0D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob warrior = new Mob(true, 3, 48D, 6D);
+    public Pillager warrior = new Pillager(true, 3, 48D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
     public MobNoAttack wild_boar = new MobNoAttack(true, 5, 12.0D);
     @ConfigEntry.Gui.CollapsibleObject
@@ -209,17 +259,17 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Mob wither_blaze = new Mob(true, 6, 26D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public Mob zombie_mage = new Mob(true, 5, 28D, 7D);
+    public Pillager zombie_mage = new Pillager(true, 5, 28D, 7D);
     @ConfigEntry.Gui.CollapsibleObject
     public Charles charles = new Charles();
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable william = new MobSummonableAlwaysEnable(60D, 8D);
+    public PillagerSummonOnly william = new PillagerSummonOnly(60D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable andriu = new MobSummonableAlwaysEnable(60D, 8D);
+    public PillagerSummonOnly andriu = new PillagerSummonOnly(60D, 8D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable knight = new MobSummonableAlwaysEnable(26D, 6D);
+    public PillagerSummonOnly knight = new PillagerSummonOnly(26D, 6D);
     @ConfigEntry.Gui.CollapsibleObject
-    public MobSummonableAlwaysEnable spirit_of_death = new MobSummonableAlwaysEnable(16D, 5D);
+    public MobNoNaturalSpawn spirit_of_death = new MobNoNaturalSpawn(16D, 5D);
     @ConfigEntry.Gui.CollapsibleObject
     public BabyRavager baby_ravager = new BabyRavager();
     @ConfigEntry.Gui.CollapsibleObject

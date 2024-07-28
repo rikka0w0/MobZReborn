@@ -197,6 +197,8 @@
     "text.autoconfig.mobz.option.spawn_rate": "刷新率",
     "text.autoconfig.mobz.option.life": "生命值",
     "text.autoconfig.mobz.option.attack": "攻击力",
+    "text.autoconfig.mobz.option.can_join_raid": "加入劫掠",
+    "text.autoconfig.mobz.option.can_join_raid.@Tooltip": "NEVER: 从不\nSURFACE_ONLY: 仅地表的加入\nALWAYS: 永远加入",
     "text.autoconfig.mobz.option.underground_only": "只在地下生成",
     "text.autoconfig.mobz.option.wither_attack_cooldown.@PrefixText": "凋零攻击的间隔",
     "text.autoconfig.mobz.option.wither_attack_cooldown": "在简单和普通模式中",

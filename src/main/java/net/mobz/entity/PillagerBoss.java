@@ -24,6 +24,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
@@ -118,9 +119,13 @@ public class PillagerBoss extends Pillager {
         this.level().addFreshEntity(skull3);
     }
 
+	@Override
+	public boolean canJoinRaid() {
+		return super.canJoinRaid() && MobZ.configs.pillager_boss.can_join_raid.check(this);
+	}
+
     @Override
     protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
         return;
     }
-
 }
