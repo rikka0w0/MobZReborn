@@ -1,19 +1,3 @@
-1. Add Simplified Chinese (zh-cn) localization
-2. Fix Config Gui problems
-
-## Forge Requires:
-Minecraft #minecraft_version#
-Minecraft Forge #forge_version# or above
-Cloth Config #cloth_config_version# or above
-
-## Fabric Requires:
-Minecraft #minecraft_version#
-Fabric Loader #loader_version# or above
-Fabric API #fabric_version# or above
-Cloth Config #cloth_config_version# or above
-Fabric Shield #fabric_shield_lib_version# or above
-Mod menu #mod_menu_version# or above (optional)
-
 ## Beta feature:
 Toad and Giant Toad are added. The toad targets bugs (e.g. spiders and silverfish), the giant toad targets every living creature, except for itself. At this moment, by default, they don't spawn naturally in the world. To summon them, use `/summon mobz:toad and /summon mobz:toad_giant` respectively.
 

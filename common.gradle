@@ -1,0 +1,28 @@
+// Load common properties
+Properties mergedProperties = new Properties();
+mergedProperties.load(new FileInputStream("$project.rootDir/../common.properties"));
+// Loader-specific gradle.properties takes priority
+mergedProperties.load(new FileInputStream("gradle.properties"));
+mergedProperties.each { prop -> project.ext.set(prop.key, prop.value); }
+
+project.ext.set("mergedProperties", mergedProperties)
+
+task processChangelog(type: Copy) {
+	// Define the source directory and file
+	from('.') {
+		include 'CHANGELOG.md'
+		expand project.properties
+	}
+	into 'build/info'
+}
+
+// Define a custom task to dump properties
+task exportProperties {
+	doLast {
+		File outputFile = file("$buildDir/info/properties.txt");
+		outputFile.withWriter { writer ->
+			mergedProperties.each { key, value -> writer.writeLine("${key}=${value}"); }
+		}
+		println "Properties dumped to $outputFile"
+	}
+}

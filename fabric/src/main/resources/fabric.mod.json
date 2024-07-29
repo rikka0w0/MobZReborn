@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "mobz",
-  "version": "${version}",
+  "version": "${mod_version}",
   "name": "MobZ",
   "description": "More vanilla style mobs",
   "authors": [
@@ -33,7 +33,7 @@
   "mixins": [
     "mobz.mixins.json"
   ],
-  "accessWidener" : "mobz.accesswidener",
+  "accessWidener": "mobz.accesswidener",
   "depends": {
     "minecraft": ">=${minecraft_version_min} <${minecraft_version_max}",
     "fabricloader": ">=${loader_version_min}",

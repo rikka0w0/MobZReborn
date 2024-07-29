@@ -10,15 +10,7 @@ repositories {
 	maven { url "https://maven.shedaniel.me/" }
 }
 
-// Load the common property
-Properties commonProps = new Properties();
-commonProps.load(new FileInputStream("$project.rootDir/../common.properties"));
-commonProps.each { prop ->
-	// Loader-specific gradle.properties takes priority
-	if (!project.hasProperty(prop.key)) {
-		project.ext.set(prop.key, prop.value);
-	}
-}
+apply from: '../common.gradle'
 
 project.ext.mod_id = project.archives_base_name;
 project.ext.minecraft_version_range = '[' + project.minecraft_version_min + ', ' + project.minecraft_version_max + ')';
@@ -122,18 +114,12 @@ jar.archiveClassifier = 'neoforge';
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.withType(ProcessResources).configureEach {
-	var replaceProperties = [
-			minecraft_version_range: minecraft_version_range,
-			neo_version_range: neo_version_range,
-			loader_version_range: loader_version_range,
-			cloth_config_version_min: project.cloth_config_version_min,
-			mod_id: mod_id,
-			mod_version: mod_version,
-	]
-	inputs.properties replaceProperties
+	mergedProperties.setProperty('mod_id', mod_id)
+	mergedProperties.setProperty('minecraft_version_range', minecraft_version_range)
+	inputs.properties project.mergedProperties
 
 	filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-		expand replaceProperties + [project: project]
+		expand project.mergedProperties + [project: project]
 	}
 }
 

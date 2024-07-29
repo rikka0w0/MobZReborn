@@ -3,14 +3,7 @@ plugins {
 	id 'maven-publish'
 }
 
-Properties commonProps = new Properties();
-commonProps.load(new FileInputStream("$project.rootDir/../common.properties"));
-commonProps.each { prop ->
-    // Loader-specific gradle.properties takes priority
-    if (!project.hasProperty(prop.key)) {
-        project.ext.set(prop.key, prop.value);
-    }
-}
+apply from: '../common.gradle'
 
 repositories {
 	// Auto Config & Cloth Config
@@ -77,7 +70,7 @@ dependencies {
 }
 
 fabricApi {
-    configureDataGeneration()
+	configureDataGeneration()
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -89,34 +82,25 @@ group = project.dev_group
 
 processResources {
 	inputs.property "version", project.version
-	def props = [
-		"version": project.version, 
-		"minecraft_version_min": project.minecraft_version_min,
-		"minecraft_version_max": project.minecraft_version_max,
-		"loader_version_min": project.loader_version_min, 
-		"fabric_version_min": project.fabric_version_min,
-		"cloth_config_version_min": project.cloth_config_version_min,
-		"fabric_shield_lib_version_min": project.fabric_shield_lib_version_min
-	]
 
 	filesMatching("fabric.mod.json") {
-		expand props
+		expand project.mergedProperties
 	}
 }
 
 // configure  the source folders
 sourceSets {
-    main {
-        java {
-            srcDir "../src/main/java"
-        }
-        resources {
-            srcDir "../src/main/resources"
-            srcDir "src/main/generated/resources"
-            exclude '.cache'
-            exclude 'Thumbs.db'
-        }
-    }
+	main {
+		java {
+			srcDir "../src/main/java"
+		}
+		resources {
+			srcDir "../src/main/resources"
+			srcDir "src/main/generated/resources"
+			exclude '.cache'
+			exclude 'Thumbs.db'
+		}
+	}
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -150,3 +134,4 @@ afterEvaluate {
 		archiveClassifier.set("fabric")
 	}
 }
+
