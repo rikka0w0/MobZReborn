@@ -163,7 +163,7 @@ tasks.named('processResources', ProcessResources).configure {
 			minecraft_version_range: minecraft_version_range,
 			forge_version_range: forge_version_range,
 			loader_version_range: loader_version_range,
-			cloth_config_version: project.cloth_config_version,
+			cloth_config_version_min: project.cloth_config_version_min,
 			mod_id: mod_id,
 			mod_version: mod_version,
 	]

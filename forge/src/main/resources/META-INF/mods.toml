@@ -42,6 +42,6 @@ Original: https://github.com/Globox1997/MobZ
 [[dependencies.mobz]]
     modId = "cloth_config"
     mandatory=true
-    versionRange="[${cloth_config_version},)"
+    versionRange="[${cloth_config_version_min},)"
     ordering="NONE"
     side="BOTH"

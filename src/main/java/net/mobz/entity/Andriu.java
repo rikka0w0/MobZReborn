@@ -23,7 +23,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
 
 import net.mobz.MobZ;
-import net.mobz.config.CanJoinRaid;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 

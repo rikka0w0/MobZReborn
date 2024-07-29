@@ -1,6 +1,5 @@
 package net.mobz.fabric.data;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,24 +8,14 @@ import java.util.concurrent.CompletableFuture;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mojang.serialization.JsonOps;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.biome.BiomeData;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -40,17 +29,12 @@ import net.mobz.fabric.biome.BiomeModifier;
 import net.mobz.fabric.biome.BiomeModifierRegistry;
 import net.mobz.init.MobSpawns;
 
-public class BiomeModifierProvider implements DataProvider {
-	private final Path outputFolder;
-	private final CompletableFuture<HolderLookup.Provider> lookupProvider;
-
+public class BiomeModifierProvider extends FabricDynamicRegistryProvider {
 	public static RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-			.add(BiomeModifierRegistry.REGISTRY_KEY, BiomeModifierProvider::biomeModifierPopulator)
-			.add(Registries.BIOME, BiomeData::bootstrap);
+			.add(BiomeModifierRegistry.REGISTRY_KEY, BiomeModifierProvider::biomeModifierPopulator);
 
-	public BiomeModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		this.outputFolder = output.getOutputFolder();
-		this.lookupProvider = lookupProvider;
+	public BiomeModifierProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
 	}
 
 	public static void biomeModifierPopulator(BootstapContext<BiomeModifier> context) {
@@ -70,28 +54,8 @@ public class BiomeModifierProvider implements DataProvider {
 	}
 
 	@Override
-	public CompletableFuture<?> run(CachedOutput cachedOutput) {
-		RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
-		String outputDir = "data/" + MobZ.MODID + "/" +
-				BiomeModifierRegistry.REGISTRY_KEY.location().getNamespace() + "/" +
-				BiomeModifierRegistry.REGISTRY_KEY.location().getPath();
-
-		return lookupProvider.thenApply(provider -> {
-			return BUILDER.buildPatch(registryAccess, provider);
-		}).thenCompose(provider -> {
-			RegistryOps<JsonElement> dynamicOps = RegistryOps.create(JsonOps.INSTANCE, provider);
-			RegistryLookup<BiomeModifier> lookup = provider.lookupOrThrow(BiomeModifierRegistry.REGISTRY_KEY);
-
-			return CompletableFuture.allOf(lookup.listElements().map(entry -> {
-				Path path = outputFolder.resolve(outputDir + "/" + entry.key().location().getPath() + ".json");
-				BiomeModifier biomeModifier = entry.value();
-				JsonObject rootJSON = new JsonObject();
-				JsonElement result = BiomeModifierRegistry.DIRECT_CODEC
-						.encode(biomeModifier, dynamicOps, rootJSON).result().get();
-
-				return DataProvider.saveStable(cachedOutput, result, path);
-			}).toArray(CompletableFuture[]::new));
-		});
+	protected void configure(HolderLookup.Provider registries, Entries entries) {
+		entries.addAll(registries.lookupOrThrow(BiomeModifierRegistry.REGISTRY_KEY));
 	}
 
 	@Override

@@ -13,19 +13,40 @@ commonProps.each { prop ->
 }
 
 repositories {
-    // Auto Config & Cloth Config
-    maven { url 'https://maven.shedaniel.me/' }
-    // Modmenu dev
-    maven { url 'https://maven.terraformersmc.com/releases/' }
-    // Fabric Shield Lib
-    maven { url 'https://jitpack.io' }
-    maven {url = "https://minecraft.guntram.de/maven/"}
-    maven {url = "https://api.modrinth.com/maven"}
+	// Auto Config & Cloth Config
+	maven { url 'https://maven.shedaniel.me/' }
+	// Modmenu dev
+	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url = 'https://maven.nucleoid.xyz/' }
+	// Fabric Shield Lib
+	maven { url 'https://jitpack.io' }
+	maven {url = "https://minecraft.guntram.de/maven/"}
+	maven {url = "https://api.modrinth.com/maven"}
 }
 
 loom {
 	accessWidenerPath = file("src/main/resources/mobz.accesswidener")
+	runs {
+		runConfigs.configureEach {
+			// Enable Mixin debug outputs
+			// vmArgs "-Dmixin.debug.export=true"
+
+			// Enable 
+			// vmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
+		}
+	}
 }
+
+/*
+tasks.named('runDatagen', JavaExec) {
+	debugOptions {
+		enabled = true
+		port = 5005
+		server = true
+		suspend = true  // JVM will wait for debugger to connect before running
+	}
+}
+*/
 
 dependencies {
 	//to change the versions see the gradle.properties file
@@ -48,6 +69,8 @@ dependencies {
 
 	// Fabric Shield Lib
 	modImplementation "com.github.StellarWind22:Fabric-Shield-Lib:v${project.fabric_shield_lib_version}"
+	modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"
+	modImplementation "com.github.Chocohead:Fabric-ASM:v${project.fabricasm_version}"
 
 	// javax.annotation.Nullable
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.1'
@@ -70,10 +93,10 @@ processResources {
 		"version": project.version, 
 		"minecraft_version_min": project.minecraft_version_min,
 		"minecraft_version_max": project.minecraft_version_max,
-		"loader_version": project.loader_version, 
-		"fabric_version": project.fabric_version,
-		"cloth_config_version": project.cloth_config_version,
-		"fabric_shield_lib_version": project.fabric_shield_lib_version
+		"loader_version_min": project.loader_version_min, 
+		"fabric_version_min": project.fabric_version_min,
+		"cloth_config_version_min": project.cloth_config_version_min,
+		"fabric_shield_lib_version_min": project.fabric_shield_lib_version_min
 	]
 
 	filesMatching("fabric.mod.json") {
@@ -89,7 +112,7 @@ sourceSets {
         }
         resources {
             srcDir "../src/main/resources"
-            srcDir "src/generated/resources"
+            srcDir "src/main/generated/resources"
             exclude '.cache'
             exclude 'Thumbs.db'
         }

@@ -6,7 +6,6 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 import net.mobz.config.CanJoinRaid;
-import net.mobz.config.CollapsibleObjectEx;
 
 @Config(name = MobZ.MODID)
 @Config.Gui.Background("minecraft:textures/block/oak_planks.png")
