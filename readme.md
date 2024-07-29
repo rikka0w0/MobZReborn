@@ -6,6 +6,8 @@ A port of [Globox1997's MobZ](https://www.curseforge.com/minecraft/mc-mods/mobz)
 * 1.17.1
 * 1.16.5
 
+__This branch is for Minecraft [1.20.2, 1.20.4].__
+
 1.16.5 only has Forge version, for 1.16.5 Fabric version, check out [the original MobZ](https://github.com/Globox1997/MobZ).
 
 This mod adds vanilla style mobs, blocks and items.
@@ -13,6 +15,9 @@ This mod adds vanilla style mobs, blocks and items.
 ## Dependencies
 ### Forge Version
 Since 3.2.0 for Minecraft 1.17.1 (including the patched 3.0.2 for Minecraft 1.16.5), the Forge version also depends on [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config-forge).
+
+### Neoforge Version
+Neoforge support is introduced since Minecraft 1.20.4 and requires [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config).
 
 ### Fabric Version
 Since 3.3.0 for Minecraft 1.18.1, the Fabric version starts to depend on [Fabric Shield Lib](https://www.curseforge.com/minecraft/mc-mods/fabric-shield-lib). Using this library alleviates the compatibility issue with other mods that add shields.
@@ -30,21 +35,18 @@ To modify and debug the code, first import either "forge" or "fabric" folder as 
 
 To debug the Fabric project in Eclipse, you need to copy `fabric\fabric_loader_dependencies.json` into `fabric\run\config` folder, otherwise Fabric loader will complain about the dependencies.
 
-### Compile Fabric artifact
+### Build artifact
 Windows users need to replace `./` and `../` with `.\` and `..\` respectively.
 ```
 git clone https://github.com/rikka0w0/MobZReborn.git
-cd MobZReborn/fabric
+cd MobZReborn/$LOADER_NAME
+./gradlew runData
 ./gradlew build
 ```
-
-### Compile Forge artifact
-Windows users need to replace `./` and `../` with `.\` and `..\` respectively.
-```
-git clone https://github.com/rikka0w0/MobZReborn.git
-cd MobZReborn/forge
-./gradlew build
-```
+where $LOADER_NAME must be one of:
+1. neofoge
+2. fabric
+3. forge
 
 ### To specify JRE path (Since 1.18.1, Minecraft requires Java 17 or above.):
 Minecraft 1.17.1 requires Java 16. Minecraft 1.16.5 and below work best with Java 8.

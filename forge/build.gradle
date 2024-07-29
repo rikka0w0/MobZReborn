@@ -2,7 +2,7 @@ plugins {
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+	id 'net.minecraftforge.gradle' version '[6.0, 6.2)'
 }
 
 repositories {
@@ -43,7 +43,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: project.minecraft_version // defined in ../fabric/gradle.properties
+    mappings channel: 'official', version: project.minecraft_version // defined in ../common.properties
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
 	// This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
@@ -176,4 +176,21 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.withType(JavaCompile).configureEach {
 	options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+eclipse {
+    // Run everytime eclipse builds the code
+    //autoBuildTasks genEclipseRuns
+    // Run when importing the project
+    synchronizationTasks 'genEclipseRuns'
+}
+
+// Merge the resources and classes into the same directory. 
+// This is done because java expects modules to be in a single directory.
+// And if we have it in multiple we have to do performance intensive hacks like having the UnionFileSystem
+// This will eventually be migrated to ForgeGradle so modders don't need to manually do it. But that is later.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }
