@@ -8,7 +8,7 @@ mergedProperties.each { prop -> project.ext.set(prop.key, prop.value); }
 project.ext.set("mergedProperties", mergedProperties)
 
 task processChangelog(type: Copy) {
-	// Define the source directory and file
+	mustRunAfter(build)
 	from('.') {
 		include 'CHANGELOG.md'
 		expand project.properties
@@ -16,13 +16,46 @@ task processChangelog(type: Copy) {
 	into 'build/info'
 }
 
+task mergeChangelog(dependsOn: processChangelog) {
+	mustRunAfter(processChangelog)
+	doLast {
+		def headFile = file('../CHANGELOG.md');
+		def changelogFile = file('build/info/CHANGELOG.md');
+		def tailFile = file('../NOTE.md');
+		def outputFile = file('build/info/CHANGELOG_FULL.md');
+
+		def outputText = "";
+
+		if (headFile.exists()) {
+			outputText += headFile.text;
+			outputText += '\n';
+		}
+		if (changelogFile.exists()) {
+			outputText += changelogFile.text;
+			outputText += '\n';
+		}
+		if (tailFile.exists()) {
+			outputText += tailFile.text;
+			outputText += '\n';
+		}
+
+		outputFile.text = outputText;
+	}
+}
+
 // Define a custom task to dump properties
 task exportProperties {
+	mustRunAfter(build)
 	doLast {
-		File outputFile = file("$buildDir/info/properties.txt");
+		File outputDir = file("$buildDir/info");
+		outputDir.mkdirs();
+		File outputFile = file("$outputDir/properties.txt");
 		outputFile.withWriter { writer ->
 			mergedProperties.each { key, value -> writer.writeLine("${key}=${value}"); }
 		}
-		println "Properties dumped to $outputFile"
 	}
+}
+
+task prepareInfo {
+	dependsOn 'mergeChangelog', 'exportProperties'
 }
