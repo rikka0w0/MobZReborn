@@ -123,11 +123,14 @@ task mergeChangelog(dependsOn: processChangelog) {
 }
 
 // Type: Provider<String>
+// TODO: before UnifiedPublishing implements lazy evaluation,
+//       the publishUnified must be ran separately and after build.
 project.ext.changelogProvider = project.provider {
 	if (mergeChangelog.outputs.files.singleFile.exists()) {
 		return mergeChangelog.outputs.files.singleFile.text;
 	} else {
-		throw new RuntimeException("Please run mergeChangelog task first!");
+		logger.warn('Please run mergeChangelog task first!');
+		return '';
 	}
 };
 
