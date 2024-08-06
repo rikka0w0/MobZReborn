@@ -151,6 +151,13 @@ unifiedPublishing {
 
 		mainPublication tasks.jar // Declares the publicated jar
 
+		relations {
+			depends { // Mark as a required dependency
+				curseforge = "cloth-config"
+				modrinth = "cloth-config"
+			}
+		}
+
 		if (project.curseforgeApiToken != null) {
 			curseforge {
 				token = project.curseforgeApiToken
