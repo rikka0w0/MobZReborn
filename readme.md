@@ -40,7 +40,7 @@ Windows users need to replace `./` and `../` with `.\` and `..\` respectively.
 ```
 git clone https://github.com/rikka0w0/MobZReborn.git
 cd MobZReborn/$LOADER_NAME
-./gradlew runData
+./gradlew clean prepareInfo runData
 ./gradlew build
 ```
 where $LOADER_NAME must be one of:

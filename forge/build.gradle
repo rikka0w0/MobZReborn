@@ -3,6 +3,7 @@ plugins {
 	id 'idea'
 	id 'maven-publish'
 	id 'net.minecraftforge.gradle' version '[6.0, 6.2)'
+	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
 repositories {
@@ -179,4 +180,35 @@ sourceSets.each {
 	def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
 	it.output.resourcesDir = dir
 	it.java.destinationDirectory = dir
+}
+
+publishUnified.dependsOn mergeChangelog
+publishUnified.inputs.files(mergeChangelog.outputs)
+publishUnified.mustRunAfter(mergeChangelog)
+
+unifiedPublishing {
+	project {
+		displayName = "${project.archives_base_name}-${project.mod_version}-forge"
+		version = "${project.mod_version}"
+		changelog.set(project.changelogProvider)
+		releaseType = "beta" // Use "release", "beta" or "alpha"
+		gameVersions = project.enumeratedMcVersions
+		gameLoaders = ["forge"]
+
+		mainPublication tasks.jar // Declares the publicated jar
+
+		if (project.curseforgeApiToken != null) {
+			curseforge {
+				token = project.curseforgeApiToken
+				id = "336554"
+			}
+		}
+
+		if (project.modrinthApiToken != null) {
+			modrinth {
+				token = project.modrinthApiToken
+				id = "P7dR8mSH" // Required, must be a string, ID of Modrinth project
+			}
+		}
+	}
 }

@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
+	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
 apply from: '../common.gradle'
@@ -135,3 +136,52 @@ afterEvaluate {
 	}
 }
 
+publishUnified.dependsOn mergeChangelog
+publishUnified.inputs.files(mergeChangelog.outputs)
+publishUnified.mustRunAfter(mergeChangelog)
+
+unifiedPublishing {
+	project {
+		displayName = "${project.archives_base_name}-${project.mod_version}-fabric"
+		version = "${project.mod_version}"
+		changelog.set(project.changelogProvider)
+		releaseType = "release" // Use "release", "beta" or "alpha"
+		gameVersions = project.enumeratedMcVersions
+		gameLoaders = ["fabric"]
+
+		mainPublication tasks.remapJar // Declares the publicated jar
+
+		relations {
+			depends { // Mark as a required dependency
+				curseforge = "fabric-api"
+				modrinth = "fabric-api"
+			}
+			depends { // Mark as a required dependency
+				curseforge = "fabric-shield-lib"
+				modrinth = "fabricshieldlib"
+			}
+			depends { // Mark as a required dependency
+				curseforge = "cloth-config"
+				modrinth = "cloth-config"
+			}
+			optional { // Mark as an optional dependency
+				curseforge = "modmenu"
+				modrinth = "modmenu"
+			}
+		}
+
+		if (project.curseforgeApiToken != null) {
+			curseforge {
+				token = project.curseforgeApiToken
+				id = "336554"
+			}
+		}
+
+		if (project.modrinthApiToken != null) {
+			modrinth {
+				token = project.modrinthApiToken
+				id = "P7dR8mSH" // Required, must be a string, ID of Modrinth project
+			}
+		}
+	}
+}

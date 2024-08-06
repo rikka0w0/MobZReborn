@@ -7,22 +7,101 @@ mergedProperties.each { prop -> project.ext.set(prop.key, prop.value); }
 
 project.ext.set("mergedProperties", mergedProperties)
 
-task processChangelog(type: Copy) {
-	mustRunAfter(build)
+// Load secrete tokens
+defaultIfNotExist('curseforgeApiToken', System.getenv("CURSEFORGE_TOKEN"))
+defaultIfNotExist('modrinthApiToken', System.getenv("MODRINTH_TOKEN"))
+
+def defaultIfNotExist(propertyName, defaultValue) {
+	if (!project.hasProperty(propertyName) || project.getProperty(propertyName) == null) {
+		project.ext.set(propertyName, defaultValue);
+	}
+}
+
+/**
+ * @param version a version string that looks like "1.21" or "1.20.4"
+ * @return a string array that contains exactly 3 strings
+ */
+def normalizeVersion(versionString) {
+	def parts = versionString.split('\\.');
+	while (parts.size() < 3) {
+		parts << '0';
+	}
+	return parts.collect { it.toInteger() };
+}
+
+/**
+ * @param version1 a string array that contains exactly 3 strings
+ * @param version2 a string array that contains exactly 3 strings
+ * @return 1 if version1>version2, 0 if both are equal, -1 if version1<version2
+ */
+def compareVersions(version1, version2) {
+	for (int i = 0; i < 3; i++) {
+		if (version1[i] < version2[i]) return -1;
+		if (version1[i] > version2[i]) return 1;
+	}
+	return 0
+}
+
+/**
+ * @param version1 a version string that looks like "1.21" or "1.20.4"
+ * @param version2 a version string that looks like "1.21" or "1.20.4"
+ * @return a string array that contains all versions between [version1, version2], inclusive.
+ */
+def enumerateVersions(version1, version2) {
+	def startMcVersion = normalizeVersion(version1);
+	def endMcVersion = normalizeVersion(version2);
+	// Make sure startMcVersion <= endMcVersion
+	if (compareVersions(startMcVersion, endMcVersion) > 0) {
+		def temp = startMcVersion;
+		startMcVersion = endMcVersion;
+		endMcVersion = temp;
+	}
+	def currentVersion = startMcVersion.clone();
+
+	def enumeratedVersions = [];
+	while (true) {
+		enumeratedVersions << currentVersion.join('.');
+		if (currentVersion == endMcVersion) break;
+		currentVersion[2]++;
+		if (currentVersion[2] == 10) {
+			currentVersion[2] = 0;
+			currentVersion[1]++;
+			if (currentVersion[1] == 10) {
+				currentVersion[1] = 0;
+				currentVersion[0]++;
+			}
+		}
+	}
+
+	return enumeratedVersions;
+}
+
+project.ext.set('enumeratedMcVersions', enumerateVersions(project.minecraft_version_min, project.minecraft_version));
+println 'The following Minecraft versions will be DECLARED as supported:'
+project.enumeratedMcVersions.each { println it };
+
+task processChangelogInternal(type: Copy) {
 	from('.') {
 		include 'CHANGELOG.md'
 		expand project.properties
 	}
-	into 'build/info'
+	into "$buildDir/info"
+}
+
+task processChangelog {
+	dependsOn processChangelogInternal
+	outputs.file("$buildDir/info/CHANGELOG.md")
 }
 
 task mergeChangelog(dependsOn: processChangelog) {
 	mustRunAfter(processChangelog)
+	inputs.files(processChangelog.outputs.files)
+	outputs.file file("$buildDir/info/CHANGELOG_FULL.md")
+
 	doLast {
 		def headFile = file('../CHANGELOG.md');
-		def changelogFile = file('build/info/CHANGELOG.md');
+		def changelogFile = inputs.files.singleFile
 		def tailFile = file('../NOTE.md');
-		def outputFile = file('build/info/CHANGELOG_FULL.md');
 
 		def outputText = "";
 
@@ -30,32 +109,73 @@ task mergeChangelog(dependsOn: processChangelog) {
 			outputText += headFile.text;
 			outputText += '\n';
 		}
-		if (changelogFile.exists()) {
-			outputText += changelogFile.text;
-			outputText += '\n';
-		}
+
+		outputText += inputs.files.singleFile.text;
+		outputText += '\n';
+
 		if (tailFile.exists()) {
 			outputText += tailFile.text;
 			outputText += '\n';
 		}
 
-		outputFile.text = outputText;
+		outputs.files.singleFile.text = outputText;
 	}
 }
 
+// Type: Provider<String>
+project.ext.changelogProvider = project.provider {
+	if (mergeChangelog.outputs.files.singleFile.exists()) {
+		return mergeChangelog.outputs.files.singleFile.text;
+	} else {
+		throw new RuntimeException("Please run mergeChangelog task first!");
+	}
+};
+
 // Define a custom task to dump properties
 task exportProperties {
-	mustRunAfter(build)
+	outputs.file file("$buildDir/info/properties.txt")
 	doLast {
-		File outputDir = file("$buildDir/info");
-		outputDir.mkdirs();
-		File outputFile = file("$outputDir/properties.txt");
-		outputFile.withWriter { writer ->
+		outputs.files.singleFile.withWriter { writer ->
 			mergedProperties.each { key, value -> writer.writeLine("${key}=${value}"); }
 		}
 	}
 }
 
 task prepareInfo {
-	dependsOn 'mergeChangelog', 'exportProperties'
+	dependsOn mergeChangelog, exportProperties
+}
+
+// This is a standalone task that can only be ran after running prepareInfo for all target
+task githubDraft {
+	doLast {
+		def headFile = file('../CHANGELOG.md');
+		def tailFile = file('../NOTE.md');
+
+		def title = "${project.mod_version} for Minecraft ${project.minecraft_version} (Forge, Neoforge and Fabric)\n";
+		def tagName = "${project.mod_version}_${project.minecraft_version}"
+
+		def outputText = '';
+
+		if (headFile.exists()) {
+			outputText += headFile.text;
+			outputText += '\n';
+		}
+
+		outputText += file('../fabric/build/info/CHANGELOG.md').text + '\n\n';
+		outputText += file('../neoforge/build/info/CHANGELOG.md').text + '\n\n';
+		outputText += file('../forge/build/info/CHANGELOG.md').text + '\n\n';
+
+		if (tailFile.exists()) {
+			outputText += tailFile.text;
+			outputText += '\n';
+		}
+
+		file("$buildDir/info/githubDraft.md").text = outputText;
+		file("$buildDir/info/githubTitle.txt").text = title;
+		file("$buildDir/info/githubTagName.txt").text = tagName;
+
+		println "Title: ${title}"
+		println "Tag: ${tagName}"
+		println outputText
+	}
 }
