@@ -1,9 +1,13 @@
 package net.mobz.forge;
 
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 
 import java.util.HashMap;
@@ -39,11 +43,14 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent.Operation;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
 import net.mobz.data.ItemModelDataProvider;
@@ -66,7 +73,7 @@ public class ForgeEntry {
 
 		MobZ.platform = registryWrapper;
 
-		MobZ.initConfig();
+		MobZ.configs = ForgeConfigManager.register();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
 		MobZ.invokeStaticFields();
@@ -77,7 +84,21 @@ public class ForgeEntry {
 		@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
 			registryWrapper.applyGlobalEntityAttrib(event::put);
-			MobSpawnRestrictions.applyAll(SpawnPlacements::register);
+		}
+
+		private static record SpawnPlacementRegistar(SpawnPlacementRegisterEvent event) {
+			private <T extends Mob> void register(EntityType<T> entityType, SpawnPlacementType spawnPlacementType, Heightmap.Types types, SpawnPlacements.SpawnPredicate<T> spawnPredicate) {
+				event.register(entityType, spawnPlacementType, types, spawnPredicate, Operation.OR);
+			}
+
+			private void registerAll() {
+				MobSpawnRestrictions.applyAll(this::register);
+			}
+		}
+
+		@SubscribeEvent
+		public static void onSpawnPlacementRegisterEvent(final SpawnPlacementRegisterEvent event) {
+			new SpawnPlacementRegistar(event).registerAll();
 		}
 
 		@SubscribeEvent
@@ -130,11 +151,11 @@ public class ForgeEntry {
 		@SubscribeEvent(priority = EventPriority.HIGH)
 		public static void onLootTableLoadEvent(final LootTableLoadEvent event) {
 			ILootTableAdder lootTableAdder = (lootTableIDs, range, entryBuilder) -> {
-				for (ResourceLocation lootTableID : lootTableIDs) {
-					if (event.getName().equals(lootTableID)) {
-						event.getTable().addPool(LootPool.lootPool().setRolls(range).add(entryBuilder).build());
-					}
-				}
+				lootTableIDs.stream()
+				.filter(lootTableID -> lootTableID.location().equals(event.getName()))
+				.forEach(lootTableID ->
+					event.getTable().addPool(LootPool.lootPool().setRolls(range).add(entryBuilder).build())
+				);
 			};
 
 			LootTableModifier.loadAll(lootTableAdder);

@@ -2,7 +2,7 @@ plugins {
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.minecraftforge.gradle' version '[6.0, 6.2)'
+	id 'net.minecraftforge.gradle' version '[6.0.24, 6.2)'
 	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
@@ -20,8 +20,8 @@ version = project.mod_version
 group = project.dev_group // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = project.archives_base_name
 
-// Mojang ships Java 17 to end users in 1.18+
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+// Mojang ships Java 21 to end users in 1.20.5+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -123,8 +123,8 @@ dependencies {
 	// http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
 	// http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-	// defined in ../fabric/gradle.properties
-	implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
+	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transitive dependencies request 6.0+ 
+	implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -198,9 +198,9 @@ unifiedPublishing {
 		mainPublication tasks.jar // Declares the publicated jar
 
 		relations {
-			depends { // Mark as a required dependency
-				curseforge = "cloth-config"
-				modrinth = "cloth-config"
+			optional { // Mark as a required dependency
+				curseforge = "configured"
+				modrinth = "configured"
 			}
 		}
 

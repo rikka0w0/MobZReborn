@@ -38,10 +38,3 @@ Original: https://github.com/Globox1997/MobZ
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-
-[[dependencies.mobz]]
-    modId = "cloth_config"
-    mandatory=true
-    versionRange="[${cloth_config_version_min},)"
-    ordering="NONE"
-    side="BOTH"
