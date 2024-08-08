@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
-import net.mobz.client.MobZComposedGuiRegistryAccess;
+import net.mobz.config.MobZComposedGuiRegistryAccess;
 import net.mobz.client.VanillaClientRegistry;
 
 import net.neoforged.api.distmarker.Dist;

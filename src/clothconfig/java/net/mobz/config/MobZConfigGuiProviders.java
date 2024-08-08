@@ -62,7 +62,7 @@ public class MobZConfigGuiProviders {
         return getChildren(i18n, field.getType(), getUnsafely(field, config), getUnsafely(field, defaults), guiProvider);
     }
 
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	private static List<AbstractConfigListEntry> getChildren(String i18n, Class<?> fieldType, Object iConfig, Object iDefaults, GuiRegistryAccess guiProvider) {
 //        return Arrays.stream(fieldType.getDeclaredFields())
     	return traverseFields(fieldType, true).stream()
