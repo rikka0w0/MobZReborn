@@ -3,7 +3,9 @@
     "ingredient": {
         "item": "minecraft:wither_skeleton_skull"
     },
-    "result": "mobz:wither_powder",
+    "result": {
+        "id": "mobz:wither_powder"
+    },
     "experience": 1.0,
     "cookingtime": 800
 }

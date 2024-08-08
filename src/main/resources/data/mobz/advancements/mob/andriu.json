@@ -2,7 +2,7 @@
     "parent": "mobz:mob/william",
     "display": {
         "icon": {
-            "item": "mobz:head_andriu"
+            "id": "mobz:head_andriu"
         },
         "title": {
             "translate": "entity.mobz.andriu"

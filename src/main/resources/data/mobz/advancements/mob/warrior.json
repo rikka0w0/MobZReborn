@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_warrior"
+            "id": "mobz:head_warrior"
         },
         "title": {
             "translate": "entity.mobz.warrior"

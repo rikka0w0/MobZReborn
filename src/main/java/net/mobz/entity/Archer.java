@@ -6,7 +6,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Pillager;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -41,12 +40,6 @@ public class Archer extends Pillager {
     public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {
     	float attack = (float) (MobZ.configs.archer.attack* MobZ.configs.damage_multiplier);
         this.performCrossbowAttack(this, attack);
-    }
-
-    @Override
-    public void shootCrossbowProjectile(LivingEntity pTarget, ItemStack pCrossbowStack, Projectile pProjectile, float pProjectileAngle) {
-    	float attack = (float) (MobZ.configs.archer.attack* MobZ.configs.damage_multiplier);
-        this.shootCrossbowProjectile(this, pTarget, pProjectile, pProjectileAngle, attack);
     }
 
     @Override

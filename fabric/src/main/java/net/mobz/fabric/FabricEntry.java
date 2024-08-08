@@ -1,10 +1,14 @@
 package net.mobz.fabric;
 
+import java.util.List;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.resources.ResourceLocation;
+
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
@@ -14,13 +18,11 @@ import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
 
 public class FabricEntry implements ModInitializer {
-	public static void addRoll(ResourceLocation[] lootTableIDs, NumberProvider range, Builder<?> entryBuilder) {
-		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-        	for (ResourceLocation lootTableID: lootTableIDs) {
-                if (id.equals(lootTableID)) {
-                	tableBuilder.withPool(LootPool.lootPool().setRolls(range).add(entryBuilder));
-                }
-        	}
+	public static void addRoll(List<ResourceKey<LootTable>> lootTableIDs, NumberProvider range, Builder<?> entryBuilder) {
+		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+			lootTableIDs.stream().filter(lootTableID -> lootTableID.equals(key)).forEach((lootTableID) -> {
+				tableBuilder.withPool(LootPool.lootPool().setRolls(range).add(entryBuilder));
+			});
 		});
 	}
 

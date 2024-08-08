@@ -34,8 +34,8 @@ public class EasyGolemRenderer extends MobRenderer<IronGolem, IronGolemModel<Iro
 	}
 
 	@Override
-	protected void setupRotations(IronGolem ironGolemEntity, PoseStack matrixStack, float f, float g, float h) {
-		super.setupRotations(ironGolemEntity, matrixStack, f, g, h);
+	protected void setupRotations(IronGolem ironGolemEntity, PoseStack matrixStack, float f, float g, float h, float i) {
+		super.setupRotations(ironGolemEntity, matrixStack, f, g, h, i);
 		if (ironGolemEntity.walkAnimation.speed() >= 0.01D) {
 			float j = ironGolemEntity.walkAnimation.position() - ironGolemEntity.walkAnimation.speed() * (1.0F - h) + 6.0F;
 			float k = (Math.abs(j % 13.0F - 6.5F) - 3.25F) / 3.25F;

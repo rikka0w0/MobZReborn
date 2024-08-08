@@ -19,7 +19,7 @@ public class FabricSpawnEgg extends SpawnEggItem {
 
 	@Override
 	public Component getDescription() {
-		return Component.translatable("item.mobz.spawnegg", this.getType(null).getDescription().getString());
+		return Component.translatable("item.mobz.spawnegg", this.getType(ItemStack.EMPTY).getDescription().getString());
 	}
 
 	@Override

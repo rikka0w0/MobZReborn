@@ -2,10 +2,8 @@ package net.mobz.entity;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
@@ -30,6 +28,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
@@ -67,8 +66,8 @@ public class GoldenChicken extends Chicken {
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose entityPose_1, EntityDimensions entityDimensions_1) {
-		return this.isBaby() ? entityDimensions_1.height * 0.85F : entityDimensions_1.height * 0.92F;
+	public float getAgeScale() {
+		return this.isBaby() ? 0.924F : 1.0F;
 	}
 
 	@Override

@@ -2,7 +2,7 @@
     "parent": "mobz:mob/frost_creeper",
     "display": {
         "icon": {
-            "item": "mobz:head_cookie_creeper"
+            "id": "mobz:head_cookie_creeper"
         },
         "title": {
             "translate": "entity.mobz.cookie_creeper"

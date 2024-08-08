@@ -17,10 +17,11 @@ public class TadpoleRender extends MobRenderer<TadpoleEntity, TadpoleEntityModel
 		super(context, new TadpoleEntityModel(context.bakeLayer(TadpoleEntityModel.modelResLoc)), 0.15F);
 	}
 
-	protected void setupTransforms(TadpoleEntity tadpole, PoseStack matrixStack, float f, float g, float h) {
-		super.setupRotations(tadpole, matrixStack, f, g, h);
-		float i = 4.3F * Mth.sin(0.6F * f);
-		matrixStack.mulPose(Axis.YP.rotationDegrees(i));
+	@Override
+	protected void setupRotations(TadpoleEntity tadpole, PoseStack matrixStack, float f, float g, float h, float i) {
+		super.setupRotations(tadpole, matrixStack, f, g, h, i);
+		float yRotate = 4.3F * Mth.sin(0.6F * f);
+		matrixStack.mulPose(Axis.YP.rotationDegrees(yRotate));
 		if (!tadpole.isInWater()) {
 			matrixStack.translate(0.10000000149011612D, 0.10000000149011612D, -0.10000000149011612D);
 			matrixStack.mulPose(Axis.ZP.rotationDegrees(90.0F));

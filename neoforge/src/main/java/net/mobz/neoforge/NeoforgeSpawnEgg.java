@@ -21,7 +21,7 @@ public class NeoforgeSpawnEgg extends DeferredSpawnEggItem {
 
 	@Override
 	public Component getDescription() {
-		return Component.translatable("item.mobz.spawnegg", this.getType(null).getDescription().getString());
+		return Component.translatable("item.mobz.spawnegg", this.getDefaultType().getDescription().getString());
 	}
 
 	@Override

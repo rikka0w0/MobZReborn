@@ -46,7 +46,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.mobz.MathUtils;
 import net.mobz.MobZ;
@@ -66,7 +66,7 @@ public class ToadEntity extends Animal {
 	private static Set<Entity> targetedEntities = new HashSet<>();
 
 	private static final UUID JUMP_SPEED_BOOST = UUID.fromString("0fa7caca-4f09-11eb-ae93-0242ac130002");
-	private static final AttributeModifier JUMP_SPEED_BOOST_MOD = new AttributeModifier(JUMP_SPEED_BOOST, "Jump Speed Boost", 0.6F, AttributeModifier.Operation.ADDITION);
+	private static final AttributeModifier JUMP_SPEED_BOOST_MOD = new AttributeModifier(JUMP_SPEED_BOOST, "Jump Speed Boost", 0.6F, AttributeModifier.Operation.ADD_VALUE);
 
 	private static final EntityDataAccessor<Integer> TONGUE_ENTITY = SynchedEntityData.defineId(ToadEntity.class, EntityDataSerializers.INT);
 
@@ -80,14 +80,13 @@ public class ToadEntity extends Animal {
 
 	public ToadEntity(EntityType<? extends ToadEntity> entityType, Level world) {
 		super(entityType, world);
-		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+		this.setPathfindingMalus(PathType.WATER, 0.0F);
 	}
 
 	@Override
-	protected void defineSynchedData()
-	{
-		super.defineSynchedData();
-		this.entityData.define(TONGUE_ENTITY, -1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(TONGUE_ENTITY, -1);
 	}
 
 	@Override
@@ -283,7 +282,7 @@ public class ToadEntity extends Animal {
 
 		if(this.onGround() && !onGroundPrev)
 		{
-			this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD.getId());
+			this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD);
 		}
 
 		onGroundPrev = this.onGround();

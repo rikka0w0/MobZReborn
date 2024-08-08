@@ -49,7 +49,7 @@ import net.mobz.init.MobZWeapons;
 public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
         super(entityType, world);
-        this.setTame(false);
+        this.setTame(false, false);
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
     }
 
@@ -124,8 +124,8 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-    public void setTame(boolean tamed) {
-        super.setTame(tamed);
+    public void setTame(boolean tamed, boolean applyTamingSideEffects) {
+        super.setTame(tamed, applyTamingSideEffects);
     }
 
     @Override
@@ -142,7 +142,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                         itemStack.shrink(1);
                     }
 
-                    this.heal(MobZ.platform.getFoodProperties(itemStack, player).getNutrition());
+                    this.heal(MobZ.platform.getFoodProperties(itemStack, player).nutrition());
                     return InteractionResult.SUCCESS;
                 }
 
@@ -190,7 +190,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {
             FriendEntity.setOwnerUUID(uUID);
-            FriendEntity.setTame(true);
+            FriendEntity.setTame(true, false);
         }
 
         return FriendEntity;
@@ -264,8 +264,8 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		}
 
 	    @Override
-	    public void setTame(boolean tamed) {
-	        super.setTame(tamed);
+	    public void setTame(boolean tamed, boolean applyTamingSideEffects) {
+	        super.setTame(tamed, applyTamingSideEffects);
 	        if (tamed) {
 	            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
 	            this.setHealth(20.0F);

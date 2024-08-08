@@ -3,6 +3,8 @@
   "ingredient": {
     "tag": "minecraft:logs"
   },
-  "result": "mobz:totem_middle",
+  "result": {
+    "id": "mobz:totem_middle"
+  },
   "count": 1
 }

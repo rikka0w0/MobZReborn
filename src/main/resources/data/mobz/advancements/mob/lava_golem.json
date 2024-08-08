@@ -2,7 +2,7 @@
     "parent": "mobz:mob/stone_golem",
     "display": {
         "icon": {
-            "item": "mobz:head_lava_golem"
+            "id": "mobz:head_lava_golem"
         },
         "title": {
             "translate": "entity.mobz.lava_golem"

@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_purple_spider"
+            "id": "mobz:head_purple_spider"
         },
         "title": {
             "translate": "entity.mobz.purple_spider"

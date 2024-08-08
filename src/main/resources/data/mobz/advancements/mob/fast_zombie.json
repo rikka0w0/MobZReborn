@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_fast_zombie"
+            "id": "mobz:head_fast_zombie"
         },
         "title": {
             "translate": "entity.mobz.fast_zombie"

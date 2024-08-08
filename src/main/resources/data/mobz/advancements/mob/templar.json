@@ -2,7 +2,7 @@
     "parent": "mobz:mob/dwarf",
     "display": {
         "icon": {
-            "item": "mobz:head_templar"
+            "id": "mobz:head_templar"
         },
         "title": {
             "translate": "entity.mobz.templar"

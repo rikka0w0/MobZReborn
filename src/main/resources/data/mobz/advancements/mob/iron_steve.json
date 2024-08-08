@@ -2,7 +2,7 @@
     "parent": "mobz:mob/warrior",
     "display": {
         "icon": {
-            "item": "mobz:head_iron_steve"
+            "id": "mobz:head_iron_steve"
         },
         "title": {
             "translate": "entity.mobz.iron_steve"

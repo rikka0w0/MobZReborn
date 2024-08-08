@@ -2,7 +2,7 @@
     "parent": "mobz:mob/lost_skeleton",
     "display": {
         "icon": {
-            "item": "mobz:head_overgrown_skeleton"
+            "id": "mobz:head_overgrown_skeleton"
         },
         "title": {
             "translate": "entity.mobz.overgrown_skeleton"

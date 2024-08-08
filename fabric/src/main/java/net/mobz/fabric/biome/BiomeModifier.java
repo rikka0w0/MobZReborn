@@ -1,6 +1,6 @@
 package net.mobz.fabric.biome;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 
@@ -10,5 +10,5 @@ public interface BiomeModifier {
     /**
      * @return the codec which serializes and deserializes this biome modifier
      */
-    Codec<? extends BiomeModifier> codec();
+    MapCodec<? extends BiomeModifier> codec();
 }

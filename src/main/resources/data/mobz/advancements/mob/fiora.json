@@ -2,7 +2,7 @@
     "parent": "mobz:mob/katherine",
     "display": {
         "icon": {
-            "item": "mobz:head_fiora"
+            "id": "mobz:head_fiora"
         },
         "title": {
             "translate": "entity.mobz.fiora"

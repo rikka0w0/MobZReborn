@@ -3,6 +3,9 @@ package net.mobz.init;
 import java.util.function.Supplier;
 
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
@@ -14,7 +17,6 @@ import net.mobz.item.FrozenPowder;
 import net.mobz.item.ImmunityOrb;
 import net.mobz.item.LevitationOrb;
 import net.mobz.item.PillagerStaff;
-import net.mobz.item.RottenFlesh;
 import net.mobz.item.SacrificeKnife;
 import net.mobz.item.LilithBow;
 import net.mobz.item.Shield;
@@ -23,6 +25,10 @@ import net.mobz.item.WhiteBag;
 import net.mobz.item.WitherPowder;
 
 public class MobZItems {
+	public static final FoodProperties FOOD_ROTTEN_FLESH = (new FoodProperties.Builder())
+			.nutrition(5).saturationModifier(0.8F)
+			.effect(new MobEffectInstance(MobEffects.HUNGER, 600, 0, true, false), 0.5F).build();
+
 	public static Item.Properties defItemProp() {
 		return new Item.Properties();
 	}
@@ -46,7 +52,7 @@ public class MobZItems {
 	public static final Supplier<ImmunityOrb> IMMUNITY_ORB = MobZ.platform.registerItem("immunity_orb", MobZTabs.tab, () -> new ImmunityOrb(defItemProp().stacksTo(1)));
 	public static final Supplier<LevitationOrb> LEVITATION_ORB = MobZ.platform.registerItem("levitation_orb", MobZTabs.tab, () -> new LevitationOrb(defItemProp().stacksTo(1)));
 	public static final Supplier<PillagerStaff> PILLAGER_STAFF = MobZ.platform.registerItem("pillager_staff", MobZTabs.tab, () -> new PillagerStaff(nonStackable()));;
-	public static final Supplier<RottenFlesh> ROTTEN_FLESH = MobZ.platform.registerItem("rotten_flesh", MobZTabs.tab, () -> new RottenFlesh(defItemProp()));
+	public static final Supplier<SimpleItem> ROTTEN_FLESH = MobZ.platform.registerItem("rotten_flesh", MobZTabs.tab, () -> new SimpleItem(defItemProp().food(FOOD_ROTTEN_FLESH)));
 	public static final Supplier<SacrificeKnife> SACRIFICE_KNIFE = MobZ.platform.registerItem("sacrifice_knife", MobZTabs.tab, () -> new SacrificeKnife(nonStackable()));
 
 	public static final Supplier<LilithBow> LILITH_BOW = MobZ.platform.registerItem("lilith_bow", MobZTabs.tab, () -> new LilithBow(defItemProp().durability(461)));

@@ -2,7 +2,7 @@
     "parent": "mobz:mob/warrior",
     "display": {
         "icon": {
-            "item": "mobz:head_bowman"
+            "id": "mobz:head_bowman"
         },
         "title": {
             "translate": "entity.mobz.bowman"

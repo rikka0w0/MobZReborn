@@ -2,8 +2,6 @@ package net.mobz.item;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.Entity;
@@ -11,46 +9,40 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
 
 public class SacrificeKnife extends Item {
 	public SacrificeKnife(Properties settings) {
-		super(settings);
+		super(settings.durability(5000));
 	}
 
 	public static int getBloodCounter(ItemStack itemStack) {
-		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
-		return getIntOrDef(nbt, "bloodCounter", 0);
+		return itemStack.getDamageValue();
 	}
 
 	public static int getDryingNumber(ItemStack itemStack) {
-		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
-		return getIntOrDef(nbt, "dryingNumber", 0);
+		return itemStack.getOrDefault(DataComponents.OMINOUS_BOTTLE_AMPLIFIER, 0);
 	}
 
 	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
-		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
-		nbt.putInt("bloodCounter", bloodCounter);
-		nbt.putInt("dryingNumber", dryingNumber);
-	}
-
-	public static int getIntOrDef(CompoundTag nbt, String key, int defaultVal) {
-		return nbt.contains(key) ? nbt.getInt(key) : defaultVal;
+		itemStack.setDamageValue(bloodCounter);
+		itemStack.set(DataComponents.OMINOUS_BOTTLE_AMPLIFIER, dryingNumber);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip,
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag flag) {
 		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip"));
 		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip2"));
@@ -81,6 +73,7 @@ public class SacrificeKnife extends Item {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		int bloodCounter = getBloodCounter(stack);
 		int dryingNumber = getDryingNumber(stack);
+		System.out.println(bloodCounter + "= " + dryingNumber);
 		if (bloodCounter > 0) {
 			bloodCounter--;
 		}

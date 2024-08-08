@@ -2,7 +2,7 @@
     "parent": "mobz:mob/iron_steve",
     "display": {
         "icon": {
-            "item": "mobz:head_katherine"
+            "id": "mobz:head_katherine"
         },
         "title": {
             "translate": "entity.mobz.katherine"

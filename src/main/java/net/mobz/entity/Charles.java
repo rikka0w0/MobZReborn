@@ -1,7 +1,6 @@
 package net.mobz.entity;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
@@ -59,11 +57,6 @@ public class Charles extends Vindicator {
 		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
 		}
-	}
-
-	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
 	}
 
 	@Override
@@ -121,8 +114,7 @@ public class Charles extends Vindicator {
 		SpiritOfDeath vexEntity = MobZEntities.SPIRIT_OF_DEATH.get().create(this.level());
 		vexEntity.moveTo(blockPos, 0.0F, 0.0F);
 		vexEntity.finalizeSpawn((ServerLevelAccessor) this.level(),
-				Charles.this.level().getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null,
-				(CompoundTag) null);
+				Charles.this.level().getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null);
 		Charles.this.level().addFreshEntity(vexEntity);
 	}
 

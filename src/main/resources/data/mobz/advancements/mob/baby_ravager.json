@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_baby_ravager"
+            "id": "mobz:head_baby_ravager"
         },
         "title": {
             "translate": "entity.mobz.baby_ravager"

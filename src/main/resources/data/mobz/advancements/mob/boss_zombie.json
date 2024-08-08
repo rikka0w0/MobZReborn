@@ -2,7 +2,7 @@
     "parent": "mobz:mob/armored_zombie",
     "display": {
         "icon": {
-            "item": "mobz:head_boss_zombie"
+            "id": "mobz:head_boss_zombie"
         },
         "title": {
             "translate": "entity.mobz.boss_zombie"

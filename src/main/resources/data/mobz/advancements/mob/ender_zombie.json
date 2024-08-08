@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_ender_zombie"
+            "id": "mobz:head_ender_zombie"
         },
         "title": {
             "translate": "entity.mobz.ender_zombie"

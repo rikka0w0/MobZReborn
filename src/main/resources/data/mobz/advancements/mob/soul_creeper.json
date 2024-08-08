@@ -2,7 +2,7 @@
     "parent": "mobz:mob/cookie_creeper",
     "display": {
         "icon": {
-            "item": "mobz:head_soul_creeper"
+            "id": "mobz:head_soul_creeper"
         },
         "title": {
             "translate": "entity.mobz.soul_creeper"

@@ -176,7 +176,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	public Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties) {
-		return () -> new MobBucketItem(entitySupplier, fluidSupplier, soundSupplier, properties);
+		return () -> new MobBucketItem(entitySupplier.get(), fluidSupplier.get(), soundSupplier.get(), properties);
 	}
 
 	@Override

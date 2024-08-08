@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_stone_golem"
+            "id": "mobz:head_stone_golem"
         },
         "title": {
             "translate": "entity.mobz.stone_golem"

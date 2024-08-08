@@ -2,8 +2,6 @@ package net.mobz.item;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +17,7 @@ public class ImmunityOrb extends Item {
     }
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("item.mobz.immunity_orb.tooltip"));
         tooltip.add(Component.translatable("item.mobz.immunity_orb.tooltip2"));
     }

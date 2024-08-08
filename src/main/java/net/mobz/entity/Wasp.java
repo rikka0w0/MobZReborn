@@ -22,7 +22,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -49,7 +48,7 @@ import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 
 public class Wasp extends PathfinderMob implements FlyingAnimal {
@@ -71,11 +70,11 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.lookControl = new LookControl(this);
-		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
-		this.setPathfindingMalus(BlockPathTypes.COCOA, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0F);
+		this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
+		this.setPathfindingMalus(PathType.WATER, -1.0F);
+		this.setPathfindingMalus(PathType.WATER_BORDER, 16.0F);
+		this.setPathfindingMalus(PathType.COCOA, -1.0F);
+		this.setPathfindingMalus(PathType.FENCE, -1.0F);
 	}
 
 	@Override
@@ -100,9 +99,9 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DATA_FLAGS_ID, (byte) 0);
 	}
 
 	@Override
@@ -116,9 +115,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	@Override
 	public void readAdditionalSaveData(CompoundTag p_27793_) {
 		this.hivePos = null;
-		if (p_27793_.contains("HivePos")) {
-			this.hivePos = NbtUtils.readBlockPos(p_27793_.getCompound("HivePos"));
-		}
+		NbtUtils.readBlockPos(p_27793_, "HivePos").ifPresent(value -> this.hivePos = value);
 		super.readAdditionalSaveData(p_27793_);
 	}
 
@@ -387,11 +384,6 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		} else {
 			return super.hurt(p_27762_, p_27763_);
 		}
-	}
-
-	@Override
-	public MobType getMobType() {
-		return MobType.ARTHROPOD;
 	}
 
 	@Override

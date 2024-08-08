@@ -24,16 +24,16 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.Level;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
-
 
 public class WitherBlaze extends Blaze {
    private float field_7214 = 0.5F;
@@ -42,9 +42,9 @@ public class WitherBlaze extends Blaze {
 
    public WitherBlaze(EntityType<? extends WitherBlaze> entityType_1, Level world_1) {
       super(entityType_1, world_1);
-      this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-      this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
-      this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
+      this.setPathfindingMalus(PathType.LAVA, 8.0F);
+      this.setPathfindingMalus(PathType.DANGER_FIRE, 0.0F);
+      this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0.0F);
       this.xpReward = 14;
    }
 
@@ -87,9 +87,9 @@ public class WitherBlaze extends Blaze {
    }
 
    @Override
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(BLAZE_FLAGS, (byte) 0);
+   protected void defineSynchedData(SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(BLAZE_FLAGS, (byte) 0);
    }
 
    @Override

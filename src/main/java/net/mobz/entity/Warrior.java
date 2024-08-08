@@ -1,7 +1,6 @@
 package net.mobz.entity;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -67,11 +66,6 @@ public class Warrior extends Vindicator {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.POISON_SWORD.get()));
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
 		}
-	}
-
-	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
 	}
 
 	@Override

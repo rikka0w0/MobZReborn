@@ -2,8 +2,6 @@ package net.mobz.item;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +19,7 @@ public class LilithBow extends BowItem {
     }
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
 		String str = this.getDescriptionId(itemStack);
 		tooltip.add(Component.translatable(str+".tooltip"));
 	}

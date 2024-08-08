@@ -2,7 +2,7 @@
     "parent": "mobz:mob/ender_zombie",
     "display": {
         "icon": {
-            "item": "mobz:head_ender"
+            "id": "mobz:head_ender"
         },
         "title": {
             "translate": "entity.mobz.ender"

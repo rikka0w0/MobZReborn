@@ -15,7 +15,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -37,7 +37,7 @@ public class BiomeModifierProvider extends FabricDynamicRegistryProvider {
 		super(output, registriesFuture);
 	}
 
-	public static void biomeModifierPopulator(BootstapContext<BiomeModifier> context) {
+	public static void biomeModifierPopulator(BootstrapContext<BiomeModifier> context) {
 		Map<ResourceLocation, Pair<TagKey<Biome>, List<MobSpawnSettings.SpawnerData>>> rawMap = new HashMap<>();
 		MobSpawns.collectAll(rawMap);
 

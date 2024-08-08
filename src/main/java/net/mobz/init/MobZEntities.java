@@ -193,6 +193,7 @@ public class MobZEntities {
 			Brownbear::createMobzAttributes, 2169097, 4403731);
 	public static final Supplier<EntityType<GoldenChicken>> GOLDEN_CHICKEN = register(EntityType.Builder
 			.of(GoldenChicken::new, MobCategory.CREATURE).clientTrackingRange(74).updateInterval(2)
+			.eyeHeight(0.644F)
 			.sized(0.4F, 0.7F), "golden_chicken",
 			GoldenChicken::createMobzAttributes, 13027014, 15315221);
 	public static final Supplier<EntityType<WildBoar>> WILD_BOAR = register(EntityType.Builder.of(WildBoar::new, MobCategory.CREATURE)

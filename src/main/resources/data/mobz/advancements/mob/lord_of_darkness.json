@@ -2,7 +2,7 @@
     "parent": "mobz:mob/ender_knight",
     "display": {
         "icon": {
-            "item": "mobz:head_lord_of_darkness"
+            "id": "mobz:head_lord_of_darkness"
         },
         "title": {
             "translate": "entity.mobz.lord_of_darkness"

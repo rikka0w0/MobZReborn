@@ -2,7 +2,7 @@
     "parent": "mobz:mob/nether_skeleton",
     "display": {
         "icon": {
-            "item": "mobz:head_boss_skeleton"
+            "id": "mobz:head_boss_skeleton"
         },
         "title": {
             "translate": "entity.mobz.boss_skeleton"

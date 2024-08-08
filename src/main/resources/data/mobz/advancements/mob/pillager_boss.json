@@ -2,7 +2,7 @@
     "parent": "mobz:mob/zombie_mage",
     "display": {
         "icon": {
-            "item": "mobz:head_pillager_boss"
+            "id": "mobz:head_pillager_boss"
         },
         "title": {
             "translate": "entity.mobz.pillager_boss"

@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.Crackiness;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.resources.ResourceLocation;
 
@@ -25,7 +26,7 @@ public class MetalGolemRenderer extends EasyGolemRenderer {
     }
 
     public static class MetalGolemCrack extends RenderLayer<IronGolem, IronGolemModel<IronGolem>> {
-    	private static final Map<IronGolem.Crackiness, ResourceLocation> DAMAGE_TO_TEXTURE;
+    	private static final Map<Crackiness.Level, ResourceLocation> DAMAGE_TO_TEXTURE;
 
     	public MetalGolemCrack(RenderLayerParent<IronGolem, IronGolemModel<IronGolem>> featureRendererContext) {
     		super(featureRendererContext);
@@ -35,8 +36,8 @@ public class MetalGolemRenderer extends EasyGolemRenderer {
     	public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i,
     			IronGolem ironGolemEntity, float f, float g, float h, float j, float k, float l) {
     		if (!ironGolemEntity.isInvisible()) {
-    			IronGolem.Crackiness crack = ironGolemEntity.getCrackiness();
-    			if (crack != IronGolem.Crackiness.NONE) {
+    			Crackiness.Level crack = ironGolemEntity.getCrackiness();
+    			if (crack != Crackiness.Level.NONE) {
     				ResourceLocation identifier = DAMAGE_TO_TEXTURE.get(crack);
     				renderColoredCutoutModel(this.getParentModel(), identifier, matrixStack, vertexConsumerProvider, i,
     						ironGolemEntity, 1.0F, 1.0F, 1.0F);
@@ -45,11 +46,11 @@ public class MetalGolemRenderer extends EasyGolemRenderer {
     	}
 
     	static {
-    		DAMAGE_TO_TEXTURE = ImmutableMap.of(IronGolem.Crackiness.LOW,
+    		DAMAGE_TO_TEXTURE = ImmutableMap.of(Crackiness.Level.LOW,
     				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_low.png"),
-    				IronGolem.Crackiness.MEDIUM,
+    				Crackiness.Level.MEDIUM,
     				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_medium.png"),
-    				IronGolem.Crackiness.HIGH,
+    				Crackiness.Level.HIGH,
     				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_high.png"));
     	}
     }

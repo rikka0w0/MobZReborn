@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_zombie_mage"
+            "id": "mobz:head_zombie_mage"
         },
         "title": {
             "translate": "entity.mobz.spider_mage"

@@ -2,7 +2,7 @@
     "parent": "mobz:mob/lord_of_darkness",
     "display": {
         "icon": {
-            "item": "mobz:head_withender"
+            "id": "mobz:head_withender"
         },
         "title": {
             "translate": "entity.mobz.withender"

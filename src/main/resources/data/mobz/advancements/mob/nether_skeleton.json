@@ -2,7 +2,7 @@
     "parent": "mobz:mob/overgrown_skeleton",
     "display": {
         "icon": {
-            "item": "mobz:head_nether_skeleton"
+            "id": "mobz:head_nether_skeleton"
         },
         "title": {
             "translate": "entity.mobz.nether_skeleton"

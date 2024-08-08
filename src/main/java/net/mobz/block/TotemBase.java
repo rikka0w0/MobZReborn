@@ -2,11 +2,10 @@ package net.mobz.block;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -73,7 +72,7 @@ public class TotemBase extends Block {
 			world.removeBlock(pos.above(), false);
 			world.removeBlock(pos.above().above(), false);
 
-			PillagerBoss pillager = (PillagerBoss) MobZEntities.PILLAGER_BOSS.get().create(world);
+			PillagerBoss pillager = MobZEntities.PILLAGER_BOSS.get().create(world);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
 			pillager.moveTo(spawnPos, 0.0F, 0.0F);
 			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.HOSTILE, 1F, 1F);
@@ -88,7 +87,7 @@ public class TotemBase extends Block {
 		        double d = (double) pos.getX() + (double) rand.nextFloat();
 		        double e = (double) pos.getY() + (double) rand.nextFloat();
 		        double f = (double) pos.getZ() + (double) rand.nextFloat();
-		        double o = (double) pos.getY() + ((double) rand.nextFloat() + 1);
+		        double o = pos.getY() + ((double) rand.nextFloat() + 1);
 		        double r = (double) pos.getY() - ((double) rand.nextFloat());
 		        world.addParticle(ParticleTypes.ASH, d, e, f, 0.0D, 0.0D, 0.0D);
 		        world.addParticle(ParticleTypes.SMOKE, d, o, f, 0.0D, 0.0D, 0.0D);
@@ -103,7 +102,7 @@ public class TotemBase extends Block {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag options) {
 		tooltip.add(Component.translatable("block.mobz.totem_base.tooltip"));
 	}

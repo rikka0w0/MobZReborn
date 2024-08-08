@@ -2,7 +2,7 @@
     "parent": "mobz:mob/frost_blaze",
     "display": {
         "icon": {
-            "item": "mobz:head_wither_blaze"
+            "id": "mobz:head_wither_blaze"
         },
         "title": {
             "translate": "entity.mobz.wither_blaze"

@@ -2,10 +2,12 @@ package net.mobz.fabric.biome;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
+import com.mojang.serialization.MapCodec;
 
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
@@ -13,6 +15,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 
 import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.HolderLookup.RegistryLookup;
@@ -20,10 +23,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 public class BiomeModifierRegistry {
-	public final static ResourceKey<Registry<Codec<? extends BiomeModifier>>> CODEC_REGISTRY_RESKEY =
+	public final static ResourceKey<Registry<MapCodec<? extends BiomeModifier>>> CODEC_REGISTRY_RESKEY =
 			ResourceKey.createRegistryKey(new ResourceLocation("fabric", "biome_modifier_codec"));
 
-	public final static MappedRegistry<Codec<? extends BiomeModifier>> CODEC_REGISTRY =
+	public final static MappedRegistry<MapCodec<? extends BiomeModifier>> CODEC_REGISTRY =
 			FabricRegistryBuilder.createSimple(CODEC_REGISTRY_RESKEY).buildAndRegister();
 
 	public final static ResourceKey<Registry<BiomeModifier>> REGISTRY_KEY
@@ -51,6 +54,6 @@ public class BiomeModifierRegistry {
 
 		// Register biome modifier types here
 		CODEC_REGISTRY.register(ResourceKey.create(CODEC_REGISTRY_RESKEY, AddSpawnsBiomeModifier.TYPE_NAME),
-				AddSpawnsBiomeModifier.CODEC, Lifecycle.stable());
+				AddSpawnsBiomeModifier.CODEC, new RegistrationInfo(Optional.empty(), Lifecycle.stable()));
 	}
 }

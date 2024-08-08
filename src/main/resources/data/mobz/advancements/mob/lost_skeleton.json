@@ -2,7 +2,7 @@
     "parent": "mobz:mob/started",
     "display": {
         "icon": {
-            "item": "mobz:head_lost_skeleton"
+            "id": "mobz:head_lost_skeleton"
         },
         "title": {
             "translate": "entity.mobz.lost_skeleton"

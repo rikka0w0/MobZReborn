@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -156,6 +157,6 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 
 	@Override
 	public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
-		return stack.getItem().getFoodProperties();
+		return stack.getItem().components().getTyped(DataComponents.FOOD).value();
 	}
 }

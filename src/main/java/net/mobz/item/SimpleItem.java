@@ -2,13 +2,10 @@ package net.mobz.item;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
 
 public class SimpleItem extends Item {
     /**
@@ -20,7 +17,7 @@ public class SimpleItem extends Item {
     }
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
 		String str = this.getDescriptionId(itemStack);
 		tooltip.add(Component.translatable(str+".tooltip"));
 	}

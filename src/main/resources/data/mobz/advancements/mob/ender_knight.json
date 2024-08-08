@@ -2,7 +2,7 @@
     "parent": "mobz:mob/templar",
     "display": {
         "icon": {
-            "item": "mobz:head_ender_knight"
+            "id": "mobz:head_ender_knight"
         },
         "title": {
             "translate": "entity.mobz.ender_knight"

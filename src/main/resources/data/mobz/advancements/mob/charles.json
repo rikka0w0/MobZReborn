@@ -2,7 +2,7 @@
     "parent": "mobz:mob/andriu",
     "display": {
         "icon": {
-            "item": "mobz:head_charles"
+            "id": "mobz:head_charles"
         },
         "title": {
             "translate": "entity.mobz.charles"

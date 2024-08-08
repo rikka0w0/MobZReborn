@@ -50,7 +50,7 @@ public class HoneySlime extends Slime {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose) {
+    public EntityDimensions getDefaultDimensions(Pose pose) {
         return this.getType().getDimensions();
     }
 }

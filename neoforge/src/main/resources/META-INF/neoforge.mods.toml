@@ -20,7 +20,7 @@ Original: https://github.com/Globox1997/MobZ
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.mobz]] #optional
+[[dependencies.${mod_id}]] #optional
     # the modid of the dependency
     modId="neoforge" #mandatory
     # The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
@@ -34,14 +34,14 @@ Original: https://github.com/Globox1997/MobZ
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 
-[[dependencies.mobz]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.mobz]]
+[[dependencies.${mod_id}]]
     modId = "cloth_config"
     type="required"
     versionRange="[${cloth_config_version_min},)"

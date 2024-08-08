@@ -12,11 +12,11 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.mobz.entity.MetalGolem;
 import net.mobz.init.MobZEntities;
@@ -74,7 +74,7 @@ public class HardenedMetalBlock extends Block {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag options) {
 		tooltip.add(Component.translatable("block.mobz.hardened_metal_block.tooltip"));
 	}

@@ -2,7 +2,7 @@
     "parent": "mobz:mob/baby_ravager",
     "display": {
         "icon": {
-            "item": "mobz:head_william"
+            "id": "mobz:head_william"
         },
         "title": {
             "translate": "entity.mobz.william"

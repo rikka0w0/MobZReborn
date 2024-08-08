@@ -2,10 +2,9 @@ package net.mobz.block;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,7 +25,7 @@ public class TotemTop extends AbstractHead {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter world, List<Component> tooltip,
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag options) {
 		tooltip.add(Component.translatable("block.mobz.totem_top.tooltip"));
 	}

@@ -2,7 +2,7 @@
     "parent": "mobz:mob/bowman",
     "display": {
         "icon": {
-            "item": "mobz:head_archer"
+            "id": "mobz:head_archer"
         },
         "title": {
             "translate": "entity.mobz.archer"

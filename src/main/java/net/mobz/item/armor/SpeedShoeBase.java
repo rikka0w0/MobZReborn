@@ -1,51 +1,89 @@
 package net.mobz.item.armor;
 
+import java.util.EnumMap;
 import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+
+import net.mobz.MobZ;
+import net.mobz.init.MobZItems;
 
 public class SpeedShoeBase extends ArmorItem {
-    private final double speedBoost;
-    private static final UUID[] MODIFIERS = new UUID[] { UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
-            UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
-            UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
-            UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150") };
+	public static final EnumMap<Type, Integer> DEFENSE_MAP1 = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 1);
+		map.put(ArmorItem.Type.LEGGINGS, 2);
+		map.put(ArmorItem.Type.CHESTPLATE, 3);
+		map.put(ArmorItem.Type.HELMET, 1);
+	});
 
-    public SpeedShoeBase(ArmorMaterial material, ArmorItem.Type armorItemType, Item.Properties properties, double speedBoost) {
+	public static final Holder<ArmorMaterial> MATERIAL1 = Registry.registerForHolder(
+		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "speed"), new ArmorMaterial(
+			DEFENSE_MAP1,
+       		10,		// getEnchantmentValue
+      		SoundEvents.ARMOR_EQUIP_LEATHER,
+       		()->Ingredient.of(MobZItems.BEAR_LEATHER.get()),
+       		List.of(new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "speed"))),
+       		0,	// getToughness
+       		0	// getKnockbackResistance
+		)
+	);
+
+	public static final EnumMap<Type, Integer> DEFENSE_MAP2 = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 3);
+		map.put(ArmorItem.Type.CHESTPLATE, 4);
+		map.put(ArmorItem.Type.HELMET, 2);
+	});
+
+	public static final Holder<ArmorMaterial> MATERIAL2 = Registry.registerForHolder(
+		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "speed2"), new ArmorMaterial(
+			DEFENSE_MAP2,
+       		12,		// getEnchantmentValue
+      		SoundEvents.ARMOR_EQUIP_LEATHER,
+       		()->Ingredient.of(Items.EMERALD),
+       		List.of(new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "speed2"))),
+       		0,	// getToughness
+       		0	// getKnockbackResistance
+		)
+	);
+
+    private final double speedBoost;
+
+    public SpeedShoeBase(Holder<ArmorMaterial> material, ArmorItem.Type armorItemType, Item.Properties properties, double speedBoost) {
         super(material, armorItemType, properties);
         this.speedBoost = speedBoost;
     }
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
 		tooltip.add(Component.translatable("item.mobz.speed_boots.tooltip"));
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
-		if (equipmentSlot == this.getEquipmentSlot()) {
-			multimap_1.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(MODIFIERS[equipmentSlot.getIndex()],
-					"Speed", this.speedBoost, AttributeModifier.Operation.ADDITION));
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers();
 
-		}
-
-		return multimap_1;
+		return modifiers.withModifierAdded(
+			Attributes.MOVEMENT_SPEED,
+			new AttributeModifier(ArmorUtils.getModifierUUID(this.getType(), modifiers), "Speed", this.speedBoost, AttributeModifier.Operation.ADD_VALUE),
+			EquipmentSlotGroup.bySlot(this.getEquipmentSlot())
+		);
 	}
 }

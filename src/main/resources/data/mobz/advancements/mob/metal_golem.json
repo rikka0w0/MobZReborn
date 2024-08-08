@@ -2,7 +2,7 @@
     "parent": "mobz:mob/fiora",
     "display": {
         "icon": {
-            "item": "mobz:head_metal_golem"
+            "id": "mobz:head_metal_golem"
         },
         "title": {
             "translate": "entity.mobz.metal_golem"
