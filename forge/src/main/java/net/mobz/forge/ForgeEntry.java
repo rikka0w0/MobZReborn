@@ -73,7 +73,7 @@ public class ForgeEntry {
 
 		MobZ.platform = registryWrapper;
 
-		MobZ.configs = ForgeConfigManager.register();
+		MobZ.configs = ForgeConfigManager.loadFromFile();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
 		MobZ.invokeStaticFields();

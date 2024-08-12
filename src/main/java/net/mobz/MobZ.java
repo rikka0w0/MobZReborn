@@ -1,13 +1,12 @@
 package net.mobz;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
+
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
@@ -48,9 +47,5 @@ public class MobZ {
     	MobZIcons.headNames.getClass();
     	MobZTabs.tab.getClass();
     	MobZTabs.eggs.getClass();
-	}
-
-	public static void initConfig() {
-		MobZ.configs = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
 	}
 }

@@ -57,6 +57,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
+import net.mobz.config.ClothConfig;
 import net.mobz.data.ItemModelDataProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
@@ -75,7 +76,7 @@ public class NeoforgeEntry {
 
 		MobZ.platform = new NeoforgeRegistryWrapper(modBus);
 
-		MobZ.initConfig();
+		MobZ.configs = ClothConfig.get();
 
 		Supplier<Runnable> toRun = () -> ClientRegistrationHandler::registerConfigGui;
         if (Dist.CLIENT == FMLEnvironment.dist)  {

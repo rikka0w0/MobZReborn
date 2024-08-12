@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 import net.mobz.MobZ;
+import net.mobz.config.ClothConfig;
 import net.mobz.fabric.biome.BiomeModifierRegistry;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
@@ -31,7 +32,7 @@ public class FabricEntry implements ModInitializer {
 		MobZ.platform = new FabricRegistryWrapper();
 
 		// Config
-		MobZ.initConfig();
+		MobZ.configs = ClothConfig.get();
 
 		// Register items, blocks, entities
 		MobZ.invokeStaticFields();
