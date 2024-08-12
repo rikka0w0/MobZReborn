@@ -1,4 +1,4 @@
-package net.mobz.client;
+package net.mobz.config;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -21,11 +21,17 @@ import net.minecraft.client.gui.screens.Screen;
 import net.mobz.Configs;
 
 public class MobZComposedGuiRegistryAccess extends ComposedGuiRegistryAccess {
-	private static final GuiRegistry defaultGuiRegistry =
-            DefaultGuiTransformers.apply(DefaultGuiProviders.apply(new GuiRegistry()));
+	public final static GuiRegistry GUI_REGISTRY =
+			DefaultGuiTransformers.apply(DefaultGuiProviders.apply(AutoConfig.getGuiRegistry(Configs.class)));
 
 	public MobZComposedGuiRegistryAccess(GuiRegistryAccess... children) {
 		super(children);
+	}
+
+	public static void registerGuiProcessors() {
+		GuiRegistry guiRegistry = AutoConfig.getGuiRegistry(Configs.class);
+		DefaultGuiProviders.apply(guiRegistry);
+		DefaultGuiTransformers.apply(guiRegistry);
 	}
 
 	public static <T extends ConfigData> Screen buildScreen(Screen parent) {
@@ -35,7 +41,7 @@ public class MobZComposedGuiRegistryAccess extends ComposedGuiRegistryAccess {
 			(ConfigManager<? extends ConfigData>) AutoConfig.getConfigHolder(cls);
 
 		MobZComposedGuiRegistryAccess guiRegAccess = new MobZComposedGuiRegistryAccess(
-                AutoConfig.getGuiRegistry(cls), defaultGuiRegistry, new DefaultGuiRegistryAccess());
+                AutoConfig.getGuiRegistry(cls), GUI_REGISTRY, new DefaultGuiRegistryAccess());
 
 		ConfigScreenProvider<? extends ConfigData> screenProvider =
 			new ConfigScreenProvider<>(configManager, guiRegAccess, parent);

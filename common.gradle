@@ -2,7 +2,7 @@
 Properties mergedProperties = new Properties();
 mergedProperties.load(new FileInputStream("$project.rootDir/../common.properties"));
 // Loader-specific gradle.properties takes priority
-mergedProperties.load(new FileInputStream("gradle.properties"));
+mergedProperties.load(new FileInputStream("$project.rootDir/gradle.properties"));
 mergedProperties.each { prop -> project.ext.set(prop.key, prop.value); }
 
 project.ext.set("mergedProperties", mergedProperties)

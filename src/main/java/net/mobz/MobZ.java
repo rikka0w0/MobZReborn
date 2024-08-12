@@ -1,7 +1,5 @@
 package net.mobz;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -39,18 +37,14 @@ public class MobZ {
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {
-    	MobZItems.BOSS_INGOT.getClass();
-    	MobZBlocks.BOSS_BLOCK.getClass();
-    	MobZEntities.BOSS_ZOMBIE.getClass();
-    	MobZArmors.BOSS_BOOTS.getClass();
-    	MobZWeapons.BOSS_SWORD.getClass();
-    	MobZSounds.MEDIVEALSOUNDEVENT.getClass();
-    	MobZIcons.headNames.getClass();
-    	MobZTabs.tab.getClass();
-    	MobZTabs.eggs.getClass();
-	}
-
-	public static void initConfig() {
-		MobZ.configs = AutoConfig.register(Configs.class, JanksonConfigSerializer::new).getConfig();
+		MobZItems.BOSS_INGOT.getClass();
+		MobZBlocks.BOSS_BLOCK.getClass();
+		MobZEntities.BOSS_ZOMBIE.getClass();
+		MobZArmors.BOSS_BOOTS.getClass();
+		MobZWeapons.BOSS_SWORD.getClass();
+		MobZSounds.MEDIVEALSOUNDEVENT.getClass();
+		MobZIcons.headNames.getClass();
+		MobZTabs.tab.getClass();
+		MobZTabs.eggs.getClass();
 	}
 }

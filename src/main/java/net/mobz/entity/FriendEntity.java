@@ -263,19 +263,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 					.add(Attributes.ATTACK_DAMAGE, MobZ.configs.katherine.attack);
 		}
 
-	    @Override
-	    public void setTame(boolean tamed) {
-	        super.setTame(tamed);
-	        if (tamed) {
-	            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
-	            this.setHealth(20.0F);
-	        } else {
-	            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-	        }
-
-	        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-	    }
-
 		@Override
 		public boolean isFood(ItemStack stack) {
 			return stack.is(MobZ.KATHERINE_FOOD_TAG);
@@ -298,8 +285,9 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		}
 
 		public static AttributeSupplier.Builder createMobzAttributes() {
-			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D).add(Attributes.MAX_HEALTH, 20.0D)
-					.add(Attributes.ATTACK_DAMAGE, 5.0D);
+			return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.27D)
+					.add(Attributes.MAX_HEALTH, MobZ.configs.fiora.life)
+					.add(Attributes.ATTACK_DAMAGE, MobZ.configs.fiora.attack);
 		}
 
 		@Override

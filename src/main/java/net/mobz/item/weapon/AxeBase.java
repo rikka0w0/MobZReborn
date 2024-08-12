@@ -2,6 +2,7 @@ package net.mobz.item.weapon;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
@@ -28,60 +29,40 @@ public class AxeBase extends SwordItem {
 		tooltip.add(Component.translatable("item.mobz.eragons_axe.tooltip"));
 	}
 
-	private static Supplier<MobEffectInstance> slow1 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0, false, false, false);
-	private static Supplier<MobEffectInstance> strength = ()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, 0, false, false, false);
-	private static Supplier<MobEffectInstance> defense = ()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false);
-	private static Supplier<MobEffectInstance> slow2 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false, false);
-	private static Supplier<MobEffectInstance> blind2 = ()->new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false, false);
-	private static Supplier<MobEffectInstance> strength2 = ()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 70, 0, false, false, false);
-	private static Supplier<MobEffectInstance> defense2 = ()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false);
-	private static Supplier<MobEffectInstance> slow3 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 0, false, false, false);
-	private static Supplier<MobEffectInstance> blind3 = ()->new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false, false);
-	private static Supplier<MobEffectInstance> strength3 = ()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 70, 0, false, false, false);
-	private static Supplier<MobEffectInstance> defense3 = ()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false);
-	private static Supplier<MobEffectInstance> slow4 = ()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 140, 0, false, false, false);
-	private static Supplier<MobEffectInstance> blind4 = ()->new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false, false);
-	private static Supplier<MobEffectInstance> strength4 = ()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 70, 0, false, false, false);
-	private static Supplier<MobEffectInstance> defense4 = ()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false);
+	private final static List<Set<Supplier<MobEffectInstance>>> EFFECTS = List.of(
+			Set.of(
+				()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false)
+			),
+			Set.of(
+				()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 70, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false)
+			),
+			Set.of(
+				()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 70, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false)
+			),
+			Set.of(
+				()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 140, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_BOOST, 70, 0, false, false, false),
+				()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false)
+			)
+		);
 
 	@Override
-	public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {
-        itemStack_1.hurtAndBreak(1, livingEntity_2, (livingEntity_1x) ->
-            livingEntity_1x.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+	public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity attacker) {
+		itemStack.hurtAndBreak(1, target, (livingEntity_1x) ->
+			livingEntity_1x.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 
-		Random random = new Random();
-		int randomNumber = random.nextInt() % 4;
+		int effectIndex = new Random().nextInt(4);
+		EFFECTS.get(effectIndex).stream().map(Supplier::get).forEach(target::addEffect);
 
-		if (randomNumber < 0) {
-			randomNumber = randomNumber * (-1);
-		}
-
-		switch (randomNumber) {
-		case 0:
-			livingEntity_1.addEffect(slow1.get());
-			livingEntity_2.addEffect(strength.get());
-			livingEntity_2.addEffect(defense.get());
-			return true;
-		case 1:
-			livingEntity_1.addEffect(slow2.get());
-			livingEntity_1.addEffect(blind2.get());
-			livingEntity_2.addEffect(strength2.get());
-			livingEntity_2.addEffect(defense2.get());
-			return true;
-		case 2:
-			livingEntity_1.addEffect(slow3.get());
-			livingEntity_1.addEffect(blind3.get());
-			livingEntity_2.addEffect(strength3.get());
-			livingEntity_2.addEffect(defense3.get());
-			return true;
-		case 3:
-			livingEntity_1.addEffect(slow4.get());
-			livingEntity_1.addEffect(blind4.get());
-			livingEntity_2.addEffect(strength4.get());
-			livingEntity_2.addEffect(defense4.get());
-			return true;
-		default:
-			return true;
-		}
+		return true;
 	}
 }

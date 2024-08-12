@@ -1,7 +1,7 @@
 package net.mobz.item.armor;
 
+import java.util.EnumMap;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -9,6 +9,7 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,19 +18,44 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 
-public class LifeArmorBase extends ArmorItem {
-    private final double lifeBoost;
-    private static final UUID[] MODIFIERS = new UUID[] { UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
-            UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
-            UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
-            UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150") };
+import net.mobz.init.MobZItems;
 
-    public LifeArmorBase(ArmorMaterial material, ArmorItem.Type armorItemType, Item.Properties properties, double lifeBoost) {
-        super(material, armorItemType, properties);
-        this.lifeBoost = lifeBoost;
+public class LifeArmorBase extends ArmorItem {
+	// boots, leggings, chestplate, helmet
+	// DurabilityBase was { 16, 18, 20, 14 } * 25
+	// Vanilla base: {13, 15, 16, 11};
+	public static final EnumMap<Type, Integer> DURABILITY_MAP = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 30);
+		map.put(ArmorItem.Type.LEGGINGS, 30);
+		map.put(ArmorItem.Type.CHESTPLATE, 30);
+		map.put(ArmorItem.Type.HELMET, 30);
+	});
+
+	public static final EnumMap<Type, Integer> DEFENSE_MAP = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 4);
+		map.put(ArmorItem.Type.CHESTPLATE, 5);
+		map.put(ArmorItem.Type.HELMET, 2);
+	});
+
+	public static final ArmorMaterial MATERIAL = new SimpleArmorMaterial("life", DURABILITY_MAP,
+			DEFENSE_MAP,
+       		10,		// getEnchantmentValue
+      		SoundEvents.ARMOR_EQUIP_IRON,
+       		()->Ingredient.of(MobZItems.HARDENEDMETAL_INGOT.get()),
+       		0,	// getToughness
+       		0	// getKnockbackResistance
+		);
+
+    private final double lifeBoost = 3.0D;
+
+    public LifeArmorBase(ArmorItem.Type armorItemType, Item.Properties properties) {
+        super(MATERIAL, armorItemType, properties);
     }
 
 	@Override
@@ -39,13 +65,14 @@ public class LifeArmorBase extends ArmorItem {
 
 	@Override
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
-		if (equipmentSlot == this.getEquipmentSlot()) {
-			multimap_1.put(Attributes.MAX_HEALTH, new AttributeModifier(MODIFIERS[equipmentSlot.getIndex()],
-					"Life", this.lifeBoost, AttributeModifier.Operation.ADDITION));
+		Multimap<Attribute, AttributeModifier> modifiers = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
 
+		if (equipmentSlot == this.getEquipmentSlot()) {
+			modifiers.put(
+					Attributes.MAX_HEALTH,
+					new AttributeModifier(ArmorUtils.getModifierUUID(modifiers), "Life", this.lifeBoost, AttributeModifier.Operation.ADDITION));
 		}
 
-		return multimap_1;
+		return modifiers;
 	}
 }

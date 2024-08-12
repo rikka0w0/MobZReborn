@@ -46,6 +46,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
+import net.mobz.config.ClothConfig;
 import net.mobz.data.ItemModelDataProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
@@ -66,7 +67,7 @@ public class ForgeEntry {
 
 		MobZ.platform = registryWrapper;
 
-		MobZ.initConfig();
+		MobZ.configs = ClothConfig.get();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
 
 		MobZ.invokeStaticFields();

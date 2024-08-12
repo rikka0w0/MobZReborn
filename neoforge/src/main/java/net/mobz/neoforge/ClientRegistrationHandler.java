@@ -4,8 +4,8 @@ import net.minecraft.client.renderer.item.ItemProperties;
 
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
-import net.mobz.client.MobZComposedGuiRegistryAccess;
 import net.mobz.client.VanillaClientRegistry;
+import net.mobz.config.MobZComposedGuiRegistryAccess;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;

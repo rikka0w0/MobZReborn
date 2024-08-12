@@ -1,6 +1,5 @@
 package net.mobz.forge;
 
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler.ConfigScreenFactory;
@@ -9,10 +8,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.mobz.Configs;
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
 import net.mobz.client.VanillaClientRegistry;
+import net.mobz.config.MobZComposedGuiRegistryAccess;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegistrationHandler {
@@ -28,6 +27,7 @@ public class ClientRegistrationHandler {
 	}
 
 	public static void registerConfigGui() {
-		ModLoadingContext.get().registerExtensionPoint(ConfigScreenFactory.class, () -> new ConfigScreenFactory((client, parent) -> AutoConfig.getConfigScreen(Configs.class, parent).get()));
+		ModLoadingContext.get().registerExtensionPoint(ConfigScreenFactory.class,
+				() -> new ConfigScreenFactory((client, parent) -> MobZComposedGuiRegistryAccess.buildScreen(parent)));
 	}
 }

@@ -26,12 +26,13 @@ public class VSwordBase extends SwordItem {
         tooltip.add(Component.translatable("item.mobz.stone_tomahawk.tooltip"));
     }
 
-    public boolean hurtEnemy(ItemStack itemStack_1, LivingEntity livingEntity_1, LivingEntity livingEntity_2) {
-        itemStack_1.hurtAndBreak(1, (LivingEntity) livingEntity_2, (livingEntity_1x) ->
-            ((LivingEntity) livingEntity_1x).broadcastBreakEvent(EquipmentSlot.MAINHAND)
-        );
+	@Override
+	public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity attacker) {
+		itemStack.hurtAndBreak(1, target, (livingEntity_1x) ->
+			livingEntity_1x.broadcastBreakEvent(EquipmentSlot.MAINHAND)
+		);
 
-        livingEntity_1.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 120, 0, false, false, false));
-        return true;
-    }
+		target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 120, 0, false, false, false));
+		return true;
+	}
 }

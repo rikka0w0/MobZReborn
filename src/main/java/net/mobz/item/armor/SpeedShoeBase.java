@@ -1,7 +1,7 @@
 package net.mobz.item.armor;
 
+import java.util.EnumMap;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -9,6 +9,7 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,15 +18,62 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 
+import net.mobz.init.MobZItems;
+
 public class SpeedShoeBase extends ArmorItem {
+	public static final EnumMap<Type, Integer> DURABILITY_MAP1 = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 21);
+		map.put(ArmorItem.Type.LEGGINGS, 21);
+		map.put(ArmorItem.Type.CHESTPLATE, 21);
+		map.put(ArmorItem.Type.HELMET, 21);
+	});
+
+	public static final EnumMap<Type, Integer> DEFENSE_MAP1 = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 1);
+		map.put(ArmorItem.Type.LEGGINGS, 2);
+		map.put(ArmorItem.Type.CHESTPLATE, 3);
+		map.put(ArmorItem.Type.HELMET, 1);
+	});
+
+	public static final ArmorMaterial MATERIAL1 = new SimpleArmorMaterial("speed1", DURABILITY_MAP1,
+			DEFENSE_MAP1,
+       		10,		// getEnchantmentValue
+      		SoundEvents.ARMOR_EQUIP_LEATHER,
+       		()->Ingredient.of(MobZItems.BEAR_LEATHER.get()),
+       		0,	// getToughness
+       		0	// getKnockbackResistance
+		);
+
+	public static final EnumMap<Type, Integer> DURABILITY_MAP2 = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 23);
+		map.put(ArmorItem.Type.LEGGINGS, 23);
+		map.put(ArmorItem.Type.CHESTPLATE, 23);
+		map.put(ArmorItem.Type.HELMET, 23);
+	});
+
+	public static final EnumMap<Type, Integer> DEFENSE_MAP2 = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 3);
+		map.put(ArmorItem.Type.CHESTPLATE, 4);
+		map.put(ArmorItem.Type.HELMET, 2);
+	});
+
+	public static final ArmorMaterial MATERIAL2 = new SimpleArmorMaterial("speed2", DURABILITY_MAP2,
+			DEFENSE_MAP2,
+       		12,		// getEnchantmentValue
+      		SoundEvents.ARMOR_EQUIP_LEATHER,
+       		()->Ingredient.of(Items.EMERALD),
+       		0,	// getToughness
+       		0	// getKnockbackResistance
+		);
+
     private final double speedBoost;
-    private static final UUID[] MODIFIERS = new UUID[] { UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
-            UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
-            UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
-            UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150") };
 
     public SpeedShoeBase(ArmorMaterial material, ArmorItem.Type armorItemType, Item.Properties properties, double speedBoost) {
         super(material, armorItemType, properties);
@@ -39,13 +87,14 @@ public class SpeedShoeBase extends ArmorItem {
 
 	@Override
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-		Multimap<Attribute, AttributeModifier> multimap_1 = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
-		if (equipmentSlot == this.getEquipmentSlot()) {
-			multimap_1.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(MODIFIERS[equipmentSlot.getIndex()],
-					"Speed", this.speedBoost, AttributeModifier.Operation.ADDITION));
+		Multimap<Attribute, AttributeModifier> modifiers = LinkedListMultimap.create(super.getDefaultAttributeModifiers(equipmentSlot));
 
+		if (equipmentSlot == this.getEquipmentSlot()) {
+			modifiers.put(
+					Attributes.MOVEMENT_SPEED,
+					new AttributeModifier(ArmorUtils.getModifierUUID(modifiers), "Speed", this.speedBoost, AttributeModifier.Operation.ADDITION));
 		}
 
-		return multimap_1;
+		return modifiers;
 	}
 }

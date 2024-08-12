@@ -26,12 +26,11 @@ import net.mobz.init.MobZBlocks;
 
 public class SacrificeKnife extends Item {
 	public SacrificeKnife(Properties settings) {
-		super(settings);
+		super(settings.durability(5000));
 	}
 
 	public static int getBloodCounter(ItemStack itemStack) {
-		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
-		return getIntOrDef(nbt, "bloodCounter", 0);
+		return itemStack.getDamageValue();
 	}
 
 	public static int getDryingNumber(ItemStack itemStack) {
@@ -41,7 +40,7 @@ public class SacrificeKnife extends Item {
 
 	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
 		CompoundTag nbt = itemStack.getOrCreateTagElement("mobz");
-		nbt.putInt("bloodCounter", bloodCounter);
+		itemStack.setDamageValue(bloodCounter);
 		nbt.putInt("dryingNumber", dryingNumber);
 	}
 
@@ -81,6 +80,7 @@ public class SacrificeKnife extends Item {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		int bloodCounter = getBloodCounter(stack);
 		int dryingNumber = getDryingNumber(stack);
+
 		if (bloodCounter > 0) {
 			bloodCounter--;
 		}
