@@ -36,10 +36,10 @@ public class AmatArmorBase extends ArmorItem {
 	// DurabilityBase was { 17, 19, 21, 15 } * 25
 	// Vanilla base: {13, 15, 16, 11};
 	public static final EnumMap<Type, Integer> DURABILITY_MAP = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 32);
-		map.put(ArmorItem.Type.LEGGINGS, 32);
-		map.put(ArmorItem.Type.CHESTPLATE, 32);
-		map.put(ArmorItem.Type.HELMET, 32);
+		map.put(ArmorItem.Type.BOOTS, 34);
+		map.put(ArmorItem.Type.LEGGINGS, 34);
+		map.put(ArmorItem.Type.CHESTPLATE, 34);
+		map.put(ArmorItem.Type.HELMET, 34);
 	});
 
 	public static final EnumMap<Type, Integer> DEFENSE_MAP = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
