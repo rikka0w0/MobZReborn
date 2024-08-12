@@ -73,7 +73,7 @@ public class SacrificeKnife extends Item {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		int bloodCounter = getBloodCounter(stack);
 		int dryingNumber = getDryingNumber(stack);
-		System.out.println(bloodCounter + "= " + dryingNumber);
+
 		if (bloodCounter > 0) {
 			bloodCounter--;
 		}
