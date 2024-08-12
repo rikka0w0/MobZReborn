@@ -4,7 +4,6 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
-
 import net.mobz.config.CanJoinRaid;
 
 @Config(name = MobZ.MODID)
@@ -17,6 +16,9 @@ public class Configs implements ConfigData {
 		public boolean enabled;
 		public double life;
 		public double attack;
+
+		// Used by the deserializer only
+		public MobSummonable() {}
 
 		public MobSummonable(boolean enabled, double life, double attack) {
 			this.enabled = enabled;
@@ -32,6 +34,9 @@ public class Configs implements ConfigData {
 		public double life;
 		public double attack;
 
+		// Used by the deserializer only
+		public MobNoNaturalSpawn() {}
+
 		public MobNoNaturalSpawn(double life, double attack) {
 			this.life = life;
 			this.attack = attack;
@@ -44,6 +49,9 @@ public class Configs implements ConfigData {
 	public static class MobSummonableNoAttack {
 		public boolean enabled;
 		public double life;
+
+		// Used by the deserializer only
+		public MobSummonableNoAttack() {}
 
 		public MobSummonableNoAttack(boolean enabled, double life) {
 			this.enabled = enabled;
@@ -60,6 +68,9 @@ public class Configs implements ConfigData {
 		public int spawn_rate;
 		public double life;
 
+		// Used by the deserializer only
+		public MobNoAttack() {}
+
 		public MobNoAttack(boolean spawn, int spawn_rate, double life) {
 			this.spawn = spawn;
 			this.spawn_rate = spawn_rate;
@@ -73,6 +84,9 @@ public class Configs implements ConfigData {
 		public int spawn_rate;
 		public double life;
 		public double attack;
+
+		// Used by the deserializer only
+		public Mob() {}
 
 		public Mob(boolean spawn, int spawn_rate, double life, double attack) {
 			this.spawn = spawn;
@@ -92,6 +106,9 @@ public class Configs implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
 		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
+
+		// Used by the deserializer only
+		public Pillager() {}
 
 		public Pillager(boolean spawn, int spawn_rate, double life, double attack) {
 			this.spawn = spawn;
@@ -122,6 +139,9 @@ public class Configs implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
 		public CanJoinRaid can_join_raid = CanJoinRaid.SURFACE_ONLY;
+
+		// Used by the deserializer only
+		public PillagerSummonOnly() {}
 
 		public PillagerSummonOnly(double life, double attack) {
 			this.life = life;
