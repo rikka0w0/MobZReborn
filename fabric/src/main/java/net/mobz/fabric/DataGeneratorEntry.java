@@ -10,7 +10,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 
-import net.mobz.data.ItemModelDataProvider;
+import net.mobz.data.ModelDataProvider;
 import net.mobz.data.Loots;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.fabric.biome.BiomeModifierRegistry;
@@ -28,9 +28,9 @@ public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 		// Data: Biome tags for spawns
 		pack.addProvider(SpawnBiomeTagProvider::new);
 
-		// Resource: Items models
+		// Resource: Models and blockstates
 		Factory<? extends DataProvider> itemModels = (output) ->
-			new ItemModelDataProvider(output, registryAccess.registryOrThrow(Registries.ITEM), resLoc->true);
+			new ModelDataProvider(output, registryAccess.registryOrThrow(Registries.ITEM), resLoc->true);
 		pack.addProvider(itemModels);
 
 		// Data: LootTable

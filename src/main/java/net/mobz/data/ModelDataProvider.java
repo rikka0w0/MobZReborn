@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -19,11 +20,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.Variant;
+import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
@@ -35,15 +41,17 @@ import net.mobz.init.MobZIcons;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
-public class ItemModelDataProvider implements DataProvider {
+public class ModelDataProvider implements DataProvider {
 	public final static ModelTemplate BOW_PULLING = new ModelTemplate(Optional.of(new ResourceLocation("minecraft", "item/bow")),
 			Optional.empty(), TextureSlot.LAYER0);
 
+    private final PackOutput.PathProvider blockStatePathProvider;
 	private final PackOutput.PathProvider modelPathProvider;
 	private final Registry<Item> itemRegistry;
 	private final Predicate<ResourceLocation> existenceChecker;
 
-	public ItemModelDataProvider(PackOutput packOutput, Registry<Item> itemRegistry, @Nullable Predicate<ResourceLocation> existenceChecker) {
+	public ModelDataProvider(PackOutput packOutput, Registry<Item> itemRegistry, @Nullable Predicate<ResourceLocation> existenceChecker) {
+        this.blockStatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
 		this.modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
 		this.itemRegistry = itemRegistry;
 		this.existenceChecker = (existenceChecker == null) ? resLoc->true : existenceChecker;
@@ -115,32 +123,45 @@ public class ItemModelDataProvider implements DataProvider {
 		builder.simpleItem(MobZArmors.SPEED2_BOOTS.get());
 
 		// Blocks
-		builder.block(MobZBlocks.AMAT_BLOCK.get());
-		builder.block(MobZBlocks.BOSS_BLOCK.get());
-		builder.block(MobZBlocks.BOSS_TROPHY.get());
-		builder.block(MobZBlocks.ENDER_HEADER.get());
-		builder.block(MobZBlocks.HARDENED_METAL_BLOCK.get());
+		builder.cubeAll(MobZBlocks.AMAT_BLOCK.get());
+		builder.cubeAll(MobZBlocks.BOSS_BLOCK.get());
+		builder.blockItem(MobZBlocks.BOSS_TROPHY.get());
+		builder.blockItem(MobZBlocks.ENDER_HEADER.get());
+		builder.cubeAll(MobZBlocks.HARDENED_METAL_BLOCK.get());
 
-		builder.block(MobZBlocks.TOTEM_BASE.get());
-		builder.block(MobZBlocks.TOTEM_MIDDLE.get());
-		builder.block(MobZBlocks.TOTEM_TOP.get());
+		builder.blockItem(MobZBlocks.TOTEM_BASE.get());
+		builder.blockItem(MobZBlocks.TOTEM_MIDDLE.get());
+		builder.blockItem(MobZBlocks.TOTEM_TOP.get());
 	}
 
 	@Override
 	public CompletableFuture<?> run(CachedOutput pOutput) {
-        Map<ResourceLocation, Supplier<JsonElement>> cachedOutput = Maps.<ResourceLocation, Supplier<JsonElement>>newHashMap();
+        Map<ResourceLocation, Supplier<JsonElement>> modelMap = Maps.<ResourceLocation, Supplier<JsonElement>>newHashMap();
 		BiConsumer<ResourceLocation, Supplier<JsonElement>> outputConsumer = (resourceLocation, supplier) -> {
-			Supplier<JsonElement> supplier2 = cachedOutput.put(resourceLocation, supplier);
+			Supplier<JsonElement> supplier2 = modelMap.put(resourceLocation, supplier);
 			if (supplier2 != null) {
 				throw new IllegalStateException("Duplicate model definition for " + resourceLocation);
 			}
 		};
 
-		Builder builder = new Builder(outputConsumer, this.existenceChecker);
+
+        Map<Block, BlockStateGenerator> blockStateMap = Maps.newHashMap();
+		Consumer<BlockStateGenerator> blockStateOutput = (blockgen) -> {
+            Block block = blockgen.getBlock();
+            BlockStateGenerator blockstateGenerator = blockStateMap.put(block, blockgen);
+            if (blockstateGenerator != null) {
+                throw new IllegalStateException("Duplicate blockstate definition for " + block);
+            }
+		};
+
+		Builder builder = new Builder(outputConsumer, blockStateOutput, this.existenceChecker);
 
 		this.collect(builder);
 
-		return saveCollection(pOutput, cachedOutput, this.modelPathProvider::json);
+		return CompletableFuture.allOf(
+				saveCollection(pOutput, blockStateMap, block -> this.blockStatePathProvider.json(block.builtInRegistryHolder().key().location())),
+				saveCollection(pOutput, modelMap, this.modelPathProvider::json)
+				);
 	}
 
 	private <T> CompletableFuture<?> saveCollection(CachedOutput cachedOutput, Map<T, ? extends Supplier<JsonElement>> map, Function<T, Path> function) {
@@ -153,11 +174,14 @@ public class ItemModelDataProvider implements DataProvider {
 
 	public static class Builder {
 		private final BiConsumer<ResourceLocation, Supplier<JsonElement>> outputConsumer;
+		private final Consumer<BlockStateGenerator> blockStateOutput;
 		private final Predicate<ResourceLocation> existenceChecker;
 
 		public Builder(BiConsumer<ResourceLocation, Supplier<JsonElement>> outputConsumer,
+				Consumer<BlockStateGenerator> blockStateOutput,
 				Predicate<ResourceLocation> existenceChecker) {
 			this.outputConsumer = outputConsumer;
+			this.blockStateOutput = blockStateOutput;
 			this.existenceChecker = existenceChecker;
 		}
 
@@ -200,7 +224,7 @@ public class ItemModelDataProvider implements DataProvider {
 			generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 		}
 
-		public void block(Block block) {
+		public void blockItem(Block block) {
 			ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(block.asItem());
 			ModelTemplate template = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(block)), null);
 			template.create(textureResLoc, new TextureMapping(), this.outputConsumer);
@@ -215,5 +239,16 @@ public class ItemModelDataProvider implements DataProvider {
 		    root.addProperty("parent", "minecraft:item/template_spawn_egg");
 			this.outputConsumer.accept(ModelLocationUtils.getModelLocation(egg), ()->root);
 		}
+
+		// Blocks
+	    public void cubeAll(Block block) {
+	        this.blockStateOutput.accept(createSimpleBlock(block,
+	        		TexturedModel.CUBE.create(block, this.outputConsumer)));
+	        blockItem(block);
+	    }
+
+	    static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resLoc) {
+	        return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resLoc));
+	    }
 	}
 }
