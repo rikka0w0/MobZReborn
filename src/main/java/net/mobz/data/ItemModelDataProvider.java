@@ -2,6 +2,7 @@ package net.mobz.data;
 
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -19,19 +20,25 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
-
+import net.minecraft.world.level.block.Block;
 import net.mobz.MobZ;
 import net.mobz.init.MobZArmors;
+import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZIcons;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
 public class ItemModelDataProvider implements DataProvider {
+	public final static ModelTemplate BOW_PULLING = new ModelTemplate(Optional.of(new ResourceLocation("minecraft", "item/bow")),
+			Optional.empty(), TextureSlot.LAYER0);
+
 	private final PackOutput.PathProvider modelPathProvider;
 	private final Registry<Item> itemRegistry;
 	private final Predicate<ResourceLocation> existenceChecker;
@@ -75,9 +82,7 @@ public class ItemModelDataProvider implements DataProvider {
 			builder.simpleItem("sacrifice_knife_blood" + i + "dry2");
 		}
 
-		for (int i = 0; i<=2; i++) {
-			builder.simpleItem("lilith_bow_pulling_" + i);
-		}
+		builder.bowPulling("lilith_bow_pulling", 3);
 		builder.simpleItem(MobZItems.SEAL_KEY.get());
 		builder.simpleItem(MobZItems.SPAWN_EGG.get());
 		builder.simpleItem(MobZItems.WHITE_BAG.get());
@@ -87,11 +92,11 @@ public class ItemModelDataProvider implements DataProvider {
 		builder.simpleItem(MobZItems.MEDIVEAL_DISC2.get());
 
 		// Weapon
-		builder.simpleItem(MobZWeapons.ARMORED_SWORD.get());
-		builder.simpleItem(MobZWeapons.BOSS_SWORD.get());
-		builder.simpleItem(MobZWeapons.POISON_SWORD.get());
-		builder.simpleItem(MobZWeapons.RAINBOW_SWORD.get());
-		builder.simpleItem(MobZWeapons.STONE_TOMAHAWK.get());
+		builder.handheldItem(MobZWeapons.ARMORED_SWORD.get());
+		builder.handheldItem(MobZWeapons.BOSS_SWORD.get());
+		builder.handheldItem(MobZWeapons.POISON_SWORD.get());
+		builder.handheldItem(MobZWeapons.RAINBOW_SWORD.get());
+		builder.handheldItem(MobZWeapons.STONE_TOMAHAWK.get());
 
 		// Armor
 		builder.simpleItem(MobZArmors.AMAT_HELMET.get());
@@ -108,6 +113,17 @@ public class ItemModelDataProvider implements DataProvider {
 		builder.simpleItem(MobZArmors.LIFE_BOOTS.get());
 		builder.simpleItem(MobZArmors.SPEED_BOOTS.get());
 		builder.simpleItem(MobZArmors.SPEED2_BOOTS.get());
+
+		// Blocks
+		builder.block(MobZBlocks.AMAT_BLOCK.get());
+		builder.block(MobZBlocks.BOSS_BLOCK.get());
+		builder.block(MobZBlocks.BOSS_TROPHY.get());
+		builder.block(MobZBlocks.ENDER_HEADER.get());
+		builder.block(MobZBlocks.HARDENED_METAL_BLOCK.get());
+
+		builder.block(MobZBlocks.TOTEM_BASE.get());
+		builder.block(MobZBlocks.TOTEM_MIDDLE.get());
+		builder.block(MobZBlocks.TOTEM_TOP.get());
 	}
 
 	@Override
@@ -145,28 +161,53 @@ public class ItemModelDataProvider implements DataProvider {
 			this.existenceChecker = existenceChecker;
 		}
 
-		public void simpleItem(ResourceLocation modelLoc, ResourceLocation textureLoc) {
-			ResourceLocation textureRealLoc = new ResourceLocation(textureLoc.getNamespace(),
-					"textures/" + textureLoc.getPath() + ".png");
-			if (!existenceChecker.test(textureRealLoc)) {
-				System.out.println("MobZ ItemModelDataProvider cannot find texture: " + textureRealLoc);
-			}
-
-			TextureMapping textureMapping = TextureMapping.layer0(textureLoc);
-			ModelTemplates.FLAT_ITEM.create(modelLoc, textureMapping, this.outputConsumer);
+		public static ResourceLocation getRealTextureLoc(ResourceLocation resLoc) {
+			return new ResourceLocation(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
 		}
 
-		public void simpleItem(Item item, ResourceLocation textureLoc) {
-			this.simpleItem(ModelLocationUtils.getModelLocation(item), textureLoc);
+		public ResourceLocation getRealTextureLocWithCheck(ResourceLocation resLoc) {
+			ResourceLocation realLoc = getRealTextureLoc(resLoc);
+			if (!existenceChecker.test(realLoc)) {
+				System.out.println("MobZ ItemModelDataProvider cannot find texture: " + realLoc);
+			};
+			return realLoc;
+		}
+
+		// From ItemModelGenerators
+		public void generateFlatItem(Item item, ModelTemplate modelTemplate) {
+			ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(item);
+			getRealTextureLocWithCheck(textureResLoc);
+
+			modelTemplate.create(textureResLoc, TextureMapping.layer0(item), this.outputConsumer);
+	    }
+
+		public void simpleItem(String string) {
+			ResourceLocation textureResLoc = new ResourceLocation(MobZ.MODID, "item/" + string);
+			getRealTextureLocWithCheck(textureResLoc);
+			TextureMapping textureMapping = TextureMapping.layer0(textureResLoc);
+			ModelTemplates.FLAT_ITEM.create(textureResLoc, textureMapping, this.outputConsumer);
+		}
+
+		public void bowPulling(String baseName, int count) {
+			for (int i = 0; i < count; i++) {
+				ResourceLocation textureResLoc = new ResourceLocation(MobZ.MODID, "item/" + baseName + "_" + i);
+				getRealTextureLocWithCheck(textureResLoc);
+				BOW_PULLING.create(textureResLoc, TextureMapping.layer0(textureResLoc), this.outputConsumer);
+			}
 		}
 
 		public void simpleItem(Item item) {
-			this.simpleItem(item, TextureMapping.getItemTexture(item));
+			generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 		}
 
-		public void simpleItem(String string) {
-			ResourceLocation resLoc = new ResourceLocation(MobZ.MODID, "item/" + string);
-			this.simpleItem(resLoc, resLoc);
+		public void block(Block block) {
+			ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(block.asItem());
+			ModelTemplate template = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(block)), null);
+			template.create(textureResLoc, new TextureMapping(), this.outputConsumer);
+		}
+
+		public void handheldItem(Item item) {
+			generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM);
 		}
 
 		public void spawnEgg(SpawnEggItem egg) {
