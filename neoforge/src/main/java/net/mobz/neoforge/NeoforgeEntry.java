@@ -61,6 +61,7 @@ import net.mobz.MobZ;
 import net.mobz.config.ClothConfig;
 import net.mobz.data.ModelDataProvider;
 import net.mobz.data.Loots;
+import net.mobz.data.MineableTagProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
@@ -149,6 +150,9 @@ public class NeoforgeEntry {
 
 			// Data: Biome tags for spawns
 			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider));
+
+			// Data: Mineable tags
+			generator.addProvider(event.includeServer(), new MineableTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
 			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
