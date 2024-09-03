@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 
 import net.mobz.data.ItemModelDataProvider;
+import net.mobz.data.Loots;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.fabric.biome.BiomeModifierRegistry;
 import net.mobz.fabric.data.BiomeModifierProvider;
@@ -21,12 +22,19 @@ public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = generator.createPack();
 		RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
-		Factory<? extends DataProvider> itemModels = (a) -> new ItemModelDataProvider(a, registryAccess.registryOrThrow(Registries.ITEM), resLoc->true);
-		pack.addProvider(itemModels);
+		// Data: Mob spawns
+		pack.addProvider(BiomeModifierProvider::new);
 
+		// Data: Biome tags for spawns
 		pack.addProvider(SpawnBiomeTagProvider::new);
 
-		pack.addProvider(BiomeModifierProvider::new);
+		// Resource: Items models
+		Factory<? extends DataProvider> itemModels = (output) ->
+			new ItemModelDataProvider(output, registryAccess.registryOrThrow(Registries.ITEM), resLoc->true);
+		pack.addProvider(itemModels);
+
+		// Data: LootTable
+		pack.addProvider((fabricDataOutput, registriesFuture) -> Loots.all(fabricDataOutput, registriesFuture));
 	}
 
 	@Override

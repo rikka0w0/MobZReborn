@@ -150,7 +150,7 @@ public class NeoforgeEntry {
 			// Data: Biome tags for spawns
 			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider));
 
-			// Resource: SpawnEgg items
+			// Resource: Items models
 			generator.addProvider(event.includeClient(), new ItemModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
 
 			// Data: LootTable

@@ -1,16 +1,28 @@
 package net.mobz.data;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
+import com.google.common.collect.Maps;
+
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -37,25 +49,80 @@ import static net.minecraft.world.level.storage.loot.providers.number.UniformGen
 import static net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator.binomial;
 //import static net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost;
 
-public class EntityLoot extends EntityLootSubProvider {
-	private final List<EntityType<?>> entityTypes = new LinkedList<>();
+public class EntityLoot implements LootTableSubProvider {
+	/*
+	 * EntityLootSubProvider start
+	 */
+	protected static final EntityPredicate.Builder ENTITY_ON_FIRE = EntityPredicate.Builder.entity()
+			.flags(EntityFlagsPredicate.Builder.flags().setOnFire(true));
 
-	protected EntityLoot() {
-		super(FeatureFlags.REGISTRY.allFlags());
+	private final FeatureFlagSet allowed = FeatureFlags.REGISTRY.allFlags();
+	private final FeatureFlagSet required = this.allowed;
+	private final Map<EntityType<?>, Map<ResourceKey<LootTable>, LootTable.Builder>> map = Maps.newHashMap();
+
+	protected void add(EntityType<?> entityType, LootTable.Builder lootTableBuilder) {
+		this.add(entityType, entityType.getDefaultLootTable(), lootTableBuilder);
+	}
+
+	protected void add(EntityType<?> entityType, ResourceKey<LootTable> defaultLootTable,
+			LootTable.Builder lootTableBuilder) {
+		this.map.computeIfAbsent(entityType, p_251466_ -> new HashMap<>()).put(defaultLootTable, lootTableBuilder);
+	}
+
+	protected boolean canHaveLootTable(EntityType<?> entityType) {
+		return entityType.getCategory() != MobCategory.MISC;
 	}
 
 	@Override
-	protected void add(EntityType<?> pEntityType, ResourceKey<LootTable> pDefaultLootTable, LootTable.Builder pBuilder) {
-		super.add(pEntityType, pDefaultLootTable, pBuilder);
-		entityTypes.add(pEntityType);
+	public void generate(HolderLookup.Provider registryProvider,
+			BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableGenerator) {
+		this.generate();
+
+		Set<ResourceKey<LootTable>> processed = new HashSet<>();
+		Set.copyOf(this.map.keySet()).stream().map(EntityType::builtInRegistryHolder).forEach(entityTypeRef -> {
+			EntityType<?> entitytype = entityTypeRef.value();
+			if (entitytype.isEnabled(this.allowed)) {
+				Map<ResourceKey<LootTable>, LootTable.Builder> map = this.map.remove(entitytype);
+				if (this.canHaveLootTable(entitytype)) {
+					ResourceKey<LootTable> resourcekey = entitytype.getDefaultLootTable();
+					if (resourcekey != BuiltInLootTables.EMPTY && entitytype.isEnabled(this.required)
+							&& (map == null || !map.containsKey(resourcekey))) {
+						throw new IllegalStateException(String.format(Locale.ROOT, "Missing loottable '%s' for '%s'",
+								resourcekey, entityTypeRef.key().location()));
+					}
+
+					if (map != null) {
+						map.forEach((resKey, builder) -> {
+							if (!processed.add(resKey)) {
+								throw new IllegalStateException(String.format(Locale.ROOT,
+										"Duplicate loottable '%s' for '%s'", resKey, entityTypeRef.key().location()));
+							} else {
+								lootTableGenerator.accept(resKey, builder);
+							}
+						});
+					}
+				} else {
+					if (map != null) {
+						throw new IllegalStateException(String.format(Locale.ROOT,
+								"Weird loottables '%s' for '%s', not a LivingEntity so should not have loot",
+								map.keySet().stream().map(resKey -> resKey.location().toString())
+										.collect(Collectors.joining(",")),
+								entityTypeRef.key().location()));
+					}
+				}
+			}
+		});
+
+		if (!this.map.isEmpty()) {
+			throw new IllegalStateException(
+					"Created loot tables for entities not supported by datapack: " + this.map.keySet());
+		}
 	}
 
-	@Override
-    protected java.util.stream.Stream<EntityType<?>> getKnownEntityTypes() {
-        return this.entityTypes.stream();
-    }
+	/*
+	 * EntityLootSubProvider end
+	 */
 
-	@Override
 	public void generate() {
 		// andriu
 		this.add(MobZEntities.ANDRIU.get(), LootTable.lootTable()

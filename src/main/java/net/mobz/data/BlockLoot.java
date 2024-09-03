@@ -1,12 +1,19 @@
 package net.mobz.data;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import net.mobz.init.MobZBlocks;
@@ -18,19 +25,48 @@ public class BlockLoot extends BlockLootSubProvider {
 		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
 	}
 
+	/*
+	 * BlockLootSubProvider start
+	 */
+
 	@Override
-	protected void add(Block pBlock, LootTable.Builder pBuilder) {
+	public void add(Block pBlock, LootTable.Builder pBuilder) {
 		super.add(pBlock, pBuilder);
 		blocks.add(pBlock);
 	}
 
 	@Override
-    protected Iterable<Block> getKnownBlocks() {
-        return this.blocks;
-    }
+	public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
+		this.generate();
+		Set<ResourceKey<LootTable>> processed = new HashSet<>();
+
+		for (Block block : this.blocks) {
+			if (block.isEnabled(this.enabledFeatures)) {
+				ResourceKey<LootTable> resourceKey = block.getLootTable();
+				if (resourceKey != BuiltInLootTables.EMPTY && processed.add(resourceKey)) {
+					LootTable.Builder builder = this.map.remove(resourceKey);
+					if (builder == null) {
+						throw new IllegalStateException(
+							String.format(Locale.ROOT, "Missing loottable '%s' for '%s'", resourceKey.location(), BuiltInRegistries.BLOCK.getKey(block))
+						);
+					}
+
+					biConsumer.accept(resourceKey, builder);
+				}
+			}
+		}
+
+		if (!this.map.isEmpty()) {
+			throw new IllegalStateException("Created block loot tables for non-blocks: " + this.map.keySet());
+		}
+	}
+
+	/*
+	 * BlockLootSubProvider end
+	 */
 
 	@Override
-	protected void generate() {
+	public void generate() {
 		this.dropSelf(MobZBlocks.AMAT_BLOCK.get());
 		this.dropSelf(MobZBlocks.BOSS_BLOCK.get());
 		this.dropSelf(MobZBlocks.BOSS_TROPHY.get());
