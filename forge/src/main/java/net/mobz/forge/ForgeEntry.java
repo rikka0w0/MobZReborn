@@ -29,6 +29,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -56,6 +57,7 @@ import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
 import net.mobz.data.ModelDataProvider;
 import net.mobz.data.Recipes;
+import net.mobz.data.Advancements;
 import net.mobz.data.Loots;
 import net.mobz.data.MineableTagProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
@@ -156,6 +158,9 @@ public class ForgeEntry {
 
 			// Data: Recipes
 			generator.addProvider(event.includeServer(), new Recipes(packOutput, lookupProvider));
+
+			// Data: Advancements
+			generator.addProvider(event.includeServer(), (DataProvider.Factory<AdvancementProvider>) vanillaPackOutput -> Advancements.all(vanillaPackOutput, lookupProvider));
 		}
 	}
 

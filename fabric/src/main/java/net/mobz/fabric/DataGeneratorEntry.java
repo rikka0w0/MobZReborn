@@ -12,6 +12,7 @@ import net.minecraft.data.DataProvider;
 
 import net.mobz.data.ModelDataProvider;
 import net.mobz.data.Recipes;
+import net.mobz.data.Advancements;
 import net.mobz.data.Loots;
 import net.mobz.data.MineableTagProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
@@ -43,6 +44,9 @@ public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 
 		// Data: Recipes
 		pack.addProvider((fabricDataOutput, registriesFuture) -> new Recipes(fabricDataOutput, registriesFuture));
+
+		// Data: Advancements
+		pack.addProvider((fabricDataOutput, registriesFuture) -> Advancements.all(fabricDataOutput, registriesFuture));
 	}
 
 	@Override
