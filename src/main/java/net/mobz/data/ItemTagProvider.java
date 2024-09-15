@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -31,6 +32,12 @@ public class ItemTagProvider extends TagsProvider<Item> {
 
 	@Override
 	protected void addTags(Provider pProvider) {
+		// Add custom discs to the tag so the jukebox can play it.
+		this.tag(ItemTags.MUSIC_DISCS,
+			MobZItems.MEDIVEAL_DISC.get(),
+			MobZItems.MEDIVEAL_DISC2.get()
+		);
+
 		this.tag(MobZ.FIORA_EQUIP_TAG,
 			Items.SHIELD,
 			MobZItems.SHIELD.get(),

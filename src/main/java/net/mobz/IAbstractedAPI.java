@@ -62,9 +62,4 @@ public interface IAbstractedAPI {
 			Item.Properties properties);
 
 	FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity);
-
-	// TODO: Remove afterwards
-	default Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties builder) {
-		return newRecordItem(comparatorValue, soundSupplier, builder, 233);
-	}
 }
