@@ -1,12 +1,14 @@
 # MobZ (Reborn)
 A port of [Globox1997's MobZ](https://www.curseforge.com/minecraft/mc-mods/mobz), for Minecraft versions (Supports both Forge and Fabric):
+* 1.20.5, 1.20.6
 * 1.20.2, 1.20.3, 1.20.4
+* 1.20, 1.20.1
 * 1.19.2
 * 1.18.2
 * 1.17.1
 * 1.16.5
 
-__This branch is for Minecraft [1.20.2, 1.20.4].__
+__This branch is for Minecraft [1.20.5, 1.20.6].__
 
 1.16.5 only has Forge version, for 1.16.5 Fabric version, check out [the original MobZ](https://github.com/Globox1997/MobZ).
 
@@ -48,8 +50,11 @@ where $LOADER_NAME must be one of:
 2. fabric
 3. forge
 
-### To specify JRE path (Since 1.18.1, Minecraft requires Java 17 or above.):
-Minecraft 1.17.1 requires Java 16. Minecraft 1.16.5 and below work best with Java 8.
+### Specify JRE path:
+1. Minecraft 1.16.5 and below work best with Java 8.
+2. Minecraft 1.17 and 1.17.1 requires Java 16.
+3. Minecraft 1.18 to 1.20.4 (inclusive) requires Java 17.
+4. Starting from 1.20.5, Minecraft requires Java 21.
 ```
 ./gradlew -Dorg.gradle.java.home=/path_to_jdk_directory <commands>
 ```
