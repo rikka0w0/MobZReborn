@@ -60,6 +60,7 @@ import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
 import net.mobz.config.ClothConfig;
 import net.mobz.data.ModelDataProvider;
+import net.mobz.data.Recipes;
 import net.mobz.data.Loots;
 import net.mobz.data.MineableTagProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
@@ -159,6 +160,9 @@ public class NeoforgeEntry {
 
 			// Data: LootTable
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<LootTableProvider>) vanillaPackOutput -> Loots.all(vanillaPackOutput, lookupProvider));
+
+			// Data: Recipes
+			generator.addProvider(event.includeServer(), new Recipes(packOutput, lookupProvider));
 		}
 	}
 
