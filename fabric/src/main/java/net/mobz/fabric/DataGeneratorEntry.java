@@ -13,8 +13,10 @@ import net.minecraft.data.DataProvider;
 import net.mobz.data.ModelDataProvider;
 import net.mobz.data.Recipes;
 import net.mobz.data.Advancements;
+import net.mobz.data.BlockTagProvider;
+import net.mobz.data.EntityTagProvider;
+import net.mobz.data.ItemTagProvider;
 import net.mobz.data.Loots;
-import net.mobz.data.MineableTagProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.fabric.biome.BiomeModifierRegistry;
 import net.mobz.fabric.data.BiomeModifierProvider;
@@ -32,7 +34,13 @@ public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 		pack.addProvider(SpawnBiomeTagProvider::new);
 
 		// Data: Mineable tags
-		pack.addProvider(MineableTagProvider::new);
+		pack.addProvider(BlockTagProvider::new);
+
+		// Data: Item tags
+		pack.addProvider(ItemTagProvider::new);
+
+		// Data: Entity tags
+		pack.addProvider(EntityTagProvider::new);
 
 		// Resource: Models and blockstates
 		Factory<? extends DataProvider> itemModels = (output) ->

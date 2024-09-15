@@ -58,8 +58,10 @@ import net.mobz.MobZ;
 import net.mobz.data.ModelDataProvider;
 import net.mobz.data.Recipes;
 import net.mobz.data.Advancements;
+import net.mobz.data.BlockTagProvider;
+import net.mobz.data.EntityTagProvider;
+import net.mobz.data.ItemTagProvider;
 import net.mobz.data.Loots;
-import net.mobz.data.MineableTagProvider;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
@@ -148,7 +150,13 @@ public class ForgeEntry {
 			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider));
 
 			// Data: Mineable tags
-			generator.addProvider(event.includeServer(), new MineableTagProvider(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new BlockTagProvider(packOutput, lookupProvider));
+
+			// Data: Item tags
+			generator.addProvider(event.includeServer(), new ItemTagProvider(packOutput, lookupProvider));
+
+			// Data: Entity tags
+			generator.addProvider(event.includeServer(), new EntityTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
 			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
