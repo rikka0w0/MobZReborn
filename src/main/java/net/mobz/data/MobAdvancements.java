@@ -225,7 +225,7 @@ public class MobAdvancements implements AdvancementSubProvider {
 		// pillager_boss
 		AdvancementHolder pillager_boss = killByPlayer(writer, MobZEntities.PILLAGER_BOSS.get(), null, zombie_mage,
 			AdvancementType.CHALLENGE, true, false, true,
-			AdvancementRewards.Builder.experience(20).runs(ResourceLocation.tryParse("mobz:loot/bigboss_loot")));
+			AdvancementRewards.Builder.experience(20).addLootTable(RewardLoot.BIGBOSS));
 
 
 		// dwarf
@@ -266,7 +266,7 @@ public class MobAdvancements implements AdvancementSubProvider {
 		// charles
 		AdvancementHolder charles = killByPlayer(writer, MobZEntities.CHARLES.get(), null, andriu,
 			AdvancementType.CHALLENGE, true, true, false,
-			AdvancementRewards.Builder.experience(40).runs(ResourceLocation.tryParse("mobz:loot/bigboss_loot")));
+			AdvancementRewards.Builder.experience(40).addLootTable(RewardLoot.BIGBOSS));
 
 
 		// templar
@@ -282,7 +282,7 @@ public class MobAdvancements implements AdvancementSubProvider {
 		// boss_zombie
 		AdvancementHolder boss_zombie = killByPlayer(writer, MobZEntities.BOSS_ZOMBIE.get(), null, armored_zombie,
 			AdvancementType.CHALLENGE, true, false, true,
-			AdvancementRewards.Builder.experience(50).runs(ResourceLocation.tryParse("mobz:loot/boss_loot")));
+			AdvancementRewards.Builder.experience(50).addLootTable(RewardLoot.BOSS_ZOMBIE));
 
 
 		// ender_knight
