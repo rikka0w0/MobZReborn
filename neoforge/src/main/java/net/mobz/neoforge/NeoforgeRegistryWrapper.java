@@ -24,7 +24,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.core.Holder;
@@ -44,7 +43,6 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	private final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, MobZ.MODID);
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MobZ.MODID);
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, MobZ.MODID);
-	private final DeferredRegister<JukeboxSong> JUKEBOX_SONG = DeferredRegister.create(Registries.JUKEBOX_SONG, MobZ.MODID);
 	private final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MobZ.MODID);
 
 	private Set<Supplier<?>> setters = new HashSet<>();
@@ -119,7 +117,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Holder<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
 		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(resloc);
 		DeferredHolder<SoundEvent, SoundEvent> regObj = SOUNDS.register(name, constructor);
 		if (setter != null) {
@@ -166,15 +164,6 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
 		return () -> new NeoforgeSpawnEgg(type, highlightColor, highlightColor, props);
-	}
-
-	@Override
-	public Holder<JukeboxSong> registerJukeboxSong(String soundName, String songName, Component desc,
-			int comparatorValue, int lengthInTicks) {
-		ResourceLocation soundResLoc = ResourceLocation.tryBuild(MobZ.MODID, soundName);
-		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(soundResLoc);
-		DeferredHolder<SoundEvent, SoundEvent> regObj = SOUNDS.register(soundName, constructor);
-		return JUKEBOX_SONG.register(songName, () -> new JukeboxSong(regObj, desc, comparatorValue, lengthInTicks));
 	}
 
 	@Override

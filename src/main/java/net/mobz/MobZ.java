@@ -18,7 +18,7 @@ import net.mobz.init.MobZWeapons;
 public class MobZ {
 	public static final String MODID = "mobz";
 	public static IAbstractedAPI platform = null;
-	public static boolean isDebugMode = true;
+	public static boolean isDebugMode = false;
 
 	// Configs
 	public static Configs configs = null;
@@ -43,7 +43,7 @@ public class MobZ {
     	MobZEntities.BOSS_ZOMBIE.getClass();
     	MobZArmors.BOSS_BOOTS.getClass();
     	MobZWeapons.BOSS_SWORD.getClass();
-    	MobZSounds.MEDIVEALSOUNDEVENT.getClass();
+    	MobZSounds.MEDIVEAL_MUSIC.getClass();
     	MobZIcons.headNames.getClass();
     	MobZTabs.tab.getClass();
     	MobZTabs.eggs.getClass();

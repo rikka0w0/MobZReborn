@@ -14,6 +14,8 @@ import net.minecraft.world.level.material.Fluids;
 
 import net.mobz.MobZ;
 import net.mobz.MobZTabs;
+import net.mobz.data.JukeboxSongs;
+import net.mobz.item.DiscItem;
 import net.mobz.item.FrozenPowder;
 import net.mobz.item.ImmunityOrb;
 import net.mobz.item.LevitationOrb;
@@ -64,10 +66,10 @@ public class MobZItems {
 
 	public static final Supplier<WitherPowder> WITHER_POWDER = MobZ.platform.registerItem("wither_powder", MobZTabs.tab,
 			() -> new WitherPowder(defItemProp()));
-	public static final Supplier<Item> MEDIVEAL_DISC = MobZ.platform.registerItem("mediveal_disc", MobZTabs.tab,
-			() -> new Item(new Item.Properties().rarity(Rarity.RARE).stacksTo(1).jukeboxPlayable(MobZSounds.MEDIVEALSOUNDEVENT.getKey())));
-	public static final Supplier<Item> MEDIVEAL_DISC2 = MobZ.platform.registerItem("mediveal_disc_2", MobZTabs.tab,
-			() -> new Item(new Item.Properties().rarity(Rarity.RARE).stacksTo(1).jukeboxPlayable(MobZSounds.MEDIVEALSOUND2EVENT.getKey())));
+	public static final Supplier<DiscItem> MEDIVEAL_DISC = MobZ.platform.registerItem("mediveal_disc", MobZTabs.tab,
+			() -> new DiscItem(Rarity.RARE, JukeboxSongs.MEDIVEAL_SONG));
+	public static final Supplier<DiscItem> MEDIVEAL_DISC_2 = MobZ.platform.registerItem("mediveal_disc_2", MobZTabs.tab,
+			() -> new DiscItem(Rarity.RARE, JukeboxSongs.MEDIVEAL_SONG_2));
 	public static final Supplier<MobBucketItem> TADPOLE_BUCKET = MobZ.platform.registerItem("tadpole_bucket", MobZTabs.tab,
 			MobZ.platform.newMobBucketItem(MobZEntities.TADPOLE, () -> Fluids.WATER,
 					() -> SoundEvents.BUCKET_EMPTY_FISH, nonStackable()));

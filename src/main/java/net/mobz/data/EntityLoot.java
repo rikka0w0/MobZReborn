@@ -922,7 +922,7 @@ public class EntityLoot implements LootTableSubProvider {
 					.when(randomChanceAndLootingBoost(this.registries, 0.2F, 0.01F))
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
-					.add(LootItem.lootTableItem(MobZItems.MEDIVEAL_DISC2.get()))
+					.add(LootItem.lootTableItem(MobZItems.MEDIVEAL_DISC_2.get()))
 					.when(LootItemKilledByPlayerCondition.killedByPlayer())
 					.when(randomChanceAndLootingBoost(this.registries, 0.06F, 0.01F))
 				)

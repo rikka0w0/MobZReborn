@@ -97,7 +97,7 @@ public class ModelDataProvider implements DataProvider {
 
 		builder.simpleItem(MobZItems.WITHER_POWDER.get());
 		builder.simpleItem(MobZItems.MEDIVEAL_DISC.get());
-		builder.simpleItem(MobZItems.MEDIVEAL_DISC2.get());
+		builder.simpleItem(MobZItems.MEDIVEAL_DISC_2.get());
 
 		// Weapon
 		builder.handheldItem(MobZWeapons.ARMORED_SWORD.get());

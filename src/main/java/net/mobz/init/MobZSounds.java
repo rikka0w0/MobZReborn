@@ -2,12 +2,8 @@ package net.mobz.init;
 
 import java.util.function.Supplier;
 
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.JukeboxSong;
 import net.mobz.MobZ;
 
 public class MobZSounds {
@@ -40,8 +36,8 @@ public class MobZSounds {
 	public static final Supplier<SoundEvent> SKELASTEPEVENT = register("skelastep");
 	public static final Supplier<SoundEvent> NOTHINGEVENT = register("nothing");
 	public static final Supplier<SoundEvent> ANGRYBATTLEHORNEVENT = register("angrybattlehorn");
-	public static final Holder<JukeboxSong> MEDIVEALSOUNDEVENT = registerJukeboxSong("medivealsound", 1, 4680);
-	public static final Holder<JukeboxSong> MEDIVEALSOUND2EVENT = registerJukeboxSong("medivealsound2", 0, 660);
+	public static final Holder<SoundEvent> MEDIVEAL_MUSIC = MobZ.platform.registerSound(MobZ.MODID, "medivealsound");
+	public static final Holder<SoundEvent> MEDIVEAL_MUSIC_2 = MobZ.platform.registerSound(MobZ.MODID, "medivealsound2");
 	public static final Supplier<SoundEvent> EVADEATHEVENT = register("evadeath");
 	public static final Supplier<SoundEvent> EVAHURTEVENT = register("evahurt");
 	public static final Supplier<SoundEvent> EVAIDLEEVENT = register("evaidle");
@@ -83,13 +79,7 @@ public class MobZSounds {
 	public static final Supplier<SoundEvent> TOAD_JUMP = register("entity.toad.jump");
 
 	private static Supplier<SoundEvent> register(String name) {
-		return MobZ.platform.registerSound(MobZ.MODID, name);
-	}
-
-	private static Holder<JukeboxSong> registerJukeboxSong(String name, int comparatorValue, int lengthInTicks) {
-		ResourceLocation resLoc = ResourceLocation.tryBuild(MobZ.MODID, name);
-		String descriptionId = Util.makeDescriptionId("item", resLoc);
-		return MobZ.platform.registerJukeboxSong(name, name, Component.translatable(descriptionId + ".desc"),
-				comparatorValue, lengthInTicks);
+		Holder<SoundEvent> holder = MobZ.platform.registerSound(MobZ.MODID, name);
+		return holder::value;
 	}
 }
