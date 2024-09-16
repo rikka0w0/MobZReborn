@@ -34,7 +34,7 @@ public class SpeedShoeBase extends ArmorItem {
 	});
 
 	public static final Holder<ArmorMaterial> MATERIAL1 = Registry.registerForHolder(
-		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "speed"), new ArmorMaterial(
+		BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.tryBuild(MobZ.MODID, "speed"), new ArmorMaterial(
 			DEFENSE_MAP1,
        		10,		// getEnchantmentValue
       		SoundEvents.ARMOR_EQUIP_LEATHER,
@@ -53,7 +53,7 @@ public class SpeedShoeBase extends ArmorItem {
 	});
 
 	public static final Holder<ArmorMaterial> MATERIAL2 = Registry.registerForHolder(
-		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "speed2"), new ArmorMaterial(
+		BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.tryBuild(MobZ.MODID, "speed2"), new ArmorMaterial(
 			DEFENSE_MAP2,
        		12,		// getEnchantmentValue
       		SoundEvents.ARMOR_EQUIP_LEATHER,
@@ -82,7 +82,7 @@ public class SpeedShoeBase extends ArmorItem {
 
 		return modifiers.withModifierAdded(
 			Attributes.MOVEMENT_SPEED,
-			new AttributeModifier(ArmorUtils.getModifierUUID(this.getType(), modifiers), "Speed", this.speedBoost, AttributeModifier.Operation.ADD_VALUE),
+			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "speed"), this.speedBoost, AttributeModifier.Operation.ADD_VALUE),
 			EquipmentSlotGroup.bySlot(this.getEquipmentSlot())
 		);
 	}

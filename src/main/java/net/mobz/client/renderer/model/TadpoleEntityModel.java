@@ -22,7 +22,7 @@ public class TadpoleEntityModel extends ListModel<TadpoleEntity>
 	private final ModelPart fine;
 
 	public final static ModelLayerLocation modelResLoc = new ModelLayerLocation(
-			new ResourceLocation(MobZ.MODID, "tadpole_model"), "main");
+			ResourceLocation.tryBuild(MobZ.MODID, "tadpole_model"), "main");
 
 	public static LayerDefinition createBodyLayer() {
 	      MeshDefinition meshdefinition = new MeshDefinition();

@@ -129,11 +129,6 @@ public class GoldenChicken extends Chicken {
 	}
 
 	@Override
-	public int getExperienceReward() {
-		return this.isChickenJockey() ? 10 : super.getExperienceReward();
-	}
-
-	@Override
 	public void addAdditionalSaveData(CompoundTag compoundTag_1) {
 		super.addAdditionalSaveData(compoundTag_1);
 		compoundTag_1.putBoolean("IsChickenJockey", this.isChickenJockey);
@@ -142,17 +137,12 @@ public class GoldenChicken extends Chicken {
 
 	@Override
 	public boolean removeWhenFarAway(double double_1) {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isChickenJockey() {
 		return false;
-	}
-
-	@Override
-	public void setChickenJockey(boolean boolean_1) {
-		this.isChickenJockey = boolean_1;
 	}
 
 	static {

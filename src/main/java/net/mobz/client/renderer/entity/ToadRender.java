@@ -11,7 +11,7 @@ import net.mobz.client.renderer.model.ToadEntityModel;
 import net.mobz.entity.ToadEntity;
 
 public class ToadRender extends MobRenderer<ToadEntity, ToadEntityModel> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(
+	private static final ResourceLocation TEXTURE = ResourceLocation.tryBuild(
 			MobZ.MODID, "textures/entity/toad.png");
 
 	public static class Giant extends ToadRender {

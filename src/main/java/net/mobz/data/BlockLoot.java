@@ -21,8 +21,8 @@ import net.mobz.init.MobZBlocks;
 public class BlockLoot extends BlockLootSubProvider {
 	private final List<Block> blocks = new LinkedList<>();
 
-	protected BlockLoot() {
-		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+	protected BlockLoot(HolderLookup.Provider registries) {
+		super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
 	}
 
 	/*
@@ -36,7 +36,7 @@ public class BlockLoot extends BlockLootSubProvider {
 	}
 
 	@Override
-	public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
 		this.generate();
 		Set<ResourceKey<LootTable>> processed = new HashSet<>();
 

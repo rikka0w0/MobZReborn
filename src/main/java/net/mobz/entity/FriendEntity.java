@@ -58,7 +58,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -110,22 +110,6 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
             return super.hurt(source, amount);
         }
-    }
-
-    @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean bl = target.hurt(this.damageSources().mobAttack(this),
-                ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-        if (bl) {
-            this.doEnchantDamageEffects(this, target);
-        }
-
-        return bl;
-    }
-
-    @Override
-    public void setTame(boolean tamed, boolean applyTamingSideEffects) {
-        super.setTame(tamed, applyTamingSideEffects);
     }
 
     @Override
@@ -216,7 +200,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return false;
     }
 

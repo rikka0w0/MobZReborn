@@ -3,6 +3,7 @@ package net.mobz.item;
 import java.util.Random;
 
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.item.Item;
@@ -52,7 +53,7 @@ public class PillagerStaff extends SimpleItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity user) {
         return 600;
     }
 
@@ -79,7 +80,7 @@ public class PillagerStaff extends SimpleItem {
                 double double_3 = vec3d_1.x;
                 double double_4 = vec3d_1.y;
                 double double_5 = vec3d_1.z;
-                WitherSkull skull1 = new WitherSkull(world, playerEntity, double_3, double_4, double_5);
+                WitherSkull skull1 = new WitherSkull(world, playerEntity, new Vec3(double_3, double_4, double_5));
                 skull1.setPos(playerEntity.getX() + vec3d_1.x, playerEntity.getY() + 1.2D,
                         playerEntity.getZ() + vec3d_1.z);
                 world.addFreshEntity(skull1);

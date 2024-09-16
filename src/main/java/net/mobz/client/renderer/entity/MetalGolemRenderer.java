@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.Crackiness;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.mobz.MobZ;
 import net.minecraft.resources.ResourceLocation;
 
 public class MetalGolemRenderer extends EasyGolemRenderer {
@@ -40,18 +41,18 @@ public class MetalGolemRenderer extends EasyGolemRenderer {
     			if (crack != Crackiness.Level.NONE) {
     				ResourceLocation identifier = DAMAGE_TO_TEXTURE.get(crack);
     				renderColoredCutoutModel(this.getParentModel(), identifier, matrixStack, vertexConsumerProvider, i,
-    						ironGolemEntity, 1.0F, 1.0F, 1.0F);
+    						ironGolemEntity, -1);
     			}
     		}
     	}
 
     	static {
     		DAMAGE_TO_TEXTURE = ImmutableMap.of(Crackiness.Level.LOW,
-    				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_low.png"),
+    				ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/metal_golem_crackiness_low.png"),
     				Crackiness.Level.MEDIUM,
-    				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_medium.png"),
+    				ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/metal_golem_crackiness_medium.png"),
     				Crackiness.Level.HIGH,
-    				new ResourceLocation("mobz:textures/entity/metal_golem_crackiness_high.png"));
+    				ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/metal_golem_crackiness_high.png"));
     	}
     }
 }

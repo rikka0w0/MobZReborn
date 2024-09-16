@@ -46,7 +46,7 @@ public class BossArmorBase extends ArmorItem {
 	});
 
 	public static final Holder<ArmorMaterial> MATERIAL = Registry.registerForHolder(
-		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "boss"), new ArmorMaterial(
+		BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.tryBuild(MobZ.MODID, "boss"), new ArmorMaterial(
 			DEFENSE_MAP,
        		25,		// getEnchantmentValue
       		SoundEvents.ARMOR_EQUIP_GOLD,

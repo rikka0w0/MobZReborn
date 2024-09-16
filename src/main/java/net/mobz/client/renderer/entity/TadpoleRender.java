@@ -11,7 +11,7 @@ import net.mobz.client.renderer.model.TadpoleEntityModel;
 import net.mobz.entity.TadpoleEntity;
 
 public class TadpoleRender extends MobRenderer<TadpoleEntity, TadpoleEntityModel> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(MobZ.MODID, "textures/entity/tadpole.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/tadpole.png");
 
 	public TadpoleRender(EntityRendererProvider.Context context) {
 		super(context, new TadpoleEntityModel(context.bakeLayer(TadpoleEntityModel.modelResLoc)), 0.15F);

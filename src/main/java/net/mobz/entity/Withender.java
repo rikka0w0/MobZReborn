@@ -20,6 +20,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.level.LevelReader;
@@ -59,9 +60,8 @@ public class Withender extends WitherBoss {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
 		return;
-
 	}
 
 	@Override

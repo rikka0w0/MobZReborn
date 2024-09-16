@@ -16,7 +16,7 @@ public interface IEntityRendererRegisterWrapper {
 			BiFunction<EntityRendererProvider.Context, ResourceLocation, EntityRenderer<T>> constructor) {
 		ResourceLocation entityName = EntityType.getKey(entityType);
 		String path = "textures/entity/" + entityName.getPath() + ".png";
-		ResourceLocation resLoc = new ResourceLocation(entityName.getNamespace(), path);
+		ResourceLocation resLoc = ResourceLocation.tryBuild(entityName.getNamespace(), path);
 		this.register(entityType, (context) -> constructor.apply(context, resLoc));
 	}
 }

@@ -53,8 +53,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent.Operation;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import net.mobz.ILootTableAdder;
@@ -101,9 +100,9 @@ public class NeoforgeEntry {
 			((NeoforgeRegistryWrapper) MobZ.platform).applyGlobalEntityAttrib(event::put);
 		}
 
-		private static record SpawnPlacementRegistar(SpawnPlacementRegisterEvent event) {
+		private static record SpawnPlacementRegistar(RegisterSpawnPlacementsEvent event) {
 			private <T extends Mob> void register(EntityType<T> entityType, SpawnPlacementType spawnPlacementType, Heightmap.Types types, SpawnPlacements.SpawnPredicate<T> spawnPredicate) {
-				event.register(entityType, spawnPlacementType, types, spawnPredicate, Operation.OR);
+				event.register(entityType, spawnPlacementType, types, spawnPredicate, RegisterSpawnPlacementsEvent.Operation.OR);
 			}
 
 			private void registerAll() {
@@ -112,7 +111,7 @@ public class NeoforgeEntry {
 		}
 
 		@SubscribeEvent
-		public static void onSpawnPlacementRegisterEvent(final SpawnPlacementRegisterEvent event) {
+		public static void onSpawnPlacementRegisterEvent(final RegisterSpawnPlacementsEvent event) {
 			new SpawnPlacementRegistar(event).registerAll();
 		}
 

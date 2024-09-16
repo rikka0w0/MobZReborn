@@ -8,7 +8,7 @@ import net.mobz.client.renderer.model.WaspModel;
 import net.mobz.entity.Wasp;
 
 public class WaspRender extends MobRenderer<Wasp, WaspModel<Wasp>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(
+	private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace(
 			"textures/entity/bee/bee_angry.png");
 
 	public WaspRender(EntityRendererProvider.Context context) {

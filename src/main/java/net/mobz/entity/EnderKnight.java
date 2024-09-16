@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
@@ -51,14 +52,16 @@ public class EnderKnight extends Vindicator {
         }
     }
 
-    @Override
-    public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
-        LivingEntity bob = (LivingEntity) target;
-        MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false);
-        if (target instanceof LivingEntity && !this.level().isClientSide) {
-            bob.addEffect(weakness);
-        }
-    }
+	@Override
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
+		}
+
+		return flag;
+	}
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
@@ -69,10 +72,10 @@ public class EnderKnight extends Vindicator {
         }
     }
 
-    @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
-        return;
-    }
+	@Override
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
+		return;
+	}
 
     @Override
     protected SoundEvent getAmbientSound() {

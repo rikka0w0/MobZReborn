@@ -20,6 +20,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -105,9 +106,9 @@ public class PillagerBoss extends Pillager {
                 - (0.5D + this.getY() + this.getBbHeight() / 2.0F) + 0.7D;
         double double_10 = target.getZ() - (this.getZ() + vec3d_1.z * 2.0D) + 0.7D;
         double double_11 = target.getZ() - (this.getZ() + vec3d_1.z * 2.0D) - 0.7D;
-        WitherSkull skull1 = new WitherSkull(this.level(), this, double_3, double_4, double_5);
-        WitherSkull skull2 = new WitherSkull(this.level(), this, double_3, double_9, double_10);
-        WitherSkull skull3 = new WitherSkull(this.level(), this, double_3, double_9, double_11);
+        WitherSkull skull1 = new WitherSkull(this.level(), this, new Vec3(double_3, double_4, double_5));
+        WitherSkull skull2 = new WitherSkull(this.level(), this, new Vec3(double_3, double_9, double_10));
+        WitherSkull skull3 = new WitherSkull(this.level(), this, new Vec3(double_3, double_9, double_11));
         double double_6 = this.getX() + vec3d_1.x * 2.0D;
         double double_7 = this.getY() + this.getBbHeight();
         double double_8 = this.getZ() + vec3d_1.z * 2.0D;
@@ -124,8 +125,8 @@ public class PillagerBoss extends Pillager {
 		return super.canJoinRaid() && MobZ.configs.pillager_boss.can_join_raid.check(this);
 	}
 
-    @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
-        return;
-    }
+	@Override
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
+		return;
+	}
 }

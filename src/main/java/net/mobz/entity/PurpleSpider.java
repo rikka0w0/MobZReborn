@@ -1,7 +1,5 @@
 package net.mobz.entity;
 
-import java.util.Random;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,17 +27,15 @@ public class PurpleSpider extends Spider {
     }
 
     @Override
-    public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
-        Random random = new Random();
-        int randomNumber = (random.nextInt() + 7) % 8;
-        if (randomNumber < 0) {
-            randomNumber = randomNumber * (-1);
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
+        if (flag && victim instanceof LivingEntity livingEntity &&
+        		this.random.nextInt(8) == 3 && !this.level().isClientSide) {
+        	livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 120, 0, false, false));
         }
-        LivingEntity bob = (LivingEntity) target;
-        MobEffectInstance poison = new MobEffectInstance(MobEffects.POISON, 120, 0, false, false);
-        if (target instanceof LivingEntity && randomNumber == 3 && !this.level().isClientSide) {
-            bob.addEffect(poison);
-        }
+
+        return flag;
     }
 
     @Override

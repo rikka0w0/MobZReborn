@@ -29,17 +29,20 @@ public class BlueSpider extends Spider {
     }
 
     @Override
-    public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
         Random random = new Random();
         int randomNumber = (random.nextInt() + 7) % 5;
         if (randomNumber < 0) {
             randomNumber = randomNumber * (-1);
         }
-        LivingEntity bob = (LivingEntity) target;
-        MobEffectInstance poison = new MobEffectInstance(MobEffects.POISON, 120, 0, false, false);
-        if (target instanceof LivingEntity && randomNumber == 3 && !this.level().isClientSide) {
-            bob.addEffect(poison);
+
+        if (flag && victim instanceof LivingEntity bob && randomNumber == 3 && !this.level().isClientSide) {
+            bob.addEffect(new MobEffectInstance(MobEffects.POISON, 120, 0, false, false));
         }
+
+        return flag;
     }
 
     @Override

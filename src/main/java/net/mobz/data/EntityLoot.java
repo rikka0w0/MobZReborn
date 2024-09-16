@@ -28,16 +28,11 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
-//import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
+import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
-//import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
@@ -47,7 +42,7 @@ import net.mobz.init.MobZWeapons;
 import static net.minecraft.world.level.storage.loot.providers.number.ConstantValue.exactly;
 import static net.minecraft.world.level.storage.loot.providers.number.UniformGenerator.between;
 import static net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator.binomial;
-//import static net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost;
+import static net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost;
 
 public class EntityLoot implements LootTableSubProvider {
 	/*
@@ -56,9 +51,14 @@ public class EntityLoot implements LootTableSubProvider {
 	protected static final EntityPredicate.Builder ENTITY_ON_FIRE = EntityPredicate.Builder.entity()
 			.flags(EntityFlagsPredicate.Builder.flags().setOnFire(true));
 
+	protected final HolderLookup.Provider registries;
 	private final FeatureFlagSet allowed = FeatureFlags.REGISTRY.allFlags();
 	private final FeatureFlagSet required = this.allowed;
 	private final Map<EntityType<?>, Map<ResourceKey<LootTable>, LootTable.Builder>> map = Maps.newHashMap();
+
+	public EntityLoot(HolderLookup.Provider registries) {
+		this.registries = registries;
+	}
 
 	protected void add(EntityType<?> entityType, LootTable.Builder lootTableBuilder) {
 		this.add(entityType, entityType.getDefaultLootTable(), lootTableBuilder);
@@ -74,8 +74,7 @@ public class EntityLoot implements LootTableSubProvider {
 	}
 
 	@Override
-	public void generate(HolderLookup.Provider registryProvider,
-			BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableGenerator) {
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableGenerator) {
 		this.generate();
 
 		Set<ResourceKey<LootTable>> processed = new HashSet<>();
@@ -329,7 +328,7 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
 					.add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
+					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(5.0F))
 					.add(LootItem.lootTableItem(Items.COOKIE))
@@ -478,7 +477,7 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
 					.add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
+					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
 				)
 			);
 
@@ -756,7 +755,7 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
 					.add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
+					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
 				)
 			);
 
@@ -929,16 +928,4 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 			);
 	}
-
-	// Wrapper for 1.21
-	private Object registries = null;
-	public static class EnchantedCountIncreaseFunction {
-	    public static LootingEnchantFunction.Builder lootingMultiplier(Object dummy, NumberProvider pLootingMultiplier) {
-	        return new LootingEnchantFunction.Builder(pLootingMultiplier);
-	    }
-	}
-
-    public static LootItemCondition.Builder randomChanceAndLootingBoost(Object dummy, float pChance, float pLootingMultiplier) {
-        return () -> new LootItemRandomChanceWithLootingCondition(pChance, pLootingMultiplier);
-    }
 }

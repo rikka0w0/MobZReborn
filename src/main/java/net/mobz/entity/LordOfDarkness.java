@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -41,16 +42,17 @@ public class LordOfDarkness extends Vindicator {
                 .add(Attributes.FOLLOW_RANGE, 26.0D);
     }
 
-    @Override
-    public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
-        LivingEntity bob = (LivingEntity) target;
-        MobEffectInstance nausea = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false);
-        MobEffectInstance wither = new MobEffectInstance(MobEffects.WITHER, 80, 0, false, false);
-        if (target instanceof LivingEntity && !this.level().isClientSide) {
-            bob.addEffect(nausea);
-            bob.addEffect(wither);
-        }
-    }
+	@Override
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false));
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 0, false, false));
+		}
+
+		return flag;
+	}
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
@@ -61,10 +63,10 @@ public class LordOfDarkness extends Vindicator {
         }
     }
 
-    @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
-        return;
-    }
+	@Override
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
+		return;
+	}
 
     @Override
     protected SoundEvent getAmbientSound() {

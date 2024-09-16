@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 import net.minecraft.world.level.GameRules;
@@ -24,13 +25,13 @@ public class FrostballEntity extends Fireball {
 		super(entityType, world);
 	}
 
-    public FrostballEntity(Level world, LivingEntity livingEntity, double double_1, double double_2, double double_3) {
-        super(MobZEntities.FROSTBALL.get(), livingEntity, double_1, double_2, double_3, world);
+    public FrostballEntity(Level world, LivingEntity owner, Vec3 normalizedDisplacementVector) {
+        super(MobZEntities.FROSTBALL.get(), owner, normalizedDisplacementVector, world);
     }
 
-    public FrostballEntity(Level world, double double_1, double double_2, double double_3, double double_4,
-            double double_5, double double_6) {
-        super(MobZEntities.FROSTBALL.get(), double_1, double_2, double_3, double_4, double_5, double_6, world);
+    public FrostballEntity(Level world, double spawnPosX, double spawnPosY, double spawnPosZ,
+    		Vec3 normalizedDisplacementVector) {
+        super(MobZEntities.FROSTBALL.get(), spawnPosX, spawnPosY, spawnPosZ, normalizedDisplacementVector, world);
     }
 
     @Override

@@ -8,23 +8,23 @@ import net.mobz.item.SacrificeKnife;
 public class VanillaClientRegistry {
 	public static void registerItemModelProperties(IItemModelPredicateWrapper itemProperties) {
 		// Ref: https://mcreator.net/forum/74855/tutorial-how-animate-custom-bow-pulling-116
-		itemProperties.register(MobZItems.LILITH_BOW.get(), new ResourceLocation("pull"),
+		itemProperties.register(MobZItems.LILITH_BOW.get(), ResourceLocation.withDefaultNamespace("pull"),
 				(itemstack, world, entity, seed) -> {
 					if (entity == null) {
 						return 0.0F;
 					} else {
-						return entity.getUseItem() != itemstack ? 0.0F : (float) (itemstack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
+						return entity.getUseItem() != itemstack ? 0.0F : (itemstack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F;
 					}
 				}
 			);
 
-		itemProperties.register(MobZItems.LILITH_BOW.get(), new ResourceLocation("pulling"),
+		itemProperties.register(MobZItems.LILITH_BOW.get(), ResourceLocation.withDefaultNamespace("pulling"),
 				(itemstack, world, entity, seed) -> {
 					return entity != null && entity.isUsingItem() && entity.getUseItem() == itemstack ? 1.0F : 0.0F;
 				}
 			);
 
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("pulling"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("pulling"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -34,7 +34,7 @@ public class VanillaClientRegistry {
 					return 0F;
 				}
 			);
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -43,7 +43,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood3"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood3"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -52,7 +52,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood4"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood4"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -61,7 +61,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood1dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood1dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -70,7 +70,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood1dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood1dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -79,7 +79,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood2dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood2dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -88,7 +88,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood2dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood2dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -97,7 +97,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood3dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood3dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -106,7 +106,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood3dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood3dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -115,7 +115,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood4dry1"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood4dry1"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -124,7 +124,7 @@ public class VanillaClientRegistry {
 					}
 					return 0F;
 				});
-		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), new ResourceLocation("blood4dry2"),
+		itemProperties.register(MobZItems.SACRIFICE_KNIFE.get(), ResourceLocation.withDefaultNamespace("blood4dry2"),
 				(itemStack, world, entity, seed) -> {
 					int bloodCounter = SacrificeKnife.getBloodCounter(itemStack);
 					int dryingNumber = SacrificeKnife.getDryingNumber(itemStack);
@@ -134,7 +134,7 @@ public class VanillaClientRegistry {
 					return 0F;
 				});
 
-		itemProperties.register(MobZItems.SHIELD.get(), new ResourceLocation("blocking"), (itemStack, world, entity, seed) ->
+		itemProperties.register(MobZItems.SHIELD.get(), ResourceLocation.withDefaultNamespace("blocking"), (itemStack, world, entity, seed) ->
 			entity != null && entity.isUsingItem() && entity.getUseItem() == itemStack ? 1.0F : 0.0F);
 	}
 }

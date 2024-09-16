@@ -157,7 +157,7 @@ public class ZombieMage extends SpellcasterIllager {
 	}
 
 	@Override
-	public void applyRaidBuffs(int wave, boolean unused) {
+	public void applyRaidBuffs(ServerLevel serverWorld, int wave, boolean p_37845_) {
 	}
 
 	public class WololoGoal extends SpellcasterIllager.SpellcasterUseSpellGoal {

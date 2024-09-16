@@ -9,8 +9,8 @@ import net.mobz.init.MobZItems;
 public class MobZTabs {
 	// ItemGroup
 	public final static CreativeModeTab tab = MobZ.platform.tab(
-			new ResourceLocation(MobZ.MODID, "glomod"), () -> new ItemStack(MobZBlocks.BOSS_TROPHY.get()));
+			ResourceLocation.tryBuild(MobZ.MODID, "glomod"), () -> new ItemStack(MobZBlocks.BOSS_TROPHY.get()));
 
 	public final static CreativeModeTab eggs = MobZ.platform.tab(
-			new ResourceLocation(MobZ.MODID, "glomodegg"), () -> new ItemStack(MobZItems.SPAWN_EGG.get()));
+			ResourceLocation.tryBuild(MobZ.MODID, "glomodegg"), () -> new ItemStack(MobZItems.SPAWN_EGG.get()));
 }

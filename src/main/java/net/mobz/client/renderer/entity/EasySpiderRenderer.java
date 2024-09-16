@@ -18,7 +18,7 @@ public class EasySpiderRenderer<T extends Spider> extends SpiderRenderer<T> {
 
         this.texture = texture;
         String eyePath = texture.getPath().replace(".png", "_eyes.png");
-        ResourceLocation eyeTexture = new ResourceLocation(texture.getNamespace(), eyePath);
+        ResourceLocation eyeTexture = ResourceLocation.tryBuild(texture.getNamespace(), eyePath);
         this.addLayer(new SpiderEyes<>(this, eyeTexture));
     }
 

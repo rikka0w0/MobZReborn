@@ -43,7 +43,7 @@ public class LifeArmorBase extends ArmorItem {
 	});
 
 	public static final Holder<ArmorMaterial> MATERIAL = Registry.registerForHolder(
-		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "life"), new ArmorMaterial(
+		BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.tryBuild(MobZ.MODID, "life"), new ArmorMaterial(
 			DEFENSE_MAP,
        		10,		// getEnchantmentValue
       		SoundEvents.ARMOR_EQUIP_IRON,
@@ -74,7 +74,7 @@ public class LifeArmorBase extends ArmorItem {
 
 		return modifiers.withModifierAdded(
 			Attributes.MAX_HEALTH,
-			new AttributeModifier(ArmorUtils.getModifierUUID(this.getType(), modifiers), "Life", this.lifeBoost, AttributeModifier.Operation.ADD_VALUE),
+			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "life"), this.lifeBoost, AttributeModifier.Operation.ADD_VALUE),
 			EquipmentSlotGroup.bySlot(this.getEquipmentSlot())
 		);
 	}

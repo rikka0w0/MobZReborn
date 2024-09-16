@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -18,8 +20,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
@@ -46,7 +48,7 @@ public interface IAbstractedAPI {
 
 	Supplier<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
 	default Supplier<SoundEvent> registerSound(String modid, String name) {
-		ResourceLocation resLoc = new ResourceLocation(modid, name);
+		ResourceLocation resLoc = ResourceLocation.tryBuild(modid, name);
 		return registerSound(name, resLoc, null);
 	}
 
@@ -55,7 +57,8 @@ public interface IAbstractedAPI {
 	Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor,
 			Item.Properties props);
 
-	Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties builder, int lengthInTicks);
+	Holder<JukeboxSong> registerJukeboxSong(String soundName, String songName, Component desc, int comparatorValue,
+			int lengthInTicks);
 
 	Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,

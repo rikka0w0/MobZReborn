@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
@@ -42,6 +43,7 @@ import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
@@ -121,10 +123,14 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean doHurtTarget(Entity p_27722_) {
+		DamageSource damagesource = this.damageSources().sting(this);
 		boolean flag = p_27722_.hurt(this.damageSources().sting(this),
 				((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
 		if (flag) {
-			this.doEnchantDamageEffects(this, p_27722_);
+			if (this.level() instanceof ServerLevel serverlevel) {
+				EnchantmentHelper.doPostAttackEffects(serverlevel, p_27722_, damagesource);
+			}
+
 			if (p_27722_ instanceof LivingEntity) {
 				((LivingEntity) p_27722_).setStingerCount(((LivingEntity) p_27722_).getStingerCount() + 1);
 				int i = 0;

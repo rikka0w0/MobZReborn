@@ -20,7 +20,7 @@ public class BossSkeletonRenderer extends EasySkeletonRender<BossSkeleton> {
         super(context, texture);
 
         String overlayPath = texture.getPath().replace(".png", "_overlay.png");
-        ResourceLocation overlayTexture = new ResourceLocation(texture.getNamespace(), overlayPath);
+        ResourceLocation overlayTexture = ResourceLocation.tryBuild(texture.getNamespace(), overlayPath);
         this.addLayer(new OverlayFeature<>(this, context.getModelSet(), overlayTexture));
     }
 
@@ -34,11 +34,14 @@ public class BossSkeletonRenderer extends EasySkeletonRender<BossSkeleton> {
             this.texture = overlayTexture;
         }
 
-        @Override
-		public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T mobEntity, float f,
-                float g, float h, float j, float k, float l) {
-            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model, this.texture, matrixStack, vertexConsumerProvider,
-                    i, mobEntity, f, g, j, k, l, h, 1.0F, 1.0F, 1.0F);
-        }
+		@Override
+		public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity,
+				float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks, float pNetHeadYaw,
+				float pHeadPitch) {
+			coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model, this.texture, pPoseStack, pBuffer,
+					pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch,
+					pPartialTick, -1);
+
+		}
     }
 }

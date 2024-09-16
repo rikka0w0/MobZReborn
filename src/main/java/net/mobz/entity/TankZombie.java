@@ -56,14 +56,16 @@ public class TankZombie extends Zombie {
         return MobZ.configs.tank_zombie.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
     }
 
-    @Override
-    public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
-        LivingEntity bob = (LivingEntity) target;
-        MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false);
-        if (target instanceof LivingEntity && !this.level().isClientSide) {
-            bob.addEffect(weakness);
-        }
-    }
+	@Override
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
+		}
+
+		return flag;
+	}
 
     @Override
     protected SoundEvent getAmbientSound() {

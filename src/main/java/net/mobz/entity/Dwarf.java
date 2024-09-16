@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.LevelReader;
@@ -50,12 +51,14 @@ public class Dwarf extends Vindicator {
 	}
 
 	@Override
-	public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
-		LivingEntity bob = (LivingEntity) target;
-		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 0, false, false);
-		if (target instanceof LivingEntity && !this.level().isClientSide) {
-			bob.addEffect(slow);
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 0, false, false));
 		}
+
+		return flag;
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class Dwarf extends Vindicator {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
 		return;
 	}
 

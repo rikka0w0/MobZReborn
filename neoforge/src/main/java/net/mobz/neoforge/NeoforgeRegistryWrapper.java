@@ -24,9 +24,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -43,6 +44,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	private final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, MobZ.MODID);
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MobZ.MODID);
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, MobZ.MODID);
+	private final DeferredRegister<JukeboxSong> JUKEBOX_SONG = DeferredRegister.create(Registries.JUKEBOX_SONG, MobZ.MODID);
 	private final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MobZ.MODID);
 
 	private Set<Supplier<?>> setters = new HashSet<>();
@@ -167,9 +169,12 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier,
-			Item.Properties builder, int lengthInTicks) {
-		return () -> new RecordItem(comparatorValue, soundSupplier, builder, lengthInTicks);
+	public Holder<JukeboxSong> registerJukeboxSong(String soundName, String songName, Component desc,
+			int comparatorValue, int lengthInTicks) {
+		ResourceLocation soundResLoc = ResourceLocation.tryBuild(MobZ.MODID, soundName);
+		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(soundResLoc);
+		DeferredHolder<SoundEvent, SoundEvent> regObj = SOUNDS.register(soundName, constructor);
+		return JUKEBOX_SONG.register(songName, () -> new JukeboxSong(regObj, desc, comparatorValue, lengthInTicks));
 	}
 
 	@Override

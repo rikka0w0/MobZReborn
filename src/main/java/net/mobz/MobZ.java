@@ -18,23 +18,23 @@ import net.mobz.init.MobZWeapons;
 public class MobZ {
 	public static final String MODID = "mobz";
 	public static IAbstractedAPI platform = null;
-	public static boolean isDebugMode = false;
+	public static boolean isDebugMode = true;
 
 	// Configs
 	public static Configs configs = null;
 
 	// Tags
-	public final static TagKey<Item> TOAD_FOOD_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "toad_food"));
-	public final static TagKey<EntityType<?>> TOAD_TARGET_TAG = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(MODID, "toad_target"));
-	public final static TagKey<Item> FIORA_EQUIP_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "fiora_equip"));
-	public final static TagKey<Item> KATHERINE_EQUIP_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "katherine_equip"));
-	public final static TagKey<Item> FIORA_FOOD_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "fiora_food"));
-	public final static TagKey<Item> KATHERINE_FOOD_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "katherine_food"));
-	public final static TagKey<Item> FIORA_TAME_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "fiora_tame"));
-	public final static TagKey<Item> KATHERINE_TAME_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(MODID, "katherine_tame"));
+	public final static TagKey<Item> TOAD_FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "toad_food"));
+	public final static TagKey<EntityType<?>> TOAD_TARGET_TAG = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.tryBuild(MODID, "toad_target"));
+	public final static TagKey<Item> FIORA_EQUIP_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "fiora_equip"));
+	public final static TagKey<Item> KATHERINE_EQUIP_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "katherine_equip"));
+	public final static TagKey<Item> FIORA_FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "fiora_food"));
+	public final static TagKey<Item> KATHERINE_FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "katherine_food"));
+	public final static TagKey<Item> FIORA_TAME_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "fiora_tame"));
+	public final static TagKey<Item> KATHERINE_TAME_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "katherine_tame"));
 
-	public final static TagKey<Biome> SPAWN_NORMAL_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(MODID, "spawn_normal"));
-	public final static TagKey<Biome> SPAWN_ICY_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(MODID, "spawn_icy"));
+	public final static TagKey<Biome> SPAWN_NORMAL_TAG = TagKey.create(Registries.BIOME, ResourceLocation.tryBuild(MODID, "spawn_normal"));
+	public final static TagKey<Biome> SPAWN_ICY_TAG = TagKey.create(Registries.BIOME, ResourceLocation.tryBuild(MODID, "spawn_icy"));
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {

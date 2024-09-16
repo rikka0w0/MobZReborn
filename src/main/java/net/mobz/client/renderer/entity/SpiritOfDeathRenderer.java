@@ -17,7 +17,7 @@ public class SpiritOfDeathRenderer extends MobRenderer<Vex, VexModel> {
         super(context, new VexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F);
         this.texture = texture;
         String eyePath = texture.getPath().replace(".png", "_charging.png");
-        this.charging_texture = new ResourceLocation(texture.getNamespace(), eyePath);
+        this.charging_texture = ResourceLocation.tryBuild(texture.getNamespace(), eyePath);
     }
 
     @Override

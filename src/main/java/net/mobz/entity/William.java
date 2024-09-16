@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -70,7 +71,7 @@ public class William extends Zombie {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
 		return;
 	}
 
@@ -105,12 +106,14 @@ public class William extends Zombie {
 	}
 
 	@Override
-	public void doEnchantDamageEffects(LivingEntity attacker, Entity target) {
-		LivingEntity bob = (LivingEntity) target;
-		MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false);
-		if (target instanceof LivingEntity && !this.level().isClientSide) {
-			bob.addEffect(weakness);
+	public boolean doHurtTarget(Entity victim) {
+		boolean flag = super.doHurtTarget(victim);
+
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false));
 		}
+
+		return flag;
 	}
 
 	@Override

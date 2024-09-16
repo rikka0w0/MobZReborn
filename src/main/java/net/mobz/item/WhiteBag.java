@@ -50,7 +50,7 @@ public class WhiteBag extends SimpleItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack_1) {
+    public int getUseDuration(ItemStack itemStack, LivingEntity user) {
         return 1;
     }
 

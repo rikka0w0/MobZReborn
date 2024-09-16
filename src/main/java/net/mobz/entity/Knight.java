@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.Level;
@@ -53,7 +54,7 @@ public class Knight extends Vindicator {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
 		return;
 	}
 

@@ -49,7 +49,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 	private float eyeHeight;
 
 	public final static ModelLayerLocation modelResLoc = new ModelLayerLocation(
-			new ResourceLocation(MobZ.MODID, "toad_model"), "main");
+			ResourceLocation.tryBuild(MobZ.MODID, "toad_model"), "main");
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
@@ -150,12 +150,13 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		this.tongueDistance = entity.tongueDistance;
 		this.targetTongueDistance = entity.targetTongueDistance;
 		this.eyeHeight = entity.getEyeHeight();
+		this.renderToBuffer(null, null, 0, 0, 0);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight,
-			int overlay, float r, float g, float b, float alpha) {
-		this.body.render(poseStack, vertexConsumer, packedLight, overlay, r, g, b, alpha);
+			int overlayCoord, int packedColor) {
+		this.body.render(poseStack, vertexConsumer, packedLight, overlayCoord, packedColor);
 
 		// Render tongue
 		if (this.tongueDistance <= 0.01F)
@@ -163,12 +164,12 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 
 		poseStack.pushPose();
 		this.body.translateAndRotate(poseStack);
-		this.renderTongue(poseStack, vertexConsumer, packedLight, overlay, r, g, b, alpha);
+		this.renderTongue(poseStack, vertexConsumer, packedLight, overlayCoord, packedColor);
 		poseStack.popPose();
 	}
 
-	public void renderTongue(PoseStack matrices, VertexConsumer vertexConsumer, int light,
-			int overlay, float red, float green, float blue, float alpha) {
+	public void renderTongue(PoseStack matrices, VertexConsumer vertexConsumer, int packedLight,
+			int overlayCoord, int packedColor) {
 		matrices.pushPose();
 
 		float mouthHeightRelative = 3F/16F;  // Mouth to bottom of the model
@@ -217,7 +218,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		matrices.scale(1, 1, len / this.bodyScale * 16F);
 
 		ModelPart.Cube cuboid = new ModelPart.Cube(16, 0, -1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0, 0, 0, false, 64, 64, ALL_VISIBLE);
-		cuboid.compile(matrices.last(), vertexConsumer, light, overlay, 1, 0, 0, 0);
+		cuboid.compile(matrices.last(), vertexConsumer, packedLight, overlayCoord, packedColor);
 
 		matrices.popPose();
 	}

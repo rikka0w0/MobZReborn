@@ -50,7 +50,7 @@ public class AmatArmorBase extends ArmorItem {
 	});
 
 	public static final Holder<ArmorMaterial> MATERIAL = Registry.registerForHolder(
-		BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(MobZ.MODID, "amat"), new ArmorMaterial(
+		BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.tryBuild(MobZ.MODID, "amat"), new ArmorMaterial(
 			DEFENSE_MAP,
        		15,		// getEnchantmentValue
       		SoundEvents.ARMOR_EQUIP_DIAMOND,
@@ -81,7 +81,7 @@ public class AmatArmorBase extends ArmorItem {
 
 		return modifiers.withModifierAdded(
 			Attributes.ATTACK_DAMAGE,
-			new AttributeModifier(ArmorUtils.getModifierUUID(this.getType(), modifiers), "amat_attack_bonus", this.attackSpeedBonus, AttributeModifier.Operation.ADD_VALUE),
+			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "amat_attack_bonus"), this.attackSpeedBonus, AttributeModifier.Operation.ADD_VALUE),
 			EquipmentSlotGroup.bySlot(this.getEquipmentSlot())
 		);
 	}

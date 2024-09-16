@@ -29,7 +29,7 @@ public class EnderRenderer extends MobRenderer<EnderMan, EndermanModel<EnderMan>
 
         this.texture = texture;
         String eyePath = texture.getPath().replace(".png", "_eyes.png");
-        ResourceLocation eyeTexture = new ResourceLocation(texture.getNamespace(), eyePath);
+        ResourceLocation eyeTexture = ResourceLocation.tryBuild(texture.getNamespace(), eyePath);
         this.addLayer(new EnderEyes<>(this, eyeTexture));
     }
 

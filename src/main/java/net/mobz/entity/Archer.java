@@ -14,6 +14,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 
@@ -74,8 +75,8 @@ public class Archer extends Pillager {
 		return super.canJoinRaid() && MobZ.configs.archer.can_join_raid.check(this);
 	}
 
-    @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource_1, int int_1, boolean boolean_1) {
-        return;
-    }
+	@Override
+	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
+		return;
+	}
 }
