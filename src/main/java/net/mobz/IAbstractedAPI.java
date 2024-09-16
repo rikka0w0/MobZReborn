@@ -44,8 +44,8 @@ public interface IAbstractedAPI {
 		return registerEntityType(name, constructor, attribModifierSupplier);
 	}
 
-	Holder<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
-	default Holder<SoundEvent> registerSound(String modid, String name) {
+	Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
+	default Supplier<Holder<SoundEvent>> registerSound(String modid, String name) {
 		ResourceLocation resLoc = ResourceLocation.tryBuild(modid, name);
 		return registerSound(name, resLoc, null);
 	}

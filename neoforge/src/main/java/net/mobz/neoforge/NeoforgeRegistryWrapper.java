@@ -117,7 +117,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Holder<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
 		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(resloc);
 		DeferredHolder<SoundEvent, SoundEvent> regObj = SOUNDS.register(name, constructor);
 		if (setter != null) {
@@ -127,7 +127,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 				return val;
 			});
 		}
-		return regObj;
+		return () -> regObj;
 	}
 
 	public void setAllRegistryObjectFields() {

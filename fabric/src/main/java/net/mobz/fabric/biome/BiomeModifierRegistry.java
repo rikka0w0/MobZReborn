@@ -24,13 +24,13 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BiomeModifierRegistry {
 	public final static ResourceKey<Registry<MapCodec<? extends BiomeModifier>>> CODEC_REGISTRY_RESKEY =
-			ResourceKey.createRegistryKey(new ResourceLocation("fabric", "biome_modifier_codec"));
+			ResourceKey.createRegistryKey(ResourceLocation.tryBuild("fabric", "biome_modifier_codec"));
 
 	public final static MappedRegistry<MapCodec<? extends BiomeModifier>> CODEC_REGISTRY =
 			FabricRegistryBuilder.createSimple(CODEC_REGISTRY_RESKEY).buildAndRegister();
 
 	public final static ResourceKey<Registry<BiomeModifier>> REGISTRY_KEY
-		= ResourceKey.createRegistryKey(new ResourceLocation("fabric", "biome_modifier"));
+		= ResourceKey.createRegistryKey(ResourceLocation.tryBuild("fabric", "biome_modifier"));
 
 	public final static Codec<BiomeModifier> DIRECT_CODEC = CODEC_REGISTRY.byNameCodec()
 			.dispatch(BiomeModifier::codec, Function.identity());
@@ -40,7 +40,7 @@ public class BiomeModifierRegistry {
 		Map<ResourceLocation, BiomeModification> biomeModificationMap = new HashMap<>();
 		registry.listElements().forEach(holder -> {
 			// Per-mod based BiomeModification
-			ResourceLocation resLoc = new ResourceLocation(holder.key().location().getNamespace(),
+			ResourceLocation resLoc = ResourceLocation.tryBuild(holder.key().location().getNamespace(),
 					BiomeModifierRegistry.REGISTRY_KEY.location().getPath());
 			BiomeModification biomeModification =
 					biomeModificationMap.computeIfAbsent(resLoc, (key) -> BiomeModifications.create(key));

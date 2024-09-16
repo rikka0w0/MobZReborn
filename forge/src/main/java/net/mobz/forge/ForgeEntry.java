@@ -61,6 +61,7 @@ import net.mobz.data.Advancements;
 import net.mobz.data.BlockTagProvider;
 import net.mobz.data.EntityTagProvider;
 import net.mobz.data.ItemTagProvider;
+import net.mobz.data.JukeboxSongs;
 import net.mobz.data.Loots;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
@@ -141,7 +142,9 @@ public class ForgeEntry {
 
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<DatapackBuiltinEntriesProvider>) vanillaPackOutput ->
 				new DatapackBuiltinEntriesProvider(vanillaPackOutput, lookupProvider,
-					new RegistrySetBuilder().add(ForgeRegistries.Keys.BIOME_MODIFIERS, biomeModifierPopulator),
+					new RegistrySetBuilder()
+						.add(ForgeRegistries.Keys.BIOME_MODIFIERS, biomeModifierPopulator)
+						.add(Registries.JUKEBOX_SONG, new JukeboxSongs()),
 					Set.of(MobZ.MODID)
 				)
 			);

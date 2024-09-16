@@ -25,8 +25,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -120,7 +120,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
 		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(resloc);
 		RegistryObject<SoundEvent> regObj = SOUNDS.register(name, constructor);
 		if (setter != null) {
@@ -130,7 +130,9 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 				return val;
 			});
 		}
-		return regObj;
+		// Forge updates the internal holder reference later
+		// We cannot ask for the holder instance now
+		return () -> regObj.getHolder().get();
 	}
 
 	public void setAllRegistryObjectFields() {
@@ -167,12 +169,6 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
 		return () -> new ForgeSpawnEgg(type, highlightColor, highlightColor, props);
-	}
-
-	@Override
-	public Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier,
-			Item.Properties builder, int lengthInTicks) {
-		return () -> new RecordItem(comparatorValue, soundSupplier, builder, lengthInTicks);
 	}
 
 	@Override

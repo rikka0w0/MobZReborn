@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,7 +30,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -42,7 +42,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	private Map<CreativeModeTab, List<Supplier<? extends ItemLike>>> tabContents = new HashMap<>();
 
 	private static ResourceLocation res(String name) {
-		return new ResourceLocation(MobZ.MODID, name);
+		return ResourceLocation.tryBuild(MobZ.MODID, name);
 	}
 
 	@Override
@@ -105,16 +105,16 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<SoundEvent> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
 		SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(resloc);
-		Registry.register(BuiltInRegistries.SOUND_EVENT, res(name), soundEvent);
+		Holder<SoundEvent> holder = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, res(name), soundEvent);
 		if (setter != null) {
 			setters.add(() -> {
 				setter.accept(soundEvent);
 				return soundEvent;
 			});
 		}
-		return () -> soundEvent;
+		return () -> holder;
 	}
 
 	@Override
@@ -139,12 +139,6 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
 		return () -> new FabricSpawnEgg(type.get(), backgroundColor, highlightColor, props);
-	}
-
-	@Override
-	public Supplier<RecordItem> newRecordItem(int comparatorValue, Supplier<SoundEvent> soundSupplier,
-			Item.Properties builder, int lengthInTicks) {
-		return () -> new RecordItem(comparatorValue, soundSupplier.get(), builder, lengthInTicks) {};
 	}
 
 	@Override

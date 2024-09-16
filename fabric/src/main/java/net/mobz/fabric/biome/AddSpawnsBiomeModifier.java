@@ -17,7 +17,7 @@ import com.mojang.serialization.codecs.EitherCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 public record AddSpawnsBiomeModifier(HolderSet<Biome> biomes, List<SpawnerData> spawners) implements BiomeModifier {
-	public final static ResourceLocation TYPE_NAME = new ResourceLocation("fabric", "add_spawns");
+	public final static ResourceLocation TYPE_NAME = ResourceLocation.tryBuild("fabric", "add_spawns");
 
 	public final static MapCodec<AddSpawnsBiomeModifier> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
 			Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddSpawnsBiomeModifier::biomes),

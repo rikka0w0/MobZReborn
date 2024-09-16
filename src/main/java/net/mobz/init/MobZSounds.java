@@ -36,8 +36,8 @@ public class MobZSounds {
 	public static final Supplier<SoundEvent> SKELASTEPEVENT = register("skelastep");
 	public static final Supplier<SoundEvent> NOTHINGEVENT = register("nothing");
 	public static final Supplier<SoundEvent> ANGRYBATTLEHORNEVENT = register("angrybattlehorn");
-	public static final Holder<SoundEvent> MEDIVEAL_MUSIC = MobZ.platform.registerSound(MobZ.MODID, "medivealsound");
-	public static final Holder<SoundEvent> MEDIVEAL_MUSIC_2 = MobZ.platform.registerSound(MobZ.MODID, "medivealsound2");
+	public static final Supplier<Holder<SoundEvent>> MEDIVEAL_MUSIC = MobZ.platform.registerSound(MobZ.MODID, "medivealsound");
+	public static final Supplier<Holder<SoundEvent>> MEDIVEAL_MUSIC_2 = MobZ.platform.registerSound(MobZ.MODID, "medivealsound2");
 	public static final Supplier<SoundEvent> EVADEATHEVENT = register("evadeath");
 	public static final Supplier<SoundEvent> EVAHURTEVENT = register("evahurt");
 	public static final Supplier<SoundEvent> EVAIDLEEVENT = register("evaidle");
@@ -79,7 +79,7 @@ public class MobZSounds {
 	public static final Supplier<SoundEvent> TOAD_JUMP = register("entity.toad.jump");
 
 	private static Supplier<SoundEvent> register(String name) {
-		Holder<SoundEvent> holder = MobZ.platform.registerSound(MobZ.MODID, name);
-		return holder::value;
+		Supplier<Holder<SoundEvent>> holderSupplier = MobZ.platform.registerSound(MobZ.MODID, name);
+		return () -> holderSupplier.get().value();
 	}
 }

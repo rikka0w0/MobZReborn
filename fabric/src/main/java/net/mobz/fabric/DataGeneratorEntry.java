@@ -20,12 +20,16 @@ import net.mobz.data.Loots;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.fabric.biome.BiomeModifierRegistry;
 import net.mobz.fabric.data.BiomeModifierProvider;
+import net.mobz.fabric.data.JukeboxSongProvider;
 
 public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		FabricDataGenerator.Pack pack = generator.createPack();
 		RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
+
+		// Data: Jukebox discs
+		pack.addProvider(JukeboxSongProvider::new);
 
 		// Data: Mob spawns
 		pack.addProvider(BiomeModifierProvider::new);
