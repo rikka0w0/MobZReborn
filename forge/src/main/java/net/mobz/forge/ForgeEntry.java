@@ -25,6 +25,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -47,7 +49,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.mobz.ILootTableAdder;
 import net.mobz.MobZ;
 import net.mobz.config.ClothConfig;
-import net.mobz.data.ItemModelDataProvider;
+import net.mobz.data.ModelDataProvider;
+import net.mobz.data.Recipes;
+import net.mobz.data.Advancements;
+import net.mobz.data.BlockTagProvider;
+import net.mobz.data.EntityTagProvider;
+import net.mobz.data.ItemTagProvider;
+import net.mobz.data.Loots;
 import net.mobz.data.SpawnBiomeTagProvider;
 import net.mobz.init.LootTableModifier;
 import net.mobz.init.MobSpawnRestrictions;
@@ -121,8 +129,26 @@ public class ForgeEntry {
 			// Data: Biome tags for spawns
 			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider));
 
-			// Resource: SpawnEgg items
-			generator.addProvider(event.includeClient(), new ItemModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+			// Data: Mineable tags
+			generator.addProvider(event.includeServer(), new BlockTagProvider(packOutput, lookupProvider));
+
+			// Data: Item tags
+			generator.addProvider(event.includeServer(), new ItemTagProvider(packOutput, lookupProvider));
+
+			// Data: Entity tags
+			generator.addProvider(event.includeServer(), new EntityTagProvider(packOutput, lookupProvider));
+
+			// Resource: Models and blockstates
+			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+
+			// Data: LootTable
+			generator.addProvider(event.includeServer(), (DataProvider.Factory<LootTableProvider>) vanillaPackOutput -> Loots.all(vanillaPackOutput, lookupProvider));
+
+			// Data: Recipes
+			generator.addProvider(event.includeServer(), new Recipes(packOutput));
+
+			// Data: Advancements
+			generator.addProvider(event.includeServer(), (DataProvider.Factory<AdvancementProvider>) vanillaPackOutput -> Advancements.all(vanillaPackOutput, lookupProvider));
 		}
 	}
 

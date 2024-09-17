@@ -64,9 +64,9 @@ public class MobZItems {
 	public static final Supplier<WitherPowder> WITHER_POWDER = MobZ.platform.registerItem("wither_powder", MobZTabs.tab,
 			() -> new WitherPowder(defItemProp()));
 	public static final Supplier<RecordItem> MEDIVEAL_DISC = MobZ.platform.registerItem("mediveal_disc", MobZTabs.tab,
-			MobZ.platform.newRecordItem(1, MobZSounds.MEDIVEALSOUNDEVENT, new Item.Properties().stacksTo(1)));
-	public static final Supplier<RecordItem> MEDIVEAL_DISC2 = MobZ.platform.registerItem("mediveal_disc_2", MobZTabs.tab,
-			MobZ.platform.newRecordItem(0, MobZSounds.MEDIVEALSOUND2EVENT, new Item.Properties().stacksTo(1)));
+			MobZ.platform.newRecordItem(1, MobZSounds.MEDIVEALSOUNDEVENT, new Item.Properties().stacksTo(1), 4680));
+	public static final Supplier<RecordItem> MEDIVEAL_DISC_2 = MobZ.platform.registerItem("mediveal_disc_2", MobZTabs.tab,
+			MobZ.platform.newRecordItem(0, MobZSounds.MEDIVEALSOUND2EVENT, new Item.Properties().stacksTo(1), 660));
 	public static final Supplier<MobBucketItem> TADPOLE_BUCKET = MobZ.platform.registerItem("tadpole_bucket", MobZTabs.tab,
 			MobZ.platform.newMobBucketItem(MobZEntities.TADPOLE, () -> Fluids.WATER,
 					() -> SoundEvents.BUCKET_EMPTY_FISH, nonStackable()));

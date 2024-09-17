@@ -23,9 +23,7 @@ def defaultIfNotExist(propertyName, defaultValue) {
  */
 def normalizeVersion(versionString) {
 	def parts = versionString.split('\\.');
-	while (parts.size() < 3) {
-		parts << '0';
-	}
+	parts = parts.size() < 3 ? parts + ["0"] * (3 - parts.size()) : parts.take(3);
 	return parts.collect { it.toInteger() };
 }
 
@@ -60,7 +58,12 @@ def enumerateVersions(version1, version2) {
 
 	def enumeratedVersions = [];
 	while (true) {
-		enumeratedVersions << currentVersion.join('.');
+		if (currentVersion[2] == 0) {
+			enumeratedVersions << currentVersion.take(2).join('.');
+		} else {
+			enumeratedVersions << currentVersion.join('.');
+		}
+
 		if (currentVersion == endMcVersion) break;
 		currentVersion[2]++;
 		if (currentVersion[2] == 10) {

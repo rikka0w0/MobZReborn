@@ -27,6 +27,9 @@ forge*changelog.txt
 
 # Minecraft data generator cache
 .cache
-fabric/src/main/generated/
-forge/src/generated/
-neoforge/src/generated/
+fabric/src/main/generated/*
+!fabric/src/main/generated/.gitkeep
+forge/src/generated/*
+!forge/src/generated/.gitkeep
+neoforge/src/generated/*
+!neoforge/src/generated/.gitkeep

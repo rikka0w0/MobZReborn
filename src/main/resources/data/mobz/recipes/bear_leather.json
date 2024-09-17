@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "mobz:bear_leather"
-  },
-  "result": "minecraft:leather",
-  "experience": 0.1,
-  "cookingtime": 600
-}
