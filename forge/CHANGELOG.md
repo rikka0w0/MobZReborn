@@ -1,6 +1,6 @@
 ## Forge Requires:
 Minecraft [${minecraft_version_min}, ${minecraft_version_max})
-Minecraft Forge ${forge_version} or above
+Minecraft Forge ${forge_version_range}
 
 __As ClothConfig no longer supports Forge, MobZ for Forge now uses a simple wrapper.__
 

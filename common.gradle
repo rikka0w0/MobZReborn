@@ -79,7 +79,9 @@ def enumerateVersions(version1, version2) {
 	return enumeratedVersions;
 }
 
-project.ext.set('enumeratedMcVersions', enumerateVersions(project.minecraft_version_min, project.minecraft_version));
+project.ext.set('enumeratedMcVersions', project.hasProperty('minecraft_versions_declared') ?
+	project.minecraft_versions_declared.split(',').collect { it.trim() } :
+	enumerateVersions(project.minecraft_version_min, project.minecraft_version));
 println 'The following Minecraft versions will be DECLARED as supported:'
 project.enumeratedMcVersions.each { println it };
 
@@ -157,7 +159,7 @@ task githubDraft {
 		def headFile = file('../CHANGELOG.md');
 		def tailFile = file('../NOTE.md');
 
-		def title = "${project.mod_version} for Minecraft ${project.minecraft_version} (Forge, Neoforge and Fabric)\n";
+		def title = "${project.mod_version} for Minecraft ${project.enumeratedMcVersions.join(', ')} (Forge, Neoforge and Fabric)\n";
 		def tagName = "${project.mod_version}_${project.minecraft_version}"
 
 		def outputText = '';
