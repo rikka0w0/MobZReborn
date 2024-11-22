@@ -6,7 +6,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.BlockPos;
@@ -80,7 +79,7 @@ public class FrostballEntity extends Fireball {
 	}
 
 	@Override
-	public boolean hurt(DamageSource damageSource_1, float float_1) {
+	public boolean isOnFire() {
 		return false;
 	}
 }
