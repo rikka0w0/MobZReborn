@@ -60,7 +60,7 @@ public class AmatArmorBase extends SimpleItem {
 	public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType) {
 		return modifiers.withModifierAdded(
 			Attributes.ATTACK_DAMAGE,
-			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "amat_attack_bonus"), 0.1D, AttributeModifier.Operation.ADD_VALUE),
+			new AttributeModifier(MobZ.resLoc("amat_attack_bonus"), 0.1D, AttributeModifier.Operation.ADD_VALUE),
 			EquipmentSlotGroup.bySlot(armorType.getSlot())
 		);
 	}

@@ -15,7 +15,7 @@ public class SpiritOfDeathRenderer extends VexRenderer {
         super(context);
         this.texture = texture;
         String eyePath = texture.getPath().replace(".png", "_charging.png");
-        this.charging_texture = ResourceLocation.tryBuild(texture.getNamespace(), eyePath);
+        this.charging_texture = ResourceLocation.fromNamespaceAndPath(texture.getNamespace(), eyePath);
     }
 
     @Override

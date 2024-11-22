@@ -29,8 +29,8 @@ public class MobZ {
     	MobZWeapons.BOSS_SWORD.getClass();
     	MobZSounds.MEDIVEAL_MUSIC.getClass();
     	MobZIcons.headNames.getClass();
-    	MobZTabs.tab.getClass();
-    	MobZTabs.eggs.getClass();
+    	MobZTabs.MAIN.getClass();
+    	MobZTabs.EGGS.getClass();
 	}
 
 	public static ResourceLocation resLoc(String path) {

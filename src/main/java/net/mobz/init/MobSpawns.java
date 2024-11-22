@@ -33,7 +33,7 @@ public class MobSpawns {
 			fileName = "spawn_" + hashSrc.length() + "h" + hashSrc.hashCode() + "_in_" + biomeTag.location().getNamespace() + "_"
 					+ biomeTag.location().getPath();
 		}
-		ResourceLocation fileNameResLoc = ResourceLocation.tryBuild(MobZ.MODID, fileName);
+		ResourceLocation fileNameResLoc = MobZ.resLoc(fileName);
 		map.put(fileNameResLoc, Pair.of(biomeTag, List.of(spawnerDataList)));
 	}
 

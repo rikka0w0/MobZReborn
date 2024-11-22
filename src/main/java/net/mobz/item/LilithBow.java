@@ -15,23 +15,22 @@ import net.minecraft.world.level.Level;
 import net.mobz.MobZRarity;
 
 public class LilithBow extends BowItem {
-    public LilithBow(Item.Properties properties) {
-        super(properties);
-    }
+	public LilithBow(Item.Properties properties) {
+		super(properties);
+	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
+			TooltipFlag flag) {
 		MobZRarity.RARE.addToTooltip(tooltip);
 	}
 
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        MobEffectInstance spd = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1, false, false);
-        LivingEntity bob = (LivingEntity) entity;
-        if (selected == true) {
-           if (bob.isUsingItem()) {
-              bob.addEffect(spd);
-           }
-        }
-    }
+	@Override
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (entity instanceof LivingEntity user && selected == true) {
+			if (user.isUsingItem()) {
+				user.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1, false, false));
+			}
+		}
+	}
 }

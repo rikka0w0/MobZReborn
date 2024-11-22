@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.util.Mth;
 
 public abstract class AbstractHead extends Block {
-	public final static Direction[] horizontalDirections = new Direction[]{Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST};
 	public static final EnumProperty<Direction> ROTATION = BlockStateProperties.HORIZONTAL_FACING;
 
 	public AbstractHead(Properties settings) {
@@ -21,8 +20,9 @@ public abstract class AbstractHead extends Block {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-		return (BlockState) this.defaultBlockState().setValue(ROTATION,
-				horizontalDirections[Mth.floor((double) (ctx.getRotation() * 4.0F / 360.0F) + 0.5D) & 3].getOpposite());
+		int horizontal2DData = Mth.floor((double) (ctx.getRotation() * 4.0F / 360.0F) + 0.5D) & 3;
+		Direction playerLookingAt = Direction.from2DDataValue(horizontal2DData);
+		return (BlockState) this.defaultBlockState().setValue(ROTATION, playerLookingAt.getOpposite());
 	}
 
 	@Override

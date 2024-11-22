@@ -84,7 +84,7 @@ public class SpeedShoeBase extends SimpleItem {
     public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType, double speedBoost) {
 		return modifiers.withModifierAdded(
 			Attributes.MOVEMENT_SPEED,
-			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "speed"), speedBoost, AttributeModifier.Operation.ADD_VALUE),
+			new AttributeModifier(MobZ.resLoc("speed"), speedBoost, AttributeModifier.Operation.ADD_VALUE),
 			EquipmentSlotGroup.bySlot(armorType.getSlot())
 		);
 	}

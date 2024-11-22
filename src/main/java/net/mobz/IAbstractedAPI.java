@@ -36,10 +36,6 @@ public interface IAbstractedAPI {
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier, @Nullable Consumer<T> setter);
 
 	Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
-	default Supplier<Holder<SoundEvent>> registerSound(String modid, String name) {
-		ResourceLocation resLoc = ResourceLocation.tryBuild(modid, name);
-		return registerSound(name, resLoc, null);
-	}
 
 	CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier);
 

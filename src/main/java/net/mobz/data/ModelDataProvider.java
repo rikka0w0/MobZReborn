@@ -42,7 +42,7 @@ import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
 public class ModelDataProvider implements DataProvider {
-	public final static ModelTemplate BOW_PULLING = new ModelTemplate(Optional.of(ResourceLocation.tryBuild("minecraft", "item/bow")),
+	public final static ModelTemplate BOW_PULLING = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/bow")),
 			Optional.empty(), TextureSlot.LAYER0);
 
     private final PackOutput.PathProvider blockStatePathProvider;
@@ -186,7 +186,7 @@ public class ModelDataProvider implements DataProvider {
 		}
 
 		public static ResourceLocation getRealTextureLoc(ResourceLocation resLoc) {
-			return ResourceLocation.tryBuild(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
+			return ResourceLocation.fromNamespaceAndPath(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
 		}
 
 		public ResourceLocation getRealTextureLocWithCheck(ResourceLocation resLoc) {
@@ -206,7 +206,7 @@ public class ModelDataProvider implements DataProvider {
 	    }
 
 		public void simpleItem(String string) {
-			ResourceLocation textureResLoc = ResourceLocation.tryBuild(MobZ.MODID, "item/" + string);
+			ResourceLocation textureResLoc = MobZ.resLoc("item/" + string);
 			getRealTextureLocWithCheck(textureResLoc);
 			TextureMapping textureMapping = TextureMapping.layer0(textureResLoc);
 			ModelTemplates.FLAT_ITEM.create(textureResLoc, textureMapping, this.outputConsumer);
@@ -214,7 +214,7 @@ public class ModelDataProvider implements DataProvider {
 
 		public void bowPulling(String baseName, int count) {
 			for (int i = 0; i < count; i++) {
-				ResourceLocation textureResLoc = ResourceLocation.tryBuild(MobZ.MODID, "item/" + baseName + "_" + i);
+				ResourceLocation textureResLoc = MobZ.resLoc("item/" + baseName + "_" + i);
 				getRealTextureLocWithCheck(textureResLoc);
 				BOW_PULLING.create(textureResLoc, TextureMapping.layer0(textureResLoc), this.outputConsumer);
 			}

@@ -28,10 +28,10 @@ import net.mobz.init.MobZEntities;
 
 public class MobAdvancements implements AdvancementSubProvider {
 	public final static ResourceLocation BACKGROUND =
-			ResourceLocation.tryBuild("minecraft", "textures/gui/advancements/backgrounds/adventure.png");
+			ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png");
 
 	public static Item icon(String name) {
-		ResourceLocation resLoc = ResourceLocation.tryBuild(MobZ.MODID, name);
+		ResourceLocation resLoc = MobZ.resLoc(name);
 		Item item = BuiltInRegistries.ITEM.getValue(resLoc);
 		return item;
 	}
@@ -49,7 +49,7 @@ public class MobAdvancements implements AdvancementSubProvider {
 		}
 
 		Advancement.Builder builder = Advancement.Builder.advancement().display(
-			BuiltInRegistries.ITEM.getValue(ResourceLocation.tryBuild(MobZ.MODID, iconName)),
+			BuiltInRegistries.ITEM.getValue(MobZ.resLoc(iconName)),
 			Component.translatable("entity.mobz." + name),
 			Component.translatable("mobz.advancements." + name + ".description"),
 			null, type, showToast, announceChat, hidden);

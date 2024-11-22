@@ -84,7 +84,7 @@ public class MobZBlocks {
 	private static <T extends Block> Supplier<T> register(String name,
 			Function<BlockBehaviour.Properties, T> constructor,
 			UnaryOperator<Item.Properties> blockItemProps) {
-		return MobZ.platform.registerBlock(name, MobZTabs.tab, constructor,
+		return MobZ.platform.registerBlock(name, MobZTabs.MAIN, constructor,
 				(block, props) -> new BlockItem(block, blockItemProps.apply(props)), null);
 	}
 }

@@ -19,7 +19,7 @@ public class BossSkeletonRenderer extends EasySkeletonRender {
 		super(context, texture);
 
 		String overlayPath = texture.getPath().replace(".png", "_overlay.png");
-		ResourceLocation overlayTexture = ResourceLocation.tryBuild(texture.getNamespace(), overlayPath);
+		ResourceLocation overlayTexture = ResourceLocation.fromNamespaceAndPath(texture.getNamespace(), overlayPath);
 		this.addLayer(new OverlayFeature<>(this, context.getModelSet(), overlayTexture));
 	}
 

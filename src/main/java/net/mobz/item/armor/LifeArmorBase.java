@@ -52,7 +52,7 @@ public class LifeArmorBase extends SimpleItem {
 	public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType) {
 		return modifiers.withModifierAdded(
 			Attributes.MAX_HEALTH,
-			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "life"), 3.0D, AttributeModifier.Operation.ADD_VALUE),
+			new AttributeModifier(MobZ.resLoc("life"), 3.0D, AttributeModifier.Operation.ADD_VALUE),
 			EquipmentSlotGroup.bySlot(armorType.getSlot())
 		);
 	}

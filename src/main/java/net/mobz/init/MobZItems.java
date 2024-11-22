@@ -92,6 +92,6 @@ public class MobZItems {
 					() -> SoundEvents.BUCKET_EMPTY_FISH, props.stacksTo(1)).get());
 
 	public static <T extends Item> Supplier<T> registerItem(String name, Function<Item.Properties, T> constructor) {
-		return MobZ.platform.registerItem(name, MobZTabs.tab, constructor, null);
+		return MobZ.platform.registerItem(name, MobZTabs.MAIN, constructor, null);
 	}
 }

@@ -36,7 +36,7 @@ public class LootTableModifier {
 				BinomialDistributionGenerator.binomial(2, 0.2f),
 				LootItem.lootTableItem(MobZItems.WITHER_POWDER.get()));
 
-		lootTableAdder.addRoll(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.tryBuild("minecraft", "entities/wither_skeleton")),
+		lootTableAdder.addRoll(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace("entities/wither_skeleton")),
 				BinomialDistributionGenerator.binomial(1, 0.1f),
 				LootItem.lootTableItem(MobZItems.WITHER_POWDER.get()));
 	}

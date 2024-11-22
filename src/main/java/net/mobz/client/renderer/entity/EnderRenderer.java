@@ -19,7 +19,7 @@ public class EnderRenderer extends EndermanRenderer {
 
 		this.texture = texture;
 		String eyePath = texture.getPath().replace(".png", "_eyes.png");
-		ResourceLocation eyeTexture = ResourceLocation.tryBuild(texture.getNamespace(), eyePath);
+		ResourceLocation eyeTexture = ResourceLocation.fromNamespaceAndPath(texture.getNamespace(), eyePath);
 		this.addLayer(new EnderEyes(this, eyeTexture));
 	}
 

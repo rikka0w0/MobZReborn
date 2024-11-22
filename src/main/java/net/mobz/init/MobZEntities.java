@@ -313,7 +313,7 @@ public class MobZEntities {
 		Supplier<EntityType<T>> entityTypeSupplier =
 				MobZ.platform.registerEntityType(name, () -> entityTypeBuilder.build(resKey), attribModifierSupplier, null);
 
-		MobZ.platform.registerItem("spawn_" + name, MobZTabs.eggs,
+		MobZ.platform.registerItem("spawn_" + name, MobZTabs.EGGS,
 				(props) -> MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, props.overrideDescription(spawnEggLocalizationKey)).get(),
 				null);
 
