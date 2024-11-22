@@ -51,6 +51,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import net.mobz.ILootTableAdder;
@@ -60,6 +61,7 @@ import net.mobz.data.Recipes;
 import net.mobz.data.Advancements;
 import net.mobz.data.BlockTagProvider;
 import net.mobz.data.EntityTagProvider;
+import net.mobz.data.EquipmentModelProvider;
 import net.mobz.data.ItemTagProvider;
 import net.mobz.data.JukeboxSongs;
 import net.mobz.data.Loots;
@@ -72,15 +74,16 @@ import net.mobz.init.MobSpawns;
 public class ForgeEntry {
 	public static ForgeEntry instance;
 
-	private static final ForgeRegistryWrapper registryWrapper = new ForgeRegistryWrapper();
+	private final ForgeRegistryWrapper registryWrapper;
 
-	public ForgeEntry() {
+	public ForgeEntry(FMLJavaModLoadingContext context) {
 		if (instance == null)
 			instance = this;
 		else
 			throw new RuntimeException("Duplicated Class Instantiation: net.mobz.forge.MobZ");
 
-		MobZ.platform = registryWrapper;
+		this.registryWrapper = new ForgeRegistryWrapper(context);
+		MobZ.platform = this.registryWrapper;
 
 		MobZ.configs = ForgeConfigManager.loadFromFile();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
@@ -92,7 +95,7 @@ public class ForgeEntry {
 	public final static class ModEventBusHandler {
 		@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
-			registryWrapper.applyGlobalEntityAttrib(event::put);
+			ForgeEntry.instance.registryWrapper.applyGlobalEntityAttrib(event::put);
 		}
 
 		private static record SpawnPlacementRegistar(SpawnPlacementRegisterEvent event) {
@@ -162,16 +165,19 @@ public class ForgeEntry {
 			generator.addProvider(event.includeServer(), new EntityTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
-			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
 
 			// Data: LootTable
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<LootTableProvider>) vanillaPackOutput -> Loots.all(vanillaPackOutput, lookupProvider));
 
 			// Data: Recipes
-			generator.addProvider(event.includeServer(), new Recipes(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new Recipes.Runner(packOutput, lookupProvider));
 
 			// Data: Advancements
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<AdvancementProvider>) vanillaPackOutput -> Advancements.all(vanillaPackOutput, lookupProvider));
+
+			// Resource: EquipmentModels
+			generator.addProvider(event.includeClient(), new EquipmentModelProvider(packOutput));
 		}
 	}
 

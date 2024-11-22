@@ -5,6 +5,7 @@ import java.util.UUID;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.InteractionResult;
@@ -39,12 +41,14 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 
 import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
+import net.mobz.tags.MobZItemTags;
 
 public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
@@ -97,8 +101,8 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
+        if (this.isInvulnerableTo(serverLevel, source)) {
             return false;
         } else {
             Entity entity = source.getEntity();
@@ -108,7 +112,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                 amount = (amount + 1.0F) / 2.0F;
             }
 
-            return super.hurt(source, amount);
+            return super.hurtServer(serverLevel, source, amount);
         }
     }
 
@@ -126,7 +130,8 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
                         itemStack.shrink(1);
                     }
 
-                    this.heal(MobZ.platform.getFoodProperties(itemStack, player).nutrition());
+                    FoodProperties food = itemStack.getComponents().getTyped(DataComponents.FOOD).value();
+                    this.heal(food.nutrition());
                     return InteractionResult.SUCCESS;
                 }
 
@@ -170,7 +175,7 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
     @Override
 	public FriendEntity getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        FriendEntity FriendEntity = (FriendEntity) this.getType().create(world);
+        FriendEntity FriendEntity = (FriendEntity) this.getType().create(world, EntitySpawnReason.BREEDING);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {
             FriendEntity.setOwnerUUID(uUID);
@@ -249,17 +254,17 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
 		@Override
 		public boolean isFood(ItemStack stack) {
-			return stack.is(MobZ.KATHERINE_FOOD_TAG);
+			return stack.is(MobZItemTags.KATHERINE_FOOD_TAG);
 		}
 
 		@Override
 		protected boolean isTameItem(ItemStack stack) {
-			return stack.is(MobZ.KATHERINE_TAME_TAG);
+			return stack.is(MobZItemTags.KATHERINE_TAME_TAG);
 		}
 
 		@Override
 		protected boolean canEquipItemFromPlayer(ItemStack stack) {
-			return stack.is(MobZ.KATHERINE_EQUIP_TAG);
+			return stack.is(MobZItemTags.KATHERINE_EQUIP_TAG);
 		}
 	}
 
@@ -276,17 +281,17 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 
 		@Override
 		public boolean isFood(ItemStack stack) {
-			return stack.is(MobZ.FIORA_FOOD_TAG);
+			return stack.is(MobZItemTags.FIORA_FOOD_TAG);
 		}
 
 		@Override
 		protected boolean isTameItem(ItemStack stack) {
-			return stack.is(MobZ.FIORA_TAME_TAG);
+			return stack.is(MobZItemTags.FIORA_TAME_TAG);
 		}
 
 		@Override
 		protected boolean canEquipItemFromPlayer(ItemStack stack) {
-			return stack.is(MobZ.FIORA_EQUIP_TAG);
+			return stack.is(MobZItemTags.FIORA_EQUIP_TAG);
 		}
 	}
 }

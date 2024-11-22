@@ -9,47 +9,41 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
 import net.mobz.MobZ;
+import net.mobz.MobZDataComponents;
+import net.mobz.MobZRarity;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
 
-public class SacrificeKnife extends Item {
+public class SacrificeKnife extends SimpleItem {
 	public SacrificeKnife(Properties settings) {
-		super(settings.durability(5000));
+		super(settings.stacksTo(1).durability(5000), MobZRarity.UNCOMMON, true);
 	}
 
 	public static int getBloodCounter(ItemStack itemStack) {
 		return itemStack.getDamageValue();
 	}
 
+	// For rendering only
 	public static int getDryingNumber(ItemStack itemStack) {
-		return itemStack.getOrDefault(DataComponents.OMINOUS_BOTTLE_AMPLIFIER, 0);
+		return itemStack.getOrDefault(MobZDataComponents.DRYING_NUMBER.get(), 0);
 	}
 
 	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
 		itemStack.setDamageValue(bloodCounter);
-		itemStack.set(DataComponents.OMINOUS_BOTTLE_AMPLIFIER, dryingNumber);
+		itemStack.set(MobZDataComponents.DRYING_NUMBER.get(), dryingNumber);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
-			TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip"));
-		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip2"));
-	}
-
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+	public InteractionResult use(Level world, Player user, InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
 
 		int bloodCounter = getBloodCounter(itemStack);
@@ -63,9 +57,9 @@ public class SacrificeKnife extends Item {
 				bloodCounter = bloodCounter + 200;
 			}
 			setParam(itemStack, bloodCounter, dryingNumber);
-			return InteractionResultHolder.success(itemStack);
+			return InteractionResult.SUCCESS;
 		} else {
-			return InteractionResultHolder.pass(itemStack);
+			return InteractionResult.PASS;
 		}
 	}
 

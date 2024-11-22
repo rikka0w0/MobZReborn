@@ -10,19 +10,19 @@ import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 
 public class OvergrownSkeleton extends Skeleton {
-    public OvergrownSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
-        super(entityType, world);
-    }
+	public OvergrownSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
+		super(entityType, world);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.overgrown_skeleton.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D);
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.overgrown_skeleton.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.25D)
+				.add(Attributes.FOLLOW_RANGE, 30.0D);
+	}
 
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.overgrown_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.overgrown_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

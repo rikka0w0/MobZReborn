@@ -58,21 +58,23 @@
     "entity.mobz.toad": "Toad",
     "entity.mobz.wasp": "Wasp",
     "entity.mobz.toad_giant": "Giant Toad",
+	
+	"text.mobz.tier.common": "§7Common",
+	"text.mobz.tier.uncommon": "§2Обычный",
+	"text.mobz.tier.rare": "§bРедкий",
+	"text.mobz.tier.epic": "§5Эпический",
+	"text.mobz.tier.legendary": "§6Легендарный",
 
     "item.mobz.boss_sword": "§6Зачарованный золотой меч",
-    "item.mobz.boss_sword.tooltip": "§5Epic",
 
     "item.mobz.armored_sword": "§7Бронированный меч",
-    "item.mobz.armored_sword.tooltip": "§2Uncommon",
 
     "item.mobz.boss_boots": "§6Зачарованные золотые ботинки",
     "item.mobz.boss_chestplate": "§6Зачарованный золотой нагрудник",
     "item.mobz.boss_helmet": "§6Зачарованный золотой шлем",
     "item.mobz.boss_leggings": "§6Зачарованные золотые поножи",
-    "item.mobz.boss_armor.tooltip": "§5Epic",
 
     "item.mobz.boss_ingot": "§6Зачарованный золотой слиток",
-    "item.mobz.boss_ingot.tooltip": "Редкий материал",
 
     "item.mobz.mediveal_disc": "§bСредневековая пластинка",
     "item.mobz.mediveal_disc_2": "§bСредневековая пластинка II",
@@ -80,95 +82,70 @@
     "item.mobz.mediveal_disc_2.desc": "Z418 mediveal II",
 
     "item.mobz.eragons_axe": "§5Топор Эрагона",
-    "item.mobz.eragons_axe.tooltip": "§bRare",
 
     "item.mobz.shield": "§5Щит Эрагона",
-    "item.mobz.shield.tooltip": "§2Uncommon",
 
     "item.mobz.rainbow_sword": "Радужный меч",
-    "item.mobz.rainbow_sword.tooltip": "§6Legendary",
 
     "item.mobz.hardened_metal_ingot": "§7Металлический слиток",
-    "item.mobz.hardened_metal_ingot.tooltip": "Необычный материал",
 
     "item.mobz.speed_boots": "Ботинки скорости",
-    "item.mobz.speed_boots.tooltip": "§2Uncommon",
 
     "item.mobz.speed2_boots": "Ботинки скорости II",
-    "item.mobz.speed2_boots.tooltip": "§2Uncommon",
 
     "item.mobz.life_boots": "§7Ботинки жизни",
     "item.mobz.life_chestplate": "§7Нагрудник жизни",
     "item.mobz.life_helmet": "§7Шлем жизни",
     "item.mobz.life_leggings": "§7Поножи жизни",
-    "item.mobz.life_armor.tooltip": "§bRare",
 
     "item.mobz.poison_sword": "§2Змеиный меч",
-    "item.mobz.poison_sword.tooltip": "§2Uncommon",
 
     "item.mobz.frozen_sword": "§3Замороженный меч",
-    "item.mobz.frozen_sword.tooltip": "§2Uncommon",
 
     "item.mobz.rotten_flesh": "Плотная гнилая плоть",
-    "item.mobz.rotten_flesh.tooltip": "§7Common",
 
     "item.mobz.amat_boots": "§4Ботинки Ариаса",
     "item.mobz.amat_chestplate": "§4Нагрудник Ариаса",
     "item.mobz.amat_helmet": "§4Шлем Ариаса",
     "item.mobz.amat_leggings": "§4Поножи Ариаса",
-    "item.mobz.amat_armor.tooltip": "§bRare",
 
     "item.mobz.amat_ingot": "Ариаса слиток",
-    "item.mobz.amat_ingot.tooltip": "§bRare Material",
 
     "item.mobz.wither_sword": "§8Меч Артуса",
-    "item.mobz.wither_sword.tooltip": "§2Uncommon",
 
     "item.mobz.wither_powder": "Порошок иссушителя",
-    "item.mobz.wither_powder.tooltip": "§2Uncommon Material",
     "item.mobz.frozen_power": "Frozen Powder",
-    "item.mobz.frozen_power.tooltip": "§2Uncommon Material",
 
     "item.mobz.bear_leather": "Кожа медведя",
-    "item.mobz.bear_leather.tooltip": "§7Common",
 
     "item.mobz.stone_tomahawk": "Видимый меч",
-    "item.mobz.stone_tomahawk.tooltip": "§2Uncommon",
 
     "item.mobz.lilith_bow": "§5Лук Лилит",
-    "item.mobz.lilith_bow.tooltip": "§bRare",
 
     "item.mobz.immunity_orb": "§5Сфера неприкосновенности",
     "item.mobz.immunity_orb.tooltip": "§9Иммунтитет к иссушению + отравлению",
-    "item.mobz.immunity_orb.tooltip2": "§5Epic",
 
     "item.mobz.debuger": "Отладочная палка",
 
     "item.mobz.white_bag": "Белая сумка",
-    "item.mobz.white_bag.tooltip": "Крайне редкий",
 
     "item.mobz.levitation_orb": "§5Сфера левитации",
-    "item.mobz.levitation_orb.tooltip": "§9Левитация",
-    "item.mobz.levitation_orb.tooltip2": "Используйте правую кнопку для активации",
+    "item.mobz.levitation_orb.tooltip": "§9Левитация, Используйте правую кнопку для активации",
 
     "item.mobz.spawn_egg": "Яйцо призывания",
-    "item.mobz.spawnegg": "%s Яйцо призывания",
+    "item.mobz.spawn_egg_of": "%s Яйцо призывания",
 
     "item.mobz.pillager_staff": "§6Посох могущественного разбойника",
     "item.mobz.pillager_staff.tooltip": "Наполнен иссушением",
 
     "item.mobz.sacrifice_knife": "Нож для жертвоприношений",
     "item.mobz.sacrifice_knife.tooltip": "§4Кровь за кровь",
-    "item.mobz.sacrifice_knife.tooltip2": "§2Uncommon",
 
     "block.mobz.boss_block": "Enchanted Gold Block",
-    "block.mobz.boss_block.tooltip": "§6Legendary Material",
 
     "block.mobz.amat_block": "Nether Reinforced Block",
-    "block.mobz.amat_block.tooltip": "§2Uncommon Material",
 
     "block.mobz.hardened_metal_block": "§7Металлический блок",
-    "block.mobz.hardened_metal_block.tooltip": "§2Uncommon Material",
 
     "block.mobz.boss_trophy": "§eТрофейная голова босса",
 
@@ -176,17 +153,11 @@
     "block.mobz.totem_middle": "Середина тотема разбойника",
     "block.mobz.totem_top": "Вершина тотема разбойника",
 
-    "block.mobz.totem_base.tooltip": "§bRare",
-    "block.mobz.totem_middle.tooltip": "§7Common",
-    "block.mobz.totem_top.tooltip": "§bRare",
-
     "block.mobz.ender_header": "§eГолова эндермена",
     "block.mobz.spawnblock": "Ограниченный спаунер маленького разорителя",
 
     "block.mobz.treasure_block": "Sealed Stone Brick",
-    "block.mobz.treasure_block.tooltip": "§bRare",
     "item.mobz.seal_key": "Seal Key",
-    "item.mobz.seal_key.tooltip": "§bRare",
 
     "itemGroup.mobz.glomod": "MobZ",
     "itemGroup.mobz.glomodegg": "Яйца призыва MobZ",
@@ -224,6 +195,7 @@
     "mobz.advancements.ender_zombie.description": "Черт, как они сюда добрались?",
     "mobz.advancements.fast_zombie.description": "Он очень быстрый!",
     "mobz.advancements.fiora.description": "Она такая красивая!",
+	"mobz.advancements.katherine.description": "Wow!",
     "mobz.advancements.stone_golem.description": "Редкое подземное существо",
     "mobz.advancements.ice_golem.description": "Можешь замереть?",
     "mobz.advancements.templar.description": "Очень хороший мечник",

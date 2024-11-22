@@ -20,7 +20,7 @@ public record JukeboxSongs() implements RegistryBootstrap<JukeboxSong> {
 
 	@Override
 	public void run(BootstrapContext<JukeboxSong> bootstrap) {
-		bootstrap.register(MEDIVEAL_SONG, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC.get(), MobZItems.MEDIVEAL_DISC.get().getDescription(), 4680, 1));
-		bootstrap.register(MEDIVEAL_SONG_2, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC_2.get(), MobZItems.MEDIVEAL_DISC_2.get().getDescription(), 660, 0));
+		bootstrap.register(MEDIVEAL_SONG, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC.get(), MobZItems.MEDIVEAL_DISC.get().getName(), 4680, 1));
+		bootstrap.register(MEDIVEAL_SONG_2, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC_2.get(), MobZItems.MEDIVEAL_DISC_2.get().getName(), 660, 0));
 	}
 }

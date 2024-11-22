@@ -1,32 +1,21 @@
 package net.mobz.client.renderer.model;
 
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.mobz.entity.ToadEntity;
-import net.mobz.MathUtils;
+
 import net.mobz.MobZ;
+import net.mobz.client.renderer.entity.state.ToadRenderState;
 
-public class ToadEntityModel extends EntityModel<ToadEntity> {
-	private static final Set<Direction> ALL_VISIBLE = EnumSet.allOf(Direction.class);
-
-	public static final Random random = new Random();
+public class ToadEntityModel extends EntityModel<ToadRenderState> {
+	public final static ModelLayerLocation MODEL_LAYER_LOC = new ModelLayerLocation(MobZ.resLoc("toad_model"), "main");
 
 	private final float bodyScale;
 	private final ModelPart body;
@@ -39,17 +28,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 	private final ModelPart lipTop;
 	private final ModelPart frontlegw;
 	private final ModelPart frontlege;
-
-	private float tongue_xRot;
-	private float tongue_yRot;
-	private float tongueDistance;
-	private float targetTongueDistance;
-
-	// Eye to bottom of the model, with respect to the real world
-	private float eyeHeight;
-
-	public final static ModelLayerLocation modelResLoc = new ModelLayerLocation(
-			ResourceLocation.tryBuild(MobZ.MODID, "toad_model"), "main");
+	private final ModelPart tongue;
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
@@ -104,10 +83,15 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 				.texOffs(0, 0).addBox(-2.0F, -6.0F, 0.0F, 2.0F, 6.0F, 2.0F)
 				, PartPose.offsetAndRotation(0.0F, 5.0F, -2.0F, -0.3491F, 0.0F, 0.0F));
 
+		body.addOrReplaceChild("tongue", CubeListBuilder.create()
+				.texOffs(10*64, 12*64).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, CubeDeformation.NONE, 64, 64)
+				, PartPose.offset(0, -3, 0));
+
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	public ToadEntityModel(ModelPart modelPart, float bodyScale) {
+		super(modelPart);
 		this.bodyScale = bodyScale;
 		this.body = modelPart.getChild("body");
 		this.backlege = body.getChild("backlege");
@@ -119,70 +103,42 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		this.lipTop = lips.getChild("lip_top");
 		this.frontlegw = body.getChild("frontlegw");
 		this.frontlege = body.getChild("frontlege");
+		this.tongue = body.getChild("tongue");
 	}
 
 	@Override
-	public void setupAnim(ToadEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		float pi = (float) Math.PI;
-		float legAmount = 1.4F;
+	public void setupAnim(ToadRenderState renderState) {
+		super.setupAnim(renderState);
 
-		this.frontlege.xRot = Mth.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
-		this.backlege.xRot = Mth.cos(limbAngle * 1) * legAmount * limbDistance;
+		this.backlege.xRot = Mth.cos(renderState.walkAnimationPos) * 1.4F * renderState.walkAnimationSpeed;
+		this.frontlege.xRot = -this.backlege.xRot;
 
-		this.frontlegw.xRot = Mth.cos(limbAngle * 1) * 1.4F * limbDistance;
-		this.backlegw.xRot = Mth.cos(limbAngle * 1 + pi) * legAmount * limbDistance;
+		this.frontlegw.xRot = this.backlege.xRot;
+		this.backlegw.xRot = this.frontlege.xRot;
 
-		if(!entity.onGround()) {
+		if(!renderState.onGround) {
 			this.backlegw.xRot = 2F;
 			this.backlege.xRot = 2F;
 		}
 
-		if(entity.hasTongueEntity()) {
-			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 1, 0.5F);
-		} else {
-			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 0, 0.10F);
-		}
-		lipTop.y = -entity.mouthDistance;
-		lipBottom.y = entity.mouthDistance;
+		lipTop.y = -renderState.mouthDistance;
+		lipBottom.y = renderState.mouthDistance;
 
-		this.tongue_xRot = headPitch * 0.0175F;
-		this.tongue_yRot = headYaw * 0.0175F;
-		this.tongueDistance = entity.tongueDistance;
-		this.targetTongueDistance = entity.targetTongueDistance;
-		this.eyeHeight = entity.getEyeHeight();
-		this.renderToBuffer(null, null, 0, 0, 0);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight,
-			int overlayCoord, int packedColor) {
-		this.body.render(poseStack, vertexConsumer, packedLight, overlayCoord, packedColor);
-
-		// Render tongue
-		if (this.tongueDistance <= 0.01F)
+		// Configure tongue
+		if (renderState.tongueDistance <= 0.01F)
 			return;
-
-		poseStack.pushPose();
-		this.body.translateAndRotate(poseStack);
-		this.renderTongue(poseStack, vertexConsumer, packedLight, overlayCoord, packedColor);
-		poseStack.popPose();
-	}
-
-	public void renderTongue(PoseStack matrices, VertexConsumer vertexConsumer, int packedLight,
-			int overlayCoord, int packedColor) {
-		matrices.pushPose();
 
 		float mouthHeightRelative = 3F/16F;  // Mouth to bottom of the model
 		float mouthHorizontalOffsetRelative = 2F/16F;  // Horizontal distance between mouth and eye
 		// Distance between the target and eye
-		float tongueDistance = this.targetTongueDistance;
+		float tongueDistance = renderState.targetTongueDistance;
 
 		// Model parameters, with respect to the real world
 		// Mouth to bottom of the model
 		float mouthHeight = mouthHeightRelative * this.bodyScale;
 		// Mouth to eye horizontal and vertical distance
 		float mouthHorizontalOffset = mouthHorizontalOffsetRelative * this.bodyScale;
-		float mouthVerticalOffset = eyeHeight - mouthHeight;
+		float mouthVerticalOffset = renderState.eyeHeight - mouthHeight;
 		float mouthEyeDistanceSqr = mouthVerticalOffset * mouthVerticalOffset
 				+ mouthHorizontalOffset * mouthHorizontalOffset;
 		float mouthEyeDistance = Mth.sqrt(mouthEyeDistanceSqr);
@@ -190,7 +146,7 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		// Angle between eye-mouth and vertical-down
 		float angleMouthEye = (float) Mth.atan2(mouthHorizontalOffset, mouthVerticalOffset);
 		// Distance between tongue and target
-		float cosEM_ET = Mth.sin(angleMouthEye + tongue_xRot);
+		float cosEM_ET = Mth.sin(angleMouthEye + renderState.xRot * 0.0175F);
 		float lenSqr = mouthEyeDistanceSqr + tongueDistance * tongueDistance -
 				2 * mouthEyeDistance * tongueDistance * cosEM_ET;
 		float len = Mth.sqrt(lenSqr);
@@ -200,26 +156,10 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		float xRot = (float) (Math.acos(cosME_MT) - Mth.HALF_PI - angleMouthEye);
 
 		// Smooth animation
-		len *= this.tongueDistance / this.targetTongueDistance;
+		len *= renderState.tongueDistance / renderState.targetTongueDistance;
 
-		//matrices.translate(0, -eyeHeight / this.bodyScale, 0);
-		matrices.translate(0, -mouthHeightRelative, -mouthHorizontalOffsetRelative);
-
-		//matrices.mulPose(Vector3f.XP.rotation(tongue_xRot));
-		if (xRot != 0.0F) {
-			matrices.mulPose(Axis.XP.rotation(xRot));
-		}
-
-		if (tongue_yRot != 0.0F) {
-			matrices.mulPose(Axis.YP.rotation(tongue_yRot));
-		}
-
-		//matrices.scale(1, 1, tongueDistance / this.bodyScale * 16F);
-		matrices.scale(1, 1, len / this.bodyScale * 16F);
-
-		ModelPart.Cube cuboid = new ModelPart.Cube(16, 0, -1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 1.0F, 0, 0, 0, false, 64, 64, ALL_VISIBLE);
-		cuboid.compile(matrices.last(), vertexConsumer, packedLight, overlayCoord, packedColor);
-
-		matrices.popPose();
+		this.tongue.zScale = len / this.bodyScale * 16F;
+		this.tongue.xRot = xRot;
+//		this.tongue.yRot = renderState.yRot * 0.0175F;
 	}
 }

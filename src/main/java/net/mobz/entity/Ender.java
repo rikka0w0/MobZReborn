@@ -10,34 +10,30 @@ import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 
 public class Ender extends EnderMan {
+	public Ender(EntityType<? extends EnderMan> entityType, Level world) {
+		super(entityType, world);
+	}
 
-    public Ender(EntityType<? extends EnderMan> entityType, Level world) {
-        super(entityType, world);
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.ender.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.3D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.ender.attack * MobZ.configs.damage_multiplier)
+				.add(Attributes.FOLLOW_RANGE, 64.0D);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.ender.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
-                .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.ender.attack * MobZ.configs.damage_multiplier)
-                .add(Attributes.FOLLOW_RANGE, 64.0D);
-    }
+	@Override
+	public boolean canPickUpLoot() {
+		return false;
+	}
 
-    @Override
-    public boolean canPickUpLoot() {
-        return false;
-    }
+	@Override
+	public boolean isBaby() {
+		return false;
+	}
 
-    @Override
-    public boolean isBaby() {
-        return false;
-    }
-
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.ender.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
-
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.ender.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

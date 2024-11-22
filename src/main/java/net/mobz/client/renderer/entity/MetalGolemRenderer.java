@@ -5,54 +5,34 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.model.IronGolemModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.world.entity.Crackiness;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.mobz.MobZ;
+import net.minecraft.client.renderer.entity.state.IronGolemRenderState;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Crackiness;
+
+import net.mobz.MobZ;
 
 public class MetalGolemRenderer extends EasyGolemRenderer {
-    public MetalGolemRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
-        super(context, texture, false);
-        this.addLayer(new MetalGolemCrack(this));
-    }
+	private static final Map<Crackiness.Level, ResourceLocation> DAMAGE_TO_TEXTURE = ImmutableMap.of(
+			Crackiness.Level.LOW,
+			MobZ.resLoc("textures/entity/metal_golem_crackiness_low.png"),
+			Crackiness.Level.MEDIUM,
+			MobZ.resLoc("textures/entity/metal_golem_crackiness_medium.png"),
+			Crackiness.Level.HIGH,
+			MobZ.resLoc("textures/entity/metal_golem_crackiness_high.png"));
 
-    @Override
-    protected void scale(IronGolem golem, PoseStack matrixStack, float f) {
-        matrixStack.scale(1.15F, 1.15F, 1.15F);
-    }
+	public MetalGolemRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+		super(context, texture, false);
+	}
 
-    public static class MetalGolemCrack extends RenderLayer<IronGolem, IronGolemModel<IronGolem>> {
-    	private static final Map<Crackiness.Level, ResourceLocation> DAMAGE_TO_TEXTURE;
+	@Override
+	protected void scale(IronGolemRenderState renderState, PoseStack matrixStack) {
+		matrixStack.scale(1.15F, 1.15F, 1.15F);
+	}
 
-    	public MetalGolemCrack(RenderLayerParent<IronGolem, IronGolemModel<IronGolem>> featureRendererContext) {
-    		super(featureRendererContext);
-    	}
-
-    	@Override
-    	public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i,
-    			IronGolem ironGolemEntity, float f, float g, float h, float j, float k, float l) {
-    		if (!ironGolemEntity.isInvisible()) {
-    			Crackiness.Level crack = ironGolemEntity.getCrackiness();
-    			if (crack != Crackiness.Level.NONE) {
-    				ResourceLocation identifier = DAMAGE_TO_TEXTURE.get(crack);
-    				renderColoredCutoutModel(this.getParentModel(), identifier, matrixStack, vertexConsumerProvider, i,
-    						ironGolemEntity, -1);
-    			}
-    		}
-    	}
-
-    	static {
-    		DAMAGE_TO_TEXTURE = ImmutableMap.of(Crackiness.Level.LOW,
-    				ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/metal_golem_crackiness_low.png"),
-    				Crackiness.Level.MEDIUM,
-    				ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/metal_golem_crackiness_medium.png"),
-    				Crackiness.Level.HIGH,
-    				ResourceLocation.tryBuild(MobZ.MODID, "textures/entity/metal_golem_crackiness_high.png"));
-    	}
-    }
+	@Override
+	public ResourceLocation getTextureLocation(IronGolemRenderState renderState) {
+		return renderState.crackiness == Crackiness.Level.NONE ? super.getTextureLocation(renderState)
+				: DAMAGE_TO_TEXTURE.get(renderState.crackiness);
+	}
 }

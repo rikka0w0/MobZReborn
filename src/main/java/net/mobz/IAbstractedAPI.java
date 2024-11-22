@@ -1,20 +1,21 @@
 package net.mobz;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 import javax.annotation.Nullable;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -22,27 +23,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 
 public interface IAbstractedAPI {
-	<T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor, @Nullable Consumer<T> setter);
-	default <T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor) {
-		return registerItem(name, tab, constructor, null);
-	}
+	<T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Function<Item.Properties, T> constructor, @Nullable Consumer<T> setter);
 
-	<T extends Block> Supplier<T> registerBlock(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor, @Nullable Consumer<T> setter);
-	default <T extends Block> Supplier<T> registerBlock(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor) {
-		return registerBlock(name, tab, constructor, blockItemConstructor, null);
-	}
+	<T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Function<BlockBehaviour.Properties, T> blockConstructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor, Consumer<T> setter);
 
 	<E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name, Supplier<T> constructor,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier, @Nullable Consumer<T> setter);
-	default <E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name, Supplier<T> constructor,
-			Supplier<AttributeSupplier.Builder> attribModifierSupplier) {
-		return registerEntityType(name, constructor, attribModifierSupplier);
-	}
 
 	Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
 	default Supplier<Holder<SoundEvent>> registerSound(String modid, String name) {
@@ -59,5 +50,5 @@ public interface IAbstractedAPI {
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties);
 
-	FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity);
+	<T> Supplier<DataComponentType<T>> registerDataComponentType(String name, UnaryOperator<DataComponentType.Builder<T>> builder, Consumer<DataComponentType<T>> setter);
 }

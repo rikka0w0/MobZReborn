@@ -15,6 +15,7 @@ import net.mobz.data.Recipes;
 import net.mobz.data.Advancements;
 import net.mobz.data.BlockTagProvider;
 import net.mobz.data.EntityTagProvider;
+import net.mobz.data.EquipmentModelProvider;
 import net.mobz.data.ItemTagProvider;
 import net.mobz.data.Loots;
 import net.mobz.data.SpawnBiomeTagProvider;
@@ -48,17 +49,20 @@ public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 
 		// Resource: Models and blockstates
 		Factory<? extends DataProvider> itemModels = (output) ->
-			new ModelDataProvider(output, registryAccess.registryOrThrow(Registries.ITEM), resLoc->true);
+			new ModelDataProvider(output, registryAccess.lookupOrThrow(Registries.ITEM), resLoc->true);
 		pack.addProvider(itemModels);
 
 		// Data: LootTable
 		pack.addProvider((fabricDataOutput, registriesFuture) -> Loots.all(fabricDataOutput, registriesFuture));
 
 		// Data: Recipes
-		pack.addProvider((fabricDataOutput, registriesFuture) -> new Recipes(fabricDataOutput, registriesFuture));
+		pack.addProvider(Recipes.Runner::new);
 
 		// Data: Advancements
 		pack.addProvider((fabricDataOutput, registriesFuture) -> Advancements.all(fabricDataOutput, registriesFuture));
+
+		// Resource: EquipmentModels
+		pack.addProvider((fabricDataOutput, registriesFuture) -> new EquipmentModelProvider(fabricDataOutput));
 	}
 
 	@Override

@@ -13,12 +13,13 @@ import net.minecraft.core.Direction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
+import net.mobz.MobZRarity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 
 public class FrozenPowder extends SimpleItem {
 	public FrozenPowder(Properties properties) {
-		super(properties);
+		super(properties, MobZRarity.UNCOMMON);
 	}
 
 	@Override

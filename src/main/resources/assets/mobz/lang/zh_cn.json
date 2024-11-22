@@ -59,20 +59,22 @@
     "entity.mobz.wasp": "大黄蜂",
     "entity.mobz.toad_giant": "巨型蛤蟆",
 
+	"text.mobz.tier.common": "§7常见",
+	"text.mobz.tier.uncommon": "§2不常见",
+	"text.mobz.tier.rare": "§b罕见",
+	"text.mobz.tier.epic": "§5史诗",
+	"text.mobz.tier.legendary": "§6传奇",
+	
     "item.mobz.boss_sword": "魔法金剑",
-    "item.mobz.boss_sword.tooltip": "§5史诗",
 
     "item.mobz.armored_sword": "装甲剑",
-    "item.mobz.armored_sword.tooltip": "§2不常见",
 
     "item.mobz.boss_boots": "魔法金靴",
     "item.mobz.boss_chestplate": "魔法金胸铠",
     "item.mobz.boss_helmet": "魔法金头盔",
     "item.mobz.boss_leggings": "魔法护腿",
-    "item.mobz.boss_armor.tooltip": "§5史诗",
 
     "item.mobz.boss_ingot": "魔法金锭",
-    "item.mobz.boss_ingot.tooltip": "§5史诗材料",
 
     "item.mobz.mediveal_disc": "中世纪音碟",
     "item.mobz.mediveal_disc_2": "中世纪音碟II",
@@ -80,95 +82,70 @@
     "item.mobz.mediveal_disc_2.desc": "Z418 中世纪 II",
 
     "item.mobz.eragons_axe": "龙骑士的斧子",
-    "item.mobz.eragons_axe.tooltip": "§b罕见",
 
     "item.mobz.shield": "金属盾牌",
-    "item.mobz.shield.tooltip": "§2不常见",
 
     "item.mobz.rainbow_sword": "彩虹剑",
-    "item.mobz.rainbow_sword.tooltip": "§6传奇",
 
     "item.mobz.hardened_metal_ingot": "硬金属锭",
-    "item.mobz.hardened_metal_ingot.tooltip": "§2不常见的材料",
 
     "item.mobz.speed_boots": "速度之靴",
-    "item.mobz.speed_boots.tooltip": "§2不常见",
 
     "item.mobz.speed2_boots": "速度之靴 II",
-    "item.mobz.speed2_boots.tooltip": "§2不常见",
-
+	
     "item.mobz.life_boots": "生命之靴",
     "item.mobz.life_chestplate": "生命胸甲",
     "item.mobz.life_helmet": "生命头盔",
     "item.mobz.life_leggings": "生命护甲",
-    "item.mobz.life_armor.tooltip": "§b罕见",
 
     "item.mobz.poison_sword": "蛇之剑",
-    "item.mobz.poison_sword.tooltip": "§2不常见",
 
     "item.mobz.frozen_sword": "冰冻之剑",
-    "item.mobz.frozen_sword.tooltip": "§2不常见",
 
     "item.mobz.rotten_flesh": "厚腐肉",
-    "item.mobz.rotten_flesh.tooltip": "§7常见",
 
     "item.mobz.amat_boots": "阿丽亚金靴",
     "item.mobz.amat_chestplate": "阿丽亚胸甲",
     "item.mobz.amat_helmet": "阿丽亚头盔",
     "item.mobz.amat_leggings": "阿丽亚护腿",
-    "item.mobz.amat_armor.tooltip": "§b罕见",
 
     "item.mobz.amat_ingot": "下界强化钢锭",
-    "item.mobz.amat_ingot.tooltip": "§b罕见的材料",
 
     "item.mobz.wither_sword": "亚瑟之剑",
-    "item.mobz.wither_sword.tooltip": "§2不常见",
 
     "item.mobz.wither_powder": "凋零粉",
-    "item.mobz.wither_powder.tooltip": "§2不常见的材料",
     "item.mobz.frozen_power": "冻粉",
-    "item.mobz.frozen_power.tooltip": "§2不常见的材料",
 
     "item.mobz.bear_leather": "熊皮革",
-    "item.mobz.bear_leather.tooltip": "§7常见",
 
     "item.mobz.stone_tomahawk": "石战斧",
-    "item.mobz.stone_tomahawk.tooltip": "§2不常见",
 
     "item.mobz.lilith_bow": "莉莉丝之弓",
-    "item.mobz.lilith_bow.tooltip": "§b罕见",
 
     "item.mobz.immunity_orb": "免疫球",
     "item.mobz.immunity_orb.tooltip": "§9免疫凋零+中毒",
-    "item.mobz.immunity_orb.tooltip2": "§5史诗",
 
     "item.mobz.debuger": "调试棒",
 
     "item.mobz.white_bag": "白色的包",
-    "item.mobz.white_bag.tooltip": "§6传奇",
 
     "item.mobz.levitation_orb": "悬浮球",
     "item.mobz.levitation_orb.tooltip": "§9悬浮",
-    "item.mobz.levitation_orb.tooltip2": "§6传奇",
 
     "item.mobz.spawn_egg": "Spawn Egg",
-    "item.mobz.spawnegg": "%s 刷怪蛋",
+    "item.mobz.spawn_egg_of": "%s 刷怪蛋",
 
     "item.mobz.pillager_staff": "大掠夺者之杖",
-    "item.mobz.pillager_staff.tooltip": "§5史诗",
+	"item.mobz.pillager_staff.tooltip": "充满凋零",
 
     "item.mobz.sacrifice_knife": "献祭刀",
     "item.mobz.sacrifice_knife.tooltip": "§4以血还血",
-    "item.mobz.sacrifice_knife.tooltip2": "§2不常见",
 
     "block.mobz.boss_block": "魔法金块",
-    "block.mobz.boss_block.tooltip": "§6传奇材料",
 
     "block.mobz.amat_block": "下界强化块",
-    "block.mobz.amat_block.tooltip": "§2不常见的材料",
 
     "block.mobz.hardened_metal_block": "金属块",
-    "block.mobz.hardened_metal_block.tooltip": "§2常见材料",
 
     "block.mobz.boss_trophy": "皇冠头颅",
 
@@ -176,17 +153,11 @@
     "block.mobz.totem_middle": "掠夺者图腾中部",
     "block.mobz.totem_top": "掠夺者图腾顶部",
 
-    "block.mobz.totem_base.tooltip": "§b罕见",
-    "block.mobz.totem_middle.tooltip": "§7常见",
-    "block.mobz.totem_top.tooltip": "§b罕见",
-
     "block.mobz.ender_header": "末影人的头颅",
     "block.mobz.spawn_block": "有限的掠夺兽刷怪笼",
 
     "block.mobz.treasure_block": "密封石砖",
-    "block.mobz.treasure_block.tooltip": "§b罕见",
     "item.mobz.seal_key": "密封的关键",
-    "item.mobz.seal_key.tooltip": "§b罕见",
 
     "itemGroup.mobz.glomod": "MobZ",
     "itemGroup.mobz.glomodegg": "MobZ刷怪蛋",

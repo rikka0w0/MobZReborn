@@ -29,11 +29,9 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class Warrior extends Vindicator {
-
 	public Warrior(EntityType<? extends Vindicator> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 20;
-
 	}
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
@@ -45,8 +43,8 @@ public class Warrior extends Vindicator {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity victim) {
-		boolean flag = super.doHurtTarget(victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 0, false, false));

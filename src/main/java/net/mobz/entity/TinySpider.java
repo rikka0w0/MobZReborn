@@ -18,48 +18,47 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class TinySpider extends Spider {
-    public TinySpider(EntityType<? extends Spider> entityType, Level world) {
-        super(entityType, world);
-    }
+	public TinySpider(EntityType<? extends Spider> entityType, Level world) {
+		super(entityType, world);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, MobZ.configs.tiny_spider.life)
-                .add(Attributes.MOVEMENT_SPEED, 0.1D)
-                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.tiny_spider.attack);
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.tiny_spider.life)
+				.add(Attributes.MOVEMENT_SPEED, 0.1D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.tiny_spider.attack);
+	}
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.5D));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-    }
+	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.5D));
+		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+	}
 
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        BlockPos posentity = this.blockPosition();
-        return MobZ.configs.tiny_spider.spawn
-                && this.level().getMaxLocalRawBrightness(posentity) <= 7
-                && MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		BlockPos posentity = this.blockPosition();
+		return MobZ.configs.tiny_spider.spawn && this.level().getMaxLocalRawBrightness(posentity) <= 7
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.SPIDER_STEP, 0.10F, 1.0F);
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(SoundEvents.SPIDER_STEP, 0.10F, 1.0F);
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT.get();
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.NOTHINGEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return MobZSounds.NOTHINGEVENT.get();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return MobZSounds.NOTHINGEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MobZSounds.NOTHINGEVENT.get();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return MobZSounds.NOTHINGEVENT.get();
+	}
 }

@@ -6,10 +6,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -42,12 +42,10 @@ public class FrostballEntity extends Fireball {
 	@Override
 	protected void onHitEntity(EntityHitResult entityHitResult) {
 		super.onHitEntity(entityHitResult);
-		if (!this.level().isClientSide) {
-			Entity entity = entityHitResult.getEntity();
-			if (entity instanceof LivingEntity) {
-				LivingEntity livingEntity = (LivingEntity) entity;
-				livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100));
-				entity.hurt(this.damageSources().fireball(this, this.getOwner()), 5.0F);
+		if (this.level() instanceof ServerLevel serverLevel) {
+			if (entityHitResult.getEntity() instanceof LivingEntity victim) {
+				victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100));
+				victim.hurtServer(serverLevel, this.damageSources().fireball(this, this.getOwner()), 5.0F);
 			}
 		}
 	}
@@ -55,10 +53,10 @@ public class FrostballEntity extends Fireball {
 	@Override
 	protected void onHitBlock(BlockHitResult blockHitResult) {
 		super.onHitBlock(blockHitResult);
-		if (!this.level().isClientSide) {
+		if (this.level() instanceof ServerLevel serverLevel) {
 			Entity entity = this.getOwner();
 			if (entity == null || !(entity instanceof Mob)
-					|| this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+					|| serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 				BlockPos blockPos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
 				if (this.level().isEmptyBlock(blockPos)) {
 					this.level().setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState());
@@ -81,7 +79,7 @@ public class FrostballEntity extends Fireball {
 	}
 
 	@Override
-	public boolean hurt(DamageSource damageSource_1, float float_1) {
+	public boolean isOnFire() {
 		return false;
 	}
 }

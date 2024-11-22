@@ -14,43 +14,46 @@ import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 
 public class HoneySlime extends Slime {
+	public HoneySlime(EntityType<? extends Slime> entityType, Level world) {
+		super(entityType, world);
+		this.xpReward = 1;
+	}
 
-    public HoneySlime(EntityType<? extends Slime> entityType, Level world) {
-        super(entityType, world);
-        this.xpReward = 1;
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.honey_slime.life)
+				.add(Attributes.MOVEMENT_SPEED, 0.25D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.honey_slime.attack);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-        		.add(Attributes.MAX_HEALTH, MobZ.configs.honey_slime.life)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, MobZ.configs.honey_slime.attack);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.honey_slime.spawn && this.level().isDay()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.honey_slime.spawn
-        		&& this.level().isDay()
-        		&& MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public void setSize(int size, boolean resetHealth) {
+		// Bypasses vanilla slime's setSize() so that health and attack don't follow vanilla slime
+	}
 
-    @Override
-    public int getSize() {
-        return 1;
-    }
+	@Override
+	public int getSize() {
+		return 1;
+	}
 
-    @Override
-    public boolean isTiny() {
-        return true;
-    }
+	@Override
+	public boolean isTiny() {
+		return true;
+	}
 
-    @Override
-    protected ParticleOptions getParticleType() {
-        return ParticleTypes.FALLING_HONEY;
-    }
+	@Override
+	protected ParticleOptions getParticleType() {
+		return ParticleTypes.FALLING_HONEY;
+	}
 
-    @Override
-    public EntityDimensions getDefaultDimensions(Pose pose) {
-        return this.getType().getDimensions();
-    }
+	@Override
+	public EntityDimensions getDefaultDimensions(Pose pose) {
+		return this.getType().getDimensions();
+	}
 }

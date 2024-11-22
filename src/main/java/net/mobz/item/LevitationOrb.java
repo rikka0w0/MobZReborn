@@ -9,21 +9,22 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 
 public class LevitationOrb extends Item {
 	public LevitationOrb(Item.Properties properties) {
-		super(properties.durability(161));
+		super(properties);
 	}
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.levitation_orb.tooltip"));
-		tooltip.add(Component.translatable("item.mobz.levitation_orb.tooltip2"));
+		tooltip.add(Component.translatable(this.descriptionId + ".tooltip"));
+		MobZRarity.LEGENDARY.addToTooltip(tooltip);
 	}
 
 	/**
@@ -36,17 +37,17 @@ public class LevitationOrb extends Item {
 	 */
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+	public InteractionResult use(Level world, Player user, InteractionHand hand) {
 		if (user instanceof Player) {
 			ItemStack stack = user.getItemInHand(hand);
 			if (stack.getDamageValue() == 0) {
 				stack.setDamageValue(1);
-				return InteractionResultHolder.success(user.getItemInHand(hand));
+				return InteractionResult.SUCCESS;
 			} else {
-				return InteractionResultHolder.pass(user.getItemInHand(hand));
+				return InteractionResult.PASS;
 			}
 		}
-		return InteractionResultHolder.pass(user.getItemInHand(hand));
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -64,19 +65,14 @@ public class LevitationOrb extends Item {
 					damage++;
 
 					if (damage == stack.getMaxDamage()) {
-						player.getCooldowns().addCooldown(this, stack.getMaxDamage());
+						player.getCooldowns().addCooldown(stack, stack.getMaxDamage());
 					}
 				}
-			} else if (!player.getCooldowns().isOnCooldown(this)) {
+			} else if (!player.getCooldowns().isOnCooldown(stack)) {
 				damage = 0;
 			}
 		}
 
 		stack.setDamageValue(damage);
-	}
-
-	@Override
-	public boolean isFoil(ItemStack stack) {
-		return true;
 	}
 }

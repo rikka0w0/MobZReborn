@@ -14,7 +14,6 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class BigBoss extends Zombie {
-
 	public BigBoss(EntityType<? extends Zombie> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 60;

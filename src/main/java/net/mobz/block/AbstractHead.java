@@ -3,7 +3,7 @@ package net.mobz.block;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
@@ -13,7 +13,7 @@ import net.minecraft.util.Mth;
 
 public abstract class AbstractHead extends Block {
 	public final static Direction[] horizontalDirections = new Direction[]{Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST};
-	public static final DirectionProperty ROTATION = BlockStateProperties.HORIZONTAL_FACING;
+	public static final EnumProperty<Direction> ROTATION = BlockStateProperties.HORIZONTAL_FACING;
 
 	public AbstractHead(Properties settings) {
 		super(settings);

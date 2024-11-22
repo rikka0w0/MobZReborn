@@ -39,7 +39,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.AirRandomPos;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
-import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
@@ -55,7 +54,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class Wasp extends PathfinderMob implements FlyingAnimal {
 	public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
-	protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Bee.class,
+	protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Wasp.class,
 			EntityDataSerializers.BYTE);
 
 	private float rollAmount;
@@ -122,17 +121,17 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity p_27722_) {
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
 		DamageSource damagesource = this.damageSources().sting(this);
-		boolean flag = p_27722_.hurt(this.damageSources().sting(this),
-				((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-		if (flag) {
+		int damage = (int) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+		boolean hurted = victim.hurtServer(serverLevel, this.damageSources().sting(this), damage);
+		if (hurted) {
 			if (this.level() instanceof ServerLevel serverlevel) {
-				EnchantmentHelper.doPostAttackEffects(serverlevel, p_27722_, damagesource);
+				EnchantmentHelper.doPostAttackEffects(serverlevel, victim, damagesource);
 			}
 
-			if (p_27722_ instanceof LivingEntity) {
-				((LivingEntity) p_27722_).setStingerCount(((LivingEntity) p_27722_).getStingerCount() + 1);
+			if (victim instanceof LivingEntity livingVictim) {
+				livingVictim.setStingerCount(livingVictim.getStingerCount() + 1);
 				int i = 0;
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					i = 10;
@@ -141,15 +140,14 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 				}
 
 				if (i > 0) {
-					((LivingEntity) p_27722_).addEffect(new MobEffectInstance(MobEffects.POISON, i * 20, 0),
-							this);
+					livingVictim.addEffect(new MobEffectInstance(MobEffects.POISON, i * 20, 0), this);
 				}
 			}
 
 			this.playSound(SoundEvents.BEE_STING, 1.0F, 1.0F);
 		}
 
-		return flag;
+		return hurted;
 	}
 
 	@Override
@@ -220,7 +218,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	protected void customServerAiStep() {
+	protected void customServerAiStep(ServerLevel serverLevel) {
 		if (this.isInWaterOrBubble()) {
 			++this.underWaterTicks;
 		} else {
@@ -228,7 +226,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		}
 
 		if (this.underWaterTicks > 20) {
-			this.hurt(this.damageSources().drown(), 1.0F);
+			this.hurtServer(serverLevel, this.damageSources().drown(), 1.0F);
 		}
 	}
 
@@ -384,11 +382,11 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	public boolean hurt(DamageSource p_27762_, float p_27763_) {
-		if (this.isInvulnerableTo(p_27762_)) {
+	public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
+		if (this.isInvulnerableTo(serverLevel, source)) {
 			return false;
 		} else {
-			return super.hurt(p_27762_, p_27763_);
+			return super.hurtServer(serverLevel, source, amount);
 		}
 	}
 

@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.mobz.MobZRarity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
@@ -15,14 +16,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 
 public class WitherSwordBase extends SwordItem {
-    public WitherSwordBase(Tier tier, Item.Properties properties) {
-        super(tier, properties.attributes(SwordItem.createAttributes(tier, -1, -2.4F)));
+    public WitherSwordBase(ToolMaterial toolMaterial, Item.Properties properties) {
+        super(toolMaterial, -1, -2.4F, properties);
     }
 
-    @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.wither_sword.tooltip"));
-    }
+	@Override
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
+		MobZRarity.UNCOMMON.addToTooltip(tooltip);
+	}
 
     @Override
 	public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity attacker) {

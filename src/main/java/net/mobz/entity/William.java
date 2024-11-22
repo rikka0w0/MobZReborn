@@ -32,7 +32,6 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class William extends Zombie {
-
 	public William(EntityType<? extends Zombie> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 30;
@@ -43,7 +42,8 @@ public class William extends Zombie {
 				.add(Attributes.MAX_HEALTH, MobZ.configs.william.life * MobZ.configs.life_multiplier)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
 				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.william.attack * MobZ.configs.damage_multiplier)
-				.add(Attributes.FOLLOW_RANGE, 18.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
+				.add(Attributes.FOLLOW_RANGE, 18.0D)
+				.add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
 	}
 
 	@Override
@@ -106,8 +106,8 @@ public class William extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity victim) {
-		boolean flag = super.doHurtTarget(victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false));

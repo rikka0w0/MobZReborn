@@ -13,7 +13,6 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class BabyRavager extends Ravager {
-
 	public BabyRavager(EntityType<? extends Ravager> type, Level world) {
 		super(type, world);
 	}

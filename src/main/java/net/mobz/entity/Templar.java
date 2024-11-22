@@ -33,7 +33,6 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class Templar extends Zombie {
-
 	public Templar(EntityType<? extends Zombie> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 20;
@@ -44,7 +43,8 @@ public class Templar extends Zombie {
 				.add(Attributes.MAX_HEALTH, MobZ.configs.templar.life * MobZ.configs.life_multiplier)
 				.add(Attributes.MOVEMENT_SPEED, 0.32D)
 				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.templar.attack * MobZ.configs.damage_multiplier)
-				.add(Attributes.FOLLOW_RANGE, 35.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
+				.add(Attributes.FOLLOW_RANGE, 35.0D)
+				.add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
 	}
 
 	@Override
@@ -107,8 +107,8 @@ public class Templar extends Zombie {
 	}
 
 	@Override
-    public boolean doHurtTarget(Entity victim) {
-        boolean flag = super.doHurtTarget(victim);
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+        boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false);
 		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {

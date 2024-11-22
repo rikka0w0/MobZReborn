@@ -20,7 +20,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,6 +27,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
@@ -36,7 +36,6 @@ import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
 
 public class MetalGolem extends IronGolem {
-
 	public MetalGolem(EntityType<? extends IronGolem> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 25;
@@ -44,11 +43,10 @@ public class MetalGolem extends IronGolem {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Mob.createMobAttributes()
-				.add(Attributes.MAX_HEALTH,
-					MobZ.configs.metal_golem.life * MobZ.configs.life_multiplier)
-				.add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
-				.add(Attributes.ATTACK_DAMAGE,
-					MobZ.configs.metal_golem.attack * MobZ.configs.damage_multiplier);
+				.add(Attributes.MAX_HEALTH, MobZ.configs.metal_golem.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.25D)
+				.add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.metal_golem.attack * MobZ.configs.damage_multiplier);
 	}
 
 	@Override
@@ -63,20 +61,20 @@ public class MetalGolem extends IronGolem {
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new DefendVillageTargetGoal(this));
 		this.targetSelector.addGoal(2, new HurtByTargetGoal(this, new Class[0]));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
-			return livingEntity instanceof Enemy && !(livingEntity instanceof Creeper);
-		}));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false,
+				(livingEntity, serverLevel) ->  livingEntity instanceof Enemy && !(livingEntity instanceof Creeper)
+		));
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
 		Crackiness.Level crack = this.getCrackiness();
-		boolean bl = super.hurt(source, amount);
-		if (bl && this.getCrackiness() != crack) {
+		boolean hurted = super.hurtServer(serverLevel, source, amount);
+		if (hurted && this.getCrackiness() != crack) {
 			this.playSound(MobZSounds.MGOLEMBREAKEVENT.get(), 1.0F, 1.0F);
 		}
 
-		return bl;
+		return hurted;
 	}
 
 	@Override
@@ -112,8 +110,7 @@ public class MetalGolem extends IronGolem {
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
-		Item item = itemStack.getItem();
-		if (item != MobZItems.HARDENEDMETAL_INGOT) {
+		if (itemStack.is(MobZItems.HARDENEDMETAL_INGOT.get())) {
 			return InteractionResult.PASS;
 		} else {
 			float f = this.getHealth();
@@ -127,7 +124,7 @@ public class MetalGolem extends IronGolem {
 					itemStack.shrink(1);
 				}
 
-				return InteractionResult.sidedSuccess(this.level().isClientSide);
+				return InteractionResult.SUCCESS;
 			}
 		}
 	}

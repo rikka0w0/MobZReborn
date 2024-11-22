@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.server.level.ServerLevel;
+import net.mobz.MobZRarity;
 import net.mobz.entity.PillagerBoss;
 import net.mobz.init.MobZEntities;
 
@@ -72,7 +74,7 @@ public class TotemBase extends Block {
 			world.removeBlock(pos.above(), false);
 			world.removeBlock(pos.above().above(), false);
 
-			PillagerBoss pillager = MobZEntities.PILLAGER_BOSS.get().create(world);
+			PillagerBoss pillager = MobZEntities.PILLAGER_BOSS.get().create(world, EntitySpawnReason.TRIGGERED);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
 			pillager.moveTo(spawnPos, 0.0F, 0.0F);
 			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.HOSTILE, 1F, 1F);
@@ -104,6 +106,6 @@ public class TotemBase extends Block {
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(Component.translatable("block.mobz.totem_base.tooltip"));
+		MobZRarity.RARE.addToTooltip(tooltip);
 	}
 }

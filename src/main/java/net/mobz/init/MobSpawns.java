@@ -13,6 +13,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.mobz.MobZ;
+import net.mobz.tags.MobZBiomeTags;
 
 public class MobSpawns {
 	private static void addSpawnToBiome(
@@ -38,59 +39,59 @@ public class MobSpawns {
 
 	public static void collectAll(Map<ResourceLocation, Pair<TagKey<Biome>, List<MobSpawnSettings.SpawnerData>>> map) {
 		// Normal spawns
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.BOWMAN.get(), MobZ.configs.bowman.spawn_rate, 1, 2));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.ARMORED_ZOMBIE.get(), MobZ.configs.armored_zombie.spawn_rate, 1, 2));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.DWARF.get(), MobZ.configs.dwarf.spawn_rate, 1, 1));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.FAST_ZOMBIE.get(), MobZ.configs.fast_zombie.spawn_rate, 2, 3));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.IRON_STEVE.get(), MobZ.configs.iron_steve.spawn_rate, 1, 1));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.WARRIOR.get(), MobZ.configs.warrior.spawn_rate, 1, 2));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.TEMPLAR.get(), MobZ.configs.templar.spawn_rate, 1, 1));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.ZOMBIE_MAGE.get(), MobZ.configs.zombie_mage.spawn_rate, 1, 1));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(MobZEntities.OVERGROWN_SKELETON.get(),
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(MobZEntities.OVERGROWN_SKELETON.get(),
 				MobZ.configs.overgrown_skeleton.spawn_rate, 2, 4));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.LOST_SKELETON.get(), MobZ.configs.lost_skeleton.spawn_rate, 2, 2));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.HONEY_SLIME.get(), MobZ.configs.honey_slime.spawn_rate, 1, 1));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.BLUE_SPIDER.get(), MobZ.configs.blue_spider.spawn_rate, 2, 3));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.PURPLE_SPIDER.get(), MobZ.configs.purple_spider.spawn_rate, 1, 4));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.TINY_SPIDER.get(), MobZ.configs.tiny_spider.spawn_rate, 1, 1));
-		addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.TANK_ZOMBIE.get(), MobZ.configs.tank_zombie.spawn_rate, 1, 2));
 
 		if (MobZ.configs.wild_boar.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 					new MobSpawnSettings.SpawnerData(MobZEntities.WILD_BOAR.get(), MobZ.configs.wild_boar.spawn_rate, 2, 4));
 		}
 		if (MobZ.configs.dirty_boar.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 					new MobSpawnSettings.SpawnerData(MobZEntities.DIRTY_BOAR.get(), MobZ.configs.dirty_boar.spawn_rate, 1, 3));
 		}
 		if (MobZ.configs.brown_bear.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(
 					MobZEntities.BROWNBEAR.get(), MobZ.configs.brown_bear.spawn_rate, 2, 3));
 		}
 		if (MobZ.configs.katherine.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG,
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 					new MobSpawnSettings.SpawnerData(MobZEntities.KATHERINE.get(), MobZ.configs.katherine.spawn_rate, 1, 1));
 		}
 		if (MobZ.configs.golden_chicken.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(
 					MobZEntities.GOLDEN_CHICKEN.get(), MobZ.configs.golden_chicken.spawn_rate, 1, 2));
 		}
 		if (MobZ.configs.fiora.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG, new MobSpawnSettings.SpawnerData(
 					MobZEntities.FIORA.get(), MobZ.configs.fiora.spawn_rate, 1, 1));
 		}
 
@@ -98,19 +99,19 @@ public class MobSpawns {
 				MobZEntities.TOAD.get(), MobZ.configs.toad.spawn_rate, 1, 1));
 
 		// Ice spawns
-		addSpawnToBiome(map, MobZ.SPAWN_ICY_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_ICY_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.FROST_CREEPER.get(), MobZ.configs.frost_creeper.spawn_rate, 1, 3));
-		addSpawnToBiome(map, MobZ.SPAWN_ICY_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_ICY_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.FROST_BLAZE.get(), MobZ.configs.frost_blaze.spawn_rate, 1, 3));
-		addSpawnToBiome(map, MobZ.SPAWN_ICY_TAG,
+		addSpawnToBiome(map, MobZBiomeTags.SPAWN_ICY_TAG,
 				new MobSpawnSettings.SpawnerData(MobZEntities.ICEGOLEM.get(), MobZ.configs.ice_golem.spawn_rate, 1, 1));
 		if (MobZ.configs.boar.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_ICY_TAG,
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_ICY_TAG,
 					new MobSpawnSettings.SpawnerData(MobZEntities.BOAR.get(), MobZ.configs.boar.spawn_rate, 2, 3));
 		}
 
 		if (MobZ.configs.black_bear.spawn) {
-			addSpawnToBiome(map, MobZ.SPAWN_ICY_TAG,
+			addSpawnToBiome(map, MobZBiomeTags.SPAWN_ICY_TAG,
 					new MobSpawnSettings.SpawnerData(MobZEntities.BLACKBEAR.get(), MobZ.configs.black_bear.spawn_rate, 1, 2));
 		}
 

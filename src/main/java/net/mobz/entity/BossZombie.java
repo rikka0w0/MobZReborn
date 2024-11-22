@@ -23,7 +23,6 @@ import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
 public class BossZombie extends Zombie {
-
 	public BossZombie(EntityType<? extends Zombie> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 60;
@@ -91,8 +90,8 @@ public class BossZombie extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity victim) {
-		boolean flag = super.doHurtTarget(victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120, 0, false, false));

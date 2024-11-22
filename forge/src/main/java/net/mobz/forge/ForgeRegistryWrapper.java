@@ -7,19 +7,23 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
+
+import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -27,11 +31,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -46,23 +51,28 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	private final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MobZ.MODID);
 	private final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MobZ.MODID);
 	private final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MobZ.MODID);
+	private final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPE = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MobZ.MODID);
 
 	private Set<Supplier<?>> setters = new HashSet<>();
 	private Set<Consumer<BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier>>> attribSuppliers = new HashSet<>();
 	private Map<CreativeModeTab, List<Supplier<? extends ItemLike>>> tabContents = new HashMap<>();
 
-	public ForgeRegistryWrapper() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public ForgeRegistryWrapper(FMLJavaModLoadingContext context) {
+		IEventBus eventBus = context.getModEventBus();
 		BLOCKS.register(eventBus);
 		ITEMS.register(eventBus);
 		ENTITY_TYPES.register(eventBus);
 		SOUNDS.register(eventBus);
 		TABS.register(eventBus);
+		DATA_COMPONENT_TYPE.register(eventBus);
 	}
 
 	@Override
-	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab, Supplier<T> constructor, Consumer<T> setter) {
-		RegistryObject<T> regObj = ITEMS.register(name, constructor);
+	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab,
+			Function<Item.Properties, T> constructor, Consumer<T> setter) {
+		RegistryObject<T> regObj = ITEMS.register(name, () -> constructor.apply(
+				new Item.Properties().setId(ITEMS.key(name))
+			));
 
 		if (tab != null) {
 			tabContents.get(tab).add(regObj);
@@ -79,9 +89,12 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor, Consumer<T> setter) {
-		RegistryObject<T> regObj = BLOCKS.register(name, constructor);
+	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab,
+			Function<BlockBehaviour.Properties, T> blockConstructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor, Consumer<T> setter) {
+		RegistryObject<T> regObj = BLOCKS.register(name, () -> blockConstructor.apply(
+				BlockBehaviour.Properties.of().setId(BLOCKS.key(name))
+			));
 
 		if (tab != null) {
 			tabContents.get(tab).add(regObj);
@@ -94,7 +107,10 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 				return val;
 			});
 		}
-		ITEMS.register(name, () -> blockItemConstructor.apply(regObj.get()));
+
+		ITEMS.register(name, () -> blockItemConstructor.apply(regObj.get(),
+				new Item.Properties().useBlockDescriptionPrefix().setId(ITEMS.key(name))
+			));
 		return regObj;
 	}
 
@@ -168,7 +184,12 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	@Override
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
-		return () -> new ForgeSpawnEgg(type, highlightColor, highlightColor, props);
+		return () -> new ForgeSpawnEggItem(type, highlightColor, highlightColor, props) {
+			@Override
+			public Component getName(ItemStack stack) {
+				return Component.translatable("item.mobz.spawn_egg_of", this.getName());
+			}
+		};
 	}
 
 	@Override
@@ -179,7 +200,20 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
-		return stack.getItem().components().getTyped(DataComponents.FOOD).value();
+	public <T> Supplier<DataComponentType<T>> registerDataComponentType(String name,
+			UnaryOperator<DataComponentType.Builder<T>> builder,
+			Consumer<DataComponentType<T>> setter) {
+		RegistryObject<DataComponentType<T>> regObj = DATA_COMPONENT_TYPE.register(name,
+				() -> builder.apply(DataComponentType.builder()).build());
+
+		if (setter != null) {
+			setters.add(() -> {
+				@NotNull DataComponentType<T> val = regObj.get();
+				setter.accept(val);
+				return val;
+			});
+		}
+
+		return regObj;
 	}
 }

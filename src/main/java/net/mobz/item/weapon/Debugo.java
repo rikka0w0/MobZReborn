@@ -2,15 +2,15 @@ package net.mobz.item.weapon;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 
 public class Debugo extends SwordItem {
-	public Debugo(Tier tier, Item.Properties properties) {
-		super(tier, properties.attributes(SwordItem.createAttributes(tier, 1, 6.0F)));
+	public Debugo(ToolMaterial toolMaterial, Item.Properties properties) {
+		super(toolMaterial, 1, 6.0F, properties);
 	}
 
 	@Override

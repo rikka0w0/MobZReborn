@@ -64,6 +64,7 @@ import net.mobz.data.Recipes;
 import net.mobz.data.Advancements;
 import net.mobz.data.BlockTagProvider;
 import net.mobz.data.EntityTagProvider;
+import net.mobz.data.EquipmentModelProvider;
 import net.mobz.data.ItemTagProvider;
 import net.mobz.data.JukeboxSongs;
 import net.mobz.data.Loots;
@@ -168,16 +169,19 @@ public class NeoforgeEntry {
 			generator.addProvider(event.includeServer(), new EntityTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
-			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.registryOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
 
 			// Data: LootTable
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<LootTableProvider>) vanillaPackOutput -> Loots.all(vanillaPackOutput, lookupProvider));
 
 			// Data: Recipes
-			generator.addProvider(event.includeServer(), new Recipes(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new Recipes.Runner(packOutput, lookupProvider));
 
 			// Data: Advancements
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<AdvancementProvider>) vanillaPackOutput -> Advancements.all(vanillaPackOutput, lookupProvider));
+
+			// Resource: EquipmentModels
+			generator.addProvider(event.includeClient(), new EquipmentModelProvider(packOutput));
 		}
 	}
 

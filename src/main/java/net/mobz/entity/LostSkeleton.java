@@ -20,51 +20,48 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class LostSkeleton extends Skeleton {
+	public LostSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
+		super(entityType, world);
+	}
 
-    public LostSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
-        super(entityType, world);
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.lost_skeleton.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.255D)
+				.add(Attributes.FOLLOW_RANGE, 30.0D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.lost_skeleton.attack * MobZ.configs.damage_multiplier);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.lost_skeleton.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.255D).add(Attributes.FOLLOW_RANGE, 30.0D)
-                .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.lost_skeleton.attack * MobZ.configs.damage_multiplier);
-    }
+	@Override
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+		super.populateDefaultEquipmentSlots(random, difficulty);
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.STONE_TOMAHAWK.get()));
+	}
 
-    @Override
-    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        super.populateDefaultEquipmentSlots(random, difficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.STONE_TOMAHAWK.get()));
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.SKELASAYEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.SKELASAYEVENT.get();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return MobZSounds.SKELAHURTEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.SKELAHURTEVENT.get();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return MobZSounds.SKELADEATHEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MobZSounds.SKELADEATHEVENT.get();
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		if (!state.liquid()) {
+			this.playSound(MobZSounds.SKELASTEPEVENT.get(), 0.15F, 1F);
+		}
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.liquid()) {
-            this.playSound(MobZSounds.SKELASTEPEVENT.get(), 0.15F, 1F);
-        }
-    }
-
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.lost_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
-
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.lost_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

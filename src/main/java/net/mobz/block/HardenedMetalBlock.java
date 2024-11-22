@@ -11,13 +11,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 import net.mobz.entity.MetalGolem;
 import net.mobz.init.MobZEntities;
 
@@ -44,10 +47,9 @@ public class HardenedMetalBlock extends Block {
 		return this.golemPattern;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-		super.neighborChanged(state, world, pos, blockIn, fromPos, isMoving);
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
+		super.neighborChanged(state, world, pos, blockIn, orientation, isMoving);
 
 		BlockPattern.BlockPatternMatch blockpattern$patternhelper = this.getGolemPattern().find(world, pos);
 		if (blockpattern$patternhelper != null) {
@@ -60,22 +62,15 @@ public class HardenedMetalBlock extends Block {
 			}
 
 			BlockPos spawnPos = blockpattern$patternhelper.getBlock(1, 2, 0).getPos();
-			MetalGolem golem = MobZEntities.METALGOLEM.get().create(world);
+			MetalGolem golem = MobZEntities.METALGOLEM.get().create(world, EntitySpawnReason.TRIGGERED);
 			golem.moveTo(spawnPos, 0.0F, 0.0F);
 			world.addFreshEntity(golem);
 		}
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (world.isClientSide) {
-			return;
-		}
-	}
-
-	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(Component.translatable("block.mobz.hardened_metal_block.tooltip"));
+		MobZRarity.UNCOMMON.addToTooltip(tooltip);
 	}
 }

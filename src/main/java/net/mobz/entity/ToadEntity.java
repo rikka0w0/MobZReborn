@@ -18,6 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,7 +41,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -53,6 +53,8 @@ import net.mobz.MathUtils;
 import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZSounds;
+import net.mobz.tags.MobZEntityTags;
+import net.mobz.tags.MobZItemTags;
 
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -73,7 +75,6 @@ public class ToadEntity extends Animal {
 	private int ticksUntilJump;
 	public float tongueDistance;
 	public float targetTongueDistance;
-	public float mouthDistance = 0;
 	public int eatCooldown = 0;
 	public boolean hasBaby;
 
@@ -97,7 +98,7 @@ public class ToadEntity extends Animal {
 		this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
 		this.goalSelector.addGoal(3, new PanicGoal(this, 1.25D));
 		this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6D));
-		this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(getToadFoodTag()), false));
+		this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, this::isFood, false));
 		this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
 		this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
 	}
@@ -151,7 +152,9 @@ public class ToadEntity extends Animal {
 
 		if (this.isTongueReady()) {
 			if (victim.getBoundingBox().intersects(getBoundingBox())) {
-				this.attackVictim(victim);
+				if (this.level() instanceof ServerLevel serverLevel) {
+					this.doHurtTarget(serverLevel, victim);
+				}
 			} else {
 				double speed = getTongueSpeed2();
 				double xx = MathUtils.approachValue(victim.position().x, getX(), speed);
@@ -163,7 +166,8 @@ public class ToadEntity extends Animal {
 		}
 	}
 
-	private final TargetingConditions predicate = TargetingConditions.forNonCombat().selector((e)->e.distanceTo(e) < 10);
+	private final TargetingConditions predicate = TargetingConditions.forNonCombat()
+			.selector((entity, serverLevel) -> entity.distanceTo(entity) < 10);
 
 	@Override
 	public void tick()
@@ -238,7 +242,7 @@ public class ToadEntity extends Animal {
 	}
 
 	@Override
-	public void customServerAiStep()
+	public void customServerAiStep(ServerLevel serverLevel)
 	{
 
 		eatCooldown--;
@@ -249,7 +253,7 @@ public class ToadEntity extends Animal {
 					EntityTypeTest.forClass(LivingEntity.class),
 					getBoundingBox().inflate(spotRange, spotRange, spotRange),
 					this::isToadTarget);
-			LivingEntity closest = this.level().getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
+			LivingEntity closest = serverLevel.getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
 
 			if(!canUseTongue() || closest == null || closest.isPassenger() || targets.isEmpty()) {
 				clearTongueEntity();
@@ -293,7 +297,7 @@ public class ToadEntity extends Animal {
 	}
 
 	public static AttributeSupplier.Builder createEntityAttributes() {
-		return Mob.createMobAttributes()
+		return Animal.createAnimalAttributes()
 				.add(Attributes.MAX_HEALTH, MobZ.configs.toad.life)
 				.add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
@@ -438,7 +442,7 @@ public class ToadEntity extends Animal {
 				ServerLevel world = (ServerLevel) this.toad.level();
 				this.toad.setHasBaby(false);
 
-				TadpoleEntity tadpole = MobZEntities.TADPOLE.get().create(world);
+				TadpoleEntity tadpole = MobZEntities.TADPOLE.get().create(world, EntitySpawnReason.BREEDING);
 				if(tadpole != null)
 				{
 					world.playSound(null, blockPos, MobZSounds.TOAD_HAVE_BABY.get(), SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
@@ -497,19 +501,21 @@ public class ToadEntity extends Animal {
 	}
 
 	public static TagKey<Item> getToadFoodTag() {
-		return MobZ.TOAD_FOOD_TAG;
+		return MobZItemTags.TOAD_FOOD_TAG;
 	}
 
 	public boolean canToadTarget(LivingEntity entity) {
-		return entity.getType().is(MobZ.TOAD_TARGET_TAG);
+		return entity.getType().is(MobZEntityTags.TOAD_TARGET_TAG);
 	}
 
-	public void attackVictim(LivingEntity victim) {
+	@Override
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
 		if (victim instanceof Player) {
-			victim.hurt(this.damageSources().mobProjectile(this, null), 1F);
+			victim.hurtServer(serverLevel, this.damageSources().mobProjectile(this, null), 1F);
 		} else {
-			victim.hurt(this.damageSources().mobProjectile(this, null), Float.MAX_VALUE);
+			victim.hurtServer(serverLevel, this.damageSources().mobProjectile(this, null), Float.MAX_VALUE);
 		}
+		return true;
 	}
 
 	public int getSpotRange() {

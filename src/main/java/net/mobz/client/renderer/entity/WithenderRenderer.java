@@ -1,35 +1,30 @@
 package net.mobz.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.model.WitherBossModel;
-import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.WitherBossRenderer;
+import net.minecraft.client.renderer.entity.layers.WitherArmorLayer;
+import net.minecraft.client.renderer.entity.state.WitherRenderState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.mobz.entity.Withender;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.level.LightLayer;
 
-public class WithenderRenderer extends MobRenderer<Withender, WitherBossModel<Withender>> {
-    private final ResourceLocation texture;
+public class WithenderRenderer extends WitherBossRenderer {
+	private final ResourceLocation texture;
 
-   public WithenderRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
-      super(context, new WitherBossModel<>(context.bakeLayer(ModelLayers.WITHER)), 1.0F);
-      this.texture = texture;
-   }
+	public WithenderRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+		super(context);
+		this.texture = texture;
+		this.layers.removeIf(layer -> layer instanceof WitherArmorLayer);
+	}
 
-   @Override
-protected void scale(Withender witherEntity_1, PoseStack matrixStack_1, float float_1) {
-      float float_2 = 2.0F;
-      int int_1 = witherEntity_1.getInvulnerableTicks();
-      if (int_1 > 0) {
-         float_2 -= (int_1 - float_1) / 220.0F * 0.5F;
-      }
+	@Override
+    protected int getBlockLightLevel(WitherBoss entity, BlockPos blockPos) {
+        return entity.isOnFire() ? 15 : entity.level().getBrightness(LightLayer.BLOCK, blockPos);
+    }
 
-      matrixStack_1.scale(float_2, float_2, float_2);
-   }
-
-   @Override
-   public ResourceLocation getTextureLocation(Withender witho) {
-      return this.texture;
-   }
+	@Override
+	public ResourceLocation getTextureLocation(WitherRenderState renderState) {
+		return this.texture;
+	}
 }

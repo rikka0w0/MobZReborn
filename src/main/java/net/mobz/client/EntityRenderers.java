@@ -75,7 +75,7 @@ public class EntityRenderers {
 	}
 
 	public static void registerLayerDefinitions(ILayerDefinitionRegistration registry) {
-		registry.register(TadpoleEntityModel.modelResLoc, TadpoleEntityModel::createBodyLayer);
-		registry.register(ToadEntityModel.modelResLoc, ToadEntityModel::createBodyLayer);
+		registry.register(TadpoleEntityModel.MODEL_LAYER_LOC, TadpoleEntityModel::createBodyLayer);
+		registry.register(ToadEntityModel.MODEL_LAYER_LOC, ToadEntityModel::createBodyLayer);
 	}
 }

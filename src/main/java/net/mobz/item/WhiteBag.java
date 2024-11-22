@@ -5,22 +5,22 @@ import java.util.Random;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
 public class WhiteBag extends SimpleItem {
-    public WhiteBag(Properties settings) {
-        super(settings);
+    public WhiteBag(Properties props) {
+        super(props, MobZRarity.LEGENDARY);
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.NONE;
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.NONE;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class WhiteBag extends SimpleItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player playerEntity, InteractionHand hand) {
+    public InteractionResult use(Level world, Player playerEntity, InteractionHand hand) {
     	playerEntity.startUsingItem(hand);
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, playerEntity.getItemInHand(hand));
+        return InteractionResult.SUCCESS;
     }
 }

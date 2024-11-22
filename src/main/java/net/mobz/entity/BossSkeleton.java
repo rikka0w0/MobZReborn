@@ -15,46 +15,45 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class BossSkeleton extends Skeleton {
+	public BossSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
+		super(entityType, world);
+		this.xpReward = 50;
+	}
 
-    public BossSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
-        super(entityType, world);
-        this.xpReward = 50;
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.boss_skeleton.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.25D)
+				.add(Attributes.FOLLOW_RANGE, 30.0D)
+				.add(Attributes.ARMOR, 2D);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.boss_skeleton.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 30.0D)
-                .add(Attributes.ARMOR, 2D);
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.SKELASAYEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.SKELASAYEVENT.get();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return MobZSounds.SKELAHURTEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.SKELAHURTEVENT.get();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return MobZSounds.SKELADEATHEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MobZSounds.SKELADEATHEVENT.get();
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		if (!state.liquid()) {
+			this.playSound(MobZSounds.SKELASTEPEVENT.get(), 0.15F, 1F);
+		}
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.liquid()) {
-            this.playSound(MobZSounds.SKELASTEPEVENT.get(), 0.15F, 1F);
-        }
-    }
-
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.boss_skeleton.spawn
-        		&& this.level().isNight()
-                && MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.boss_skeleton.spawn
+				&& this.level().isNight()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

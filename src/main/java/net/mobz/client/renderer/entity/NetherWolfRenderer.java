@@ -1,27 +1,20 @@
 package net.mobz.client.renderer.entity;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.model.WolfModel;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.client.renderer.entity.WolfRenderer;
+import net.minecraft.client.renderer.entity.state.WolfRenderState;
 import net.minecraft.resources.ResourceLocation;
 
-public class NetherWolfRenderer extends MobRenderer<Wolf, WolfModel<Wolf>> {
+public class NetherWolfRenderer extends WolfRenderer {
     private final ResourceLocation texture;
 
     public NetherWolfRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
-        super(context, new WolfModel<>(context.bakeLayer(ModelLayers.WOLF)), 0.5F);
+        super(context);
         this.texture = texture;
     }
 
     @Override
-    protected float getBob(Wolf wolfEntity, float f) {
-        return wolfEntity.getTailAngle();
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(Wolf wolfEntity) {
-        return this.texture;
+    public ResourceLocation getTextureLocation(WolfRenderState renderState) {
+		return this.texture;
     }
 }

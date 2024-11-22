@@ -2,11 +2,12 @@ package net.mobz.init;
 
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 
 import java.util.function.Supplier;
 
+import net.minecraft.Util;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -290,7 +291,8 @@ public class MobZEntities {
 			.sized(0.7F, 0.6F).clientTrackingRange(12), "wasp", Wasp::createAttributes, 0x4b8252, 0x614d33);
 
 	private static <T extends Entity> Supplier<EntityType<T>> register(EntityType.Builder<T> entityTypeBuilder, String name) {
-		return MobZ.platform.registerEntityType(name, ()->entityTypeBuilder.build(name), null, null);
+		ResourceKey<EntityType<?>> resKey = MobZ.resKey(Registries.ENTITY_TYPE, name);
+		return MobZ.platform.registerEntityType(name, ()->entityTypeBuilder.build(resKey), null, null);
 	}
 
 	/**
@@ -306,9 +308,14 @@ public class MobZEntities {
 	private static <T extends Mob> Supplier<EntityType<T>> register(EntityType.Builder<T> entityTypeBuilder, String name,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2) {
-		Supplier<EntityType<T>> entityTypeSupplier = MobZ.platform.registerEntityType(name, ()->entityTypeBuilder.build(name), attribModifierSupplier, null);
-		Supplier<SpawnEggItem> spawnEgg = MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, new Item.Properties());
-		MobZ.platform.registerItem("spawn_" + name, MobZTabs.eggs, spawnEgg, null);
+		ResourceKey<EntityType<?>> resKey = MobZ.resKey(Registries.ENTITY_TYPE, name);
+		String spawnEggLocalizationKey = Util.makeDescriptionId("entity", resKey.location());
+		Supplier<EntityType<T>> entityTypeSupplier =
+				MobZ.platform.registerEntityType(name, () -> entityTypeBuilder.build(resKey), attribModifierSupplier, null);
+
+		MobZ.platform.registerItem("spawn_" + name, MobZTabs.eggs,
+				(props) -> MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, props.overrideDescription(spawnEggLocalizationKey)).get(),
+				null);
 
 		return entityTypeSupplier;
 	}

@@ -15,27 +15,26 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class SoulCreeper extends Creeper {
+	public SoulCreeper(EntityType<? extends Creeper> entityType, Level world) {
+		super(entityType, world);
+	}
 
-  public SoulCreeper(EntityType<? extends Creeper> entityType, Level world) {
-    super(entityType, world);
-  }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.soul_creeper.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.25D)
+				.add(Attributes.FOLLOW_RANGE, 32.0D);
+	}
 
-  public static AttributeSupplier.Builder createMobzAttributes() {
-    return Monster.createMonsterAttributes()
-        .add(Attributes.MAX_HEALTH,
-            MobZ.configs.soul_creeper.life * MobZ.configs.life_multiplier)
-        .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.FOLLOW_RANGE, 32.0D);
-  }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return MobZSounds.SAYCREEPEVENT.get();
+	}
 
-  @Override
-  protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-    return MobZSounds.SAYCREEPEVENT.get();
-  }
-
-  @Override
-  protected SoundEvent getDeathSound() {
-    return MobZSounds.DEATHCREEPEVENT.get();
-  }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return MobZSounds.DEATHCREEPEVENT.get();
+	}
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {

@@ -10,8 +10,8 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
-import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
+import net.mobz.tags.MobZEntityTags;
 
 public class EntityTagProvider extends TagsProvider<EntityType<?>> {
 	public EntityTagProvider(PackOutput packOutput,
@@ -30,7 +30,7 @@ public class EntityTagProvider extends TagsProvider<EntityType<?>> {
 
 	@Override
 	protected void addTags(Provider pProvider) {
-		this.tag(MobZ.TOAD_TARGET_TAG,
+		this.tag(MobZEntityTags.TOAD_TARGET_TAG,
 			EntityType.SPIDER,
 			EntityType.CAVE_SPIDER,
 			EntityType.SILVERFISH,

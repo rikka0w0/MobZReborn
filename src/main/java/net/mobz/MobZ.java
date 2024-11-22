@@ -1,12 +1,8 @@
 package net.mobz;
 
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.biome.Biome;
-
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
@@ -23,21 +19,9 @@ public class MobZ {
 	// Configs
 	public static Configs configs = null;
 
-	// Tags
-	public final static TagKey<Item> TOAD_FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "toad_food"));
-	public final static TagKey<EntityType<?>> TOAD_TARGET_TAG = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.tryBuild(MODID, "toad_target"));
-	public final static TagKey<Item> FIORA_EQUIP_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "fiora_equip"));
-	public final static TagKey<Item> KATHERINE_EQUIP_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "katherine_equip"));
-	public final static TagKey<Item> FIORA_FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "fiora_food"));
-	public final static TagKey<Item> KATHERINE_FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "katherine_food"));
-	public final static TagKey<Item> FIORA_TAME_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "fiora_tame"));
-	public final static TagKey<Item> KATHERINE_TAME_TAG = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(MODID, "katherine_tame"));
-
-	public final static TagKey<Biome> SPAWN_NORMAL_TAG = TagKey.create(Registries.BIOME, ResourceLocation.tryBuild(MODID, "spawn_normal"));
-	public final static TagKey<Biome> SPAWN_ICY_TAG = TagKey.create(Registries.BIOME, ResourceLocation.tryBuild(MODID, "spawn_icy"));
-
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {
+		MobZDataComponents.DRYING_NUMBER.getClass();
     	MobZItems.BOSS_INGOT.getClass();
     	MobZBlocks.BOSS_BLOCK.getClass();
     	MobZEntities.BOSS_ZOMBIE.getClass();
@@ -47,5 +31,13 @@ public class MobZ {
     	MobZIcons.headNames.getClass();
     	MobZTabs.tab.getClass();
     	MobZTabs.eggs.getClass();
+	}
+
+	public static ResourceLocation resLoc(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MobZ.MODID, path);
+	}
+
+	public static <T> ResourceKey<T> resKey(ResourceKey<? extends Registry<T>> registry, String path) {
+		return ResourceKey.create(registry, resLoc(path));
 	}
 }

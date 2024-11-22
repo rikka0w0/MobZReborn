@@ -16,47 +16,46 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class NetherSkeleton extends Skeleton {
+	public NetherSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
+		super(entityType, world);
+	}
 
-    public NetherSkeleton(EntityType<? extends Skeleton> entityType, Level world) {
-        super(entityType, world);
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.nether_skeleton.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.26D)
+				.add(Attributes.FOLLOW_RANGE, 30.0D);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.nether_skeleton.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.26D).add(Attributes.FOLLOW_RANGE, 30.0D);
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.SKELISAYEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.SKELISAYEVENT.get();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return MobZSounds.SKELIHURTEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.SKELIHURTEVENT.get();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return MobZSounds.SKELIDEATHEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MobZSounds.SKELIDEATHEVENT.get();
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		if (!state.liquid()) {
+			this.playSound(MobZSounds.SKELISTEPEVENT.get(), 0.15F, 1F);
+		}
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.liquid()) {
-            this.playSound(MobZSounds.SKELISTEPEVENT.get(), 0.15F, 1F);
-        }
-    }
+	@Override
+	protected void registerGoals() {
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(LavaGolem.class));
+	}
 
-    @Override
-    protected void registerGoals() {
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(LavaGolem.class));
-    }
-
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.nether_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.nether_skeleton.spawn && MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 }

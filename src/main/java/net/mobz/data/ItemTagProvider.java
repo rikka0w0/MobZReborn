@@ -11,8 +11,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import net.mobz.MobZ;
 import net.mobz.init.MobZItems;
+import net.mobz.tags.MobZItemTags;
 
 public class ItemTagProvider extends TagsProvider<Item> {
 	public ItemTagProvider(PackOutput packOutput,
@@ -31,7 +31,7 @@ public class ItemTagProvider extends TagsProvider<Item> {
 
 	@Override
 	protected void addTags(Provider pProvider) {
-		this.tag(MobZ.FIORA_EQUIP_TAG,
+		this.tag(MobZItemTags.FIORA_EQUIP_TAG,
 			Items.SHIELD,
 			MobZItems.SHIELD.get(),
 			Items.BLUE_ORCHID,
@@ -48,19 +48,37 @@ public class ItemTagProvider extends TagsProvider<Item> {
 			Items.POPPY
 		);
 
-		this.tag(MobZ.FIORA_FOOD_TAG, Items.MELON_SLICE);
+		this.tag(MobZItemTags.FIORA_FOOD_TAG, Items.MELON_SLICE);
 
-		this.tag(MobZ.FIORA_TAME_TAG, Items.GOLD_NUGGET);
+		this.tag(MobZItemTags.FIORA_TAME_TAG, Items.GOLD_NUGGET);
 
-		this.tag(MobZ.KATHERINE_EQUIP_TAG,
+		this.tag(MobZItemTags.KATHERINE_EQUIP_TAG,
 			Items.SHIELD,
 			MobZItems.SHIELD.get()
 		);
 
-		this.tag(MobZ.KATHERINE_FOOD_TAG, Items.MELON_SLICE);
+		this.tag(MobZItemTags.KATHERINE_FOOD_TAG, Items.MELON_SLICE);
 
-		this.tag(MobZ.KATHERINE_TAME_TAG, Items.GOLD_NUGGET);
+		this.tag(MobZItemTags.KATHERINE_TAME_TAG, Items.GOLD_NUGGET);
 
-		this.tag(MobZ.TOAD_FOOD_TAG, Items.SPIDER_EYE);
+		this.tag(MobZItemTags.GOLDEN_CHICKEN_FOOD, Items.GOLD_NUGGET);
+
+		this.tag(MobZItemTags.TOAD_FOOD_TAG, Items.SPIDER_EYE);
+
+		// Tool/weapon repair materials
+		this.tag(MobZItemTags.BOSS_TOOL_MATERIALS, MobZItems.BOSS_INGOT.get());
+		this.tag(MobZItemTags.ARMORED_TOOL_MATERIALS);
+		this.tag(MobZItemTags.ERAGONS_TOOL_MATERIALS);
+		this.tag(MobZItemTags.POISON_TOOL_MATERIALS);
+		this.tag(MobZItemTags.RAINBOW_TOOL_MATERIALS, Items.DRAGON_EGG);
+		this.tag(MobZItemTags.WITHER_TOOL_MATERIALS);
+		this.tag(MobZItemTags.DEBUG_TOOL_MATERIALS);
+
+		// Armor repair materials
+		this.tag(MobZItemTags.REPAIRS_AMAT_ARMOR, MobZItems.AMAT_INGOT.get());
+		this.tag(MobZItemTags.REPAIRS_BOSS_ARMOR, MobZItems.BOSS_INGOT.get());
+		this.tag(MobZItemTags.REPAIRS_LIFE_ARMOR, MobZItems.HARDENEDMETAL_INGOT.get());
+		this.tag(MobZItemTags.REPAIRS_SPEED_ARMOR, MobZItems.BEAR_LEATHER.get());
+		this.tag(MobZItemTags.REPAIRS_SPEED2_ARMOR, Items.EMERALD);
 	}
 }

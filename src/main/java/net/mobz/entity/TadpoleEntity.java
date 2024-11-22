@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -35,7 +36,7 @@ public class TadpoleEntity extends AbstractFish {
 			babyTime++;
 			if(!isBaby())
 			{
-				ToadEntity toad = MobZEntities.TOAD.get().create(this.level());
+				ToadEntity toad = MobZEntities.TOAD.get().create(this.level(), EntitySpawnReason.CONVERSION);
 				toad.moveTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
 				toad.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
 				((ServerLevel) this.level()).addFreshEntityWithPassengers(toad);
@@ -55,7 +56,7 @@ public class TadpoleEntity extends AbstractFish {
 			{
 				itemStack.shrink(1);
 				this.growUp(Math.abs(babyTime / 20));
-				return InteractionResult.sidedSuccess(this.level().isClientSide);
+				return InteractionResult.SUCCESS;
 			}
 
 			if(this.level().isClientSide)

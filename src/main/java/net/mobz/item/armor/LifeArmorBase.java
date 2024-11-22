@@ -1,81 +1,59 @@
 package net.mobz.item.armor;
 
 import java.util.EnumMap;
-import java.util.List;
 
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
 import net.mobz.MobZ;
-import net.mobz.init.MobZItems;
+import net.mobz.MobZRarity;
+import net.mobz.item.SimpleItem;
+import net.mobz.tags.MobZItemTags;
 
-public class LifeArmorBase extends ArmorItem {
+public class LifeArmorBase extends SimpleItem {
 	// boots, leggings, chestplate, helmet
 	// DurabilityBase was { 16, 18, 20, 14 } * 25
 	// Vanilla base: {13, 15, 16, 11};
-	public static final EnumMap<Type, Integer> DURABILITY_MAP = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 30);
-		map.put(ArmorItem.Type.LEGGINGS, 30);
-		map.put(ArmorItem.Type.CHESTPLATE, 30);
-		map.put(ArmorItem.Type.HELMET, 30);
-	});
 
-	public static final EnumMap<Type, Integer> DEFENSE_MAP = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 2);
-		map.put(ArmorItem.Type.LEGGINGS, 4);
-		map.put(ArmorItem.Type.CHESTPLATE, 5);
-		map.put(ArmorItem.Type.HELMET, 2);
-	});
+	public static final EnumMap<ArmorType, Integer> DEFENSE_MAP =
+		Util.make(new EnumMap<>(ArmorType.class), (map) -> {
+			map.put(ArmorType.BOOTS, 2);
+			map.put(ArmorType.LEGGINGS, 4);
+			map.put(ArmorType.CHESTPLATE, 5);
+			map.put(ArmorType.HELMET, 2);
+		});
 
-	public static final Holder<ArmorMaterial> MATERIAL = Registry.registerForHolder(
-		BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.tryBuild(MobZ.MODID, "life"), new ArmorMaterial(
+	public static final ResourceLocation EQUIPMENT_MODEL_LIFE = MobZ.resLoc("life");
+
+	public static final ArmorMaterial MATERIAL = new ArmorMaterial(
+			30,		// Durability
 			DEFENSE_MAP,
        		10,		// getEnchantmentValue
       		SoundEvents.ARMOR_EQUIP_IRON,
-       		()->Ingredient.of(MobZItems.HARDENEDMETAL_INGOT.get()),
-       		List.of(
-   				new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "life")),
-    			new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "life"))
-   			),
        		0,	// getToughness
-       		0	// getKnockbackResistance
-		)
-	);
+       		0,	// getKnockbackResistance
+       		MobZItemTags.REPAIRS_LIFE_ARMOR,
+       		EQUIPMENT_MODEL_LIFE
+		);
 
-    private final double lifeBoost = 3.0D;
-
-    public LifeArmorBase(ArmorItem.Type armorItemType, Item.Properties properties) {
-        super(MATERIAL, armorItemType, properties.durability(DURABILITY_MAP.get(armorItemType)));
+    public LifeArmorBase(ArmorType armorType, Item.Properties properties) {
+        super(ArmorHelper.humanoidProperties(MATERIAL, armorType, properties,
+        		attributes -> LifeArmorBase.attributeModifiers(attributes, armorType)), MobZRarity.RARE);
     }
 
-	@Override
-	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.life_armor.tooltip"));
-    }
-
-	@Override
-	public ItemAttributeModifiers getDefaultAttributeModifiers() {
-		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers();
-
+	public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType) {
 		return modifiers.withModifierAdded(
 			Attributes.MAX_HEALTH,
-			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "life"), this.lifeBoost, AttributeModifier.Operation.ADD_VALUE),
-			EquipmentSlotGroup.bySlot(this.getEquipmentSlot())
+			new AttributeModifier(ResourceLocation.tryBuild(MobZ.MODID, "life"), 3.0D, AttributeModifier.Operation.ADD_VALUE),
+			EquipmentSlotGroup.bySlot(armorType.getSlot())
 		);
 	}
 }

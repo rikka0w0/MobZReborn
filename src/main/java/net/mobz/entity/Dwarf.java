@@ -29,7 +29,6 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class Dwarf extends Vindicator {
-
 	public Dwarf(EntityType<? extends Vindicator> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 20;
@@ -51,8 +50,8 @@ public class Dwarf extends Vindicator {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity victim) {
-		boolean flag = super.doHurtTarget(victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 0, false, false));

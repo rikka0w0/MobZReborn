@@ -1,7 +1,6 @@
 package net.mobz.client.renderer.model;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.client.model.ListModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -9,20 +8,19 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
-import net.mobz.MobZ;
-import net.mobz.entity.TadpoleEntity;
 
-public class TadpoleEntityModel extends ListModel<TadpoleEntity>
-{
+import net.mobz.MobZ;
+
+public class TadpoleEntityModel extends EntityModel<LivingEntityRenderState> {
 	private final ModelPart body;
 	private final ModelPart tail;
 	private final ModelPart finw;
 	private final ModelPart fine;
 
-	public final static ModelLayerLocation modelResLoc = new ModelLayerLocation(
-			ResourceLocation.tryBuild(MobZ.MODID, "tadpole_model"), "main");
+	public final static ModelLayerLocation MODEL_LAYER_LOC = new ModelLayerLocation(
+			MobZ.resLoc("tadpole_model"), "main");
 
 	public static LayerDefinition createBodyLayer() {
 	      MeshDefinition meshdefinition = new MeshDefinition();
@@ -53,6 +51,7 @@ public class TadpoleEntityModel extends ListModel<TadpoleEntity>
 	}
 
 	public TadpoleEntityModel(ModelPart modelPart) {
+		super(modelPart);
 		this.body = modelPart.getChild("body");
 		this.tail = body.getChild("tail");
 		this.finw = body.getChild("finw");
@@ -60,22 +59,11 @@ public class TadpoleEntityModel extends ListModel<TadpoleEntity>
 	}
 
 	@Override
-	public void setupAnim(TadpoleEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
-	{
-		float f = 1.0F;
-		if(!entity.isInWater())
-		{
-			f = 1.5F;
-		}
+	public void setupAnim(LivingEntityRenderState renderState) {
+		float f = renderState.isInWater ? 1.0F : 1.5F;
 
-		this.tail.yRot = -f * 0.45F * Mth.sin(0.6F * animationProgress);
-		this.finw.xRot = f * 0.10F * Mth.sin(0.8F * animationProgress);
-		this.fine.xRot = f * 0.10F * Mth.sin(0.8F * animationProgress);
-	}
-
-	@Override
-	public Iterable<ModelPart> parts()
-	{
-		return ImmutableList.of(body);
+		this.tail.yRot = -f * 0.45F * Mth.sin(0.6F * renderState.ageInTicks);
+		this.finw.xRot = f * 0.10F * Mth.sin(0.8F * renderState.ageInTicks);
+		this.fine.xRot = f * 0.10F * Mth.sin(0.8F * renderState.ageInTicks);
 	}
 }

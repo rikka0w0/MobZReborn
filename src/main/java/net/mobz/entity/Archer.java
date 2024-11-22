@@ -22,53 +22,51 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class Archer extends Pillager {
+	public Archer(EntityType<? extends Pillager> entityType, Level world) {
+		super(entityType, world);
+		this.xpReward = 20;
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+	}
 
-    public Archer(EntityType<? extends Pillager> entityType, Level world) {
-        super(entityType, world);
-        this.xpReward = 20;
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.archer.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.345D)
+				.add(Attributes.FOLLOW_RANGE, 32.0D);
+	}
 
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.archer.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.345D)
-                .add(Attributes.FOLLOW_RANGE, 32.0D);
-    }
+	@Override
+	public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {
+		float attack = (float) (MobZ.configs.archer.attack * MobZ.configs.damage_multiplier);
+		this.performCrossbowAttack(this, attack);
+	}
 
-    @Override
-    public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {
-    	float attack = (float) (MobZ.configs.archer.attack* MobZ.configs.damage_multiplier);
-        this.performCrossbowAttack(this, attack);
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return SoundEvents.PLAYER_HURT;
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return SoundEvents.PLAYER_HURT;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.PLAYER_DEATH;
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.PLAYER_DEATH;
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		if (!state.liquid()) {
+			this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
+		}
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.liquid()) {
-            this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1F);
-        }
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.NOTHINGEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT.get();
-    }
-
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.archer.spawn && !this.isPatrolLeader() && MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.archer.spawn && !this.isPatrolLeader() && MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
 	@Override
 	public boolean canJoinRaid() {

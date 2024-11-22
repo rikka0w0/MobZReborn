@@ -6,17 +6,21 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -24,7 +28,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -33,7 +36,9 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
+
 import net.mobz.IAbstractedAPI;
 import net.mobz.MobZ;
 
@@ -41,14 +46,12 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	private Set<Supplier<?>> setters = new HashSet<>();
 	private Map<CreativeModeTab, List<Supplier<? extends ItemLike>>> tabContents = new HashMap<>();
 
-	private static ResourceLocation res(String name) {
-		return ResourceLocation.tryBuild(MobZ.MODID, name);
-	}
-
 	@Override
-	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab, Supplier<T> constructor, Consumer<T> setter) {
-		T item = constructor.get();
-		Registry.register(BuiltInRegistries.ITEM, res(name), item);
+	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab,
+			Function<Item.Properties, T> constructor, Consumer<T> setter) {
+		ResourceKey<Item> resKey = MobZ.resKey(Registries.ITEM, name);
+		T item = constructor.apply(new Item.Properties().setId(resKey));
+		Registry.register(BuiltInRegistries.ITEM, resKey, item);
 
 		if (tab != null) {
 			tabContents.get(tab).add(() -> item);
@@ -64,16 +67,19 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor, Consumer<T> setter) {
-		T block = constructor.get();
-		BlockItem blockItem = blockItemConstructor.apply(block);
-		ResourceLocation regName = res(name);
-		Registry.register(BuiltInRegistries.BLOCK, regName, block);
-		Registry.register(BuiltInRegistries.ITEM, regName, blockItem);
+	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab,
+			Function<BlockBehaviour.Properties, T> blockConstructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor,
+			Consumer<T> setter) {
+		ResourceKey<Block> resKey = MobZ.resKey(Registries.BLOCK, name);
+		T block = blockConstructor.apply(BlockBehaviour.Properties.of().setId(resKey));
+
+		Registry.register(BuiltInRegistries.BLOCK, resKey, block);
+		Supplier<BlockItem> blockItemSupplier = this.registerItem(name, null,
+				(props) -> blockItemConstructor.apply(block, props.useBlockDescriptionPrefix()), null);
 
 		if (tab != null) {
-			tabContents.get(tab).add(() -> blockItem);
+			tabContents.get(tab).add(blockItemSupplier);
 		}
 
 		if (setter != null) {
@@ -90,7 +96,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	public <E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name,
 			Supplier<T> constructor, Supplier<Builder> attribModifierSupplier, Consumer<T> setter) {
 		T entityType = constructor.get();
-		Registry.register(BuiltInRegistries.ENTITY_TYPE, res(name), entityType);
+		Registry.register(BuiltInRegistries.ENTITY_TYPE, MobZ.resLoc(name), entityType);
 		if (attribModifierSupplier != null) {
 			FabricDefaultAttributeRegistry.register((EntityType<? extends LivingEntity>) entityType,
 					attribModifierSupplier.get());
@@ -107,7 +113,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	@Override
 	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
 		SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(resloc);
-		Holder<SoundEvent> holder = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, res(name), soundEvent);
+		Holder<SoundEvent> holder = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, MobZ.resLoc(name), soundEvent);
 		if (setter != null) {
 			setters.add(() -> {
 				setter.accept(soundEvent);
@@ -131,14 +137,19 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 				.build();
 
 		tabContents.put(tab, contents);
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, res(resLoc.getPath()), tab);
+		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, MobZ.resLoc(resLoc.getPath()), tab);
 		return tab;
 	}
 
 	@Override
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
-		return () -> new FabricSpawnEgg(type.get(), backgroundColor, highlightColor, props);
+		return () -> new SpawnEggItem(type.get(), backgroundColor, highlightColor, props) {
+			@Override
+			public Component getName(ItemStack stack) {
+				return Component.translatable("item.mobz.spawn_egg_of", this.getName());
+			}
+		};
 	}
 
 	@Override
@@ -150,7 +161,19 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
-		return stack.getItem().components().getTyped(DataComponents.FOOD).value();
+	public <T> Supplier<DataComponentType<T>> registerDataComponentType(String name,
+			UnaryOperator<net.minecraft.core.component.DataComponentType.Builder<T>> builder,
+			Consumer<DataComponentType<T>> setter) {
+		DataComponentType<T> dataComponent = builder.apply(DataComponentType.builder()).build();
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, MobZ.resLoc(name), dataComponent);
+
+		if (setter != null) {
+			setters.add(() -> {
+				setter.accept(dataComponent);
+				return dataComponent;
+			});
+		}
+
+		return () -> dataComponent;
 	}
 }

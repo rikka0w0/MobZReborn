@@ -24,7 +24,6 @@ import net.mobz.init.MobZItems;
 import net.mobz.init.MobZSounds;
 
 public class Knight extends Vindicator {
-
 	public Knight(EntityType<? extends Vindicator> entityType, Level world) {
 		super(entityType, world);
 	}

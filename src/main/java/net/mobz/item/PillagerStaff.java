@@ -2,16 +2,20 @@ package net.mobz.item;
 
 import java.util.Random;
 
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvents;
@@ -19,36 +23,54 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
-import net.mobz.block.EnderHeader;
+
+import net.mobz.MobZRarity;
 import net.mobz.entity.Withender;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
 
 public class PillagerStaff extends SimpleItem {
 	public PillagerStaff(Item.Properties properties) {
-        super(properties);
+        super(properties, MobZRarity.EPIC, true);
     }
 
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
+		// Fired first when user right clicks a block with this item
+
 		Level world = context.getLevel();
 		Player player = context.getPlayer();
 
         BlockState state = world.getBlockState(context.getClickedPos());
 
-        if (state.getBlock() == MobZBlocks.ENDER_HEADER.get()) {
-            if (EnderHeader.isValid(world, context.getClickedPos(), state) && !world.isClientSide) {
-                Withender wither = MobZEntities.WITHENDER.get().create(world);
+        if (state.is(MobZBlocks.ENDER_HEADER.get()) || state.is(Blocks.SOUL_SAND)) {
+        	BlockPattern pattern = MobZBlocks.ENDER_HEADER.get().getWithenderPattern();
+        	BlockPattern.BlockPatternMatch patternMatch = pattern.find(world, context.getClickedPos());
+
+        	if (patternMatch != null) {
+        		// Pattern match found, remove matched blocks
+    			for (int xz_offset = 0; xz_offset < pattern.getWidth(); ++xz_offset) {
+    				for (int y_offset = 0; y_offset < pattern.getHeight(); ++y_offset) {
+    					BlockInWorld block = patternMatch.getBlock(xz_offset, y_offset, 0);
+    					world.setBlock(block.getPos(), Blocks.AIR.defaultBlockState(), 2);
+    					world.globalLevelEvent(2001, block.getPos(), Block.getId(block.getState()));
+    				}
+    			}
+
+    			// Spawn withender
+                Withender wither = MobZEntities.WITHENDER.get().create(world, EntitySpawnReason.TRIGGERED);
                 BlockPos oke = context.getClickedPos();
                 wither.moveTo(oke, 0.0F, 0.0F);
                 world.addFreshEntity(wither);
-                return InteractionResult.SUCCESS;
-            } else if (world.isClientSide){
-            	// TODO: check this
+        	} else if (world.isClientSide){
 				player.displayClientMessage(Component.translatable("text.mobz.withendermissing"), true);
             }
+
+        	// Do not fire wither skull if the user clicks on these two blocks
+            return InteractionResult.SUCCESS;
         }
 
+        // Handle the rest in Item::use()
 		return InteractionResult.PASS;
     }
 
@@ -58,12 +80,12 @@ public class PillagerStaff extends SimpleItem {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW;
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.BOW;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
         if (user instanceof Player) {
             Player playerEntity = user;
             if (!playerEntity.isCrouching()) {
@@ -92,11 +114,11 @@ public class PillagerStaff extends SimpleItem {
                                 playerEntity.getY() + z6, playerEntity.getZ() + z4, 0D, 0D, 0D);
                     }
                 }
-                return InteractionResultHolder.success(user.getItemInHand(hand));
+                return InteractionResult.SUCCESS;
             } else {
-                return InteractionResultHolder.pass(user.getItemInHand(hand));
+                return InteractionResult.PASS;
             }
         }
-        return InteractionResultHolder.pass(user.getItemInHand(hand));
+        return InteractionResult.PASS;
     }
 }

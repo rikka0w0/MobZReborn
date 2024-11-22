@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.mobz.MobZRarity;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.BlockGetter;
@@ -46,6 +47,6 @@ public class TotemMiddle extends Block {
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag options) {
-		tooltip.add(Component.translatable("block.mobz.totem_middle.tooltip"));
+		MobZRarity.COMMON.addToTooltip(tooltip);
 	}
 }

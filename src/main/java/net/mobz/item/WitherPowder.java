@@ -1,6 +1,7 @@
 package net.mobz.item;
 
 import net.minecraft.world.level.block.state.BlockState;
+import net.mobz.MobZRarity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public class WitherPowder extends SimpleItem {
 	public WitherPowder(Properties properties) {
-		super(properties);
+		super(properties, MobZRarity.UNCOMMON);
 	}
 
 	@Override

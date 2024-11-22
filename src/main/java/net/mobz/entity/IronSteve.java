@@ -29,7 +29,6 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class IronSteve extends Zombie {
-
 	public IronSteve(EntityType<? extends IronSteve> entityType_1, Level world_1) {
 		super(entityType_1, world_1);
 		this.xpReward = 20;

@@ -32,7 +32,6 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class Bowman extends Pillager {
-
 	public Bowman(EntityType<? extends Pillager> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 20;

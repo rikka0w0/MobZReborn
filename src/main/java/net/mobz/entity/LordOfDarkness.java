@@ -25,26 +25,23 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class LordOfDarkness extends Vindicator {
+	public LordOfDarkness(EntityType<? extends Vindicator> entityType, Level world) {
+		super(entityType, world);
+		this.xpReward = 20;
 
-    public LordOfDarkness(EntityType<? extends Vindicator> entityType, Level world) {
-        super(entityType, world);
-        this.xpReward = 20;
+	}
 
-    }
-
-    public static AttributeSupplier.Builder createMobzAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,
-                        MobZ.configs.lord_of_darkness.life * MobZ.configs.life_multiplier)
-                .add(Attributes.MOVEMENT_SPEED, 0.32D)
-                .add(Attributes.ATTACK_DAMAGE,
-                        MobZ.configs.lord_of_darkness.attack * MobZ.configs.damage_multiplier)
-                .add(Attributes.FOLLOW_RANGE, 26.0D);
-    }
+	public static AttributeSupplier.Builder createMobzAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, MobZ.configs.lord_of_darkness.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.32D)
+				.add(Attributes.ATTACK_DAMAGE, MobZ.configs.lord_of_darkness.attack * MobZ.configs.damage_multiplier)
+				.add(Attributes.FOLLOW_RANGE, 26.0D);
+	}
 
 	@Override
-	public boolean doHurtTarget(Entity victim) {
-		boolean flag = super.doHurtTarget(victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false));
@@ -54,41 +51,41 @@ public class LordOfDarkness extends Vindicator {
 		return flag;
 	}
 
-    @Override
-    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        super.populateDefaultEquipmentSlots(random, difficulty);
-        if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WITHER_SWORD.get()));
-            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZWeapons.WITHER_SWORD.get()));
-        }
-    }
+	@Override
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+		super.populateDefaultEquipmentSlots(random, difficulty);
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.WITHER_SWORD.get()));
+			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(MobZWeapons.WITHER_SWORD.get()));
+		}
+	}
 
 	@Override
 	protected void dropCustomDeathLoot(ServerLevel serverWorld, DamageSource damageSource, boolean flag) {
 		return;
 	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.DARKIDLEEVENT.get();
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.DARKIDLEEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return MobZSounds.DARKHITEVENT.get();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
+		return MobZSounds.DARKHITEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MobZSounds.DARKDEATHEVENT.get();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return MobZSounds.DARKDEATHEVENT.get();
+	}
 
-    @Override
-    public boolean checkSpawnObstruction(LevelReader view) {
-        return MobZ.configs.lord_of_darkness.spawn
-        		&& !this.isPatrolLeader()
-        		&& MobSpawnHelper.checkSpawnObstruction(this, view);
-    }
+	@Override
+	public boolean checkSpawnObstruction(LevelReader view) {
+		return MobZ.configs.lord_of_darkness.spawn
+				&& !this.isPatrolLeader()
+				&& MobSpawnHelper.checkSpawnObstruction(this, view);
+	}
 
 	@Override
 	public boolean canJoinRaid() {

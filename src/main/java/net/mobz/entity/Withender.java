@@ -1,10 +1,8 @@
 package net.mobz.entity;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -13,6 +11,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -30,7 +29,7 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
 public class Withender extends WitherBoss {
-	private static final Predicate<LivingEntity> CAN_ATTACK_PREDICATE = (livingEntity) ->
+	private static final TargetingConditions.Selector CAN_ATTACK_PREDICATE = (livingEntity, serverLevel) ->
 		!livingEntity.getType().is(EntityTypeTags.WITHER_FRIENDS) && livingEntity.attackable();
 
 	public Withender(EntityType<? extends WitherBoss> entityType_1, Level world_1) {
@@ -40,9 +39,9 @@ public class Withender extends WitherBoss {
 
 	public static AttributeSupplier.Builder createMobzAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH,
-					MobZ.configs.withender.life * MobZ.configs.life_multiplier)
-				.add(Attributes.MOVEMENT_SPEED, 0.6D).add(Attributes.FOLLOW_RANGE, 40.0D)
+				.add(Attributes.MAX_HEALTH, MobZ.configs.withender.life * MobZ.configs.life_multiplier)
+				.add(Attributes.MOVEMENT_SPEED, 0.6D)
+				.add(Attributes.FOLLOW_RANGE, 40.0D)
 				.add(Attributes.ARMOR, 4.0D);
 	}
 

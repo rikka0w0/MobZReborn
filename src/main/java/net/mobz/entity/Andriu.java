@@ -27,7 +27,6 @@ import net.mobz.init.MobZSounds;
 import net.mobz.init.MobZWeapons;
 
 public class Andriu extends Vindicator {
-
 	public Andriu(EntityType<? extends Vindicator> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 30;
@@ -82,8 +81,8 @@ public class Andriu extends Vindicator {
 	}
 
 	@Override
-    public boolean doHurtTarget(Entity victim) {
-        boolean flag = super.doHurtTarget(victim);
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+        boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 0, false, false);
 		if (flag && victim instanceof LivingEntity bob) {

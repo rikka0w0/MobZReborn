@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.advancements.critereon.EntityFlagsPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
@@ -22,7 +24,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -61,7 +62,9 @@ public class EntityLoot implements LootTableSubProvider {
 	}
 
 	protected void add(EntityType<?> entityType, LootTable.Builder lootTableBuilder) {
-		this.add(entityType, entityType.getDefaultLootTable(), lootTableBuilder);
+		ResourceKey<LootTable> defaultLootTable = entityType.getDefaultLootTable()
+				.orElseThrow(() -> new IllegalStateException("Entity " + entityType + " has no loot table"));
+		this.add(entityType, defaultLootTable, lootTableBuilder);
 	}
 
 	protected void add(EntityType<?> entityType, ResourceKey<LootTable> defaultLootTable,
@@ -82,12 +85,12 @@ public class EntityLoot implements LootTableSubProvider {
 			EntityType<?> entitytype = entityTypeRef.value();
 			if (entitytype.isEnabled(this.allowed)) {
 				Map<ResourceKey<LootTable>, LootTable.Builder> map = this.map.remove(entitytype);
-				if (this.canHaveLootTable(entitytype)) {
-					ResourceKey<LootTable> resourcekey = entitytype.getDefaultLootTable();
-					if (resourcekey != BuiltInLootTables.EMPTY && entitytype.isEnabled(this.required)
-							&& (map == null || !map.containsKey(resourcekey))) {
+				Optional<ResourceKey<LootTable>> lootTableResKey = entitytype.getDefaultLootTable();
+				if (lootTableResKey.isPresent()) {
+					if (entitytype.isEnabled(this.required)
+							&& (map == null || !map.containsKey(lootTableResKey.get()))) {
 						throw new IllegalStateException(String.format(Locale.ROOT, "Missing loottable '%s' for '%s'",
-								resourcekey, entityTypeRef.key().location()));
+								lootTableResKey.get(), entityTypeRef.key().location()));
 					}
 
 					if (map != null) {
@@ -123,6 +126,8 @@ public class EntityLoot implements LootTableSubProvider {
 	 */
 
 	public void generate() {
+		HolderLookup<EntityType<?>> entityTypeLookup = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
+
 		// andriu
 		this.add(MobZEntities.ANDRIU.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
@@ -328,7 +333,8 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
 					.add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
+					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER,
+							EntityPredicate.Builder.entity().of(entityTypeLookup, EntityTypeTags.SKELETONS)))
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(5.0F))
 					.add(LootItem.lootTableItem(Items.COOKIE))
@@ -477,7 +483,8 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
 					.add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
+					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER,
+							EntityPredicate.Builder.entity().of(entityTypeLookup, EntityTypeTags.SKELETONS)))
 				)
 			);
 
@@ -755,7 +762,8 @@ public class EntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().setRolls(exactly(1.0F))
 					.add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))
+					.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER,
+							EntityPredicate.Builder.entity().of(entityTypeLookup, EntityTypeTags.SKELETONS)))
 				)
 			);
 
