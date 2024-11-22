@@ -3,6 +3,7 @@ package net.mobz.item.weapon;
 import java.util.List;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.mobz.MobZRarity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Tier;
@@ -20,7 +21,7 @@ public class VSwordBase extends SwordItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.stone_tomahawk.tooltip"));
+		MobZRarity.UNCOMMON.addToTooltip(tooltip);
 	}
 
 	@Override

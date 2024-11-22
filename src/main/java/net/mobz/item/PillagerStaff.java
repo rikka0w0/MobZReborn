@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 import net.mobz.block.EnderHeader;
 import net.mobz.entity.Withender;
 import net.mobz.init.MobZBlocks;
@@ -26,7 +27,7 @@ import net.mobz.init.MobZEntities;
 
 public class PillagerStaff extends SimpleItem {
 	public PillagerStaff(Item.Properties properties) {
-        super(properties);
+        super(properties, MobZRarity.EPIC, true);
     }
 
 	@Override

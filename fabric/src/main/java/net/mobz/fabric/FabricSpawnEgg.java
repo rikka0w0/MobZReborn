@@ -14,12 +14,12 @@ public class FabricSpawnEgg extends SpawnEggItem {
 
 	@Override
 	protected String getOrCreateDescriptionId() {
-		return "item.mobz.showegg";
+		return "item.mobz.spawn_egg_of";
 	}
 
 	@Override
 	public Component getDescription() {
-		return Component.translatable("item.mobz.spawnegg", this.getType(ItemStack.EMPTY).getDescription().getString());
+		return Component.translatable("item.mobz.spawn_egg_of", this.getType(ItemStack.EMPTY).getDescription());
 	}
 
 	@Override

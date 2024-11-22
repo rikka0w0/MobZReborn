@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
 import net.mobz.MobZ;
+import net.mobz.MobZRarity;
 import net.mobz.init.MobZItems;
 
 public class SpeedShoeBase extends ArmorItem {
@@ -73,7 +74,7 @@ public class SpeedShoeBase extends ArmorItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.speed_boots.tooltip"));
+		MobZRarity.UNCOMMON.addToTooltip(tooltip);
 	}
 
 	@Override

@@ -16,12 +16,12 @@ public class NeoforgeSpawnEgg extends DeferredSpawnEggItem {
 
 	@Override
 	protected String getOrCreateDescriptionId() {
-		return "item.mobz.showegg";
+		return "item.mobz.spawn_egg_of";
 	}
 
 	@Override
 	public Component getDescription() {
-		return Component.translatable("item.mobz.spawnegg", this.getDefaultType().getDescription().getString());
+		return Component.translatable("item.mobz.spawn_egg_of", this.getDefaultType().getDescription());
 	}
 
 	@Override

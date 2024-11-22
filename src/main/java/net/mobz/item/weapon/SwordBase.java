@@ -3,6 +3,7 @@ package net.mobz.item.weapon;
 import java.util.List;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.mobz.MobZRarity;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +17,6 @@ public class SwordBase extends SwordItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.rainbow_sword.tooltip"));
+		MobZRarity.LEGENDARY.addToTooltip(tooltip);
 	}
 }

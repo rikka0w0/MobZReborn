@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
+import net.mobz.MobZRarity;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZItems;
 
@@ -66,7 +67,7 @@ public class BossArmorBase extends ArmorItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.boss_armor.tooltip"));
+		MobZRarity.EPIC.addToTooltip(tooltip);
     }
 
     @Override

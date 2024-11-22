@@ -150,7 +150,6 @@ public class ToadEntityModel extends EntityModel<ToadEntity> {
 		this.tongueDistance = entity.tongueDistance;
 		this.targetTongueDistance = entity.targetTongueDistance;
 		this.eyeHeight = entity.getEyeHeight();
-		this.renderToBuffer(null, null, 0, 0, 0);
 	}
 
 	@Override

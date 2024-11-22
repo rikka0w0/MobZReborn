@@ -12,6 +12,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 
 public class LilithBow extends BowItem {
     public LilithBow(Item.Properties properties) {
@@ -20,8 +21,7 @@ public class LilithBow extends BowItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-		String str = this.getDescriptionId(itemStack);
-		tooltip.add(Component.translatable(str+".tooltip"));
+		MobZRarity.RARE.addToTooltip(tooltip);
 	}
 
     @Override

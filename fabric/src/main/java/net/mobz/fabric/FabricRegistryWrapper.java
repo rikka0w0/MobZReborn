@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -33,6 +34,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 import net.mobz.IAbstractedAPI;
 import net.mobz.MobZ;
@@ -46,8 +48,9 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab, Supplier<T> constructor, Consumer<T> setter) {
-		T item = constructor.get();
+	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab,
+			Function<Item.Properties, T> constructor, Consumer<T> setter) {
+		T item = constructor.apply(new Item.Properties());
 		Registry.register(BuiltInRegistries.ITEM, res(name), item);
 
 		if (tab != null) {
@@ -64,16 +67,18 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor, Consumer<T> setter) {
-		T block = constructor.get();
-		BlockItem blockItem = blockItemConstructor.apply(block);
+	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab,
+			Function<BlockBehaviour.Properties, T> blockConstructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor,
+			Consumer<T> setter) {
+		T block = blockConstructor.apply(BlockBehaviour.Properties.of());
 		ResourceLocation regName = res(name);
 		Registry.register(BuiltInRegistries.BLOCK, regName, block);
-		Registry.register(BuiltInRegistries.ITEM, regName, blockItem);
+		Supplier<BlockItem> blockItemSupplier = this.registerItem(name, null,
+				(props) -> blockItemConstructor.apply(block, props), null);
 
 		if (tab != null) {
-			tabContents.get(tab).add(() -> blockItem);
+			tabContents.get(tab).add(blockItemSupplier);
 		}
 
 		if (setter != null) {
@@ -82,6 +87,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 				return block;
 			});
 		}
+
 		return () -> block;
 	}
 

@@ -1,5 +1,6 @@
 package net.mobz;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -22,27 +23,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 
 public interface IAbstractedAPI {
-	<T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor, @Nullable Consumer<T> setter);
-	default <T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor) {
-		return registerItem(name, tab, constructor, null);
-	}
+	<T extends Item> Supplier<T> registerItem(String name, @Nullable CreativeModeTab tab, Function<Item.Properties, T> constructor, @Nullable Consumer<T> setter);
 
-	<T extends Block> Supplier<T> registerBlock(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor, @Nullable Consumer<T> setter);
-	default <T extends Block> Supplier<T> registerBlock(String name, @Nullable CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor) {
-		return registerBlock(name, tab, constructor, blockItemConstructor, null);
-	}
+	<T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Function<BlockBehaviour.Properties, T> blockConstructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor, Consumer<T> setter);
 
 	<E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name, Supplier<T> constructor,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier, @Nullable Consumer<T> setter);
-	default <E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name, Supplier<T> constructor,
-			Supplier<AttributeSupplier.Builder> attribModifierSupplier) {
-		return registerEntityType(name, constructor, attribModifierSupplier);
-	}
 
 	Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
 	default Supplier<Holder<SoundEvent>> registerSound(String modid, String name) {

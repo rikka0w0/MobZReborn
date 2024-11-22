@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 
 public class LevitationOrb extends Item {
 	public LevitationOrb(Item.Properties properties) {
@@ -22,8 +23,8 @@ public class LevitationOrb extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
 			TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.levitation_orb.tooltip"));
-		tooltip.add(Component.translatable("item.mobz.levitation_orb.tooltip2"));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
+		MobZRarity.LEGENDARY.addToTooltip(tooltip);
 	}
 
 	/**

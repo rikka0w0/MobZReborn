@@ -20,7 +20,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -112,8 +111,8 @@ public class MetalGolem extends IronGolem {
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
-		Item item = itemStack.getItem();
-		if (item != MobZItems.HARDENEDMETAL_INGOT) {
+
+		if (!itemStack.is(MobZItems.HARDENEDMETAL_INGOT.get())) {
 			return InteractionResult.PASS;
 		} else {
 			float f = this.getHealth();

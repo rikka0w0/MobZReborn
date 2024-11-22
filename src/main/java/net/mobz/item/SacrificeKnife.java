@@ -1,12 +1,8 @@
 package net.mobz.item;
 
-import java.util.List;
-
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,12 +16,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
 import net.mobz.MobZ;
+import net.mobz.MobZRarity;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
 
-public class SacrificeKnife extends Item {
+public class SacrificeKnife extends SimpleItem {
 	public SacrificeKnife(Properties settings) {
-		super(settings.durability(5000));
+		super(settings.stacksTo(1).durability(5000), MobZRarity.UNCOMMON, true);
 	}
 
 	public static int getBloodCounter(ItemStack itemStack) {
@@ -39,13 +36,6 @@ public class SacrificeKnife extends Item {
 	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
 		itemStack.setDamageValue(bloodCounter);
 		itemStack.set(DataComponents.OMINOUS_BOTTLE_AMPLIFIER, dryingNumber);
-	}
-
-	@Override
-	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
-			TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip"));
-		tooltip.add(Component.translatable("item.mobz.sacrifice_knife.tooltip2"));
 	}
 
 	@Override

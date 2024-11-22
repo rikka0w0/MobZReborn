@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.mobz.MobZRarity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Tier;
@@ -21,7 +22,7 @@ public class FrozenSwordBase extends SwordItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.frozen_sword.tooltip"));
+		MobZRarity.UNCOMMON.addToTooltip(tooltip);
 	}
 
 	@Override

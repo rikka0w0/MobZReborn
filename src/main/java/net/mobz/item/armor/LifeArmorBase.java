@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
 import net.mobz.MobZ;
+import net.mobz.MobZRarity;
 import net.mobz.init.MobZItems;
 
 public class LifeArmorBase extends ArmorItem {
@@ -65,7 +66,7 @@ public class LifeArmorBase extends ArmorItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.mobz.life_armor.tooltip"));
+		MobZRarity.RARE.addToTooltip(tooltip);
     }
 
 	@Override

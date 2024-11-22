@@ -1,6 +1,5 @@
 package net.mobz.init;
 
-import net.minecraft.world.item.Item;
 import net.mobz.MobZ;
 import net.mobz.item.SimpleItem;
 
@@ -47,7 +46,7 @@ public class MobZIcons {
 
 	static {
 		for (String headName: headNames) {
-			MobZ.platform.registerItem(headName, null, () -> new SimpleItem(new Item.Properties()));
+			MobZ.platform.registerItem(headName, null, SimpleItem::new, null);
 		}
 	}
 }

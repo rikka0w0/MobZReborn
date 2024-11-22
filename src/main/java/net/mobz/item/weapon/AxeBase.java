@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import net.minecraft.world.item.TooltipFlag;
+import net.mobz.MobZRarity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Tier;
@@ -23,7 +24,7 @@ public class AxeBase extends SwordItem {
 
 	@Override
 	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable("item.mobz.eragons_axe.tooltip"));
+		MobZRarity.RARE.addToTooltip(tooltip);
 	}
 
 	private final static List<Set<Supplier<MobEffectInstance>>> EFFECTS = List.of(

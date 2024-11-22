@@ -10,12 +10,13 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
+import net.mobz.MobZRarity;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
 
 public class WhiteBag extends SimpleItem {
     public WhiteBag(Properties settings) {
-        super(settings);
+        super(settings, MobZRarity.LEGENDARY);
     }
 
     @Override

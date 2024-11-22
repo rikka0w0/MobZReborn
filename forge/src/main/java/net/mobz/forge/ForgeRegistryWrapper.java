@@ -7,12 +7,14 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -60,9 +62,10 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 		TABS.register(eventBus);
 	}
 
-	@Override
-	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab, Supplier<T> constructor, Consumer<T> setter) {
-		RegistryObject<T> regObj = ITEMS.register(name, constructor);
+	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab,
+			Function<Item.Properties, T> constructor, Consumer<T> setter) {
+		RegistryObject<T> regObj = ITEMS.register(name,
+				() -> constructor.apply(new Item.Properties()));
 
 		if (tab != null) {
 			tabContents.get(tab).add(regObj);
@@ -79,9 +82,12 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab, Supplier<T> constructor,
-			Function<T, BlockItem> blockItemConstructor, Consumer<T> setter) {
-		RegistryObject<T> regObj = BLOCKS.register(name, constructor);
+	public <T extends Block> Supplier<T> registerBlock(String name, CreativeModeTab tab,
+			Function<BlockBehaviour.Properties, T> blockConstructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor,
+			Consumer<T> setter) {
+		RegistryObject<T> regObj = BLOCKS.register(name,
+				() -> blockConstructor.apply(BlockBehaviour.Properties.of()));
 
 		if (tab != null) {
 			tabContents.get(tab).add(regObj);
@@ -94,7 +100,11 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 				return val;
 			});
 		}
-		ITEMS.register(name, () -> blockItemConstructor.apply(regObj.get()));
+
+		this.registerItem(name, null,
+				(props) -> blockItemConstructor.apply(regObj.get(), props)
+				, null);
+
 		return regObj;
 	}
 

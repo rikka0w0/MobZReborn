@@ -2,8 +2,6 @@ package net.mobz.init;
 
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 
 import java.util.function.Supplier;
 
@@ -306,9 +304,10 @@ public class MobZEntities {
 	private static <T extends Mob> Supplier<EntityType<T>> register(EntityType.Builder<T> entityTypeBuilder, String name,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int eggColor1, int eggColor2) {
-		Supplier<EntityType<T>> entityTypeSupplier = MobZ.platform.registerEntityType(name, ()->entityTypeBuilder.build(name), attribModifierSupplier, null);
-		Supplier<SpawnEggItem> spawnEgg = MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, new Item.Properties());
-		MobZ.platform.registerItem("spawn_" + name, MobZTabs.eggs, spawnEgg, null);
+		Supplier<EntityType<T>> entityTypeSupplier =
+				MobZ.platform.registerEntityType(name, () -> entityTypeBuilder.build(name), attribModifierSupplier, null);
+		MobZ.platform.registerItem("spawn_" + name, MobZTabs.eggs,
+				(props) -> MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, props).get(), null);
 
 		return entityTypeSupplier;
 	}
