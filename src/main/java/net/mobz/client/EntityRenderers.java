@@ -6,6 +6,7 @@ import net.mobz.ILayerDefinitionRegistration;
 import net.mobz.client.renderer.entity.*;
 import net.mobz.client.renderer.model.TadpoleEntityModel;
 import net.mobz.client.renderer.model.ToadEntityModel;
+import net.mobz.client.renderer.model.WaspModel;
 import net.mobz.init.MobZEntities;
 
 public class EntityRenderers {
@@ -77,5 +78,6 @@ public class EntityRenderers {
 	public static void registerLayerDefinitions(ILayerDefinitionRegistration registry) {
 		registry.register(TadpoleEntityModel.MODEL_LAYER_LOC, TadpoleEntityModel::createBodyLayer);
 		registry.register(ToadEntityModel.MODEL_LAYER_LOC, ToadEntityModel::createBodyLayer);
+		registry.register(WaspModel.MODEL_LAYER_LOC, WaspModel::createBodyLayer);
 	}
 }
