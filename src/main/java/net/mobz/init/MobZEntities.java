@@ -302,19 +302,19 @@ public class MobZEntities {
 	 * name of the spawn egg will be "spawn_boss".
 	 * @param entityTypeBuilder
 	 * @param attribModifierSupplier set to null to skip custom attrib modifier injection
-	 * @param eggColor1
-	 * @param eggColor2
+	 * @param backgroundColor
+	 * @param highlightColor
 	 */
 	private static <T extends Mob> Supplier<EntityType<T>> register(EntityType.Builder<T> entityTypeBuilder, String name,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
-			int eggColor1, int eggColor2) {
+			int backgroundColor, int highlightColor) {
 		ResourceKey<EntityType<?>> resKey = MobZ.resKey(Registries.ENTITY_TYPE, name);
 		String spawnEggLocalizationKey = Util.makeDescriptionId("entity", resKey.location());
 		Supplier<EntityType<T>> entityTypeSupplier =
 				MobZ.platform.registerEntityType(name, () -> entityTypeBuilder.build(resKey), attribModifierSupplier, null);
 
 		MobZ.platform.registerItem("spawn_" + name, MobZTabs.EGGS,
-				(props) -> MobZ.platform.spawnEggOf(entityTypeSupplier, eggColor1, eggColor2, props.overrideDescription(spawnEggLocalizationKey)).get(),
+				(props) -> MobZ.platform.spawnEggOf(entityTypeSupplier, backgroundColor, highlightColor, props.overrideDescription(spawnEggLocalizationKey)).get(),
 				null);
 
 		return entityTypeSupplier;

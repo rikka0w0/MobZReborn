@@ -186,7 +186,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	@Override
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
-		return () -> new SpawnEggItem(type.get(), highlightColor, highlightColor, props) {
+		return () -> new SpawnEggItem(type.get(), backgroundColor, highlightColor, props) {
 			@Override
 			public Component getName(ItemStack stack) {
 				return Component.translatable("item.mobz.spawn_egg_of", this.getName());

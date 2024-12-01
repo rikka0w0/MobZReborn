@@ -184,7 +184,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	@Override
 	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
 			int highlightColor, Item.Properties props) {
-		return () -> new ForgeSpawnEggItem(type, highlightColor, highlightColor, props) {
+		return () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor, props) {
 			@Override
 			public Component getName(ItemStack stack) {
 				return Component.translatable("item.mobz.spawn_egg_of", this.getName());
