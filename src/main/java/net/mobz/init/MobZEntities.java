@@ -287,8 +287,8 @@ public class MobZEntities {
 			.sized(3.2F, 2.4F).clientTrackingRange(12), "toad_giant", ToadEntity::createEntityAttributes, 0x4b8252, 0x614d33);
 
 	public static final Supplier<EntityType<Wasp>> WASP = register(EntityType.Builder
-			.of(Wasp::new, MobCategory.CREATURE)
-			.sized(0.7F, 0.6F).clientTrackingRange(12), "wasp", Wasp::createAttributes, 0x4b8252, 0x614d33);
+			.of(Wasp::new, MobCategory.MONSTER)
+			.sized(0.85F, 0.6F).clientTrackingRange(12), "wasp", Wasp::createAttributes, 0xEDC343, 0x43241B);
 
 	private static <T extends Entity> Supplier<EntityType<T>> register(EntityType.Builder<T> entityTypeBuilder, String name) {
 		ResourceKey<EntityType<?>> resKey = MobZ.resKey(Registries.ENTITY_TYPE, name);

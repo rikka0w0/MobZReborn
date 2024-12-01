@@ -1,5 +1,9 @@
 package net.mobz.client.renderer.model;
 
+import net.minecraft.client.animation.AnimationChannel;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.Keyframe;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -17,100 +21,133 @@ import net.mobz.client.renderer.entity.state.WaspRenderState;
 public class WaspModel extends EntityModel<WaspRenderState> {
 	public final static ModelLayerLocation MODEL_LAYER_LOC = new ModelLayerLocation(MobZ.resLoc("wasp"), "main");
 
+	public static final AnimationDefinition FLYING_WINGS_ANIMATION = AnimationDefinition.Builder.withLength(0.1F).looping()
+			.addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+							new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, -60.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(0.05F, KeyframeAnimations.degreeVec(15.0F, 15.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(0.1F, KeyframeAnimations.degreeVec(0.0F, -60.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR)))
+			.addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+							new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 60.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(0.05F, KeyframeAnimations.degreeVec(15.0F, -15.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(0.1F, KeyframeAnimations.degreeVec(0.0F, 60.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR)))
+			.build();
+
+	public static final AnimationDefinition RESTING_WINGS_ANIMATION = AnimationDefinition.Builder.withLength(3.0F).looping()
+			.addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+							new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(1.4583F, KeyframeAnimations.degreeVec(0.0F, 10.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR)))
+			.addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+							new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(1.4583F, KeyframeAnimations.degreeVec(0.0F, -10.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR),
+							new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F),
+									AnimationChannel.Interpolations.LINEAR)))
+			.build();
+
     public static final MeshTransformer BABY_TRANSFORMER = MeshTransformer.scaling(0.5F);
-    private static final String BONE = "bone";
-    private static final String STINGER = "stinger";
-    private static final String LEFT_ANTENNA = "left_antenna";
-    private static final String RIGHT_ANTENNA = "right_antenna";
-    private static final String FRONT_LEGS = "front_legs";
-    private static final String MIDDLE_LEGS = "middle_legs";
-    private static final String BACK_LEGS = "back_legs";
     private final ModelPart bone;
-    private final ModelPart rightWing;
-    private final ModelPart leftWing;
+
+    private final ModelPart leftAntenna;
+    private final ModelPart rightAntenna;
+
     private final ModelPart frontLeg;
     private final ModelPart midLeg;
     private final ModelPart backLeg;
+
+    private final ModelPart tail;
+    private final ModelPart tailPart1;
+    private final ModelPart tailPart2;
     private final ModelPart stinger;
-    private final ModelPart leftAntenna;
-    private final ModelPart rightAntenna;
+
     private float rollAmount;
 
     public WaspModel(ModelPart root) {
         super(root);
-        this.bone = root.getChild(BONE);
-        ModelPart modelpart = this.bone.getChild("body");
-        this.stinger = modelpart.getChild("stinger");
-        this.leftAntenna = modelpart.getChild("left_antenna");
-        this.rightAntenna = modelpart.getChild("right_antenna");
-        this.rightWing = this.bone.getChild("right_wing");
-        this.leftWing = this.bone.getChild("left_wing");
-        this.frontLeg = this.bone.getChild("front_legs");
-        this.midLeg = this.bone.getChild("middle_legs");
-        this.backLeg = this.bone.getChild("back_legs");
+        this.bone = root.getChild("bone");
+
+        ModelPart head = this.bone.getChild("head");
+        this.leftAntenna = head.getChild("left_antenna");
+        this.rightAntenna = head.getChild("right_antenna");
+
+        ModelPart body = this.bone.getChild("body");
+        this.frontLeg = body.getChild("front_legs");
+        this.midLeg = body.getChild("middle_legs");
+        this.backLeg = body.getChild("back_legs");
+
+        this.tail = this.bone.getChild("tail");
+        this.tailPart1 = this.tail.getChild("subpart1");
+        this.tailPart2 = this.tailPart1.getChild("subpart2");
+        this.stinger = this.tailPart2.getChild("stinger");
     }
 
-    public static LayerDefinition createBodyLayer() {
-        MeshDefinition meshdefinition = new MeshDefinition();
-        PartDefinition partdefinition = meshdefinition.getRoot();
-        PartDefinition partdefinition1 = partdefinition.addOrReplaceChild(BONE, CubeListBuilder.create(), PartPose.offset(0.0F, 19.0F, 0.0F));
-        PartDefinition partdefinition2 = partdefinition1.addOrReplaceChild(
-            "body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -4.0F, -5.0F, 7.0F, 7.0F, 10.0F), PartPose.ZERO
-        );
-        partdefinition2.addOrReplaceChild("stinger", CubeListBuilder.create().texOffs(26, 7).addBox(0.0F, -1.0F, 5.0F, 0.0F, 1.0F, 2.0F), PartPose.ZERO);
-        partdefinition2.addOrReplaceChild(
-            "left_antenna", CubeListBuilder.create().texOffs(2, 0).addBox(1.5F, -2.0F, -3.0F, 1.0F, 2.0F, 3.0F), PartPose.offset(0.0F, -2.0F, -5.0F)
-        );
-        partdefinition2.addOrReplaceChild(
-            "right_antenna", CubeListBuilder.create().texOffs(2, 3).addBox(-2.5F, -2.0F, -3.0F, 1.0F, 2.0F, 3.0F), PartPose.offset(0.0F, -2.0F, -5.0F)
-        );
-        CubeDeformation cubedeformation = new CubeDeformation(0.001F);
-        partdefinition1.addOrReplaceChild(
-            "right_wing",
-            CubeListBuilder.create().texOffs(0, 18).addBox(-9.0F, 0.0F, 0.0F, 9.0F, 0.0F, 6.0F, cubedeformation),
-            PartPose.offsetAndRotation(-1.5F, -4.0F, -3.0F, 0.0F, -0.2618F, 0.0F)
-        );
-        partdefinition1.addOrReplaceChild(
-            "left_wing",
-            CubeListBuilder.create().texOffs(0, 18).mirror().addBox(0.0F, 0.0F, 0.0F, 9.0F, 0.0F, 6.0F, cubedeformation),
-            PartPose.offsetAndRotation(1.5F, -4.0F, -3.0F, 0.0F, 0.2618F, 0.0F)
-        );
-        partdefinition1.addOrReplaceChild(
-            "front_legs", CubeListBuilder.create().addBox("front_legs", -5.0F, 0.0F, 0.0F, 7, 2, 0, 26, 1), PartPose.offset(1.5F, 3.0F, -2.0F)
-        );
-        partdefinition1.addOrReplaceChild(
-            "middle_legs", CubeListBuilder.create().addBox("middle_legs", -5.0F, 0.0F, 0.0F, 7, 2, 0, 26, 3), PartPose.offset(1.5F, 3.0F, 0.0F)
-        );
-        partdefinition1.addOrReplaceChild(
-            "back_legs", CubeListBuilder.create().addBox("back_legs", -5.0F, 0.0F, 0.0F, 7, 2, 0, 26, 5), PartPose.offset(1.5F, 3.0F, 2.0F)
-        );
-        return LayerDefinition.create(meshdefinition, 64, 64);
-    }
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
 
-    public void setupAnim(WaspRenderState p_362113_) {
-        super.setupAnim(p_362113_);
-        this.rollAmount = p_362113_.rollAmount;
-        this.stinger.visible = p_362113_.hasStinger;
-        if (!p_362113_.isOnGround) {
-            float f = p_362113_.ageInTicks * 120.32113F * (float) (Math.PI / 180.0);
-            this.rightWing.yRot = 0.0F;
-            this.rightWing.zRot = Mth.cos(f) * (float) Math.PI * 0.15F;
-            this.leftWing.xRot = this.rightWing.xRot;
-            this.leftWing.yRot = this.rightWing.yRot;
-            this.leftWing.zRot = -this.rightWing.zRot;
+		PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, -5.0F));
+
+		PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 11).addBox(-3.0F, -7.0F, 1.0F, 6.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
+		.texOffs(28, 18).addBox(-1.5F, -4.0F, 7.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition front_legs = body.addOrReplaceChild("front_legs", CubeListBuilder.create().texOffs(50, 14).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 1.0F));
+
+		PartDefinition middle_legs = body.addOrReplaceChild("middle_legs", CubeListBuilder.create().texOffs(50, 18).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 4.0F));
+
+		PartDefinition back_legs = body.addOrReplaceChild("back_legs", CubeListBuilder.create().texOffs(50, 22).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 7.0F));
+
+		PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(22, 7).addBox(-17.0F, 0.0F, -5.0F, 18.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -7.0F, 4.0F, 0.3054F, 1.1345F, 0.0F));
+
+		PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(22, 0).addBox(-1.0F, 0.0F, -5.0F, 18.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, -7.0F, 4.0F, 0.3054F, -1.1345F, 0.0F));
+
+		PartDefinition head = bone.addOrReplaceChild("head", CubeListBuilder.create().texOffs(2, 0).addBox(-3.0F, -8.0F, -3.0F, 6.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition left_antenna = head.addOrReplaceChild("left_antenna", CubeListBuilder.create().texOffs(28, 22).addBox(0.0F, -2.0F, -3.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, -7.0F, -3.0F, 0.2182F, 0.0F, 0.0F));
+
+		PartDefinition right_antenna = head.addOrReplaceChild("right_antenna", CubeListBuilder.create().texOffs(37, 22).addBox(0.0F, -2.0F, -3.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5F, -7.0F, -3.0F, 0.2182F, 0.0F, 0.0F));
+
+		PartDefinition right_fang = head.addOrReplaceChild("right_fang", CubeListBuilder.create().texOffs(37, 29).addBox(-1.5F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, -3.0F, -3.0F, 0.0F, 0.0F, -0.3054F));
+
+		PartDefinition left_fang = head.addOrReplaceChild("left_fang", CubeListBuilder.create().texOffs(30, 29).addBox(-0.5F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, -3.0F, -3.0F, 0.0F, 0.0F, 0.2618F));
+
+		PartDefinition tail = bone.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(2, 24).addBox(-3.0F, -6.0F, 0.0F, 6.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 7.0F, -0.3491F, 0.0F, 0.0F));
+
+		PartDefinition subpart1 = tail.addOrReplaceChild("subpart1", CubeListBuilder.create().texOffs(4, 35).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -5.0F, 4.0F, -0.2618F, 0.0F, 0.0F));
+
+		PartDefinition subpart2 = subpart1.addOrReplaceChild("subpart2", CubeListBuilder.create().texOffs(7, 44).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 1.0F, 4.0F, -0.3491F, 0.0F, 0.0F));
+
+		PartDefinition stinger = subpart2.addOrReplaceChild("stinger", CubeListBuilder.create().texOffs(10, 49).addBox(0.0F, -5.0F, 18.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 6.0F, -15.0F));
+
+		return LayerDefinition.create(meshdefinition, 64, 64);
+	}
+
+    public void setupAnim(WaspRenderState renderState) {
+        super.setupAnim(renderState);
+
+        this.animate(renderState.flyAnimationState, FLYING_WINGS_ANIMATION, renderState.ageInTicks, 1.0F);
+        this.animate(renderState.restAnimationState, RESTING_WINGS_ANIMATION, renderState.ageInTicks, 1.0F);
+
+        this.rollAmount = renderState.rollAmount;
+        this.stinger.visible = renderState.hasStinger;
+
+        if (!renderState.isOnGround) {
             this.frontLeg.xRot = (float) (Math.PI / 4);
             this.midLeg.xRot = (float) (Math.PI / 4);
             this.backLeg.xRot = (float) (Math.PI / 4);
-        }
-
-        if (!p_362113_.isAngry && !p_362113_.isOnGround) {
-            float f1 = Mth.cos(p_362113_.ageInTicks * 0.18F);
-            this.bone.xRot = 0.1F + f1 * (float) Math.PI * 0.025F;
-            this.leftAntenna.xRot = f1 * (float) Math.PI * 0.03F;
-            this.rightAntenna.xRot = f1 * (float) Math.PI * 0.03F;
-            this.frontLeg.xRot = -f1 * (float) Math.PI * 0.1F + (float) (Math.PI / 8);
-            this.backLeg.xRot = -f1 * (float) Math.PI * 0.05F + (float) (Math.PI / 4);
-            this.bone.y = this.bone.y - Mth.cos(p_362113_.ageInTicks * 0.18F) * 0.9F;
+        } else {
+            tail.xRot = -7.5F * (float) (Math.PI / 180);
+            tailPart1.xRot = -7.5F * (float) (Math.PI / 180);
+            tailPart2.xRot = -7.5F * (float) (Math.PI / 180);
         }
 
         if (this.rollAmount > 0.0F) {

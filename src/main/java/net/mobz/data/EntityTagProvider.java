@@ -37,7 +37,8 @@ public class EntityTagProvider extends TagsProvider<EntityType<?>> {
 			MobZEntities.TINY_SPIDER.get(),
 			MobZEntities.BLUE_SPIDER.get(),
 			MobZEntities.SMALL_SPIDER.get(),
-			MobZEntities.PURPLE_SPIDER.get()
+			MobZEntities.PURPLE_SPIDER.get(),
+			MobZEntities.WASP.get()
 		);
 	}
 }

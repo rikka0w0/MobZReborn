@@ -19,6 +19,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,6 +57,9 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
 	protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Wasp.class,
 			EntityDataSerializers.BYTE);
+
+	public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState restAnimationState = new AnimationState();
 
 	private float rollAmount;
 	private float rollAmountO;
@@ -154,6 +158,14 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	public void tick() {
 		super.tick();
 		this.updateRollAmount();
+
+		if (this.onGround()) {
+			this.flyAnimationState.stop();
+			this.restAnimationState.startIfStopped(this.tickCount);
+		} else {
+			this.flyAnimationState.startIfStopped(this.tickCount);
+			this.restAnimationState.stop();
+		}
 	}
 
 	void pathfindRandomlyTowards(BlockPos p_27881_) {
