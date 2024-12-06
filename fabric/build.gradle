@@ -62,9 +62,12 @@ dependencies {
 	}
 
 	// Fabric Shield Lib
-	modImplementation "com.github.StellarWind22:Fabric-Shield-Lib:v${project.fabric_shield_lib_version}"
-	modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"
-	modImplementation "com.github.Chocohead:Fabric-ASM:v${project.fabricasm_version}"
+//	modImplementation "com.github.StellarWind22:Fabric-Shield-Lib:v${project.fabric_shield_lib_version}"
+//	modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"
+//	modImplementation "com.github.Chocohead:Fabric-ASM:v${project.fabricasm_version}"
+
+	// Mixin Extras
+	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${mixinextras_version}")))
 
 	// javax.annotation.Nullable
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.1'

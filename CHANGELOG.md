@@ -10,3 +10,4 @@
 10. Frost balls shot by a Frost Blaze no longer look on fire
 11. Toad tongue now uses ModelPart
 12. Fix a Wasp bug which causes vanilla bee fail to spawn
+13. Give wasp a new model, texture not ready yet
