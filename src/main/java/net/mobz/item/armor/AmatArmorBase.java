@@ -4,6 +4,8 @@ import java.util.EnumMap;
 
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -16,7 +18,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 
@@ -39,7 +41,8 @@ public class AmatArmorBase extends SimpleItem {
 			map.put(ArmorType.HELMET, 2);
 		});
 
-	public static final ResourceLocation EQUIPMENT_MODEL_AMAT = MobZ.resLoc("amat");
+	public static final ResourceKey<EquipmentAsset> EQUIPMENT_MODEL_AMAT =
+			ResourceKey.create(EquipmentAssets.ROOT_ID, MobZ.resLoc("amat"));
 
 	public static final ArmorMaterial MATERIAL = new ArmorMaterial(
 			34,		// Durability

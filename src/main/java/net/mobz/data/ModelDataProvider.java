@@ -1,60 +1,65 @@
 package net.mobz.data;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.Maps;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
+import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.Variant;
+import net.minecraft.client.data.models.blockstates.VariantProperties;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelInstance;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.item.ClientItem;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
+import net.minecraft.client.renderer.item.properties.numeric.Damage;
+import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
 import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.blockstates.BlockStateGenerator;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplate;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+
 import net.mobz.MobZ;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZIcons;
 import net.mobz.init.MobZItems;
 import net.mobz.init.MobZWeapons;
+import net.mobz.item.MobZSpawnEgg;
+import net.mobz.item.SacrificeKnife;
 
 public class ModelDataProvider implements DataProvider {
-	public final static ModelTemplate BOW_PULLING = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/bow")),
-			Optional.empty(), TextureSlot.LAYER0);
-
     private final PackOutput.PathProvider blockStatePathProvider;
+    private final PackOutput.PathProvider itemInfoPathProvider;
 	private final PackOutput.PathProvider modelPathProvider;
 	private final Registry<Item> itemRegistry;
 	private final Predicate<ResourceLocation> existenceChecker;
 
+	protected Map<ResourceLocation, ModelInstance> models = new HashMap<>();
+	protected Map<Item, ClientItem> itemStateMap = new HashMap<>();
+	protected Map<Block, BlockStateGenerator> blockStateMap = new HashMap<>();
+
 	public ModelDataProvider(PackOutput packOutput, Registry<Item> itemRegistry, @Nullable Predicate<ResourceLocation> existenceChecker) {
-        this.blockStatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
+		this.blockStatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
+		this.itemInfoPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
 		this.modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
 		this.itemRegistry = itemRegistry;
-		this.existenceChecker = (existenceChecker == null) ? resLoc->true : existenceChecker;
+		this.existenceChecker = (existenceChecker == null) ? resLoc -> true : existenceChecker;
 	}
 
 	@Override
@@ -62,193 +67,245 @@ public class ModelDataProvider implements DataProvider {
 		return "Item models for " + MobZ.MODID;
 	}
 
-	private void collect(Builder builder) {
+	protected void collect() {
 		// Spawn Eggs
 		this.itemRegistry.stream()
 			.filter((item) -> this.itemRegistry.getKey(item).getNamespace().equals(MobZ.MODID))
-			.filter((item) -> item instanceof SpawnEggItem)
-			.forEach((item) -> builder.spawnEgg((SpawnEggItem) item));
+			.filter((item) -> item instanceof MobZSpawnEgg)
+			.map((item) -> (MobZSpawnEgg)item)
+			.forEach(this::spawnEggMobZ);
 
 		// Advancement Icons
 		for (String headName: MobZIcons.headNames) {
-			builder.simpleItem(headName);
+			ResourceLocation itemResLoc = MobZ.resLoc(headName);
+			Item headItem = this.itemRegistry.getValue(itemResLoc);
+			this.simpleItem(headItem);
 		}
 
 		// Items
-		builder.simpleItem(MobZItems.AMAT_INGOT.get());
-		builder.simpleItem(MobZItems.BEAR_LEATHER.get());
-		builder.simpleItem(MobZItems.BOSS_INGOT.get());
-		builder.simpleItem(MobZItems.FROZEN_POWDER.get());
-		builder.simpleItem(MobZItems.HARDENEDMETAL_INGOT.get());
+		this.simpleItem(MobZItems.AMAT_INGOT.get());
+		this.simpleItem(MobZItems.BEAR_LEATHER.get());
+		this.simpleItem(MobZItems.BOSS_INGOT.get());
+		this.simpleItem(MobZItems.FROZEN_POWDER.get());
+		this.simpleItem(MobZItems.HARDENEDMETAL_INGOT.get());
 
-		builder.simpleItem(MobZItems.IMMUNITY_ORB.get());
-		builder.simpleItem(MobZItems.LEVITATION_ORB.get());
-		builder.simpleItem(MobZItems.ROTTEN_FLESH.get());
-		for (int i = 1; i<=4; i++) {
-			builder.simpleItem("sacrifice_knife_blood" + i);
-			builder.simpleItem("sacrifice_knife_blood" + i + "dry1");
-			builder.simpleItem("sacrifice_knife_blood" + i + "dry2");
-		}
+		this.simpleItem(MobZItems.IMMUNITY_ORB.get());
+		this.simpleItem(MobZItems.LEVITATION_ORB.get());
+		this.simpleItemWithExistingModel(MobZItems.PILLAGER_STAFF.get());
+		this.simpleItem(MobZItems.ROTTEN_FLESH.get());
+		this.sacrificeKnife(MobZItems.SACRIFICE_KNIFE.get());
 
-		builder.bowPulling("lilith_bow_pulling", 3);
-		builder.simpleItem(MobZItems.SEAL_KEY.get());
-		builder.simpleItem(MobZItems.SPAWN_EGG.get());
-		builder.simpleItem(MobZItems.WHITE_BAG.get());
+		this.vanillaBow(MobZItems.LILITH_BOW.get());
+		this.simpleItem(MobZItems.SEAL_KEY.get());
+		this.shieldWithExistingModel(MobZItems.SHIELD.get());
+		this.simpleItem(MobZItems.SPAWN_EGG.get());
+		this.simpleItem(MobZItems.WHITE_BAG.get());
 
-		builder.simpleItem(MobZItems.WITHER_POWDER.get());
-		builder.simpleItem(MobZItems.MEDIVEAL_DISC.get());
-		builder.simpleItem(MobZItems.MEDIVEAL_DISC_2.get());
+		this.simpleItem(MobZItems.WITHER_POWDER.get());
+		this.simpleItem(MobZItems.MEDIVEAL_DISC.get());
+		this.simpleItem(MobZItems.MEDIVEAL_DISC_2.get());
+		this.simpleItem(MobZItems.TADPOLE_BUCKET.get());
 
 		// Weapon
-		builder.handheldItem(MobZWeapons.ARMORED_SWORD.get());
-		builder.handheldItem(MobZWeapons.BOSS_SWORD.get());
-		builder.handheldItem(MobZWeapons.POISON_SWORD.get());
-		builder.handheldItem(MobZWeapons.RAINBOW_SWORD.get());
-		builder.handheldItem(MobZWeapons.STONE_TOMAHAWK.get());
+		this.simpleItemWithExistingModel(MobZWeapons.ERAGONS_AXE.get());
+		this.handheldItem(MobZWeapons.ARMORED_SWORD.get());
+		this.handheldItem(MobZWeapons.BOSS_SWORD.get());
+		this.simpleItemWithExistingModel(MobZWeapons.FROZEN_SWORD.get());
+		this.handheldItem(MobZWeapons.POISON_SWORD.get());
+
+		this.handheldItem(MobZWeapons.RAINBOW_SWORD.get());
+		this.handheldItem(MobZWeapons.STONE_TOMAHAWK.get());
+		this.simpleItemWithExistingModel(MobZWeapons.WITHER_SWORD.get());
 
 		// Armor
-		builder.simpleItem(MobZArmors.AMAT_HELMET.get());
-		builder.simpleItem(MobZArmors.AMAT_CHESTPLATE.get());
-		builder.simpleItem(MobZArmors.AMAT_LEGGINGS.get());
-		builder.simpleItem(MobZArmors.AMAT_BOOTS.get());
-		builder.simpleItem(MobZArmors.BOSS_HELMET.get());
-		builder.simpleItem(MobZArmors.BOSS_CHESTPLATE.get());
-		builder.simpleItem(MobZArmors.BOSS_LEGGINGS.get());
-		builder.simpleItem(MobZArmors.BOSS_BOOTS.get());
-		builder.simpleItem(MobZArmors.LIFE_HELMET.get());
-		builder.simpleItem(MobZArmors.LIFE_CHESTPLATE.get());
-		builder.simpleItem(MobZArmors.LIFE_LEGGINGS.get());
-		builder.simpleItem(MobZArmors.LIFE_BOOTS.get());
-		builder.simpleItem(MobZArmors.SPEED_BOOTS.get());
-		builder.simpleItem(MobZArmors.SPEED2_BOOTS.get());
+		this.simpleItem(MobZArmors.AMAT_HELMET.get());
+		this.simpleItem(MobZArmors.AMAT_CHESTPLATE.get());
+		this.simpleItem(MobZArmors.AMAT_LEGGINGS.get());
+		this.simpleItem(MobZArmors.AMAT_BOOTS.get());
+		this.simpleItem(MobZArmors.BOSS_HELMET.get());
+		this.simpleItem(MobZArmors.BOSS_CHESTPLATE.get());
+		this.simpleItem(MobZArmors.BOSS_LEGGINGS.get());
+		this.simpleItem(MobZArmors.BOSS_BOOTS.get());
+		this.simpleItem(MobZArmors.LIFE_HELMET.get());
+		this.simpleItem(MobZArmors.LIFE_CHESTPLATE.get());
+		this.simpleItem(MobZArmors.LIFE_LEGGINGS.get());
+		this.simpleItem(MobZArmors.LIFE_BOOTS.get());
+		this.simpleItem(MobZArmors.SPEED_BOOTS.get());
+		this.simpleItem(MobZArmors.SPEED2_BOOTS.get());
 
 		// Blocks
-		builder.cubeAll(MobZBlocks.AMAT_BLOCK.get());
-		builder.cubeAll(MobZBlocks.BOSS_BLOCK.get());
-		builder.blockItem(MobZBlocks.BOSS_TROPHY.get());
-		builder.blockItem(MobZBlocks.ENDER_HEADER.get());
-		builder.cubeAll(MobZBlocks.HARDENED_METAL_BLOCK.get());
+		this.cubeAll(MobZBlocks.AMAT_BLOCK.get());
+		this.cubeAll(MobZBlocks.BOSS_BLOCK.get());
+		this.blockItem(MobZBlocks.BOSS_TROPHY.get());
+		this.blockItem(MobZBlocks.ENDER_HEADER.get());
+		this.cubeAll(MobZBlocks.HARDENED_METAL_BLOCK.get());
 
-		builder.blockItem(MobZBlocks.TOTEM_BASE.get());
-		builder.blockItem(MobZBlocks.TOTEM_MIDDLE.get());
-		builder.blockItem(MobZBlocks.TOTEM_TOP.get());
+		this.blockItem(MobZBlocks.TOTEM_BASE.get());
+		this.blockItem(MobZBlocks.TOTEM_MIDDLE.get());
+		this.blockItem(MobZBlocks.TOTEM_TOP.get());
+	}
+
+	protected void addItemModel(ResourceLocation modelPath, ModelInstance model) {
+		if (models.put(modelPath, model) != null) {
+			throw new IllegalStateException("Duplicate model definition for " + modelPath);
+		}
+	}
+
+	protected void addItemModelInfo(Item item, ItemModel.Unbaked unbakedItemModel) {
+    	ClientItem clientModel = new ClientItem(unbakedItemModel, ClientItem.Properties.DEFAULT);
+        if (itemStateMap.put(item, clientModel) != null) {
+            throw new IllegalStateException("Duplicate item model definition for " + item);
+        }
+	}
+
+	protected void addBlockState(BlockStateGenerator blockgen) {
+        Block block = blockgen.getBlock();
+        if (blockStateMap.put(block, blockgen) != null) {
+            throw new IllegalStateException("Duplicate blockstate definition for " + block);
+        }
+	}
+
+	@SuppressWarnings("deprecation")
+	protected Path itemStateToPath(Item item) {
+		return this.itemInfoPathProvider.json(item.builtInRegistryHolder().key().location());
+	}
+
+	@SuppressWarnings("deprecation")
+	protected Path blockStateToPath(Block block) {
+		return this.blockStatePathProvider.json(block.builtInRegistryHolder().key().location());
 	}
 
 	@Override
 	public CompletableFuture<?> run(CachedOutput pOutput) {
-        Map<ResourceLocation, Supplier<JsonElement>> modelMap = Maps.<ResourceLocation, Supplier<JsonElement>>newHashMap();
-		BiConsumer<ResourceLocation, Supplier<JsonElement>> outputConsumer = (resourceLocation, supplier) -> {
-			Supplier<JsonElement> supplier2 = modelMap.put(resourceLocation, supplier);
-			if (supplier2 != null) {
-				throw new IllegalStateException("Duplicate model definition for " + resourceLocation);
-			}
-		};
+		this.models.clear();
+		this.itemStateMap.clear();
+		this.blockStateMap.clear();
 
-
-        Map<Block, BlockStateGenerator> blockStateMap = Maps.newHashMap();
-		Consumer<BlockStateGenerator> blockStateOutput = (blockgen) -> {
-            Block block = blockgen.getBlock();
-            BlockStateGenerator blockstateGenerator = blockStateMap.put(block, blockgen);
-            if (blockstateGenerator != null) {
-                throw new IllegalStateException("Duplicate blockstate definition for " + block);
-            }
-		};
-
-		Builder builder = new Builder(outputConsumer, blockStateOutput, this.existenceChecker);
-
-		this.collect(builder);
+		// Populates the above three maps
+		this.collect();
 
 		return CompletableFuture.allOf(
-				saveCollection(pOutput, blockStateMap, block -> this.blockStatePathProvider.json(block.builtInRegistryHolder().key().location())),
-				saveCollection(pOutput, modelMap, this.modelPathProvider::json)
-				);
+				DataProvider.saveAll(pOutput, Supplier::get, this.modelPathProvider::json, this.models),
+				DataProvider.saveAll(pOutput, ClientItem.CODEC, this::itemStateToPath, this.itemStateMap),
+				DataProvider.saveAll(pOutput, Supplier::get, this::blockStateToPath, this.blockStateMap)
+			);
 	}
 
-	private <T> CompletableFuture<?> saveCollection(CachedOutput cachedOutput, Map<T, ? extends Supplier<JsonElement>> map, Function<T, Path> function) {
-		return CompletableFuture.allOf(map.entrySet().stream().map(entry -> {
-			Path path = function.apply(entry.getKey());
-			JsonElement jsonElement = (entry.getValue()).get();
-			return DataProvider.saveStable(cachedOutput, jsonElement, path);
-		}).toArray(CompletableFuture[]::new));
+	public static ResourceLocation getRealTextureLoc(ResourceLocation resLoc) {
+		return ResourceLocation.fromNamespaceAndPath(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
 	}
 
-	public static class Builder {
-		private final BiConsumer<ResourceLocation, Supplier<JsonElement>> outputConsumer;
-		private final Consumer<BlockStateGenerator> blockStateOutput;
-		private final Predicate<ResourceLocation> existenceChecker;
-
-		public Builder(BiConsumer<ResourceLocation, Supplier<JsonElement>> outputConsumer,
-				Consumer<BlockStateGenerator> blockStateOutput,
-				Predicate<ResourceLocation> existenceChecker) {
-			this.outputConsumer = outputConsumer;
-			this.blockStateOutput = blockStateOutput;
-			this.existenceChecker = existenceChecker;
-		}
-
-		public static ResourceLocation getRealTextureLoc(ResourceLocation resLoc) {
-			return ResourceLocation.fromNamespaceAndPath(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
-		}
-
-		public ResourceLocation getRealTextureLocWithCheck(ResourceLocation resLoc) {
-			ResourceLocation realLoc = getRealTextureLoc(resLoc);
-			if (!existenceChecker.test(realLoc)) {
-				System.out.println("MobZ ItemModelDataProvider cannot find texture: " + realLoc);
-			};
-			return realLoc;
-		}
-
-		// From ItemModelGenerators
-		public void generateFlatItem(Item item, ModelTemplate modelTemplate) {
-			ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(item);
-			getRealTextureLocWithCheck(textureResLoc);
-
-			modelTemplate.create(textureResLoc, TextureMapping.layer0(item), this.outputConsumer);
-	    }
-
-		public void simpleItem(String string) {
-			ResourceLocation textureResLoc = MobZ.resLoc("item/" + string);
-			getRealTextureLocWithCheck(textureResLoc);
-			TextureMapping textureMapping = TextureMapping.layer0(textureResLoc);
-			ModelTemplates.FLAT_ITEM.create(textureResLoc, textureMapping, this.outputConsumer);
-		}
-
-		public void bowPulling(String baseName, int count) {
-			for (int i = 0; i < count; i++) {
-				ResourceLocation textureResLoc = MobZ.resLoc("item/" + baseName + "_" + i);
-				getRealTextureLocWithCheck(textureResLoc);
-				BOW_PULLING.create(textureResLoc, TextureMapping.layer0(textureResLoc), this.outputConsumer);
-			}
-		}
-
-		public void simpleItem(Item item) {
-			generateFlatItem(item, ModelTemplates.FLAT_ITEM);
-		}
-
-		public void blockItem(Block block) {
-			ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(block.asItem());
-			ModelTemplate template = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(block)), null);
-			template.create(textureResLoc, new TextureMapping(), this.outputConsumer);
-		}
-
-		public void handheldItem(Item item) {
-			generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM);
-		}
-
-		public void spawnEgg(SpawnEggItem egg) {
-		    JsonObject root = new JsonObject();
-		    root.addProperty("parent", "minecraft:item/template_spawn_egg");
-			this.outputConsumer.accept(ModelLocationUtils.getModelLocation(egg), ()->root);
-		}
-
-		// Blocks
-	    public void cubeAll(Block block) {
-	        this.blockStateOutput.accept(createSimpleBlock(block,
-	        		TexturedModel.CUBE.create(block, this.outputConsumer)));
-	        blockItem(block);
-	    }
-
-	    static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resLoc) {
-	        return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resLoc));
-	    }
+	protected ResourceLocation getRealTextureLocWithCheck(ResourceLocation resLoc) {
+		ResourceLocation realLoc = getRealTextureLoc(resLoc);
+		if (!existenceChecker.test(realLoc)) {
+			System.out.println("MobZ ItemModelDataProvider cannot find texture: " + realLoc);
+		};
+		return realLoc;
 	}
+
+	// From ItemModelGenerators
+	protected ResourceLocation generateFlatItem(Item item, String suffix, ModelTemplate modelTemplate) {
+		ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(item, suffix);
+		getRealTextureLocWithCheck(textureResLoc);
+
+		return modelTemplate.create(textureResLoc, TextureMapping.layer0(textureResLoc), this::addItemModel);
+    }
+
+	protected void simpleItemWithExistingModel(Item item) {
+		this.addItemModelInfo(item, ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item)));
+	}
+
+	protected void simpleItem(Item item) {
+		this.addItemModelInfo(item,
+				ItemModelUtils.plainModel(this.generateFlatItem(item, "", ModelTemplates.FLAT_ITEM)));
+	}
+
+	protected void blockItem(Block block) {
+		ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(block.asItem());
+		ModelTemplate template = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(block)), null);
+		ResourceLocation modelResLoc = template.create(textureResLoc, new TextureMapping(), this::addItemModel);
+		this.addItemModelInfo(block.asItem(), ItemModelUtils.plainModel(modelResLoc));
+	}
+
+	protected void handheldItem(Item item) {
+		this.addItemModelInfo(item,
+				ItemModelUtils.plainModel(this.generateFlatItem(item, "", ModelTemplates.FLAT_HANDHELD_ITEM)));
+	}
+
+	protected void spawnEggMobZ(MobZSpawnEgg egg) {
+        ResourceLocation resourcelocation = ModelLocationUtils.decorateItemModelLocation("template_spawn_egg");
+        this.addItemModelInfo(egg, ItemModelUtils.tintedModel(resourcelocation,
+        		ItemModelUtils.constantTint(egg.backgroundColor),
+        		ItemModelUtils.constantTint(egg.highlightColor)));
+	}
+
+	protected void shieldWithExistingModel(Item item) {
+		this.addItemModelInfo(item,
+				ItemModelUtils.conditional(
+					ItemModelUtils.isUsingItem(),
+					ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item, "_blocking")),
+					ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item))
+				)
+			);
+	}
+
+	protected void vanillaBow(Item bowItem) {
+		ItemModel.Unbaked idleModel = ItemModelUtils.plainModel(
+				ModelLocationUtils.getModelLocation(bowItem));
+		ItemModel.Unbaked pulling0 = ItemModelUtils.plainModel(
+				this.generateFlatItem(bowItem, "_pulling_0", ModelTemplates.BOW));
+		ItemModel.Unbaked pulling1 = ItemModelUtils.plainModel(
+				this.generateFlatItem(bowItem, "_pulling_1", ModelTemplates.BOW));
+		ItemModel.Unbaked pulling2 = ItemModelUtils.plainModel(
+				this.generateFlatItem(bowItem, "_pulling_2", ModelTemplates.BOW));
+
+		this.addItemModelInfo(bowItem,
+				ItemModelUtils.conditional(
+						ItemModelUtils.isUsingItem(),
+						ItemModelUtils.rangeSelect(
+								new UseDuration(false), 0.05F,
+								pulling0,
+								ItemModelUtils.override(pulling1, 0.65F),
+								ItemModelUtils.override(pulling2, 0.9F)
+						),
+						idleModel
+				)
+			);
+	}
+
+	private ItemModel.Unbaked sacrificeKnifeBloodDry(SacrificeKnife knife, int bloodCounter) {
+		String suffix = "_blood" + bloodCounter;
+		return ItemModelUtils.rangeSelect(
+				new CustomModelDataProperty(0), 1.0F,
+				ItemModelUtils.plainModel(this.generateFlatItem(knife, suffix, ModelTemplates.FLAT_ITEM)),
+				ItemModelUtils.override(
+					ItemModelUtils.plainModel(this.generateFlatItem(knife, suffix + "dry1", ModelTemplates.FLAT_ITEM)), 0.666F),
+				ItemModelUtils.override(
+					ItemModelUtils.plainModel(this.generateFlatItem(knife, suffix + "dry2", ModelTemplates.FLAT_ITEM)), 1.333F)
+		);
+	}
+
+	protected void sacrificeKnife(SacrificeKnife knife) {
+		ItemModel.Unbaked model = ItemModelUtils.rangeSelect(
+				new Damage(true), 1.0F,
+				ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(knife)),
+				ItemModelUtils.override(sacrificeKnifeBloodDry(knife, 1), 0.2F),
+				ItemModelUtils.override(sacrificeKnifeBloodDry(knife, 2), 0.4F),
+				ItemModelUtils.override(sacrificeKnifeBloodDry(knife, 3), 0.6F),
+				ItemModelUtils.override(sacrificeKnifeBloodDry(knife, 4), 0.8F)
+		);
+
+		this.addItemModelInfo(knife, model);
+	}
+
+	// Blocks
+	protected void cubeAll(Block block) {
+    	this.addBlockState(createSimpleBlock(block,
+        		TexturedModel.CUBE.create(block, this::addItemModel)));
+    	this.blockItem(block);
+    }
+
+    public static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resLoc) {
+        return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resLoc));
+    }
 }

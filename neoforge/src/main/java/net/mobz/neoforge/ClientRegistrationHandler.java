@@ -1,11 +1,8 @@
 package net.mobz.neoforge;
 
-import net.minecraft.client.renderer.item.ItemProperties;
-
 import net.mobz.MobZ;
 import net.mobz.client.EntityRenderers;
 import net.mobz.config.MobZComposedGuiRegistryAccess;
-import net.mobz.client.VanillaClientRegistry;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -20,7 +17,6 @@ public class ClientRegistrationHandler {
 	@SubscribeEvent
 	public static void onClientSetup(final FMLClientSetupEvent event) {
 		EntityRenderers.registerAll(net.minecraft.client.renderer.entity.EntityRenderers::register);
-		VanillaClientRegistry.registerItemModelProperties(ItemProperties::register);
 	}
 
 	@SubscribeEvent

@@ -4,17 +4,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
+
+import java.util.List;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
 import net.mobz.MobZ;
-import net.mobz.MobZDataComponents;
 import net.mobz.MobZRarity;
 import net.mobz.block.TotemBase;
 import net.mobz.init.MobZBlocks;
@@ -29,13 +33,18 @@ public class SacrificeKnife extends SimpleItem {
 	}
 
 	// For rendering only
-	public static int getDryingNumber(ItemStack itemStack) {
-		return itemStack.getOrDefault(MobZDataComponents.DRYING_NUMBER.get(), 0);
+	public static float getDryingNumber(ItemStack itemStack) {
+		CustomModelData customModelData =
+				itemStack.getOrDefault(DataComponents.CUSTOM_MODEL_DATA, CustomModelData.EMPTY);
+		Float dryingNumber = customModelData.getFloat(0);
+		return dryingNumber == null ? 0.0F : dryingNumber;
 	}
 
-	private static void setParam(ItemStack itemStack, int bloodCounter, int dryingNumber) {
+	private static void setParam(ItemStack itemStack, int bloodCounter, float dryingNumber) {
 		itemStack.setDamageValue(bloodCounter);
-		itemStack.set(MobZDataComponents.DRYING_NUMBER.get(), dryingNumber);
+		CustomModelData customModelData =
+				new CustomModelData(List.of(dryingNumber), List.of(), List.of(), List.of());
+		itemStack.set(DataComponents.CUSTOM_MODEL_DATA, customModelData);
 	}
 
 	@Override
@@ -43,16 +52,12 @@ public class SacrificeKnife extends SimpleItem {
 		ItemStack itemStack = user.getItemInHand(hand);
 
 		int bloodCounter = getBloodCounter(itemStack);
-		int dryingNumber = getDryingNumber(itemStack);
 		if (user.getHealth() > 2F) {
 			user.hurt(world.damageSources().magic(), 2F);
-			if (dryingNumber < 4) {
-				dryingNumber = dryingNumber + 1;
-			}
 			if (bloodCounter < 5000) {
 				bloodCounter = bloodCounter + 200;
 			}
-			setParam(itemStack, bloodCounter, dryingNumber);
+			setParam(itemStack, bloodCounter, 0);
 			return InteractionResult.SUCCESS;
 		} else {
 			return InteractionResult.PASS;
@@ -62,14 +67,21 @@ public class SacrificeKnife extends SimpleItem {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		int bloodCounter = getBloodCounter(stack);
-		int dryingNumber = getDryingNumber(stack);
+		float dryingNumber = getDryingNumber(stack);
 
 		if (bloodCounter > 0) {
 			bloodCounter--;
 		}
+
 		if (bloodCounter == 0) {
 			dryingNumber = 0;
+		} else {
+			dryingNumber += 0.01F;
+			if (dryingNumber > 2.0F) {
+				dryingNumber = 2.0F;
+			}
 		}
+
 		setParam(stack, bloodCounter, dryingNumber);
 	}
 

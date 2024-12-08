@@ -21,7 +21,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
@@ -39,10 +38,7 @@ public interface IAbstractedAPI {
 
 	CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier);
 
-	Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor,
-			Item.Properties props);
-
-	Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
+	Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<? extends Mob>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties);
 

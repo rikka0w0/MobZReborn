@@ -33,7 +33,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -142,18 +141,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
-			int highlightColor, Item.Properties props) {
-		return () -> new SpawnEggItem(type.get(), backgroundColor, highlightColor, props) {
-			@Override
-			public Component getName(ItemStack stack) {
-				return Component.translatable("item.mobz.spawn_egg_of", this.getName());
-			}
-		};
-	}
-
-	@Override
-	public Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
+	public Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<? extends Mob>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties) {
 

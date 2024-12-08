@@ -31,7 +31,7 @@ public class EasyHumanoidRenderer<T extends Mob> extends HumanoidMobRenderer<T, 
 
     public void extractRenderState(T entity, PlayerRenderState renderState, float particalTicks) {
         super.extractRenderState(entity, renderState, particalTicks);
-        HumanoidMobRenderer.extractHumanoidRenderState(entity, renderState, particalTicks);
+        HumanoidMobRenderer.extractHumanoidRenderState(entity, renderState, particalTicks, this.itemModelResolver);
         renderState.arrowCount = entity.getArrowCount();
         renderState.stingerCount = entity.getStingerCount();
         renderState.useItemRemainingTicks = entity.getUseItemRemainingTicks();

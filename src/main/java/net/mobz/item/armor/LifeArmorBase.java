@@ -5,12 +5,14 @@ import java.util.EnumMap;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 
 import net.mobz.MobZ;
@@ -31,7 +33,8 @@ public class LifeArmorBase extends SimpleItem {
 			map.put(ArmorType.HELMET, 2);
 		});
 
-	public static final ResourceLocation EQUIPMENT_MODEL_LIFE = MobZ.resLoc("life");
+	public static final ResourceKey<EquipmentAsset> EQUIPMENT_MODEL_LIFE =
+			ResourceKey.create(EquipmentAssets.ROOT_ID, MobZ.resLoc("life"));
 
 	public static final ArmorMaterial MATERIAL = new ArmorMaterial(
 			30,		// Durability

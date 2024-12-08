@@ -3,7 +3,7 @@ package net.mobz.fabric;
 import java.util.List;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -20,7 +20,7 @@ import net.mobz.init.MobSpawnRestrictions;
 
 public class FabricEntry implements ModInitializer {
 	public static void addRoll(List<ResourceKey<LootTable>> lootTableIDs, NumberProvider range, Builder<?> entryBuilder) {
-		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, lookupProvider) -> {
 			lootTableIDs.stream().filter(lootTableID -> lootTableID.equals(key)).forEach((lootTableID) -> {
 				tableBuilder.withPool(LootPool.lootPool().setRolls(range).add(entryBuilder));
 			});

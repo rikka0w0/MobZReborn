@@ -23,7 +23,7 @@ public class PigmanRenderer extends PiglinRenderer {
 		);
 
 		this.layers.removeIf(layer -> layer instanceof CustomHeadLayer);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), CUSTOM_HEAD_TRANSFORMS, context.getItemRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), CUSTOM_HEAD_TRANSFORMS));
 //		super(context, new PiglinModel<>(context.bakeLayer(ModelLayers.PIGLIN)), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
 
 		this.texture = texture;

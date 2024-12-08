@@ -1,31 +1,22 @@
 package net.mobz.item.armor;
 
 import java.util.EnumMap;
-import java.util.List;
 
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 
 import net.mobz.MobZ;
 import net.mobz.MobZRarity;
-import net.mobz.init.MobZItems;
 import net.mobz.item.SimpleItem;
 import net.mobz.tags.MobZItemTags;
 
@@ -38,7 +29,8 @@ public class SpeedShoeBase extends SimpleItem {
 			map.put(ArmorType.HELMET, 1);
 		});
 
-	public static final ResourceLocation EQUIPMENT_MODEL_SPEED = MobZ.resLoc("speed");
+	public static final ResourceKey<EquipmentAsset> EQUIPMENT_MODEL_SPEED =
+			ResourceKey.create(EquipmentAssets.ROOT_ID, MobZ.resLoc("speed"));
 
 	public static final ArmorMaterial MATERIAL1 = new ArmorMaterial(
 			21,
@@ -60,7 +52,8 @@ public class SpeedShoeBase extends SimpleItem {
 			map.put(ArmorType.HELMET, 2);
 		});
 
-	public static final ResourceLocation EQUIPMENT_MODEL_SPEED2 = MobZ.resLoc("speed2");
+	public static final ResourceKey<EquipmentAsset> EQUIPMENT_MODEL_SPEED2 =
+			ResourceKey.create(EquipmentAssets.ROOT_ID, MobZ.resLoc("speed2"));
 
 	public static final ArmorMaterial MATERIAL2 = new ArmorMaterial(
 			23,		// Durability

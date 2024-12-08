@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.8-SNAPSHOT'
+	id 'fabric-loom' version '1.9-SNAPSHOT'
 	id 'maven-publish'
 	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
@@ -74,7 +74,9 @@ dependencies {
 }
 
 fabricApi {
-	configureDataGeneration()
+	configureDataGeneration() {
+		client = true
+	}
 }
 
 sourceCompatibility = JavaVersion.VERSION_21
@@ -160,10 +162,10 @@ unifiedPublishing {
 				curseforge = "fabric-api"
 				modrinth = "fabric-api"
 			}
-			depends { // Mark as a required dependency
-				curseforge = "fabric-shield-lib"
-				modrinth = "fabricshieldlib"
-			}
+//			depends { // Mark as a required dependency
+//				curseforge = "fabric-shield-lib"
+//				modrinth = "fabricshieldlib"
+//			}
 			depends { // Mark as a required dependency
 				curseforge = "cloth-config"
 				modrinth = "cloth-config"

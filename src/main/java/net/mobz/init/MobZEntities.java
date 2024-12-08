@@ -73,6 +73,8 @@ import net.mobz.entity.NetherSkeleton;
 import net.mobz.entity.LostSkeleton;
 import net.mobz.entity.attack.FrostballEntity;
 
+import net.mobz.item.MobZSpawnEgg;
+
 public class MobZEntities {
 	public static final Supplier<EntityType<TankZombie>> TANK_ZOMBIE = register(EntityType.Builder
 			.of(TankZombie::new, MobCategory.MONSTER).clientTrackingRange(74).updateInterval(2)
@@ -314,7 +316,7 @@ public class MobZEntities {
 				MobZ.platform.registerEntityType(name, () -> entityTypeBuilder.build(resKey), attribModifierSupplier, null);
 
 		MobZ.platform.registerItem("spawn_" + name, MobZTabs.EGGS,
-				(props) -> MobZ.platform.spawnEggOf(entityTypeSupplier, backgroundColor, highlightColor, props.overrideDescription(spawnEggLocalizationKey)).get(),
+				(props) -> new MobZSpawnEgg(entityTypeSupplier.get(), backgroundColor, highlightColor, props.overrideDescription(spawnEggLocalizationKey)),
 				null);
 
 		return entityTypeSupplier;

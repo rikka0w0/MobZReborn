@@ -123,7 +123,7 @@ public class NeoforgeEntry {
 		}
 
 		@SubscribeEvent
-		public static void onDataGeneratorInvoked(final GatherDataEvent event) {
+		public static void onDataGeneratorInvoked(final GatherDataEvent.Client event) {
 			DataGenerator generator = event.getGenerator();
 	        PackOutput packOutput = generator.getPackOutput();
 	        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
@@ -147,8 +147,9 @@ public class NeoforgeEntry {
 				}
 			};
 
-			generator.addProvider(event.includeServer(), (DataProvider.Factory<DatapackBuiltinEntriesProvider>) vanillaPackOutput ->
-				new DatapackBuiltinEntriesProvider(vanillaPackOutput, lookupProvider,
+			// Data: tags that require bootstrap, e.g.: Mob spawns and Jukebox Songs
+			event.addProvider(
+				new DatapackBuiltinEntriesProvider(packOutput, lookupProvider,
 					new RegistrySetBuilder()
 						.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, biomeModifierPopulator)
 						.add(Registries.JUKEBOX_SONG, new JukeboxSongs()),
@@ -157,31 +158,31 @@ public class NeoforgeEntry {
 			);
 
 			// Data: Biome tags for spawns
-			generator.addProvider(event.includeServer(), new SpawnBiomeTagProvider(packOutput, lookupProvider));
+			event.addProvider(new SpawnBiomeTagProvider(packOutput, lookupProvider));
 
 			// Data: Mineable tags
-			generator.addProvider(event.includeServer(), new BlockTagProvider(packOutput, lookupProvider));
+			event.addProvider(new BlockTagProvider(packOutput, lookupProvider));
 
 			// Data: Item tags
-			generator.addProvider(event.includeServer(), new ItemTagProvider(packOutput, lookupProvider));
+			event.addProvider(new ItemTagProvider(packOutput, lookupProvider));
 
 			// Data: Entity tags
-			generator.addProvider(event.includeServer(), new EntityTagProvider(packOutput, lookupProvider));
+			event.addProvider(new EntityTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
-			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+			event.addProvider(new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
 
 			// Data: LootTable
-			generator.addProvider(event.includeServer(), (DataProvider.Factory<LootTableProvider>) vanillaPackOutput -> Loots.all(vanillaPackOutput, lookupProvider));
+			event.addProvider(Loots.all(packOutput, lookupProvider));
 
 			// Data: Recipes
-			generator.addProvider(event.includeServer(), new Recipes.Runner(packOutput, lookupProvider));
+			event.addProvider(new Recipes.Runner(packOutput, lookupProvider));
 
 			// Data: Advancements
-			generator.addProvider(event.includeServer(), (DataProvider.Factory<AdvancementProvider>) vanillaPackOutput -> Advancements.all(vanillaPackOutput, lookupProvider));
+			event.addProvider(Advancements.all(packOutput, lookupProvider));
 
 			// Resource: EquipmentModels
-			generator.addProvider(event.includeClient(), new EquipmentModelProvider(packOutput));
+			event.addProvider(new EquipmentModelProvider(packOutput));
 		}
 	}
 

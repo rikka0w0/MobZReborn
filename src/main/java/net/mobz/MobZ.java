@@ -21,7 +21,6 @@ public class MobZ {
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {
-		MobZDataComponents.DRYING_NUMBER.getClass();
     	MobZItems.BOSS_INGOT.getClass();
     	MobZBlocks.BOSS_BLOCK.getClass();
     	MobZEntities.BOSS_ZOMBIE.getClass();

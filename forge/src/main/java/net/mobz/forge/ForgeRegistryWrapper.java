@@ -29,14 +29,12 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -182,18 +180,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<SpawnEggItem> spawnEggOf(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor,
-			int highlightColor, Item.Properties props) {
-		return () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor, props) {
-			@Override
-			public Component getName(ItemStack stack) {
-				return Component.translatable("item.mobz.spawn_egg_of", this.getName());
-			}
-		};
-	}
-
-	@Override
-	public Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<?>> entitySupplier,
+	public Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<? extends Mob>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,
 			Item.Properties properties) {
 		return () -> new MobBucketItem(entitySupplier, fluidSupplier, soundSupplier, properties);

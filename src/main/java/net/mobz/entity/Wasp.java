@@ -345,7 +345,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 		};
 		flyingpathnavigation.setCanOpenDoors(false);
 		flyingpathnavigation.setCanFloat(false);
-		flyingpathnavigation.setCanPassDoors(true);
+		flyingpathnavigation.setRequiredPathLength(48.0F);
 		return flyingpathnavigation;
 	}
 
