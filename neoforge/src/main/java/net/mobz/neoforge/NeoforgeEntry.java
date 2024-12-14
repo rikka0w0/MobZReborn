@@ -125,8 +125,8 @@ public class NeoforgeEntry {
 		@SubscribeEvent
 		public static void onDataGeneratorInvoked(final GatherDataEvent.Client event) {
 			DataGenerator generator = event.getGenerator();
-	        PackOutput packOutput = generator.getPackOutput();
-	        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+			PackOutput packOutput = generator.getPackOutput();
+			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 			ExistingFileHelper exfh = event.getExistingFileHelper();
 
 			// Data: Mob spawns

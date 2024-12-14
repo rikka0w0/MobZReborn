@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import net.minecraft.client.ClientBootstrap;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -121,9 +122,15 @@ public class ForgeEntry {
 		@SubscribeEvent
 		public static void onDataGeneratorInvoked(final GatherDataEvent event) {
 			DataGenerator generator = event.getGenerator();
-	        PackOutput packOutput = generator.getPackOutput();
-	        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+			PackOutput packOutput = generator.getPackOutput();
+			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 			ExistingFileHelper exfh = event.getExistingFileHelper();
+
+			// We need to invoke client-side bootstrap manually, otherwise some codec wont work
+			// https://github.com/MinecraftForge/MinecraftForge/issues/10203
+			if (event.includeClient()) {
+				ClientBootstrap.bootstrap();
+			}
 
 			// Data: Mob spawns
 			RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
