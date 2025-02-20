@@ -49,7 +49,7 @@ public class DataGeneratorEntry implements DataGeneratorEntrypoint {
 
 		// Resource: Models and blockstates
 		Factory<? extends DataProvider> itemModels = (output) ->
-			new ModelDataProvider(output, registryAccess.lookupOrThrow(Registries.ITEM), resLoc->true);
+			new ModelDataProvider(output, registryAccess.lookupOrThrow(Registries.ITEM));
 		pack.addProvider(itemModels);
 
 		// Data: LootTable

@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BiomeModificationImplMixin",
-	"LivingEntityMixin",
-    "PlayerMixin"
+    "MetalShieldMixin"
   ],
   "client": [],
   "injectors": {

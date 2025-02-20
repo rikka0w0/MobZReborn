@@ -28,13 +28,9 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
 
 import net.neoforged.api.distmarker.Dist;
@@ -46,7 +42,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -127,7 +122,6 @@ public class NeoforgeEntry {
 			DataGenerator generator = event.getGenerator();
 			PackOutput packOutput = generator.getPackOutput();
 			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-			ExistingFileHelper exfh = event.getExistingFileHelper();
 
 			// Data: Mob spawns
 			RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
@@ -170,7 +164,7 @@ public class NeoforgeEntry {
 			event.addProvider(new EntityTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
-			event.addProvider(new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+			event.addProvider(new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM)));
 
 			// Data: LootTable
 			event.addProvider(Loots.all(packOutput, lookupProvider));

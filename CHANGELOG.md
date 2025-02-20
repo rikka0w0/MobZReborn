@@ -1,4 +1,1 @@
-1. Port to 1.21.4
-2. Fix SacrificeKnife rendering.
-3. Instead of defining our own DataComponentType, use CustomModelData for SacrificeKnife's dryingNumber.
-4. Move MobZSpawnEgg out of target-specific code.
+Fix the crash on Neoforge due to the removal of ExistingFileHelper (https://github.com/neoforged/NeoForge/pull/1799)

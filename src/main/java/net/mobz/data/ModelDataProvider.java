@@ -8,8 +8,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.Variant;
@@ -48,18 +46,16 @@ public class ModelDataProvider implements DataProvider {
     private final PackOutput.PathProvider itemInfoPathProvider;
 	private final PackOutput.PathProvider modelPathProvider;
 	private final Registry<Item> itemRegistry;
-	private final Predicate<ResourceLocation> existenceChecker;
 
 	protected Map<ResourceLocation, ModelInstance> models = new HashMap<>();
 	protected Map<Item, ClientItem> itemStateMap = new HashMap<>();
 	protected Map<Block, BlockStateGenerator> blockStateMap = new HashMap<>();
 
-	public ModelDataProvider(PackOutput packOutput, Registry<Item> itemRegistry, @Nullable Predicate<ResourceLocation> existenceChecker) {
+	public ModelDataProvider(PackOutput packOutput, Registry<Item> itemRegistry) {
 		this.blockStatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
 		this.itemInfoPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
 		this.modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
 		this.itemRegistry = itemRegistry;
-		this.existenceChecker = (existenceChecker == null) ? resLoc -> true : existenceChecker;
 	}
 
 	@Override
@@ -195,18 +191,9 @@ public class ModelDataProvider implements DataProvider {
 		return ResourceLocation.fromNamespaceAndPath(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
 	}
 
-	protected ResourceLocation getRealTextureLocWithCheck(ResourceLocation resLoc) {
-		ResourceLocation realLoc = getRealTextureLoc(resLoc);
-		if (!existenceChecker.test(realLoc)) {
-			System.out.println("MobZ ItemModelDataProvider cannot find texture: " + realLoc);
-		};
-		return realLoc;
-	}
-
 	// From ItemModelGenerators
 	protected ResourceLocation generateFlatItem(Item item, String suffix, ModelTemplate modelTemplate) {
 		ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(item, suffix);
-		getRealTextureLocWithCheck(textureResLoc);
 
 		return modelTemplate.create(textureResLoc, TextureMapping.layer0(textureResLoc), this::addItemModel);
     }

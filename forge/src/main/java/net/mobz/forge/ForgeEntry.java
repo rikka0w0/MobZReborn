@@ -34,12 +34,10 @@ import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -124,7 +122,6 @@ public class ForgeEntry {
 			DataGenerator generator = event.getGenerator();
 			PackOutput packOutput = generator.getPackOutput();
 			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-			ExistingFileHelper exfh = event.getExistingFileHelper();
 
 			// We need to invoke client-side bootstrap manually, otherwise some codec wont work
 			// https://github.com/MinecraftForge/MinecraftForge/issues/10203
@@ -172,7 +169,7 @@ public class ForgeEntry {
 			generator.addProvider(event.includeServer(), new EntityTagProvider(packOutput, lookupProvider));
 
 			// Resource: Models and blockstates
-			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM),  resLoc->exfh.exists(resLoc, PackType.CLIENT_RESOURCES)));
+			generator.addProvider(event.includeClient(), new ModelDataProvider(packOutput, registryAccess.lookupOrThrow(Registries.ITEM)));
 
 			// Data: LootTable
 			generator.addProvider(event.includeServer(), (DataProvider.Factory<LootTableProvider>) vanillaPackOutput -> Loots.all(vanillaPackOutput, lookupProvider));
