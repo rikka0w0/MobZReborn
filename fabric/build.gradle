@@ -159,10 +159,10 @@ unifiedPublishing {
 				curseforge = "fabric-api"
 				modrinth = "fabric-api"
 			}
-//			depends { // Mark as a required dependency
-//				curseforge = "fabric-shield-lib"
-//				modrinth = "fabricshieldlib"
-//			}
+			depends { // Mark as a required dependency
+				curseforge = "fabric-shield-lib"
+				modrinth = "fabricshieldlib"
+			}
 			depends { // Mark as a required dependency
 				curseforge = "cloth-config"
 				modrinth = "cloth-config"
