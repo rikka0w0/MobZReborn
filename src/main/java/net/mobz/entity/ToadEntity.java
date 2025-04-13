@@ -160,7 +160,7 @@ public class ToadEntity extends Animal {
 				double xx = MathUtils.approachValue(victim.position().x, getX(), speed);
 				double yy = MathUtils.approachValue(victim.position().y, getY() + 0.2F, speed / 2.0D);
 				double zz = MathUtils.approachValue(victim.position().z, getZ(), speed);
-				victim.absMoveTo(xx, yy, zz);
+				victim.absSnapTo(xx, yy, zz);
 				victim.setDeltaMovement(0, 0, 0);
 			}
 		}
@@ -313,7 +313,7 @@ public class ToadEntity extends Animal {
 	public void readAdditionalSaveData(CompoundTag tag)
 	{
 		super.readAdditionalSaveData(tag);
-		hasBaby = tag.getBoolean("HasBaby");
+		hasBaby = tag.getBooleanOr("HasBaby", false);
 	}
 
 	public void setHasBaby(boolean hasBaby)
@@ -447,7 +447,7 @@ public class ToadEntity extends Animal {
 				{
 					world.playSound(null, blockPos, MobZSounds.TOAD_HAVE_BABY.get(), SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
 					tadpole.setBaby(true);
-					tadpole.moveTo(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
+					tadpole.snapTo(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
 					world.addFreshEntityWithPassengers(tadpole);
 				}
 			}

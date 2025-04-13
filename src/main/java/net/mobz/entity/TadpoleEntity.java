@@ -21,7 +21,8 @@ import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 
 public class TadpoleEntity extends AbstractFish {
-	private int babyTime = -6000;
+	private static final int BABY_TIME_DEFAULT = -6000;
+	private int babyTime = BABY_TIME_DEFAULT;
 
 	public TadpoleEntity(EntityType<? extends TadpoleEntity> entityType, Level world) {
 		super(entityType, world);
@@ -37,7 +38,7 @@ public class TadpoleEntity extends AbstractFish {
 			if(!isBaby())
 			{
 				ToadEntity toad = MobZEntities.TOAD.get().create(this.level(), EntitySpawnReason.CONVERSION);
-				toad.moveTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
+				toad.snapTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
 				toad.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
 				((ServerLevel) this.level()).addFreshEntityWithPassengers(toad);
 
@@ -86,17 +87,15 @@ public class TadpoleEntity extends AbstractFish {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag)
-	{
+	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
-		tag.putInt("BabyTime", babyTime);
+		tag.putInt("BabyTime", this.babyTime);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag)
-	{
+	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-		if(tag.contains("BabyTime")) babyTime = tag.getInt("BabyTime");
+		this.babyTime = tag.getIntOr("BabyTime", BABY_TIME_DEFAULT);
 	}
 
 	@Override

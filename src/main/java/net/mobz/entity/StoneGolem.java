@@ -92,7 +92,7 @@ public class StoneGolem extends IronGolem {
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
 		return MobZ.configs.stone_golem.spawn
-				&& this.level().isDay()
+				&& this.level().isBrightOutside()
 				&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}

@@ -110,18 +110,17 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag p_27823_) {
-		super.addAdditionalSaveData(p_27823_);
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
 		if (this.hasHive()) {
-			p_27823_.put("HivePos", NbtUtils.writeBlockPos(this.getHivePos()));
+			compound.storeNullable("HivePos", BlockPos.CODEC, this.hivePos);
 		}
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag p_27793_) {
-		this.hivePos = null;
-		NbtUtils.readBlockPos(p_27793_, "HivePos").ifPresent(value -> this.hivePos = value);
-		super.readAdditionalSaveData(p_27793_);
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.hivePos = compound.read("HivePos", BlockPos.CODEC).orElse(null);
 	}
 
 	@Override
@@ -204,7 +203,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	boolean wantsToEnterHive() {
 		if (this.stayOutOfHiveCountdown <= 0 && this.getTarget() == null) {
-			boolean flag = this.level().isRaining() || this.level().isNight();
+			boolean flag = this.level().isRaining() || this.level().isDarkOutside();
 			return flag && !this.isHiveNearFire();
 		} else {
 			return false;
@@ -231,7 +230,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	protected void customServerAiStep(ServerLevel serverLevel) {
-		if (this.isInWaterOrBubble()) {
+		if (this.isInWater()) {
 			++this.underWaterTicks;
 		} else {
 			this.underWaterTicks = 0;
@@ -374,7 +373,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	public boolean causeFallDamage(float p_148750_, float p_148751_, DamageSource p_148752_) {
+	public boolean causeFallDamage(double p_148750_, float p_148751_, DamageSource p_148752_) {
 		return false;
 	}
 

@@ -87,7 +87,7 @@ public class Charles extends Vindicator {
 
 	@Override
 	protected void customServerAiStep(ServerLevel serverLevel) {
-		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false);
+		MobEffectInstance slow = new MobEffectInstance(MobEffects.SLOWNESS, 100, 0, false, false);
 		int cooldownMax = Math.max(MobZ.configs.charles.vex_summon_cooldown, MobZ.configs.charles.slowdown_attack_cooldown);
 		LivingEntity target = getTarget();
 
@@ -113,7 +113,7 @@ public class Charles extends Vindicator {
 		BlockPos blockPos = Charles.this.blockPosition().offset(-2 + Charles.this.random.nextInt(5), 1,
 				-2 + Charles.this.random.nextInt(5));
 		SpiritOfDeath vexEntity = MobZEntities.SPIRIT_OF_DEATH.get().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
-		vexEntity.moveTo(blockPos, 0.0F, 0.0F);
+		vexEntity.snapTo(blockPos, 0.0F, 0.0F);
 		vexEntity.finalizeSpawn((ServerLevelAccessor) this.level(),
 				Charles.this.level().getCurrentDifficultyAt(blockPos), EntitySpawnReason.MOB_SUMMONED, null);
 		Charles.this.level().addFreshEntity(vexEntity);

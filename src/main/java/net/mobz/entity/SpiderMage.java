@@ -75,7 +75,7 @@ public class SpiderMage extends EvokerLike {
 					-2 + SpiderMage.this.random.nextInt(5));
 			SmallSpider smallSpider = MobZEntities.SMALL_SPIDER.get().create(SpiderMage.this.level(),
 					EntitySpawnReason.MOB_SUMMONED);
-			smallSpider.moveTo(blockPos, 0.0F, 0.0F);
+			smallSpider.snapTo(blockPos, 0.0F, 0.0F);
 			smallSpider.finalizeSpawn(serverWorld, SpiderMage.this.level().getCurrentDifficultyAt(blockPos),
 					EntitySpawnReason.MOB_SUMMONED, null);
 			smallSpider.owner = SpiderMage.this;

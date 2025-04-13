@@ -15,8 +15,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.Level;
 
 import net.mobz.MobZ;
 import net.mobz.MobZRarity;
@@ -43,20 +43,20 @@ public class BossArmorBase extends SimpleItem {
 	public static final ArmorMaterial MATERIAL = new ArmorMaterial(
 			35,		// Durability
 			DEFENSE_MAP,
-       		25,		// getEnchantmentValue
-      		SoundEvents.ARMOR_EQUIP_GOLD,
-       		2,	// getToughness
-       		0,	// getKnockbackResistance
-       		MobZItemTags.REPAIRS_BOSS_ARMOR,
-       		EQUIPMENT_MODEL_BOSS
-		);
+			25,		// getEnchantmentValue
+			SoundEvents.ARMOR_EQUIP_GOLD,
+			2,	// getToughness
+			0,	// getKnockbackResistance
+			MobZItemTags.REPAIRS_BOSS_ARMOR,
+			EQUIPMENT_MODEL_BOSS
+	);
 
-    public BossArmorBase(ArmorType armorType, Item.Properties properties) {
-    	super(MATERIAL.humanoidProperties(properties, armorType), MobZRarity.EPIC);
-    }
+	public BossArmorBase(ArmorType armorType, Item.Properties properties) {
+		super(properties.humanoidArmor(MATERIAL, armorType), MobZRarity.EPIC);
+	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot) {
 		if (!(entity instanceof LivingEntity livingEntity) || world.isClientSide())
 			return;
 
@@ -64,9 +64,9 @@ public class BossArmorBase extends SimpleItem {
 				&& livingEntity.getItemBySlot(EquipmentSlot.LEGS).is(MobZArmors.BOSS_LEGGINGS.get())
 				&& livingEntity.getItemBySlot(EquipmentSlot.CHEST).is(MobZArmors.BOSS_CHESTPLATE.get())
 				&& livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(MobZArmors.BOSS_HELMET.get())) {
-			livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 9, 0, false, false));
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 9, 0, false, false));
 			if (livingEntity.isSprinting()) {
-				livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 9, 0, false, false));
+				livingEntity.addEffect(new MobEffectInstance(MobEffects.SPEED, 9, 0, false, false));
 			}
 		}
 	}

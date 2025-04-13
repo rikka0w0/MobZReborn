@@ -68,8 +68,8 @@ public class PillagerBoss extends Pillager {
 
 	@Override
 	protected void customServerAiStep(ServerLevel serverLevel) {
-		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false);
-		int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ? 
+		MobEffectInstance slow = new MobEffectInstance(MobEffects.SLOWNESS, 60, 0, false, false);
+		int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ?
 		MobZ.configs.pillager_boss.wither_attack_cooldown_hard : MobZ.configs.pillager_boss.wither_attack_cooldown;
 
 		if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D

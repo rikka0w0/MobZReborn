@@ -60,7 +60,7 @@ public class PillagerStaff extends SimpleItem {
 				// Spawn withender
 				Withender wither = MobZEntities.WITHENDER.get().create(world, EntitySpawnReason.TRIGGERED);
 				BlockPos oke = context.getClickedPos();
-				wither.moveTo(oke, 0.0F, 0.0F);
+				wither.snapTo(oke, 0.0F, 0.0F);
 				world.addFreshEntity(wither);
 			} else if (world.isClientSide) {
 				player.displayClientMessage(Component.translatable("text.mobz.withendermissing"), true);

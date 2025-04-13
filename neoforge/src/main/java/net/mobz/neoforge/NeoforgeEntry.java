@@ -5,13 +5,11 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -32,7 +30,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-
+import net.minecraft.util.random.WeightedList;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -126,13 +124,13 @@ public class NeoforgeEntry {
 			// Data: Mob spawns
 			RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
-			Map<ResourceLocation, Pair<TagKey<Biome>, List<MobSpawnSettings.SpawnerData>>> rawMap = new HashMap<>();
+			Map<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> rawMap = new HashMap<>();
 			MobSpawns.collectAll(rawMap);
 			RegistrySetBuilder.RegistryBootstrap<BiomeModifier> biomeModifierPopulator = context -> {
-				for (Entry<ResourceLocation, Pair<TagKey<Biome>, List<SpawnerData>>> entry: rawMap.entrySet()) {
+				for (Entry<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> entry: rawMap.entrySet()) {
 					ResourceLocation resloc = entry.getKey();
 					ResourceKey<BiomeModifier> resKey = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, resloc);
-					Pair<TagKey<Biome>, List<SpawnerData>> payload = entry.getValue();
+					Pair<TagKey<Biome>, WeightedList<SpawnerData>> payload = entry.getValue();
 					TagKey<Biome> toBiomeWithTag = payload.getLeft();
 					HolderGetter<Biome> biomeReg = context.lookup(toBiomeWithTag.registry());
 					HolderSet.Named<Biome> biomeHolderSet = biomeReg.getOrThrow(toBiomeWithTag);

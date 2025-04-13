@@ -90,7 +90,7 @@ public class WitherBlaze extends BlazeLike {
 	}
 
 	@Override
-	public boolean causeFallDamage(float float_1, float float_2, DamageSource source) {
+	public boolean causeFallDamage(double float_1, float float_2, DamageSource source) {
 		return false;
 	}
 }

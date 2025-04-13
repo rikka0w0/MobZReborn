@@ -1,6 +1,5 @@
 package net.mobz.block;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
@@ -12,15 +11,10 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.redstone.Orientation;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
-import net.mobz.MobZRarity;
 import net.mobz.entity.MetalGolem;
 import net.mobz.init.MobZEntities;
 
@@ -63,14 +57,8 @@ public class HardenedMetalBlock extends Block {
 
 			BlockPos spawnPos = blockpattern$patternhelper.getBlock(1, 2, 0).getPos();
 			MetalGolem golem = MobZEntities.METALGOLEM.get().create(world, EntitySpawnReason.TRIGGERED);
-			golem.moveTo(spawnPos, 0.0F, 0.0F);
+			golem.snapTo(spawnPos, 0.0F, 0.0F);
 			world.addFreshEntity(golem);
 		}
-	}
-
-	@Override
-	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
-			TooltipFlag options) {
-		MobZRarity.UNCOMMON.addToTooltip(tooltip);
 	}
 }

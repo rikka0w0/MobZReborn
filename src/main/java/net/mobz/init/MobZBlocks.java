@@ -1,16 +1,13 @@
 package net.mobz.init;
 
-import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -24,6 +21,7 @@ import net.mobz.block.HardenedMetalBlock;
 import net.mobz.block.TotemBase;
 import net.mobz.block.TotemMiddle;
 import net.mobz.block.TotemTop;
+import net.mobz.item.BlockItemWithTooltip;
 
 public class MobZBlocks {
 	// See https://gist.github.com/GizmoTheMoonPig/77a90a48e0aeecd15b4c524e1c7f0a4a
@@ -43,36 +41,30 @@ public class MobZBlocks {
 	}
 
 	public static final Supplier<Block> AMAT_BLOCK = register("amat_block",
-			(props) -> new Block(metal(props).emissiveRendering((blockstate, world, pos) -> true)) {
+			(props) -> new Block(metal(props).emissiveRendering((blockstate, world, pos) -> true)),
+			(block, props) -> new BlockItemWithTooltip(block, props, MobZRarity.UNCOMMON::addToTooltip));
 
-		@Override
-		public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
-				TooltipFlag options) {
-			MobZRarity.UNCOMMON.addToTooltip(tooltip);
-		}
-	});
 	public static final Supplier<Block> BOSS_BLOCK = register("boss_block",
-			(props) -> new Block(metal(props).emissiveRendering((blockstate, world, pos) -> true)) {
+			(props) -> new Block(metal(props).emissiveRendering((blockstate, world, pos) -> true)),
+			(block, props) -> new BlockItemWithTooltip(block, props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true), MobZRarity.LEGENDARY::addToTooltip));
 
-		@Override
-		public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
-				TooltipFlag options) {
-			MobZRarity.LEGENDARY.addToTooltip(tooltip);
-		}
-	}, (props) -> props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
 	public static final Supplier<BossTrophy> BOSS_TROPHY = register("boss_trophy",
 			(props) -> new BossTrophy(zombie_head(props)));
 	public static final Supplier<EnderHeader> ENDER_HEADER = register("ender_header",
 			(props) -> new EnderHeader(zombie_head(props)));
 	public static final Supplier<HardenedMetalBlock> HARDENED_METAL_BLOCK = register("hardened_metal_block",
-			(props) -> new HardenedMetalBlock(metal(props)));
+			(props) -> new HardenedMetalBlock(metal(props)),
+			(block, props) -> new BlockItemWithTooltip(block, props, MobZRarity.UNCOMMON::addToTooltip));
 
 	public static final Supplier<TotemBase> TOTEM_BASE = register("totem_base",
-			(props) -> new TotemBase(oak_log(props)));
+			(props) -> new TotemBase(oak_log(props)),
+			(block, props) -> new BlockItemWithTooltip(block, props, MobZRarity.RARE::addToTooltip));
 	public static final Supplier<TotemMiddle> TOTEM_MIDDLE = register("totem_middle",
-			(props) -> new TotemMiddle(oak_log(props)));
+			(props) -> new TotemMiddle(oak_log(props)),
+			(block, props) -> new BlockItemWithTooltip(block, props, MobZRarity.COMMON::addToTooltip));
 	public static final Supplier<TotemTop> TOTEM_TOP = register("totem_top",
-			(props) -> new TotemTop(oak_log(props)));
+			(props) -> new TotemTop(oak_log(props)),
+			(block, props) -> new BlockItemWithTooltip(block, props, MobZRarity.RARE::addToTooltip));
 
 	// The unused treasure_block is RARE
 
@@ -84,7 +76,12 @@ public class MobZBlocks {
 	private static <T extends Block> Supplier<T> register(String name,
 			Function<BlockBehaviour.Properties, T> constructor,
 			UnaryOperator<Item.Properties> blockItemProps) {
-		return MobZ.platform.registerBlock(name, MobZTabs.MAIN, constructor,
-				(block, props) -> new BlockItem(block, blockItemProps.apply(props)), null);
+		return register(name, constructor, (block, props) -> new BlockItem(block, blockItemProps.apply(props)));
+	}
+
+	private static <T extends Block> Supplier<T> register(String name,
+			Function<BlockBehaviour.Properties, T> constructor,
+			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor) {
+		return MobZ.platform.registerBlock(name, MobZTabs.MAIN, constructor, blockItemConstructor, null);
 	}
 }

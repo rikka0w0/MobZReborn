@@ -44,7 +44,7 @@ public class FrostballEntity extends Fireball {
 		super.onHitEntity(entityHitResult);
 		if (this.level() instanceof ServerLevel serverLevel) {
 			if (entityHitResult.getEntity() instanceof LivingEntity victim) {
-				victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100));
+				victim.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100));
 				victim.hurtServer(serverLevel, this.damageSources().fireball(this, this.getOwner()), 5.0F);
 			}
 		}

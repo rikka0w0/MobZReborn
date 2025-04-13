@@ -4,8 +4,7 @@
   "package": "net.mobz.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BiomeModificationImplMixin",
-    "MetalShieldMixin"
+    "BiomeModificationImplMixin"
   ],
   "client": [],
   "injectors": {

@@ -103,7 +103,9 @@ public class Bowman extends Pillager {
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
-		return MobZ.configs.bowman.spawn && this.level().isDay() && view.canSeeSky(posentity)
+		return MobZ.configs.bowman.spawn
+				&& this.level().isBrightOutside()
+				&& view.canSeeSky(posentity)
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 }

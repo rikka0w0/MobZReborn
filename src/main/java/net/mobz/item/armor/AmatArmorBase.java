@@ -19,8 +19,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.Level;
 
 import net.mobz.MobZ;
 import net.mobz.MobZRarity;
@@ -68,10 +68,10 @@ public class AmatArmorBase extends SimpleItem {
 		);
 	}
 
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-    	if (!(entity instanceof LivingEntity livingEntity) || world.isClientSide())
-    		return;
+	@Override
+	public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot) {
+		if (!(entity instanceof LivingEntity livingEntity) || world.isClientSide())
+			return;
 
 		if (livingEntity.getItemBySlot(EquipmentSlot.FEET).is(MobZArmors.AMAT_BOOTS.get())
 				&& livingEntity.getItemBySlot(EquipmentSlot.LEGS).is(MobZArmors.AMAT_LEGGINGS.get())

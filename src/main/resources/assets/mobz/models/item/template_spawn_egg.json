@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "mobz:item/spawn_egg_underlay",
+        "layer1": "mobz:item/spawn_egg_overlay"
+    }
+}

@@ -84,7 +84,7 @@ public class Andriu extends Vindicator {
     public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
         boolean flag = super.doHurtTarget(serverLevel, victim);
 
-		MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 0, false, false);
+		MobEffectInstance slow = new MobEffectInstance(MobEffects.SLOWNESS, 120, 0, false, false);
 		if (flag && victim instanceof LivingEntity bob) {
 			bob.addEffect(slow);
 		}

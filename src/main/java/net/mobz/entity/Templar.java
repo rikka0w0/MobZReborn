@@ -103,7 +103,9 @@ public class Templar extends Zombie {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.templar.spawn && this.level().isDay() && MobSpawnHelper.checkSpawnObstruction(this, view);
+		return MobZ.configs.templar.spawn
+			&& this.level().isBrightOutside()
+			&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 
 	@Override

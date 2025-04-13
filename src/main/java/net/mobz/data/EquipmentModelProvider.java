@@ -22,7 +22,7 @@ public class EquipmentModelProvider implements DataProvider {
     private final PackOutput.PathProvider pathProvider;
 
     public EquipmentModelProvider(PackOutput output) {
-        this.pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/equipment");
+        this.pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "equipment");
     }
 
     protected void generate(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> writer) {

@@ -49,7 +49,8 @@ public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.illusioner.spawn && this.level().isDay()
+		return MobZ.configs.illusioner.spawn
+				&& this.level().isBrightOutside()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 }

@@ -174,16 +174,16 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
     }
 
     @Override
-	public FriendEntity getBreedOffspring(ServerLevel world, AgeableMob passiveEntity) {
-        FriendEntity FriendEntity = (FriendEntity) this.getType().create(world, EntitySpawnReason.BREEDING);
-        UUID uUID = this.getOwnerUUID();
-        if (uUID != null) {
-            FriendEntity.setOwnerUUID(uUID);
-            FriendEntity.setTame(true, false);
-        }
+	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob parent) {
+		FriendEntity child = (FriendEntity) this.getType().create(world, EntitySpawnReason.BREEDING);
 
-        return FriendEntity;
-    }
+		if (this.isTame()) {
+			child.setOwnerReference(this.getOwnerReference());
+			child.setTame(true, false);
+		}
+
+		return child;
+	}
 
     @Override
     public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {

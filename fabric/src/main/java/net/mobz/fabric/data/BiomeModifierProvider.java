@@ -1,7 +1,6 @@
 package net.mobz.fabric.data;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
@@ -19,8 +18,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 
 import net.mobz.MobZ;
@@ -38,13 +37,13 @@ public class BiomeModifierProvider extends FabricDynamicRegistryProvider {
 	}
 
 	public static void biomeModifierPopulator(BootstrapContext<BiomeModifier> context) {
-		Map<ResourceLocation, Pair<TagKey<Biome>, List<MobSpawnSettings.SpawnerData>>> rawMap = new HashMap<>();
+		Map<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> rawMap = new HashMap<>();
 		MobSpawns.collectAll(rawMap);
 
-		for (Entry<ResourceLocation, Pair<TagKey<Biome>, List<SpawnerData>>> entry : rawMap.entrySet()) {
+		for (Entry<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> entry : rawMap.entrySet()) {
 			ResourceLocation resloc = entry.getKey();
 			ResourceKey<BiomeModifier> resKey = ResourceKey.create(BiomeModifierRegistry.REGISTRY_KEY, resloc);
-			Pair<TagKey<Biome>, List<SpawnerData>> payload = entry.getValue();
+			Pair<TagKey<Biome>, WeightedList<SpawnerData>> payload = entry.getValue();
 			TagKey<Biome> toBiomeWithTag = payload.getLeft();
 			HolderGetter<Biome> biomeReg = context.lookup(toBiomeWithTag.registry());
 			HolderSet.Named<Biome> biomeHolderSet = biomeReg.getOrThrow(toBiomeWithTag);

@@ -1,13 +1,8 @@
 package net.mobz.block;
 
-import java.util.List;
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,12 +14,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.server.level.ServerLevel;
-import net.mobz.MobZRarity;
 import net.mobz.entity.PillagerBoss;
 import net.mobz.init.MobZEntities;
 
@@ -76,7 +69,7 @@ public class TotemBase extends Block {
 
 			PillagerBoss pillager = MobZEntities.PILLAGER_BOSS.get().create(world, EntitySpawnReason.TRIGGERED);
 			BlockPos spawnPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
-			pillager.moveTo(spawnPos, 0.0F, 0.0F);
+			pillager.snapTo(spawnPos, 0.0F, 0.0F);
 			world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.HOSTILE, 1F, 1F);
 			world.addFreshEntity(pillager);
 		}
@@ -101,11 +94,5 @@ public class TotemBase extends Block {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
 		return SHAPE;
-	}
-
-	@Override
-	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip,
-			TooltipFlag options) {
-		MobZRarity.RARE.addToTooltip(tooltip);
 	}
 }

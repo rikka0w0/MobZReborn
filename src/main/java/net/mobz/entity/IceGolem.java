@@ -59,7 +59,7 @@ public class IceGolem extends IronGolem {
 		BlockPos posentity = this.blockPosition();
 		return MobZ.configs.ice_golem.spawn
 				&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
-				&& this.level().isDay()
+				&& this.level().isBrightOutside()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 

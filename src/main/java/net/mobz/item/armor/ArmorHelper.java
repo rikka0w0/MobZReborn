@@ -14,7 +14,7 @@ public class ArmorHelper {
 		ItemAttributeModifiers defaultAttributes = armorMaterial.createAttributes(armorType);
 
 		// This vanilla function populates default components for an armor item, including attributes
-		itemProps = armorMaterial.humanoidProperties(itemProps, armorType);
+		itemProps = itemProps.humanoidArmor(armorMaterial, armorType);
 
 		return itemProps.attributes(attributeModifier.apply(defaultAttributes));
 	}

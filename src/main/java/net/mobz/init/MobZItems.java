@@ -1,10 +1,14 @@
 package net.mobz.init;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,6 +16,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
@@ -73,7 +78,21 @@ public class MobZItems {
 	public static final Supplier<SimpleItem> SEAL_KEY =
 			registerItem("seal_key", SimpleItem.ofTier(MobZRarity.RARE).compose(props -> props.stacksTo(1)));
 	public static final Supplier<Shield> SHIELD =
-			registerItem("shield", props -> new Shield(props.durability(589).equippableUnswappable(EquipmentSlot.OFFHAND)));
+			registerItem("shield", props -> new Shield(props
+				.durability(589)
+				.repairable(ItemTags.WOODEN_TOOL_MATERIALS)
+				.equippableUnswappable(EquipmentSlot.OFFHAND)
+				.component(DataComponents.BLOCKS_ATTACKS,
+					new BlocksAttacks(0.25F, 1.0F,
+						List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+						new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+						Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+						Optional.of(SoundEvents.SHIELD_BLOCK),
+						Optional.of(SoundEvents.SHIELD_BREAK)
+					)
+				)
+				.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
+			));
 	public static final Supplier<Item> SPAWN_EGG =
 			MobZ.platform.registerItem("spawn_egg", null, Item::new, null);
 	public static final Supplier<WhiteBag> WHITE_BAG =

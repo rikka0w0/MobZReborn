@@ -28,7 +28,8 @@ public class HoneySlime extends Slime {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.honey_slime.spawn && this.level().isDay()
+		return MobZ.configs.honey_slime.spawn
+				&& this.level().isBrightOutside()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 

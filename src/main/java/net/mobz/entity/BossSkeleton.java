@@ -53,7 +53,7 @@ public class BossSkeleton extends Skeleton {
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
 		return MobZ.configs.boss_skeleton.spawn
-				&& this.level().isNight()
+				&& this.level().isDarkOutside()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 }

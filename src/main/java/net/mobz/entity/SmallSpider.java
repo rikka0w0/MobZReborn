@@ -37,22 +37,22 @@ public class SmallSpider extends CaveSpider {
 				.add(Attributes.FOLLOW_RANGE, 15.0D);
 	}
 
-    @Override
-    protected void registerGoals() {
-    	super.registerGoals();
-    	this.goalSelector.removeAllGoals(goal -> goal instanceof MeleeAttackGoal);
-    	this.targetSelector.removeAllGoals(target -> target instanceof NearestAttackableTargetGoal);
-    	this.goalSelector.addGoal(4, new SpiderAttackGoal(this));
-        this.targetSelector.addGoal(2, new SpiderTargetGoal<>(this, Player.class));
-        this.targetSelector.addGoal(3, new SpiderTargetGoal<>(this, IronGolem.class));
-    }
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		this.goalSelector.removeAllGoals(goal -> goal instanceof MeleeAttackGoal);
+		this.targetSelector.removeAllGoals(target -> target instanceof NearestAttackableTargetGoal);
+		this.goalSelector.addGoal(4, new SpiderAttackGoal(this));
+		this.targetSelector.addGoal(2, new SpiderTargetGoal<>(this, Player.class));
+		this.targetSelector.addGoal(3, new SpiderTargetGoal<>(this, IronGolem.class));
+	}
 
 	public void setLimitedLife(int lifeTicks) {
 		this.hasLimitedLife = true;
 		this.limitedLifeTicks = lifeTicks;
 	}
-
 	@Override
+
 	public void tick() {
 		super.tick();
 
@@ -62,32 +62,32 @@ public class SmallSpider extends CaveSpider {
 		}
 	}
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
 
-        if (this.hasLimitedLife) {
-            compound.putInt("LifeTicks", this.limitedLifeTicks);
-        }
-    }
+		if (this.hasLimitedLife) {
+			compound.putInt("LifeTicks", this.limitedLifeTicks);
+		}
+	}
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
 
-        if (compound.contains("LifeTicks")) {
-            this.setLimitedLife(compound.getInt("LifeTicks"));
-        }
-    }
+		if (compound.contains("LifeTicks")) {
+			this.setLimitedLife(compound.getIntOr("LifeTicks", 20));
+		}
+	}
 
-    @Override
-    public void restoreFrom(Entity oldEntity) {
-    	super.restoreFrom(oldEntity);
+	@Override
+	public void restoreFrom(Entity oldEntity) {
+		super.restoreFrom(oldEntity);
 
-    	if (oldEntity instanceof SmallSpider oldSmallSpider) {
-    		this.owner = oldSmallSpider.owner;
-    	}
-    }
+		if (oldEntity instanceof SmallSpider oldSmallSpider) {
+			this.owner = oldSmallSpider.owner;
+		}
+	}
 
 	protected static class SpiderAttackGoal extends MeleeAttackGoal {
 		public SpiderAttackGoal(Spider spider) {

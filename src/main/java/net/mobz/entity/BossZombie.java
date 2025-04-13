@@ -85,7 +85,8 @@ public class BossZombie extends Zombie {
 
 	@Override
 	public boolean checkSpawnObstruction(LevelReader view) {
-		return MobZ.configs.boss_zombie.spawn && this.level().isNight()
+		return MobZ.configs.boss_zombie.spawn
+				&& this.level().isDarkOutside()
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 
@@ -94,7 +95,7 @@ public class BossZombie extends Zombie {
 		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity) {
-			livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120, 0, false, false));
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 120, 0, false, false));
 		}
 
 		return flag;

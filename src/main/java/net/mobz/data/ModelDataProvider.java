@@ -5,13 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
-import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.blockstates.Variant;
-import net.minecraft.client.data.models.blockstates.VariantProperties;
+import com.google.common.collect.Maps;
+
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
@@ -19,6 +18,7 @@ import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.BlockModelDefinition;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
@@ -49,7 +49,7 @@ public class ModelDataProvider implements DataProvider {
 
 	protected Map<ResourceLocation, ModelInstance> models = new HashMap<>();
 	protected Map<Item, ClientItem> itemStateMap = new HashMap<>();
-	protected Map<Block, BlockStateGenerator> blockStateMap = new HashMap<>();
+	protected Map<Block, BlockModelDefinitionGenerator> blockStateMap = new HashMap<>();
 
 	public ModelDataProvider(PackOutput packOutput, Registry<Item> itemRegistry) {
 		this.blockStatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
@@ -148,17 +148,17 @@ public class ModelDataProvider implements DataProvider {
 	}
 
 	protected void addItemModelInfo(Item item, ItemModel.Unbaked unbakedItemModel) {
-    	ClientItem clientModel = new ClientItem(unbakedItemModel, ClientItem.Properties.DEFAULT);
-        if (itemStateMap.put(item, clientModel) != null) {
-            throw new IllegalStateException("Duplicate item model definition for " + item);
-        }
+		ClientItem clientModel = new ClientItem(unbakedItemModel, ClientItem.Properties.DEFAULT);
+		if (itemStateMap.put(item, clientModel) != null) {
+			throw new IllegalStateException("Duplicate item model definition for " + item);
+		}
 	}
 
-	protected void addBlockState(BlockStateGenerator blockgen) {
-        Block block = blockgen.getBlock();
-        if (blockStateMap.put(block, blockgen) != null) {
-            throw new IllegalStateException("Duplicate blockstate definition for " + block);
-        }
+	protected void addBlockState(BlockModelDefinitionGenerator blockgen) {
+		Block block = blockgen.block();
+		if (blockStateMap.put(block, blockgen) != null) {
+			throw new IllegalStateException("Duplicate blockstate definition for " + block);
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -180,10 +180,12 @@ public class ModelDataProvider implements DataProvider {
 		// Populates the above three maps
 		this.collect();
 
+		Map<Block, BlockModelDefinition> blockStateMap = Maps.transformValues(this.blockStateMap, BlockModelDefinitionGenerator::create);
+
 		return CompletableFuture.allOf(
 				DataProvider.saveAll(pOutput, Supplier::get, this.modelPathProvider::json, this.models),
 				DataProvider.saveAll(pOutput, ClientItem.CODEC, this::itemStateToPath, this.itemStateMap),
-				DataProvider.saveAll(pOutput, Supplier::get, this::blockStateToPath, this.blockStateMap)
+				DataProvider.saveAll(pOutput, BlockModelDefinition.CODEC, this::blockStateToPath, blockStateMap)
 			);
 	}
 
@@ -196,7 +198,7 @@ public class ModelDataProvider implements DataProvider {
 		ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(item, suffix);
 
 		return modelTemplate.create(textureResLoc, TextureMapping.layer0(textureResLoc), this::addItemModel);
-    }
+	}
 
 	protected void simpleItemWithExistingModel(Item item) {
 		this.addItemModelInfo(item, ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item)));
@@ -220,10 +222,10 @@ public class ModelDataProvider implements DataProvider {
 	}
 
 	protected void spawnEggMobZ(MobZSpawnEgg egg) {
-        ResourceLocation resourcelocation = ModelLocationUtils.decorateItemModelLocation("template_spawn_egg");
-        this.addItemModelInfo(egg, ItemModelUtils.tintedModel(resourcelocation,
-        		ItemModelUtils.constantTint(egg.backgroundColor),
-        		ItemModelUtils.constantTint(egg.highlightColor)));
+		ResourceLocation resourcelocation = ResourceLocation.fromNamespaceAndPath("mobz", "item/template_spawn_egg");
+		this.addItemModelInfo(egg, ItemModelUtils.tintedModel(resourcelocation,
+			ItemModelUtils.constantTint(egg.backgroundColor),
+			ItemModelUtils.constantTint(egg.highlightColor)));
 	}
 
 	protected void shieldWithExistingModel(Item item) {
@@ -287,12 +289,8 @@ public class ModelDataProvider implements DataProvider {
 
 	// Blocks
 	protected void cubeAll(Block block) {
-    	this.addBlockState(createSimpleBlock(block,
-        		TexturedModel.CUBE.create(block, this::addItemModel)));
-    	this.blockItem(block);
-    }
-
-    public static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resLoc) {
-        return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resLoc));
-    }
+		ResourceLocation texture = TexturedModel.CUBE.create(block, this::addItemModel);
+		this.addBlockState(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(texture)));
+		this.blockItem(block);
+	}
 }

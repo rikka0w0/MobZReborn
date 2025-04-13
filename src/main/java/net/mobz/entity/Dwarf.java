@@ -54,7 +54,7 @@ public class Dwarf extends Vindicator {
 		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
-			livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 0, false, false));
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 70, 0, false, false));
 		}
 
 		return flag;
