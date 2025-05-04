@@ -8,7 +8,7 @@ A port of [Globox1997's MobZ](https://www.curseforge.com/minecraft/mc-mods/mobz)
 * 1.17.1
 * 1.16.5
 
-__This branch is for Minecraft [1.20.3, 1.20.4].__
+__This branch is for Minecraft [1.20, 1.20.1].__
 
 1.16.5 only has Forge version, for 1.16.5 Fabric version, check out [the original MobZ](https://github.com/Globox1997/MobZ).
 

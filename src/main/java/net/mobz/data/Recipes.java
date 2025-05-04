@@ -1,14 +1,13 @@
 package net.mobz.data;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -32,7 +31,7 @@ public class Recipes extends RecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(RecipeOutput recipeOutput) {
+	public void buildRecipes(Consumer<FinishedRecipe> recipeOutput) {
 		// Amat
 		mobZ9BlockStorageRecipes(recipeOutput, RecipeCategory.MISC, MobZItems.AMAT_INGOT.get(),
 				RecipeCategory.MISC, MobZBlocks.AMAT_BLOCK.get());
@@ -176,7 +175,7 @@ public class Recipes extends RecipeProvider {
 			.save(recipeOutput);
 	}
 
-	public static void mobZ9BlockStorageRecipes(RecipeOutput pRecipeOutput, RecipeCategory pUnpackedCategory,
+	public static void mobZ9BlockStorageRecipes(Consumer<FinishedRecipe> pRecipeOutput, RecipeCategory pUnpackedCategory,
 			ItemLike pUnpacked, RecipeCategory pPackedCategory, ItemLike pPacked) {
 		ResourceLocation unpackedName = BuiltInRegistries.ITEM.getKey(pUnpacked.asItem());
 		ResourceLocation packedName = BuiltInRegistries.ITEM.getKey(pPacked.asItem());
@@ -184,7 +183,7 @@ public class Recipes extends RecipeProvider {
 				packedName.toString() + "_from_unpacked", null, unpackedName.toString() + "_from_packed", null);
 	}
 
-	public static void armorSet(RecipeOutput recipeOutput, ItemLike ingredient, String unlockedByName, ArmorItem helmet,
+	public static void armorSet(Consumer<FinishedRecipe> recipeOutput, ItemLike ingredient, String unlockedByName, ArmorItem helmet,
 			ArmorItem chestplate, ArmorItem leggings, @Nullable ArmorItem boots) {
 		if (helmet != null) {
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)

@@ -49,7 +49,7 @@ public class EntityLoot implements LootTableSubProvider {
 	 * EntityLootSubProvider start
 	 */
 	protected static final EntityPredicate.Builder ENTITY_ON_FIRE = EntityPredicate.Builder.entity()
-			.flags(EntityFlagsPredicate.Builder.flags().setOnFire(true));
+			.flags(EntityFlagsPredicate.Builder.flags().setOnFire(true).build());
 
 	private final FeatureFlagSet allowed = FeatureFlags.REGISTRY.allFlags();
 	private final FeatureFlagSet required = this.allowed;
@@ -934,6 +934,6 @@ public class EntityLoot implements LootTableSubProvider {
 	}
 
 	public static LootItemCondition.Builder randomChanceAndLootingBoost(Object dummy, float pChance, float pLootingMultiplier) {
-		return () -> new LootItemRandomChanceWithLootingCondition(pChance, pLootingMultiplier);
+		return LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(pChance, pLootingMultiplier);
 	}
 }

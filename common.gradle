@@ -157,7 +157,7 @@ task githubDraft {
 		def headFile = file('../CHANGELOG.md');
 		def tailFile = file('../NOTE.md');
 
-		def title = "${project.mod_version} for Minecraft ${project.minecraft_version} (Forge, Neoforge and Fabric)\n";
+		def title = "${project.mod_version} for Minecraft ${project.minecraft_version} (Forge and Fabric)\n";
 		def tagName = "${project.mod_version}_${project.minecraft_version}"
 
 		def outputText = '';
@@ -168,7 +168,6 @@ task githubDraft {
 		}
 
 		outputText += file('../fabric/build/info/CHANGELOG.md').text + '\n\n';
-		outputText += file('../neoforge/build/info/CHANGELOG.md').text + '\n\n';
 		outputText += file('../forge/build/info/CHANGELOG.md').text + '\n\n';
 
 		if (tailFile.exists()) {
