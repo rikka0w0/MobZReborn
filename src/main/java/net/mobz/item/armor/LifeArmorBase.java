@@ -39,18 +39,18 @@ public class LifeArmorBase extends SimpleItem {
 	public static final ArmorMaterial MATERIAL = new ArmorMaterial(
 			30,		// Durability
 			DEFENSE_MAP,
-       		10,		// getEnchantmentValue
-      		SoundEvents.ARMOR_EQUIP_IRON,
-       		0,	// getToughness
-       		0,	// getKnockbackResistance
-       		MobZItemTags.REPAIRS_LIFE_ARMOR,
-       		EQUIPMENT_MODEL_LIFE
+			10,		// getEnchantmentValue
+			SoundEvents.ARMOR_EQUIP_IRON,
+			0,	// getToughness
+			0,	// getKnockbackResistance
+			MobZItemTags.REPAIRS_LIFE_ARMOR,
+			EQUIPMENT_MODEL_LIFE
 		);
 
-    public LifeArmorBase(ArmorType armorType, Item.Properties properties) {
-        super(ArmorHelper.humanoidProperties(MATERIAL, armorType, properties,
-        		attributes -> LifeArmorBase.attributeModifiers(attributes, armorType)), MobZRarity.RARE);
-    }
+	public LifeArmorBase(ArmorType armorType, Item.Properties properties) {
+		super(ArmorHelper.humanoidProperties(MATERIAL, armorType, properties,
+				attributes -> LifeArmorBase.attributeModifiers(attributes, armorType)), MobZRarity.RARE);
+	}
 
 	public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType) {
 		return modifiers.withModifierAdded(

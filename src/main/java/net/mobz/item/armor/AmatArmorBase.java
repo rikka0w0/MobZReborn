@@ -47,12 +47,12 @@ public class AmatArmorBase extends SimpleItem {
 	public static final ArmorMaterial MATERIAL = new ArmorMaterial(
 			34,		// Durability
 			DEFENSE_MAP,
-       		15,		// getEnchantmentValue
-      		SoundEvents.ARMOR_EQUIP_DIAMOND,
-       		1,	// getToughness
-       		0,  // getKnockbackResistance
-       		MobZItemTags.REPAIRS_AMAT_ARMOR,
-       		EQUIPMENT_MODEL_AMAT
+			15,		// getEnchantmentValue
+			SoundEvents.ARMOR_EQUIP_DIAMOND,
+			1,	// getToughness
+			0,  // getKnockbackResistance
+			MobZItemTags.REPAIRS_AMAT_ARMOR,
+			EQUIPMENT_MODEL_AMAT
 		);
 
 	public AmatArmorBase(ArmorType armorType, Item.Properties properties) {

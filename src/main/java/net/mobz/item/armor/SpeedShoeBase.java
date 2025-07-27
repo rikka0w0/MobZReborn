@@ -35,12 +35,12 @@ public class SpeedShoeBase extends SimpleItem {
 	public static final ArmorMaterial MATERIAL1 = new ArmorMaterial(
 			21,
 			DEFENSE_MAP1,
-       		10,		// getEnchantmentValue
-      		SoundEvents.ARMOR_EQUIP_LEATHER,
-       		0,	// getToughness
-       		0,	// getKnockbackResistance
-       		MobZItemTags.REPAIRS_SPEED_ARMOR,
-       		EQUIPMENT_MODEL_SPEED
+			10,		// getEnchantmentValue
+			SoundEvents.ARMOR_EQUIP_LEATHER,
+			0,	// getToughness
+			0,	// getKnockbackResistance
+			MobZItemTags.REPAIRS_SPEED_ARMOR,
+			EQUIPMENT_MODEL_SPEED
 //       		List.of(new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "speed")))
 		);
 
@@ -58,23 +58,23 @@ public class SpeedShoeBase extends SimpleItem {
 	public static final ArmorMaterial MATERIAL2 = new ArmorMaterial(
 			23,		// Durability
 			DEFENSE_MAP2,
-       		12,		// getEnchantmentValue
-      		SoundEvents.ARMOR_EQUIP_LEATHER,
-       		0,	// getToughness
-       		0,	// getKnockbackResistance
-       		MobZItemTags.REPAIRS_SPEED2_ARMOR,
-       		EQUIPMENT_MODEL_SPEED2
+			12,		// getEnchantmentValue
+			SoundEvents.ARMOR_EQUIP_LEATHER,
+			0,	// getToughness
+			0,	// getKnockbackResistance
+			MobZItemTags.REPAIRS_SPEED2_ARMOR,
+			EQUIPMENT_MODEL_SPEED2
 //       		List.of(new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "speed2")))
 		);
 
 
-    public SpeedShoeBase(ArmorMaterial material, ArmorType armorType, Item.Properties properties, double speedBoost) {
-        super(ArmorHelper.humanoidProperties(material, armorType, properties,
-        		attributes -> SpeedShoeBase.attributeModifiers(attributes, armorType, speedBoost)
-        		), MobZRarity.UNCOMMON);
-    }
+	public SpeedShoeBase(ArmorMaterial material, ArmorType armorType, Item.Properties properties, double speedBoost) {
+		super(ArmorHelper.humanoidProperties(material, armorType, properties,
+				attributes -> SpeedShoeBase.attributeModifiers(attributes, armorType, speedBoost)
+				), MobZRarity.UNCOMMON);
+	}
 
-    public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType, double speedBoost) {
+	public static ItemAttributeModifiers attributeModifiers(ItemAttributeModifiers modifiers, ArmorType armorType, double speedBoost) {
 		return modifiers.withModifierAdded(
 			Attributes.MOVEMENT_SPEED,
 			new AttributeModifier(MobZ.resLoc("speed"), speedBoost, AttributeModifier.Operation.ADD_VALUE),
