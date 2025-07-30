@@ -2,7 +2,6 @@ package net.mobz.entity;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +15,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.mobz.MobZ;
 
 public class SmallSpider extends CaveSpider {
@@ -63,21 +64,19 @@ public class SmallSpider extends CaveSpider {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
 
 		if (this.hasLimitedLife) {
-			compound.putInt("LifeTicks", this.limitedLifeTicks);
+			valueOutput.putInt("LifeTicks", this.limitedLifeTicks);
 		}
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
+	public void readAdditionalSaveData(ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
 
-		if (compound.contains("LifeTicks")) {
-			this.setLimitedLife(compound.getIntOr("LifeTicks", 20));
-		}
+		valueInput.getInt("LifeTicks").ifPresentOrElse(this::setLimitedLife, () -> this.setLimitedLife(20));
 	}
 
 	@Override

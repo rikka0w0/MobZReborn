@@ -6,14 +6,14 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.data.tags.KeyTagProvider;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
 import net.mobz.MobZ;
 import net.mobz.tags.MobZBiomeTags;
 
-public class SpawnBiomeTagProvider extends TagsProvider<Biome> {
+public class SpawnBiomeTagProvider extends KeyTagProvider<Biome> {
 	public SpawnBiomeTagProvider(PackOutput packOutput,
 			CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, Registries.BIOME, lookupProvider);

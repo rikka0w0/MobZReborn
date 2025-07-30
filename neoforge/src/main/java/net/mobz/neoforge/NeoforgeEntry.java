@@ -81,14 +81,14 @@ public class NeoforgeEntry {
 		MobZ.configs = ClothConfig.get();
 
 		Supplier<Runnable> toRun = () -> ClientRegistrationHandler::registerConfigGui;
-        if (Dist.CLIENT == FMLEnvironment.dist)  {
-            toRun.get().run();
-        }
+		if (Dist.CLIENT == FMLEnvironment.dist) {
+			toRun.get().run();
+		}
 
 		MobZ.invokeStaticFields();
 	}
 
-	@EventBusSubscriber(modid = MobZ.MODID, bus = EventBusSubscriber.Bus.MOD)
+	@EventBusSubscriber(modid = MobZ.MODID)
 	public final static class ModEventBusHandler {
 		@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
@@ -178,7 +178,7 @@ public class NeoforgeEntry {
 		}
 	}
 
-	@EventBusSubscriber(modid = MobZ.MODID, bus = EventBusSubscriber.Bus.GAME)
+	@EventBusSubscriber(modid = MobZ.MODID)
 	public final static class ForgeEventBusHandler { // MinecraftForge.EVENT_BUS MinecraftForgeEventsHandler
 		@SubscribeEvent(priority = EventPriority.HIGH)
 		public static void onLootTableLoadEvent(final LootTableLoadEvent event) {

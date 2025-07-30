@@ -1,6 +1,5 @@
 package net.mobz.entity;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -17,6 +16,8 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
 
@@ -87,15 +88,15 @@ public class TadpoleEntity extends AbstractFish {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("BabyTime", this.babyTime);
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.putInt("BabyTime", this.babyTime);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		this.babyTime = tag.getIntOr("BabyTime", BABY_TIME_DEFAULT);
+	public void readAdditionalSaveData(ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		this.babyTime = valueInput.getIntOr("BabyTime", BABY_TIME_DEFAULT);
 	}
 
 	@Override

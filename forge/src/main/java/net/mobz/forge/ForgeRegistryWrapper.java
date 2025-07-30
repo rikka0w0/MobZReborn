@@ -35,7 +35,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -56,7 +56,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	private Map<CreativeModeTab, List<Supplier<? extends ItemLike>>> tabContents = new HashMap<>();
 
 	public ForgeRegistryWrapper(FMLJavaModLoadingContext context) {
-		IEventBus eventBus = context.getModEventBus();
+		BusGroup eventBus = context.getModBusGroup();
 		BLOCKS.register(eventBus);
 		ITEMS.register(eventBus);
 		ENTITY_TYPES.register(eventBus);

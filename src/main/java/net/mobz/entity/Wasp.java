@@ -5,8 +5,6 @@ import java.util.EnumSet;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -51,6 +49,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 public class Wasp extends PathfinderMob implements FlyingAnimal {
@@ -110,17 +110,17 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
 		if (this.hasHive()) {
-			compound.storeNullable("HivePos", BlockPos.CODEC, this.hivePos);
+			valueOutput.storeNullable("HivePos", BlockPos.CODEC, this.hivePos);
 		}
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		this.hivePos = compound.read("HivePos", BlockPos.CODEC).orElse(null);
+	public void readAdditionalSaveData(ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		this.hivePos = valueInput.read("HivePos", BlockPos.CODEC).orElse(null);
 	}
 
 	@Override

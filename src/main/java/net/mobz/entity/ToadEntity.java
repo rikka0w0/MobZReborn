@@ -2,7 +2,6 @@ package net.mobz.entity;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,7 +21,6 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -48,6 +46,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.mobz.MathUtils;
 import net.mobz.MobZ;
@@ -303,17 +303,15 @@ public class ToadEntity extends Animal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag)
-	{
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("HasBaby", hasBaby);
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.putBoolean("HasBaby", hasBaby);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag)
-	{
-		super.readAdditionalSaveData(tag);
-		hasBaby = tag.getBooleanOr("HasBaby", false);
+	public void readAdditionalSaveData(ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		hasBaby = valueInput.getBooleanOr("HasBaby", false);
 	}
 
 	public void setHasBaby(boolean hasBaby)

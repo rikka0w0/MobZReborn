@@ -12,7 +12,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = MobZ.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid = MobZ.MODID)
 public class ClientRegistrationHandler {
 	@SubscribeEvent
 	public static void onClientSetup(final FMLClientSetupEvent event) {

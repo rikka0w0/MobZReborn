@@ -3,6 +3,7 @@ package net.mobz.client.renderer.model;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -55,41 +56,47 @@ public class WaspModel extends EntityModel<WaspRenderState> {
 									AnimationChannel.Interpolations.LINEAR)))
 			.build();
 
-    public static final MeshTransformer BABY_TRANSFORMER = MeshTransformer.scaling(0.5F);
-    private final ModelPart bone;
+	public static final MeshTransformer BABY_TRANSFORMER = MeshTransformer.scaling(0.5F);
+	private final ModelPart bone;
 
-    private final ModelPart leftAntenna;
-    private final ModelPart rightAntenna;
+	private final ModelPart leftAntenna;
+	private final ModelPart rightAntenna;
 
-    private final ModelPart frontLeg;
-    private final ModelPart midLeg;
-    private final ModelPart backLeg;
+	private final ModelPart frontLeg;
+	private final ModelPart midLeg;
+	private final ModelPart backLeg;
 
-    private final ModelPart tail;
-    private final ModelPart tailPart1;
-    private final ModelPart tailPart2;
-    private final ModelPart stinger;
+	private final ModelPart tail;
+	private final ModelPart tailPart1;
+	private final ModelPart tailPart2;
+	private final ModelPart stinger;
 
-    private float rollAmount;
+	private float rollAmount;
 
-    public WaspModel(ModelPart root) {
-        super(root);
-        this.bone = root.getChild("bone");
+	private final KeyframeAnimation flying_wings_animation;
+	private final KeyframeAnimation resting_wings_animation;
 
-        ModelPart head = this.bone.getChild("head");
-        this.leftAntenna = head.getChild("left_antenna");
-        this.rightAntenna = head.getChild("right_antenna");
+	public WaspModel(ModelPart root) {
+		super(root);
+		this.bone = root.getChild("bone");
 
-        ModelPart body = this.bone.getChild("body");
-        this.frontLeg = body.getChild("front_legs");
-        this.midLeg = body.getChild("middle_legs");
-        this.backLeg = body.getChild("back_legs");
+		ModelPart head = this.bone.getChild("head");
+		this.leftAntenna = head.getChild("left_antenna");
+		this.rightAntenna = head.getChild("right_antenna");
 
-        this.tail = this.bone.getChild("tail");
-        this.tailPart1 = this.tail.getChild("subpart1");
-        this.tailPart2 = this.tailPart1.getChild("subpart2");
-        this.stinger = this.tailPart2.getChild("stinger");
-    }
+		ModelPart body = this.bone.getChild("body");
+		this.frontLeg = body.getChild("front_legs");
+		this.midLeg = body.getChild("middle_legs");
+		this.backLeg = body.getChild("back_legs");
+
+		this.tail = this.bone.getChild("tail");
+		this.tailPart1 = this.tail.getChild("subpart1");
+		this.tailPart2 = this.tailPart1.getChild("subpart2");
+		this.stinger = this.tailPart2.getChild("stinger");
+
+		this.flying_wings_animation = FLYING_WINGS_ANIMATION.bake(root);
+		this.resting_wings_animation = RESTING_WINGS_ANIMATION.bake(root);
+	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
@@ -131,27 +138,28 @@ public class WaspModel extends EntityModel<WaspRenderState> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-    public void setupAnim(WaspRenderState renderState) {
-        super.setupAnim(renderState);
+	@Override
+	public void setupAnim(WaspRenderState renderState) {
+		super.setupAnim(renderState);
 
-        this.animate(renderState.flyAnimationState, FLYING_WINGS_ANIMATION, renderState.ageInTicks, 1.0F);
-        this.animate(renderState.restAnimationState, RESTING_WINGS_ANIMATION, renderState.ageInTicks, 1.0F);
+		this.flying_wings_animation.apply(renderState.flyAnimationState, renderState.ageInTicks);
+		this.resting_wings_animation.apply(renderState.restAnimationState, renderState.ageInTicks);
 
-        this.rollAmount = renderState.rollAmount;
-        this.stinger.visible = renderState.hasStinger;
+		this.rollAmount = renderState.rollAmount;
+		this.stinger.visible = renderState.hasStinger;
 
-        if (!renderState.isOnGround) {
-            this.frontLeg.xRot = (float) (Math.PI / 4);
-            this.midLeg.xRot = (float) (Math.PI / 4);
-            this.backLeg.xRot = (float) (Math.PI / 4);
-        } else {
-            tail.xRot = -7.5F * (float) (Math.PI / 180);
-            tailPart1.xRot = -7.5F * (float) (Math.PI / 180);
-            tailPart2.xRot = -7.5F * (float) (Math.PI / 180);
-        }
+		if (!renderState.isOnGround) {
+			this.frontLeg.xRot = (float) (Math.PI / 4);
+			this.midLeg.xRot = (float) (Math.PI / 4);
+			this.backLeg.xRot = (float) (Math.PI / 4);
+		} else {
+			tail.xRot = -7.5F * (float) (Math.PI / 180);
+			tailPart1.xRot = -7.5F * (float) (Math.PI / 180);
+			tailPart2.xRot = -7.5F * (float) (Math.PI / 180);
+		}
 
-        if (this.rollAmount > 0.0F) {
-            this.bone.xRot = Mth.rotLerpRad(this.rollAmount, this.bone.xRot, 3.0915928F);
-        }
-    }
+		if (this.rollAmount > 0.0F) {
+			this.bone.xRot = Mth.rotLerpRad(this.rollAmount, this.bone.xRot, 3.0915928F);
+		}
+	}
 }
