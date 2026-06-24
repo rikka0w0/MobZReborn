@@ -72,7 +72,7 @@ public class PillagerBoss extends Pillager {
 		int requiredCooldown = this.level().getDifficulty() == Difficulty.HARD ?
 		MobZ.configs.pillager_boss.wither_attack_cooldown_hard : MobZ.configs.pillager_boss.wither_attack_cooldown;
 
-		if (getTarget() != null && !this.level().isClientSide && distanceToSqr(getTarget()) < 4096D
+		if (getTarget() != null && !this.level().isClientSide() && distanceToSqr(getTarget()) < 4096D
 				&& hasLineOfSight(getTarget())) {
 
 			cooldown++;

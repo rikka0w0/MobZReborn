@@ -1,13 +1,12 @@
 package net.mobz.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -28,9 +27,8 @@ public class HoneySlimeRenderer extends MobRenderer<HoneySlime, SlimeRenderState
 	}
 
 	@Override
-	public void render(SlimeRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSrc, int packedLight) {
-		this.shadowRadius = 0.25F * (float) renderState.size;
-		super.render(renderState, poseStack, bufferSrc, packedLight);
+	protected float getShadowRadius(SlimeRenderState renderState) {
+		return 0.25F * (float) renderState.size;
 	}
 
 	@Override
@@ -68,20 +66,15 @@ public class HoneySlimeRenderer extends MobRenderer<HoneySlime, SlimeRenderState
 			this.model = new SlimeModel(modelSet.bakeLayer(ModelLayers.SLIME_OUTER));
 		}
 
-		public void render(PoseStack poseStack, MultiBufferSource bufferSrc, int packedLight,
+		public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight,
 				SlimeRenderState renderState, float yRot, float xRot) {
-			boolean flag = renderState.appearsGlowing && renderState.isInvisible;
+			boolean flag = renderState.appearsGlowing() && renderState.isInvisible;
 			if (!renderState.isInvisible || flag) {
-				VertexConsumer vertexConsumer;
-				if (flag) {
-					vertexConsumer = bufferSrc.getBuffer(RenderType.outline(HoneySlimeRenderer.this.texture));
-				} else {
-					vertexConsumer = bufferSrc.getBuffer(RenderType.entityTranslucent(HoneySlimeRenderer.this.texture));
-				}
-
-				this.model.setupAnim(renderState);
-				this.model.renderToBuffer(poseStack, vertexConsumer, packedLight,
-						LivingEntityRenderer.getOverlayCoords(renderState, 0.0F));
+				RenderType renderType = flag
+						? RenderType.outline(HoneySlimeRenderer.this.texture)
+						: RenderType.entityTranslucent(HoneySlimeRenderer.this.texture);
+				submitNodeCollector.order(1).submitModel(this.model, renderState, poseStack, renderType, packedLight,
+						LivingEntityRenderer.getOverlayCoords(renderState, 0.0F), -1, null, renderState.outlineColor, null);
 			}
 		}
 	}

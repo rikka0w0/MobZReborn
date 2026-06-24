@@ -62,7 +62,7 @@ public class PillagerStaff extends SimpleItem {
 				BlockPos oke = context.getClickedPos();
 				wither.snapTo(oke, 0.0F, 0.0F);
 				world.addFreshEntity(wither);
-			} else if (world.isClientSide) {
+			} else if (world.isClientSide()) {
 				player.displayClientMessage(Component.translatable("text.mobz.withendermissing"), true);
 			}
 
@@ -108,7 +108,7 @@ public class PillagerStaff extends SimpleItem {
 				world.addFreshEntity(skull1);
 				playerEntity.hurt(world.damageSources().wither(), 2F);
 				playerEntity.playSound(SoundEvents.WITHER_HURT, 1F, 1F);
-				if (world.isClientSide) {
+				if (world.isClientSide()) {
 					for (int i = 0; i < 16; ++i) {
 						world.addParticle(ParticleTypes.MYCELIUM, playerEntity.getX() + z2, playerEntity.getY() + z6,
 								playerEntity.getZ() + z4, 0D, 0D, 0D);

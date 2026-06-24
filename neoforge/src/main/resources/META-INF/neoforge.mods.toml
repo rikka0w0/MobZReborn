@@ -1,5 +1,3 @@
-modLoader="javafml"
-loaderVersion="${loader_version_range}" #mandatory
 issueTrackerURL="https://github.com/rikka0w0/MobZReborn/issues" #optional
 license="MIT License"
 

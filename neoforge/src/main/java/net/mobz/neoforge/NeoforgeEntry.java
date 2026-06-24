@@ -81,7 +81,7 @@ public class NeoforgeEntry {
 		MobZ.configs = ClothConfig.get();
 
 		Supplier<Runnable> toRun = () -> ClientRegistrationHandler::registerConfigGui;
-		if (Dist.CLIENT == FMLEnvironment.dist) {
+		if (Dist.CLIENT == FMLEnvironment.getDist()) {
 			toRun.get().run();
 		}
 

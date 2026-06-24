@@ -52,7 +52,7 @@ public class EnderKnight extends Vindicator {
 	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
 		boolean flag = super.doHurtTarget(serverLevel, victim);
 
-		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide()) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
 		}
 

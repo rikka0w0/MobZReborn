@@ -43,7 +43,7 @@ public class LordOfDarkness extends Vindicator {
 	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
 		boolean flag = super.doHurtTarget(serverLevel, victim);
 
-		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide()) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 100, 0, false, false));
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 0, false, false));
 		}

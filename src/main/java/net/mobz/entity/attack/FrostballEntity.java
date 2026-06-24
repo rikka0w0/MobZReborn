@@ -25,19 +25,19 @@ public class FrostballEntity extends Fireball {
 		super(entityType, world);
 	}
 
-    public FrostballEntity(Level world, LivingEntity owner, Vec3 normalizedDisplacementVector) {
-        super(MobZEntities.FROSTBALL.get(), owner, normalizedDisplacementVector, world);
-    }
+	public FrostballEntity(Level world, LivingEntity owner, Vec3 normalizedDisplacementVector) {
+		super(MobZEntities.FROSTBALL.get(), owner, normalizedDisplacementVector, world);
+	}
 
-    public FrostballEntity(Level world, double spawnPosX, double spawnPosY, double spawnPosZ,
-    		Vec3 normalizedDisplacementVector) {
-        super(MobZEntities.FROSTBALL.get(), spawnPosX, spawnPosY, spawnPosZ, normalizedDisplacementVector, world);
-    }
+	public FrostballEntity(Level world, double spawnPosX, double spawnPosY, double spawnPosZ,
+			Vec3 normalizedDisplacementVector) {
+		super(MobZEntities.FROSTBALL.get(), spawnPosX, spawnPosY, spawnPosZ, normalizedDisplacementVector, world);
+	}
 
-    @Override
-    public ItemStack getItem() {
-        return new ItemStack(MobZItems.FROZEN_POWDER.get());
-    }
+	@Override
+	public ItemStack getItem() {
+		return new ItemStack(MobZItems.FROZEN_POWDER.get());
+	}
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityHitResult) {
@@ -68,7 +68,7 @@ public class FrostballEntity extends Fireball {
 	@Override
 	protected void onHit(HitResult hitResult) {
 		super.onHit(hitResult);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.discard();
 		}
 	}

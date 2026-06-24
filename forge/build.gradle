@@ -2,7 +2,7 @@ plugins {
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.minecraftforge.gradle' version '[6.0.24, 6.2)'
+	id 'net.minecraftforge.gradle' version '[6.0.36, 6.2)'
 	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
@@ -18,12 +18,18 @@ project.ext.minecraft_version_range = '[' + project.minecraft_version_min + ', '
 // These are defined in ../fabric/gradle.properties
 version = project.mod_version
 group = project.dev_group // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = project.archives_base_name
 
 // Mojang ships Java 21 to end users in 1.20.5+
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+base {
+	archivesName = project.archives_base_name
+}
 minecraft {
 	// The mappings can be changed at any time, and must be in the following format.
 	// Channel:   Version:
@@ -128,6 +134,9 @@ dependencies {
 
 	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transitive dependencies request 6.0+ 
 	implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+
+	// Forge 1.21.6+ validates EventBus subscribers at compile time.
+	annotationProcessor 'net.minecraftforge:eventbus-validator:7.0-beta.12'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

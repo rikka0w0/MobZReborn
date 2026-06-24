@@ -35,14 +35,14 @@ public class FrozenPowder extends SimpleItem {
 		BlockPos blockPos = blockHitResult.getBlockPos();
 		BlockState blockBlock = world.getBlockState(blockPos);
 
-		if (blockBlock.getBlock() instanceof BucketPickup && !world.isClientSide) {
+		if (blockBlock.getBlock() instanceof BucketPickup && !world.isClientSide()) {
 			world.setBlock(blockPos, Blocks.ICE.defaultBlockState(), 3);
 			handItem.shrink(1);
 			return InteractionResult.SUCCESS;
 		}
 
 		RandomSource random = world.getRandom();
-		if (((blockState.getBlock() == Blocks.WATER || blockState.getBlock() == Blocks.ICE) && world.isClientSide)) {
+		if (((blockState.getBlock() == Blocks.WATER || blockState.getBlock() == Blocks.ICE) && world.isClientSide())) {
 			for (int i = 0; i < 16; ++i) {
 				double d = random.nextGaussian() * 0.02D;
 				double e = random.nextGaussian() * 0.02D;
@@ -54,7 +54,7 @@ public class FrozenPowder extends SimpleItem {
 			}
 			return InteractionResult.SUCCESS;
 		}
-		if (blockState.getBlock() == Blocks.ICE && !world.isClientSide) {
+		if (blockState.getBlock() == Blocks.ICE && !world.isClientSide()) {
 			if (world.getBlockState(pos.east()).getBlock().equals(Blocks.ICE)) {
 				world.setBlock(pos.east(), Blocks.BLUE_ICE.defaultBlockState(), 3);
 			}

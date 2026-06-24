@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -36,9 +36,9 @@ public class BossSkeletonRenderer extends EasySkeletonRender {
 		}
 
 		@Override
-		public void render(PoseStack poseStack, MultiBufferSource bufferSrc, int packedLight, S renderState,
+		public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, S renderState,
 				float headYaw, float headPitch) {
-			coloredCutoutModelCopyLayerRender(this.model, this.texture, poseStack, bufferSrc, packedLight, renderState, -1);
+			coloredCutoutModelCopyLayerRender(this.model, this.texture, poseStack, submitNodeCollector, packedLight, renderState, -1, 1);
 		}
 	}
 }

@@ -91,7 +91,7 @@ public class Charles extends Vindicator {
 		int cooldownMax = Math.max(MobZ.configs.charles.vex_summon_cooldown, MobZ.configs.charles.slowdown_attack_cooldown);
 		LivingEntity target = getTarget();
 
-		if (!this.level().isClientSide && target != null && distanceToSqr(target) < 4096D && hasLineOfSight(target)) {
+		if (!this.level().isClientSide() && target != null && distanceToSqr(target) < 4096D && hasLineOfSight(target)) {
 			this.cooldown++;
 			if (this.cooldown >= MobZ.configs.charles.vex_summon_cooldown) {
 				summonVexToAttack(getTarget());

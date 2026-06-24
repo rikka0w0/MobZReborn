@@ -59,7 +59,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 			EntityDataSerializers.BYTE);
 
 	public final AnimationState flyAnimationState = new AnimationState();
-    public final AnimationState restAnimationState = new AnimationState();
+	public final AnimationState restAnimationState = new AnimationState();
 
 	private float rollAmount;
 	private float rollAmountO;
@@ -276,7 +276,7 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (this.stayOutOfHiveCountdown > 0) {
 				--this.stayOutOfHiveCountdown;
 			}

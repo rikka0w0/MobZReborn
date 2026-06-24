@@ -30,7 +30,7 @@ public class WhiteBag extends SimpleItem {
 		if (randomNumber < 0) {
 			randomNumber = randomNumber * (-1);
 		}
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			switch (randomNumber) {
 			case 0:
 				return new ItemStack(MobZWeapons.ERAGONS_AXE.get());

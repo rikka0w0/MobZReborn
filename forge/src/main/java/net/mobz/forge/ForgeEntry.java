@@ -45,10 +45,9 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent.Operation;
 import net.minecraftforge.eventbus.api.listener.Priority;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import net.mobz.ILootTableAdder;
@@ -82,15 +81,22 @@ public class ForgeEntry {
 		this.registryWrapper = new ForgeRegistryWrapper(context);
 		MobZ.platform = this.registryWrapper;
 
+		var modBusGroup = context.getModBusGroup();
+		EntityAttributeCreationEvent.BUS.addListener(ModEventBusHandler::onEntityAttributeCreationEvent);
+		SpawnPlacementRegisterEvent.BUS.addListener(ModEventBusHandler::onSpawnPlacementRegisterEvent);
+		BuildCreativeModeTabContentsEvent.BUS.addListener(ModEventBusHandler::onTabPopulation);
+		GatherDataEvent.getBus(modBusGroup).addListener(ModEventBusHandler::onDataGeneratorInvoked);
+		LootTableLoadEvent.BUS.addListener(Priority.HIGH, ForgeEventBusHandler::onLootTableLoadEvent);
+
 		MobZ.configs = ForgeConfigManager.loadFromFile();
-		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegistrationHandler::registerConfigGui);
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			ClientRegistrationHandler.registerClientListeners(modBusGroup);
+		}
 
 		MobZ.invokeStaticFields();
 	}
 
-	@Mod.EventBusSubscriber(modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public final static class ModEventBusHandler {
-		@SubscribeEvent
 		public static void onEntityAttributeCreationEvent(final EntityAttributeCreationEvent event) {
 			ForgeEntry.instance.registryWrapper.applyGlobalEntityAttrib(event::put);
 		}
@@ -105,17 +111,14 @@ public class ForgeEntry {
 			}
 		}
 
-		@SubscribeEvent
 		public static void onSpawnPlacementRegisterEvent(final SpawnPlacementRegisterEvent event) {
 			new SpawnPlacementRegistar(event).registerAll();
 		}
 
-		@SubscribeEvent
 		public static void onTabPopulation(BuildCreativeModeTabContentsEvent event) {
 
 		}
 
-		@SubscribeEvent
 		public static void onDataGeneratorInvoked(final GatherDataEvent event) {
 			DataGenerator generator = event.getGenerator();
 			PackOutput packOutput = generator.getPackOutput();
@@ -183,9 +186,7 @@ public class ForgeEntry {
 		}
 	}
 
-	@Mod.EventBusSubscriber(modid = MobZ.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 	public final static class ForgeEventBusHandler { // MinecraftForge.EVENT_BUS MinecraftForgeEventsHandler
-		@SubscribeEvent(priority = Priority.HIGH)
 		public static void onLootTableLoadEvent(final LootTableLoadEvent event) {
 			ILootTableAdder lootTableAdder = (lootTableIDs, range, entryBuilder) -> {
 				lootTableIDs.stream()

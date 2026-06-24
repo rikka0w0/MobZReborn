@@ -31,7 +31,7 @@ public class PurpleSpider extends Spider {
 		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		if (flag && victim instanceof LivingEntity livingEntity && this.random.nextInt(8) == 3
-				&& !this.level().isClientSide) {
+				&& !this.level().isClientSide()) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 120, 0, false, false));
 		}
 

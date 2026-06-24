@@ -46,7 +46,7 @@ public class Warrior extends Vindicator {
 	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
 		boolean flag = super.doHurtTarget(serverLevel, victim);
 
-		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide()) {
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 0, false, false));
 		}
 

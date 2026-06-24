@@ -38,7 +38,7 @@ public class BlueSpider extends Spider {
 			randomNumber = randomNumber * (-1);
 		}
 
-		if (flag && victim instanceof LivingEntity bob && randomNumber == 3 && !this.level().isClientSide) {
+		if (flag && victim instanceof LivingEntity bob && randomNumber == 3 && !this.level().isClientSide()) {
 			bob.addEffect(new MobEffectInstance(MobEffects.POISON, 120, 0, false, false));
 		}
 

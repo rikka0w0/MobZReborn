@@ -61,7 +61,7 @@ public class TadpoleEntity extends AbstractFish {
 				return InteractionResult.SUCCESS;
 			}
 
-			if(this.level().isClientSide)
+			if(this.level().isClientSide())
 			{
 				return InteractionResult.CONSUME;
 			}

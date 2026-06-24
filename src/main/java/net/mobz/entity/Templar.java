@@ -109,11 +109,11 @@ public class Templar extends Zombie {
 	}
 
 	@Override
-    public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
-        boolean flag = super.doHurtTarget(serverLevel, victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		MobEffectInstance weakness = new MobEffectInstance(MobEffects.WEAKNESS, 140, 0, false, false);
-		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide) {
+		if (flag && victim instanceof LivingEntity livingEntity && !this.level().isClientSide()) {
 			livingEntity.addEffect(weakness);
 		}
 

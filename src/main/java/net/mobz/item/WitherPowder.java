@@ -26,7 +26,7 @@ public class WitherPowder extends SimpleItem {
 		BlockPos pos = context.getClickedPos();
 		BlockState blockState = world.getBlockState(pos);
 
-		if (blockState.getBlock() == Blocks.SOUL_SAND && !world.isClientSide) {
+		if (blockState.getBlock() == Blocks.SOUL_SAND && !world.isClientSide()) {
 			RandomSource random = world.random;
 			int randomNumber = (random.nextInt() % 2);
 			if (randomNumber < 0) {
@@ -50,7 +50,7 @@ public class WitherPowder extends SimpleItem {
 		}
 
 		if (((blockState.getBlock() == Blocks.SOUL_SAND || blockState.getBlock() == Blocks.FARMLAND)
-				&& world.isClientSide)) {
+				&& world.isClientSide())) {
 			RandomSource random = world.random;
 			for (int i = 0; i < 12; ++i) {
 				double d = random.nextGaussian() * 0.02D;
@@ -65,7 +65,7 @@ public class WitherPowder extends SimpleItem {
 			return InteractionResult.SUCCESS;
 		}
 
-		if (blockState.getBlock() == Blocks.FARMLAND && !world.isClientSide) {
+		if (blockState.getBlock() == Blocks.FARMLAND && !world.isClientSide()) {
 			if (world.getBlockState(pos.east()).getBlock().equals(Blocks.FARMLAND)) {
 				world.setBlock(pos.east(), Blocks.SOUL_SAND.defaultBlockState(), 3);
 			}

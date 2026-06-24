@@ -51,95 +51,95 @@ import net.mobz.init.MobZWeapons;
 import net.mobz.tags.MobZItemTags;
 
 public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
-    public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
-        super(entityType, world);
-        this.setTame(false, false);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
-    }
+	public FriendEntity(EntityType<? extends FriendEntity> entityType, Level world) {
+		super(entityType, world);
+		this.setTame(false, false);
+		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(MobZWeapons.ARMORED_SWORD.get()));
+	}
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
-        this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers());
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
-        this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
-    }
+	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(1, new FloatGoal(this));
+		this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+		this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers());
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
+		this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
+		this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1.0F);
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(MobZSounds.LEATHERWALKEVENT.get(), 0.15F, 1.0F);
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MobZSounds.NOTHINGEVENT.get();
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return MobZSounds.NOTHINGEVENT.get();
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PLAYER_HURT;
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return SoundEvents.PLAYER_HURT;
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.PLAYER_DEATH;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.PLAYER_DEATH;
+	}
 
-    @Override
-    protected float getSoundVolume() {
-        return 0.4F;
-    }
+	@Override
+	protected float getSoundVolume() {
+		return 0.4F;
+	}
 
-    @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
-        if (this.isInvulnerableTo(serverLevel, source)) {
-            return false;
-        } else {
-            Entity entity = source.getEntity();
-            this.setOrderedToSit(false);
-            if (entity != null && !(entity instanceof Player)
-                    && !(entity instanceof AbstractArrow)) {
-                amount = (amount + 1.0F) / 2.0F;
-            }
+	@Override
+	public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
+		if (this.isInvulnerableTo(serverLevel, source)) {
+			return false;
+		} else {
+			Entity entity = source.getEntity();
+			this.setOrderedToSit(false);
+			if (entity != null && !(entity instanceof Player)
+					&& !(entity instanceof AbstractArrow)) {
+				amount = (amount + 1.0F) / 2.0F;
+			}
 
-            return super.hurtServer(serverLevel, source, amount);
-        }
-    }
+			return super.hurtServer(serverLevel, source, amount);
+		}
+	}
 
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        if (this.level().isClientSide) {
-            boolean bl = this.isOwnedBy(player) || this.isTame()
-                    || isTameItem(itemStack) && !this.isTame() && !this.isAngry();
-            return bl ? InteractionResult.CONSUME : InteractionResult.PASS;
-        } else {
-            if (this.isTame()) {
-                if (this.isFood(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                    if (!player.getAbilities().instabuild) {
-                        itemStack.shrink(1);
-                    }
+	@Override
+	public InteractionResult mobInteract(Player player, InteractionHand hand) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		if (this.level().isClientSide()) {
+			boolean bl = this.isOwnedBy(player) || this.isTame()
+					|| isTameItem(itemStack) && !this.isTame() && !this.isAngry();
+			return bl ? InteractionResult.CONSUME : InteractionResult.PASS;
+		} else {
+			if (this.isTame()) {
+				if (this.isFood(itemStack) && this.getHealth() < this.getMaxHealth()) {
+					if (!player.getAbilities().instabuild) {
+						itemStack.shrink(1);
+					}
 
-                    FoodProperties food = itemStack.getComponents().getTyped(DataComponents.FOOD).value();
-                    this.heal(food.nutrition());
-                    return InteractionResult.SUCCESS;
-                }
+					FoodProperties food = itemStack.getComponents().getTyped(DataComponents.FOOD).value();
+					this.heal(food.nutrition());
+					return InteractionResult.SUCCESS;
+				}
 
-                if (this.canEquipItemFromPlayer(itemStack)) {
-                	ItemStack newStack = itemStack.copy();
-                	this.setItemSlot(EquipmentSlot.OFFHAND, newStack);
-                	return InteractionResult.SUCCESS;
-                }
+				if (this.canEquipItemFromPlayer(itemStack)) {
+					ItemStack newStack = itemStack.copy();
+					this.setItemSlot(EquipmentSlot.OFFHAND, newStack);
+					return InteractionResult.SUCCESS;
+				}
 
 				InteractionResult interactionresult = super.mobInteract(player, hand);
 				if (this.isOwnedBy(player)) {
@@ -151,29 +151,29 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 				}
 
 				return interactionresult;
-            } else if (isTameItem(itemStack) && !this.isAngry()) {
-                if (!player.getAbilities().instabuild) {
-                    itemStack.shrink(1);
-                }
+			} else if (isTameItem(itemStack) && !this.isAngry()) {
+				if (!player.getAbilities().instabuild) {
+					itemStack.shrink(1);
+				}
 
-                if (this.random.nextInt(3) == 0) {
-                    this.tame(player);
-                    this.navigation.stop();
-                    this.setTarget((LivingEntity) null);
-                    this.setOrderedToSit(true);
-                    this.level().broadcastEntityEvent(this, (byte) 7);
-                } else {
-                    this.level().broadcastEntityEvent(this, (byte) 6);
-                }
+				if (this.random.nextInt(3) == 0) {
+					this.tame(player);
+					this.navigation.stop();
+					this.setTarget((LivingEntity) null);
+					this.setOrderedToSit(true);
+					this.level().broadcastEntityEvent(this, (byte) 7);
+				} else {
+					this.level().broadcastEntityEvent(this, (byte) 6);
+				}
 
-                return InteractionResult.SUCCESS;
-            }
+				return InteractionResult.SUCCESS;
+			}
 
-            return super.mobInteract(player, hand);
-        }
-    }
+			return super.mobInteract(player, hand);
+		}
+	}
 
-    @Override
+	@Override
 	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob parent) {
 		FriendEntity child = (FriendEntity) this.getType().create(world, EntitySpawnReason.BREEDING);
 
@@ -185,61 +185,61 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 		return child;
 	}
 
-    @Override
-    public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-        if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
-            if (target instanceof FriendEntity) {
-                FriendEntity FriendEntity = (FriendEntity) target;
-                return !FriendEntity.isTame() || FriendEntity.getOwner() != owner;
-            } else if (target instanceof Player && owner instanceof Player
-                    && !((Player) owner).canHarmPlayer((Player) target)) {
-                return false;
-            } else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
-                return false;
-            } else {
-                return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
-            }
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
+		if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
+			if (target instanceof FriendEntity) {
+				FriendEntity FriendEntity = (FriendEntity) target;
+				return !FriendEntity.isTame() || FriendEntity.getOwner() != owner;
+			} else if (target instanceof Player && owner instanceof Player
+					&& !((Player) owner).canHarmPlayer((Player) target)) {
+				return false;
+			} else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
+				return false;
+			} else {
+				return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
+			}
+		} else {
+			return false;
+		}
+	}
 
-    @Override
-    public boolean canBeLeashed() {
-        return false;
-    }
+	@Override
+	public boolean canBeLeashed() {
+		return false;
+	}
 
-    @Override
-    public abstract boolean isFood(ItemStack stack);
+	@Override
+	public abstract boolean isFood(ItemStack stack);
 
-    @Override
-    public int getRemainingPersistentAngerTime() {
-        return 0;
-    }
+	@Override
+	public int getRemainingPersistentAngerTime() {
+		return 0;
+	}
 
-    @Override
-    public void setRemainingPersistentAngerTime(int ticks) {
+	@Override
+	public void setRemainingPersistentAngerTime(int ticks) {
 
-    }
+	}
 
-    @Override
-    public UUID getPersistentAngerTarget() {
-        return null;
-    }
+	@Override
+	public UUID getPersistentAngerTarget() {
+		return null;
+	}
 
-    @Override
-    public void setPersistentAngerTarget(UUID uuid) {
+	@Override
+	public void setPersistentAngerTarget(UUID uuid) {
 
-    }
+	}
 
-    @Override
-    public void startPersistentAngerTimer() {
+	@Override
+	public void startPersistentAngerTimer() {
 
-    }
+	}
 
-    protected abstract boolean isTameItem(ItemStack stack);
+	protected abstract boolean isTameItem(ItemStack stack);
 
-    protected abstract boolean canEquipItemFromPlayer(ItemStack stack);
+	protected abstract boolean canEquipItemFromPlayer(ItemStack stack);
 
 	public static class KatherineEntity extends FriendEntity {
 		public KatherineEntity(EntityType<? extends KatherineEntity> entityType, Level world) {

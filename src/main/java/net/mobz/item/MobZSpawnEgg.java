@@ -12,7 +12,7 @@ public class MobZSpawnEgg extends SpawnEggItem {
 	public final int backgroundColor, highlightColor;
 
 	public MobZSpawnEgg(EntityType<? extends Mob> entityType, int backgroundColor, int highlightColor, Item.Properties props) {
-		super(entityType, props);
+		super(props.spawnEgg(entityType));
 
 		this.backgroundColor = backgroundColor;
 		this.highlightColor = highlightColor;

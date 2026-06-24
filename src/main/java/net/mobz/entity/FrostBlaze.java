@@ -57,7 +57,7 @@ public class FrostBlaze extends BlazeLike {
 	public void aiStep() {
 		super.aiStep();
 
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide()) {
 			if (this.random.nextInt(24) == 0 && !this.isSilent()) {
 				this.level().playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D,
 						MobZSounds.NOTHINGEVENT.get(), this.getSoundSource(), 1.0F + this.random.nextFloat(),
