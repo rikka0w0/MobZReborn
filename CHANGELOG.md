@@ -1,4 +1,1 @@
-Port to 1.21.6.
-
-
-
+Fix MobZ swords missing vanilla sweep attack behavior.

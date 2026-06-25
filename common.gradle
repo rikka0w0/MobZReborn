@@ -7,16 +7,6 @@ mergedProperties.each { prop -> project.ext.set(prop.key, prop.value); }
 
 project.ext.set("mergedProperties", mergedProperties)
 
-// Load secrete tokens
-defaultIfNotExist('curseforgeApiToken', System.getenv("CURSEFORGE_TOKEN"))
-defaultIfNotExist('modrinthApiToken', System.getenv("MODRINTH_TOKEN"))
-
-def defaultIfNotExist(propertyName, defaultValue) {
-	if (!project.hasProperty(propertyName) || project.getProperty(propertyName) == null) {
-		project.ext.set(propertyName, defaultValue);
-	}
-}
-
 /**
  * @param version a version string that looks like "1.21" or "1.20.4"
  * @return a string array that contains exactly 3 strings
@@ -101,11 +91,13 @@ task processChangelog {
 task mergeChangelog(dependsOn: processChangelog) {
 	mustRunAfter(processChangelog)
 	inputs.files(processChangelog.outputs.files)
+	inputs.file file('../CHANGELOG.md')
+	inputs.file file('../NOTE.md')
 	outputs.file file("$buildDir/info/CHANGELOG_FULL.md")
 
 	doLast {
 		def headFile = file('../CHANGELOG.md');
-		def changelogFile = inputs.files.singleFile
+		def changelogFile = processChangelog.outputs.files.singleFile
 		def tailFile = file('../NOTE.md');
 
 		def outputText = "";
@@ -115,7 +107,7 @@ task mergeChangelog(dependsOn: processChangelog) {
 			outputText += '\n';
 		}
 
-		outputText += inputs.files.singleFile.text;
+		outputText += changelogFile.text;
 		outputText += '\n';
 
 		if (tailFile.exists()) {
@@ -128,8 +120,7 @@ task mergeChangelog(dependsOn: processChangelog) {
 }
 
 // Type: Provider<String>
-// TODO: before UnifiedPublishing implements lazy evaluation,
-//       the publishUnified must be ran separately and after build.
+// Publishing tasks must run after mergeChangelog so this provider can read the merged output.
 project.ext.changelogProvider = project.provider {
 	if (mergeChangelog.outputs.files.singleFile.exists()) {
 		return mergeChangelog.outputs.files.singleFile.text;
@@ -151,39 +142,4 @@ task exportProperties {
 
 task prepareInfo {
 	dependsOn mergeChangelog, exportProperties
-}
-
-// This is a standalone task that can only be ran after running prepareInfo for all target
-task githubDraft {
-	doLast {
-		def headFile = file('../CHANGELOG.md');
-		def tailFile = file('../NOTE.md');
-
-		def title = "${project.mod_version} for Minecraft ${project.enumeratedMcVersions.join(', ')} (Forge, Neoforge and Fabric)\n";
-		def tagName = "${project.mod_version}_${project.minecraft_version}"
-
-		def outputText = '';
-
-		if (headFile.exists()) {
-			outputText += headFile.text;
-			outputText += '\n';
-		}
-
-		outputText += file('../fabric/build/info/CHANGELOG.md').text + '\n\n';
-		outputText += file('../neoforge/build/info/CHANGELOG.md').text + '\n\n';
-		outputText += file('../forge/build/info/CHANGELOG.md').text + '\n\n';
-
-		if (tailFile.exists()) {
-			outputText += tailFile.text;
-			outputText += '\n';
-		}
-
-		file("$buildDir/info/githubDraft.md").text = outputText;
-		file("$buildDir/info/githubTitle.txt").text = title;
-		file("$buildDir/info/githubTagName.txt").text = tagName;
-
-		println "Title: ${title}"
-		println "Tag: ${tagName}"
-		println outputText
-	}
 }
