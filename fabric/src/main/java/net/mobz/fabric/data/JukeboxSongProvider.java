@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Lifecycle;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.JukeboxSong;
 import net.mobz.data.JukeboxSongs;
 
 public class JukeboxSongProvider extends FabricDynamicRegistryProvider {
-	public JukeboxSongProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registeries) {
+	public JukeboxSongProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registeries) {
 		super(output, registeries);
 	}
 

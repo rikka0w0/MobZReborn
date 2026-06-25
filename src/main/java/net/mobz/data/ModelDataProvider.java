@@ -18,12 +18,13 @@ import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
-import net.minecraft.client.renderer.block.model.BlockModelDefinition;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelDispatcher;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
 import net.minecraft.client.renderer.item.properties.numeric.Damage;
 import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -180,12 +181,12 @@ public class ModelDataProvider implements DataProvider {
 		// Populates the above three maps
 		this.collect();
 
-		Map<Block, BlockModelDefinition> blockStateMap = Maps.transformValues(this.blockStateMap, BlockModelDefinitionGenerator::create);
+		Map<Block, BlockStateModelDispatcher> blockStateMap = Maps.transformValues(this.blockStateMap, BlockModelDefinitionGenerator::create);
 
 		return CompletableFuture.allOf(
 				DataProvider.saveAll(pOutput, Supplier::get, this.modelPathProvider::json, this.models),
 				DataProvider.saveAll(pOutput, ClientItem.CODEC, this::itemStateToPath, this.itemStateMap),
-				DataProvider.saveAll(pOutput, BlockModelDefinition.CODEC, this::blockStateToPath, blockStateMap)
+				DataProvider.saveAll(pOutput, BlockStateModelDispatcher.CODEC, this::blockStateToPath, blockStateMap)
 			);
 	}
 
@@ -197,7 +198,7 @@ public class ModelDataProvider implements DataProvider {
 	protected Identifier generateFlatItem(Item item, String suffix, ModelTemplate modelTemplate) {
 		Identifier textureResLoc = ModelLocationUtils.getModelLocation(item, suffix);
 
-		return modelTemplate.create(textureResLoc, TextureMapping.layer0(textureResLoc), this::addItemModel);
+		return modelTemplate.create(textureResLoc, TextureMapping.layer0(new Material(textureResLoc)), this::addItemModel);
 	}
 
 	protected void simpleItemWithExistingModel(Item item) {

@@ -22,8 +22,8 @@ public class WitherBlaze extends BlazeLike {
 	public WitherBlaze(EntityType<? extends WitherBlaze> entityType_1, Level world_1) {
 		super(entityType_1, world_1);
 		this.setPathfindingMalus(PathType.LAVA, 8.0F);
-		this.setPathfindingMalus(PathType.DANGER_FIRE, 0.0F);
-		this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0.0F);
+		this.setPathfindingMalus(PathType.FIRE, 0.0F);
 		this.xpReward = 14;
 	}
 

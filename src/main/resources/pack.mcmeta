@@ -1,6 +1,10 @@
 {
-    "pack": {
-        "description": "MobZ resources",
-        "pack_format": 48
-    }
+	"pack": {
+		"description": "MobZ resources",
+		"max_format": 84,
+		"min_format": [
+			84,
+			0
+		]
+	}
 }

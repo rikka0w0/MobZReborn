@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 
 import net.minecraft.core.HolderGetter;
@@ -32,7 +32,7 @@ public class BiomeModifierProvider extends FabricDynamicRegistryProvider {
 	public static RegistrySetBuilder BUILDER = new RegistrySetBuilder()
 			.add(BiomeModifierRegistry.REGISTRY_KEY, BiomeModifierProvider::biomeModifierPopulator);
 
-	public BiomeModifierProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public BiomeModifierProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 

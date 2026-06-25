@@ -109,19 +109,18 @@ public class SacrificeKnife extends SimpleItem {
 							setParam(itemStack, 0, 0);
 							return InteractionResult.SUCCESS;
 						} else {
-							player.displayClientMessage(Component.translatable("text.mobz.sacrifice_knife_blood"),
-									true);
+							player.sendOverlayMessage(Component.translatable("text.mobz.sacrifice_knife_blood"));
 							return InteractionResult.PASS;
 						}
 					}
 
 					return InteractionResult.PASS;
 				} else {
-					player.displayClientMessage(Component.translatable("text.mobz.pillagerspawnable"), true);
+					player.sendOverlayMessage(Component.translatable("text.mobz.pillagerspawnable"));
 					return InteractionResult.PASS;
 				}
 			} else {
-				player.displayClientMessage(Component.translatable("text.mobz.pillagermissing"), true);
+				player.sendOverlayMessage(Component.translatable("text.mobz.pillagermissing"));
 				return InteractionResult.PASS;
 			}
 		} else {

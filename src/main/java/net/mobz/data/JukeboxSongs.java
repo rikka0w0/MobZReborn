@@ -3,6 +3,7 @@ package net.mobz.data;
 import net.minecraft.core.RegistrySetBuilder.RegistryBootstrap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.JukeboxSong;
 
@@ -16,7 +17,7 @@ public record JukeboxSongs() implements RegistryBootstrap<JukeboxSong> {
 
 	@Override
 	public void run(BootstrapContext<JukeboxSong> bootstrap) {
-		bootstrap.register(MEDIVEAL_SONG, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC.get(), MobZItems.MEDIVEAL_DISC.get().getName(), 4680, 1));
-		bootstrap.register(MEDIVEAL_SONG_2, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC_2.get(), MobZItems.MEDIVEAL_DISC_2.get().getName(), 660, 0));
+		bootstrap.register(MEDIVEAL_SONG, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC.get(), Component.translatable("item.mobz.mediveal_disc"), 4680, 1));
+		bootstrap.register(MEDIVEAL_SONG_2, new JukeboxSong(MobZSounds.MEDIVEAL_MUSIC_2.get(), Component.translatable("item.mobz.mediveal_disc_2"), 660, 0));
 	}
 }

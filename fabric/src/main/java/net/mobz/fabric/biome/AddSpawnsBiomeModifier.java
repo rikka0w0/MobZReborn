@@ -33,11 +33,11 @@ public record AddSpawnsBiomeModifier(HolderSet<Biome> biomes, WeightedList<Spawn
 	@Override
 	public void apply(BiomeModification biomeModification) {
 		biomeModification.add(ModificationPhase.ADDITIONS,
-				(selectionContext) -> this.biomes.contains(selectionContext.getBiomeRegistryEntry()),
+				(selectionContext) -> this.biomes.contains(selectionContext.getBiomeHolder()),
 				(selectionContext, modificationContext) -> {
 					for (Weighted<SpawnerData> spawner : this.spawners.unwrap()) {
 						EntityType<?> type = spawner.value().type();
-						modificationContext.getSpawnSettings().addSpawn(type.getCategory(), spawner.value(), spawner.weight());
+						modificationContext.getMobSpawnSettings().addSpawn(type.getCategory(), spawner.value(), spawner.weight());
 					}
 				}
 			);

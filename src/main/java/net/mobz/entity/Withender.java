@@ -30,7 +30,7 @@ import net.mobz.init.MobZSounds;
 
 public class Withender extends WitherBoss {
 	private static final TargetingConditions.Selector CAN_ATTACK_PREDICATE = (livingEntity, serverLevel) ->
-		!livingEntity.getType().is(EntityTypeTags.WITHER_FRIENDS) && livingEntity.attackable();
+		!livingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.WITHER_FRIENDS) && livingEntity.attackable();
 
 	public Withender(EntityType<? extends WitherBoss> entityType_1, Level world_1) {
 		super(entityType_1, world_1);

@@ -27,7 +27,7 @@ public class BiomeModifierRegistry {
 			ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath("fabric", "biome_modifier_codec"));
 
 	public final static MappedRegistry<MapCodec<? extends BiomeModifier>> CODEC_REGISTRY =
-			FabricRegistryBuilder.createSimple(CODEC_REGISTRY_RESKEY).buildAndRegister();
+			FabricRegistryBuilder.create(CODEC_REGISTRY_RESKEY).buildAndRegister();
 
 	public final static ResourceKey<Registry<BiomeModifier>> REGISTRY_KEY
 		= ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath("fabric", "biome_modifier"));

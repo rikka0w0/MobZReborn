@@ -443,7 +443,7 @@ public class ToadEntity extends Animal {
 				TadpoleEntity tadpole = MobZEntities.TADPOLE.get().create(world, EntitySpawnReason.BREEDING);
 				if(tadpole != null)
 				{
-					world.playSound(null, blockPos, MobZSounds.TOAD_HAVE_BABY.get(), SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
+					world.playSound(null, blockPos, MobZSounds.TOAD_HAVE_BABY.get(), SoundSource.BLOCKS, 0.3F, 0.9F + world.getRandom().nextFloat() * 0.2F);
 					tadpole.setBaby(true);
 					tadpole.snapTo(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
 					world.addFreshEntityWithPassengers(tadpole);
@@ -503,7 +503,7 @@ public class ToadEntity extends Animal {
 	}
 
 	public boolean canToadTarget(LivingEntity entity) {
-		return entity.getType().is(MobZEntityTags.TOAD_TARGET_TAG);
+		return entity.getType().builtInRegistryHolder().is(MobZEntityTags.TOAD_TARGET_TAG);
 	}
 
 	@Override

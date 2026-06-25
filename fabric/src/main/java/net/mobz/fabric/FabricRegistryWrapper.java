@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -127,7 +127,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 		String displayNameKey = "itemGroup." + resLoc.getNamespace() + "." + resLoc.getPath();
 
 		List<Supplier<? extends ItemLike>> contents = new LinkedList<>();
-		CreativeModeTab tab =  FabricItemGroup.builder()
+		CreativeModeTab tab =  FabricCreativeModeTab.builder()
 				.title(Component.translatable(displayNameKey))
 				.icon(iconSupplier)
 				.displayItems((params, output) -> {

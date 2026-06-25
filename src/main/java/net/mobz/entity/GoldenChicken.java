@@ -1,6 +1,9 @@
 package net.mobz.entity;
 
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.entity.AgeableMob;
@@ -18,16 +21,14 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.chicken.Chicken;
+import net.minecraft.world.entity.animal.chicken.ChickenSoundVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.BiConsumer;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 
@@ -73,24 +74,29 @@ public class GoldenChicken extends Chicken {
 		return super.dropFromGiftLootTable(serverLevel, lootTable, itemStackSpawner);
 	}
 
+	private ChickenSoundVariant.ChickenSoundSet getGoldenChickenSoundSet() {
+		ChickenSoundVariant soundVariant = this.get(DataComponents.CHICKEN_SOUND_VARIANT).value();
+		return this.isBaby() ? soundVariant.babySounds() : soundVariant.adultSounds();
+	}
+
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.CHICKEN_AMBIENT;
+		return this.getGoldenChickenSoundSet().ambientSound().value();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-		return SoundEvents.CHICKEN_HURT;
+		return this.getGoldenChickenSoundSet().hurtSound().value();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.CHICKEN_DEATH;
+		return this.getGoldenChickenSoundSet().deathSound().value();
 	}
 
 	@Override
 	protected void playStepSound(BlockPos blockPos_1, BlockState blockState_1) {
-		this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+		this.playSound(this.getGoldenChickenSoundSet().stepSound().value(), 0.15F, 1.0F);
 	}
 
 	@Override

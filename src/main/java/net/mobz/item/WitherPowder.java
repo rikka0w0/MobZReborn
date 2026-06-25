@@ -27,7 +27,7 @@ public class WitherPowder extends SimpleItem {
 		BlockState blockState = world.getBlockState(pos);
 
 		if (blockState.getBlock() == Blocks.SOUL_SAND && !world.isClientSide()) {
-			RandomSource random = world.random;
+			RandomSource random = world.getRandom();
 			int randomNumber = (random.nextInt() % 2);
 			if (randomNumber < 0) {
 				randomNumber = randomNumber * (-1);
@@ -51,7 +51,7 @@ public class WitherPowder extends SimpleItem {
 
 		if (((blockState.getBlock() == Blocks.SOUL_SAND || blockState.getBlock() == Blocks.FARMLAND)
 				&& world.isClientSide())) {
-			RandomSource random = world.random;
+			RandomSource random = world.getRandom();
 			for (int i = 0; i < 12; ++i) {
 				double d = random.nextGaussian() * 0.02D;
 				double e = random.nextGaussian() * 0.02D;

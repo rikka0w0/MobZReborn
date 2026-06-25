@@ -3,7 +3,7 @@ plugins {
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.minecraftforge.gradle' version '[7.0.3,8)'
+	id 'net.minecraftforge.gradle' version '7.0.30'
 	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
@@ -24,10 +24,10 @@ project.ext.minecraft_version_range = '[' + project.minecraft_version_min + ', '
 version = project.mod_version
 group = project.dev_group // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
-// Mojang ships Java 21 to end users in 1.20.5+
+// Mojang ships Java 25 to end users in 26.1+
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(25)
 	}
 }
 
@@ -80,6 +80,12 @@ minecraft {
 			// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
 			args '--mod', mod_id, '--all', '--output', layout.projectDirectory.dir('src/generated/resources/'), '--existing', layout.projectDirectory.dir('../src/main/resources/'), '--existing', layout.projectDirectory.dir('src/main/resources/')
 		}
+	}
+}
+
+afterEvaluate {
+	tasks.named('runServer').configure {
+		standardInput = System.in
 	}
 }
 

@@ -29,10 +29,10 @@ project.ext.minecraft_version_range = '[' + project.minecraft_version_min + ', '
 version = project.mod_version
 group = project.dev_group // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
-// Mojang ships Java 21 to end users in 1.20.5+
+// Mojang ships Java 25 to end users in 26.1+
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(25)
 	}
 }
 
@@ -74,11 +74,6 @@ dependencies {
 neoForge {
 	version = project.neo_version
 
-	parchment {
-		minecraftVersion = project.parchment_minecraft_version
-		mappingsVersion = project.parchment_mappings_version
-	}
-
 	accessTransformers.from('src/main/resources/META-INF/accesstransformer.cfg')
 
 	runs {
@@ -118,6 +113,10 @@ neoForge {
 			sourceSet(sourceSets.main)
 		}
 	}
+}
+
+tasks.named('runServer').configure {
+	standardInput = System.in
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

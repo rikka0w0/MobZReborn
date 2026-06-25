@@ -20,6 +20,6 @@ public class MobZSpawnEgg extends SpawnEggItem {
 
 	@Override
 	public Component getName(ItemStack stack) {
-		return Component.translatable("item.mobz.spawn_egg_of", this.getName());
+		return Component.translatable("item.mobz.spawn_egg_of", super.getName(stack));
 	}
 }

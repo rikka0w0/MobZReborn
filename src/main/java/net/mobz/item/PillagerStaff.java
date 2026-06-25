@@ -63,7 +63,7 @@ public class PillagerStaff extends SimpleItem {
 				wither.snapTo(oke, 0.0F, 0.0F);
 				world.addFreshEntity(wither);
 			} else if (world.isClientSide()) {
-				player.displayClientMessage(Component.translatable("text.mobz.withendermissing"), true);
+				player.sendOverlayMessage(Component.translatable("text.mobz.withendermissing"));
 			}
 
 			// Do not fire wither skull if the user clicks on these two blocks

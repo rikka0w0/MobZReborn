@@ -19,6 +19,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -112,7 +113,7 @@ public class Recipes extends RecipeProvider {
 				MobZArmors.LIFE_BOOTS.get());
 
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(MobZItems.HARDENEDMETAL_INGOT.get()),
-				RecipeCategory.MISC, Items.IRON_INGOT, 0.4F, 400)
+				RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.4F, 400)
 				.unlockedBy("has_hardened_metal_ingot", has(MobZItems.HARDENEDMETAL_INGOT.get()))
 				.save(this.output, "mobz:iron_ingot_from_hardened_metal_ingot");
 
@@ -138,7 +139,7 @@ public class Recipes extends RecipeProvider {
 
 		// Bear leather
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(MobZItems.BEAR_LEATHER.get()),
-				RecipeCategory.MISC, Items.LEATHER, 0.1F, 600)
+				RecipeCategory.MISC, CookingBookCategory.MISC, Items.LEATHER, 0.1F, 600)
 			.unlockedBy("has_bear_leather", has(MobZItems.BEAR_LEATHER.get()))
 			.save(this.output, "mobz:leather_from_bear_leather");
 
@@ -169,19 +170,19 @@ public class Recipes extends RecipeProvider {
 
 		// Rotten flesh
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(MobZItems.ROTTEN_FLESH.get()), RecipeCategory.MISC,
-				Items.LEATHER, 0.1F, 240)
+				CookingBookCategory.MISC, Items.LEATHER, 0.1F, 240)
 			.unlockedBy("has_rotten_flesh", has(MobZItems.ROTTEN_FLESH.get()))
 			.save(this.output, "mobz:leather_from_rotten_flesh");
 
 		// Totem middle
 		SingleItemRecipeBuilder.stonecutting(this.tag(ItemTags.LOGS),
-				RecipeCategory.MISC, MobZBlocks.TOTEM_MIDDLE.get())
+				RecipeCategory.MISC, MobZBlocks.TOTEM_MIDDLE.get(), 1)
 			.unlockedBy("has_log", has(ItemTags.LOGS))
 			.save(this.output);
 
 		// Wither powder
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.WITHER_SKELETON_SKULL), RecipeCategory.MISC,
-				MobZItems.WITHER_POWDER.get(), 1.0F, 800)
+				CookingBookCategory.MISC, MobZItems.WITHER_POWDER.get(), 1.0F, 800)
 			.unlockedBy("has_wither_skull", has(Items.WITHER_SKELETON_SKULL))
 			.save(this.output);
 
