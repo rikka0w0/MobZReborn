@@ -20,28 +20,28 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class BiomeModifierRegistry {
 	public final static ResourceKey<Registry<MapCodec<? extends BiomeModifier>>> CODEC_REGISTRY_RESKEY =
-			ResourceKey.createRegistryKey(ResourceLocation.tryBuild("fabric", "biome_modifier_codec"));
+			ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath("fabric", "biome_modifier_codec"));
 
 	public final static MappedRegistry<MapCodec<? extends BiomeModifier>> CODEC_REGISTRY =
 			FabricRegistryBuilder.createSimple(CODEC_REGISTRY_RESKEY).buildAndRegister();
 
 	public final static ResourceKey<Registry<BiomeModifier>> REGISTRY_KEY
-		= ResourceKey.createRegistryKey(ResourceLocation.tryBuild("fabric", "biome_modifier"));
+		= ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath("fabric", "biome_modifier"));
 
 	public final static Codec<BiomeModifier> DIRECT_CODEC = CODEC_REGISTRY.byNameCodec()
 			.dispatch(BiomeModifier::codec, Function.identity());
 
 	public static void applyAll(RegistryAccess registryAccess) {
 		RegistryLookup<BiomeModifier> registry = registryAccess.lookupOrThrow(BiomeModifierRegistry.REGISTRY_KEY);
-		Map<ResourceLocation, BiomeModification> biomeModificationMap = new HashMap<>();
+		Map<Identifier, BiomeModification> biomeModificationMap = new HashMap<>();
 		registry.listElements().forEach(holder -> {
 			// Per-mod based BiomeModification
-			ResourceLocation resLoc = ResourceLocation.tryBuild(holder.key().location().getNamespace(),
-					BiomeModifierRegistry.REGISTRY_KEY.location().getPath());
+			Identifier resLoc = Identifier.fromNamespaceAndPath(holder.key().identifier().getNamespace(),
+					BiomeModifierRegistry.REGISTRY_KEY.identifier().getPath());
 			BiomeModification biomeModification =
 					biomeModificationMap.computeIfAbsent(resLoc, (key) -> BiomeModifications.create(key));
 			holder.value().apply(biomeModification);

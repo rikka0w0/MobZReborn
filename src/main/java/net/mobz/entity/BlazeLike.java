@@ -21,7 +21,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -105,7 +105,6 @@ public class BlazeLike extends Monster {
 		if (victim != null && victim.getEyeY() > this.getEyeY() + this.allowedHeightOffset && this.canAttack(victim)) {
 			Vec3 delta = this.getDeltaMovement();
 			this.setDeltaMovement(this.getDeltaMovement().add(0.0, (0.3 - delta.y) * 0.3, 0.0));
-			this.hasImpulse = true;
 		}
 
 		super.customServerAiStep(serverLevel);

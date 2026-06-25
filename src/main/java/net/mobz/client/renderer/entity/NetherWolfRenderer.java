@@ -3,18 +3,18 @@ package net.mobz.client.renderer.entity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.minecraft.client.renderer.entity.state.WolfRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class NetherWolfRenderer extends WolfRenderer {
-    private final ResourceLocation texture;
+	private final Identifier texture;
 
-    public NetherWolfRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
-        super(context);
-        this.texture = texture;
-    }
+	public NetherWolfRenderer(EntityRendererProvider.Context context, Identifier texture) {
+		super(context);
+		this.texture = texture;
+	}
 
-    @Override
-    public ResourceLocation getTextureLocation(WolfRenderState renderState) {
+	@Override
+	public Identifier getTextureLocation(WolfRenderState renderState) {
 		return this.texture;
-    }
+	}
 }

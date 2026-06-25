@@ -31,7 +31,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedList;
 import net.minecraftforge.api.distmarker.Dist;
@@ -133,11 +133,11 @@ public class ForgeEntry {
 			// Data: Mob spawns
 			RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
-			Map<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> rawMap = new HashMap<>();
+			Map<Identifier, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> rawMap = new HashMap<>();
 			MobSpawns.collectAll(rawMap);
 			RegistrySetBuilder.RegistryBootstrap<BiomeModifier> biomeModifierPopulator = context -> {
-				for (Entry<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> entry: rawMap.entrySet()) {
-					ResourceLocation resloc = entry.getKey();
+				for (Entry<Identifier, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> entry: rawMap.entrySet()) {
+					Identifier resloc = entry.getKey();
 					ResourceKey<BiomeModifier> resKey = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, resloc);
 					Pair<TagKey<Biome>, WeightedList<SpawnerData>> payload = entry.getValue();
 					TagKey<Biome> toBiomeWithTag = payload.getLeft();
@@ -190,7 +190,7 @@ public class ForgeEntry {
 		public static void onLootTableLoadEvent(final LootTableLoadEvent event) {
 			ILootTableAdder lootTableAdder = (lootTableIDs, range, entryBuilder) -> {
 				lootTableIDs.stream()
-				.filter(lootTableID -> lootTableID.location().equals(event.getName()))
+				.filter(lootTableID -> lootTableID.identifier().equals(event.getName()))
 				.forEach(lootTableID ->
 					event.getTable().addPool(LootPool.lootPool().setRolls(range).add(entryBuilder).build())
 				);

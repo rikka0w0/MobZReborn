@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
@@ -62,12 +62,12 @@ public class SmallZombie extends Zombie {
 		return false;
 	}
 
-    @Override
-    public void restoreFrom(Entity oldEntity) {
-    	super.restoreFrom(oldEntity);
+	@Override
+	public void restoreFrom(Entity oldEntity) {
+		super.restoreFrom(oldEntity);
 
-    	if (oldEntity instanceof SmallZombie oldSmallZombie) {
-    		this.owner = oldSmallZombie.owner;
-    	}
-    }
+		if (oldEntity instanceof SmallZombie oldSmallZombie) {
+			this.owner = oldSmallZombie.owner;
+		}
+	}
 }

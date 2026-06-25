@@ -11,11 +11,11 @@ import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
 import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
@@ -88,7 +88,7 @@ public class LavaGolem extends IronGolem {
 	public boolean checkSpawnObstruction(LevelReader view) {
 		BlockPos posentity = this.blockPosition();
 		return MobZ.configs.lava_golem.spawn
-				&& this.level().getCurrentDifficultyAt(posentity).getDifficulty() != Difficulty.PEACEFUL
+				&& this.level().getDifficulty() != Difficulty.PEACEFUL
 				&& MobSpawnHelper.checkSpawnObstruction(this, view);
 	}
 }

@@ -4,7 +4,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.projectile.Fireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.Fireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,7 +16,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.mobz.init.MobZEntities;
 import net.mobz.init.MobZItems;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -56,7 +56,7 @@ public class FrostballEntity extends Fireball {
 		if (this.level() instanceof ServerLevel serverLevel) {
 			Entity entity = this.getOwner();
 			if (entity == null || !(entity instanceof Mob)
-					|| serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+					|| serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) {
 				BlockPos blockPos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
 				if (this.level().isEmptyBlock(blockPos)) {
 					this.level().setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState());

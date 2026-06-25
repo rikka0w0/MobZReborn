@@ -5,19 +5,19 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RavagerRenderer;
 import net.minecraft.client.renderer.entity.state.RavagerRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class BabyRavagerRenderer extends RavagerRenderer {
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
-	public BabyRavagerRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public BabyRavagerRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context);
 		this.shadowRadius = 0.4F;
 		this.texture = texture;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(RavagerRenderState ravagerEntity) {
+	public Identifier getTextureLocation(RavagerRenderState ravagerEntity) {
 		return this.texture;
 	}
 

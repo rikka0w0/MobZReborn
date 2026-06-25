@@ -1,10 +1,9 @@
 package net.mobz.entity;
 
-import java.util.UUID;
-
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.NeutralMob;
@@ -25,13 +24,13 @@ import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -213,22 +212,22 @@ public abstract class FriendEntity extends TamableAnimal implements NeutralMob {
 	public abstract boolean isFood(ItemStack stack);
 
 	@Override
-	public int getRemainingPersistentAngerTime() {
-		return 0;
+	public long getPersistentAngerEndTime() {
+		return 0L;
 	}
 
 	@Override
-	public void setRemainingPersistentAngerTime(int ticks) {
+	public void setPersistentAngerEndTime(long gameTime) {
 
 	}
 
 	@Override
-	public UUID getPersistentAngerTarget() {
+	public EntityReference<LivingEntity> getPersistentAngerTarget() {
 		return null;
 	}
 
 	@Override
-	public void setPersistentAngerTarget(UUID uuid) {
+	public void setPersistentAngerTarget(EntityReference<LivingEntity> entityReference) {
 
 	}
 

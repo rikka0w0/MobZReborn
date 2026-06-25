@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 
@@ -41,7 +41,7 @@ public class SpeedShoeBase extends SimpleItem {
 			0,	// getKnockbackResistance
 			MobZItemTags.REPAIRS_SPEED_ARMOR,
 			EQUIPMENT_MODEL_SPEED
-//       		List.of(new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "speed")))
+//				List.of(new ArmorMaterial.Layer(Identifier.fromNamespaceAndPath("mobz", "speed")))
 		);
 
 	public static final EnumMap<ArmorType, Integer> DEFENSE_MAP2 =
@@ -64,7 +64,7 @@ public class SpeedShoeBase extends SimpleItem {
 			0,	// getKnockbackResistance
 			MobZItemTags.REPAIRS_SPEED2_ARMOR,
 			EQUIPMENT_MODEL_SPEED2
-//       		List.of(new ArmorMaterial.Layer(ResourceLocation.tryBuild("mobz", "speed2")))
+//				List.of(new ArmorMaterial.Layer(Identifier.fromNamespaceAndPath("mobz", "speed2")))
 		);
 
 

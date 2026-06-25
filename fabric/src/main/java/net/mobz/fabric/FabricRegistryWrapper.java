@@ -21,7 +21,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -110,7 +110,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Supplier<Holder<SoundEvent>> registerSound(String name, Identifier resloc, Consumer<SoundEvent> setter) {
 		SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(resloc);
 		Holder<SoundEvent> holder = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, MobZ.resLoc(name), soundEvent);
 		if (setter != null) {
@@ -123,7 +123,7 @@ public class FabricRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier) {
+	public CreativeModeTab tab(Identifier resLoc, Supplier<ItemStack> iconSupplier) {
 		String displayNameKey = "itemGroup." + resLoc.getNamespace() + "." + resLoc.getPath();
 
 		List<Supplier<? extends ItemLike>> contents = new LinkedList<>();

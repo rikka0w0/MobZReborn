@@ -1,45 +1,46 @@
 package net.mobz.client.renderer.entity;
 
-import net.minecraft.client.model.SpiderModel;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.model.monster.spider.SpiderModel;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.SpiderRenderer;
 import net.minecraft.client.renderer.entity.layers.SpiderEyesLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.monster.spider.Spider;
 
 public class EasySpiderRenderer<T extends Spider> extends SpiderRenderer<T> {
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
-	public EasySpiderRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public EasySpiderRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		this(context, texture, false);
 	}
 
-	public EasySpiderRenderer(EntityRendererProvider.Context context, ResourceLocation texture, boolean useVanillaEyes) {
+	public EasySpiderRenderer(EntityRendererProvider.Context context, Identifier texture, boolean useVanillaEyes) {
 		super(context);
 
 		this.texture = texture;
 		if (!useVanillaEyes) {
 			this.layers.removeIf(layer -> layer instanceof SpiderEyesLayer);
 			String eyePath = texture.getPath().replace(".png", "_eyes.png");
-			ResourceLocation eyeTexture = ResourceLocation.fromNamespaceAndPath(texture.getNamespace(), eyePath);
+			Identifier eyeTexture = Identifier.fromNamespaceAndPath(texture.getNamespace(), eyePath);
 			this.addLayer(new SpiderEyes<>(this, eyeTexture));
 		}
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(LivingEntityRenderState renderState) {
+	public Identifier getTextureLocation(LivingEntityRenderState renderState) {
 		return this.texture;
 	}
 
 	public static class SpiderEyes<M extends SpiderModel> extends SpiderEyesLayer<M> {
 		private final RenderType texture;
 
-		public SpiderEyes(RenderLayerParent<LivingEntityRenderState, M> context, ResourceLocation eyeTexture) {
+		public SpiderEyes(RenderLayerParent<LivingEntityRenderState, M> context, Identifier eyeTexture) {
 			super(context);
-			this.texture = RenderType.eyes(eyeTexture);
+			this.texture = RenderTypes.eyes(eyeTexture);
 		}
 
 		@Override

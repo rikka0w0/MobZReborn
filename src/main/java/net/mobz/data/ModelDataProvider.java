@@ -28,7 +28,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -42,12 +42,12 @@ import net.mobz.item.MobZSpawnEgg;
 import net.mobz.item.SacrificeKnife;
 
 public class ModelDataProvider implements DataProvider {
-    private final PackOutput.PathProvider blockStatePathProvider;
-    private final PackOutput.PathProvider itemInfoPathProvider;
+	private final PackOutput.PathProvider blockStatePathProvider;
+	private final PackOutput.PathProvider itemInfoPathProvider;
 	private final PackOutput.PathProvider modelPathProvider;
 	private final Registry<Item> itemRegistry;
 
-	protected Map<ResourceLocation, ModelInstance> models = new HashMap<>();
+	protected Map<Identifier, ModelInstance> models = new HashMap<>();
 	protected Map<Item, ClientItem> itemStateMap = new HashMap<>();
 	protected Map<Block, BlockModelDefinitionGenerator> blockStateMap = new HashMap<>();
 
@@ -73,7 +73,7 @@ public class ModelDataProvider implements DataProvider {
 
 		// Advancement Icons
 		for (String headName: MobZIcons.headNames) {
-			ResourceLocation itemResLoc = MobZ.resLoc(headName);
+			Identifier itemResLoc = MobZ.resLoc(headName);
 			Item headItem = this.itemRegistry.getValue(itemResLoc);
 			this.simpleItem(headItem);
 		}
@@ -141,7 +141,7 @@ public class ModelDataProvider implements DataProvider {
 		this.blockItem(MobZBlocks.TOTEM_TOP.get());
 	}
 
-	protected void addItemModel(ResourceLocation modelPath, ModelInstance model) {
+	protected void addItemModel(Identifier modelPath, ModelInstance model) {
 		if (models.put(modelPath, model) != null) {
 			throw new IllegalStateException("Duplicate model definition for " + modelPath);
 		}
@@ -163,12 +163,12 @@ public class ModelDataProvider implements DataProvider {
 
 	@SuppressWarnings("deprecation")
 	protected Path itemStateToPath(Item item) {
-		return this.itemInfoPathProvider.json(item.builtInRegistryHolder().key().location());
+		return this.itemInfoPathProvider.json(item.builtInRegistryHolder().key().identifier());
 	}
 
 	@SuppressWarnings("deprecation")
 	protected Path blockStateToPath(Block block) {
-		return this.blockStatePathProvider.json(block.builtInRegistryHolder().key().location());
+		return this.blockStatePathProvider.json(block.builtInRegistryHolder().key().identifier());
 	}
 
 	@Override
@@ -189,13 +189,13 @@ public class ModelDataProvider implements DataProvider {
 			);
 	}
 
-	public static ResourceLocation getRealTextureLoc(ResourceLocation resLoc) {
-		return ResourceLocation.fromNamespaceAndPath(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
+	public static Identifier getRealTextureLoc(Identifier resLoc) {
+		return Identifier.fromNamespaceAndPath(resLoc.getNamespace(), "textures/" + resLoc.getPath() + ".png");
 	}
 
 	// From ItemModelGenerators
-	protected ResourceLocation generateFlatItem(Item item, String suffix, ModelTemplate modelTemplate) {
-		ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(item, suffix);
+	protected Identifier generateFlatItem(Item item, String suffix, ModelTemplate modelTemplate) {
+		Identifier textureResLoc = ModelLocationUtils.getModelLocation(item, suffix);
 
 		return modelTemplate.create(textureResLoc, TextureMapping.layer0(textureResLoc), this::addItemModel);
 	}
@@ -210,9 +210,9 @@ public class ModelDataProvider implements DataProvider {
 	}
 
 	protected void blockItem(Block block) {
-		ResourceLocation textureResLoc = ModelLocationUtils.getModelLocation(block.asItem());
+		Identifier textureResLoc = ModelLocationUtils.getModelLocation(block.asItem());
 		ModelTemplate template = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(block)), null);
-		ResourceLocation modelResLoc = template.create(textureResLoc, new TextureMapping(), this::addItemModel);
+		Identifier modelResLoc = template.create(textureResLoc, new TextureMapping(), this::addItemModel);
 		this.addItemModelInfo(block.asItem(), ItemModelUtils.plainModel(modelResLoc));
 	}
 
@@ -222,7 +222,7 @@ public class ModelDataProvider implements DataProvider {
 	}
 
 	protected void spawnEggMobZ(MobZSpawnEgg egg) {
-		ResourceLocation resourcelocation = ResourceLocation.fromNamespaceAndPath("mobz", "item/template_spawn_egg");
+		Identifier resourcelocation = Identifier.fromNamespaceAndPath("mobz", "item/template_spawn_egg");
 		this.addItemModelInfo(egg, ItemModelUtils.tintedModel(resourcelocation,
 			ItemModelUtils.constantTint(egg.backgroundColor),
 			ItemModelUtils.constantTint(egg.highlightColor)));
@@ -289,7 +289,7 @@ public class ModelDataProvider implements DataProvider {
 
 	// Blocks
 	protected void cubeAll(Block block) {
-		ResourceLocation texture = TexturedModel.CUBE.create(block, this::addItemModel);
+		Identifier texture = TexturedModel.CUBE.create(block, this::addItemModel);
 		this.addBlockState(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(texture)));
 		this.blockItem(block);
 	}

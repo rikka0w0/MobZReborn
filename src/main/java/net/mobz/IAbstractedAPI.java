@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -34,9 +34,9 @@ public interface IAbstractedAPI {
 	<E extends Entity, T extends EntityType<E>> Supplier<T> registerEntityType(String name, Supplier<T> constructor,
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier, @Nullable Consumer<T> setter);
 
-	Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter);
+	Supplier<Holder<SoundEvent>> registerSound(String name, Identifier resloc, Consumer<SoundEvent> setter);
 
-	CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier);
+	CreativeModeTab tab(Identifier resLoc, Supplier<ItemStack> iconSupplier);
 
 	Supplier<MobBucketItem> newMobBucketItem(Supplier<? extends EntityType<? extends Mob>> entitySupplier,
 			Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier,

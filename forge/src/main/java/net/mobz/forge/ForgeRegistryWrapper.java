@@ -33,7 +33,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -134,7 +134,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Supplier<Holder<SoundEvent>> registerSound(String name, Identifier resloc, Consumer<SoundEvent> setter) {
 		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(resloc);
 		RegistryObject<SoundEvent> regObj = SOUNDS.register(name, constructor);
 		if (setter != null) {
@@ -162,7 +162,7 @@ public class ForgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier) {
+	public CreativeModeTab tab(Identifier resLoc, Supplier<ItemStack> iconSupplier) {
 		String displayNameKey = "itemGroup." + resLoc.getNamespace() + "." + resLoc.getPath();
 
 		List<Supplier<? extends ItemLike>> contents = new LinkedList<>();

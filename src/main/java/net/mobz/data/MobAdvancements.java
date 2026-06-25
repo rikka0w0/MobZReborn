@@ -10,16 +10,16 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.KilledTrigger;
-import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.KilledTrigger;
+import net.minecraft.advancements.criterion.PlayerHurtEntityTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 
@@ -27,11 +27,11 @@ import net.mobz.MobZ;
 import net.mobz.init.MobZEntities;
 
 public class MobAdvancements implements AdvancementSubProvider {
-	public final static ResourceLocation BACKGROUND =
-			ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png");
+	public final static Identifier BACKGROUND =
+			Identifier.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png");
 
 	public static Item icon(String name) {
-		ResourceLocation resLoc = MobZ.resLoc(name);
+		Identifier resLoc = MobZ.resLoc(name);
 		Item item = BuiltInRegistries.ITEM.getValue(resLoc);
 		return item;
 	}

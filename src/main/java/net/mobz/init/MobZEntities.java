@@ -5,7 +5,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
 import java.util.function.Supplier;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
@@ -166,8 +166,8 @@ public class MobZEntities {
 			.sized(0.6F, 1.8F), "frost_blaze",
 			FrostBlaze::createMobzAttributes, 8709375, 86111);
 	public static final Supplier<EntityType<FrostballEntity>> FROSTBALL = register(EntityType.Builder
-            .<FrostballEntity>of(FrostballEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F)
-            .clientTrackingRange(4).updateInterval(10), "frost_ball");
+			.<FrostballEntity>of(FrostballEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F)
+			.clientTrackingRange(4).updateInterval(10), "frost_ball");
 	public static final Supplier<EntityType<NetherWolf>> NETHER_WOLF = register(EntityType.Builder.of(NetherWolf::new, MobCategory.MONSTER)
 			.clientTrackingRange(74).updateInterval(2).fireImmune().sized(0.6F, 0.85F), "nether_wolf",
 			NetherWolf::createMobzAttributes, 4785691, 6700094);
@@ -311,7 +311,7 @@ public class MobZEntities {
 			Supplier<AttributeSupplier.Builder> attribModifierSupplier,
 			int backgroundColor, int highlightColor) {
 		ResourceKey<EntityType<?>> resKey = MobZ.resKey(Registries.ENTITY_TYPE, name);
-		String spawnEggLocalizationKey = Util.makeDescriptionId("entity", resKey.location());
+		String spawnEggLocalizationKey = Util.makeDescriptionId("entity", resKey.identifier());
 		Supplier<EntityType<T>> entityTypeSupplier =
 				MobZ.platform.registerEntityType(name, () -> entityTypeBuilder.build(resKey), attribModifierSupplier, null);
 

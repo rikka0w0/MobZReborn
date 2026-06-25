@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.ConfigManager;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -22,14 +23,14 @@ import net.mobz.Configs;
 
 public class MobZComposedGuiRegistryAccess extends ComposedGuiRegistryAccess {
 	public final static GuiRegistry GUI_REGISTRY =
-			DefaultGuiTransformers.apply(DefaultGuiProviders.apply(AutoConfig.getGuiRegistry(Configs.class)));
+			DefaultGuiTransformers.apply(DefaultGuiProviders.apply(AutoConfigClient.getGuiRegistry(Configs.class)));
 
 	public MobZComposedGuiRegistryAccess(GuiRegistryAccess... children) {
 		super(children);
 	}
 
 	public static void registerGuiProcessors() {
-		GuiRegistry guiRegistry = AutoConfig.getGuiRegistry(Configs.class);
+		GuiRegistry guiRegistry = AutoConfigClient.getGuiRegistry(Configs.class);
 		DefaultGuiProviders.apply(guiRegistry);
 		DefaultGuiTransformers.apply(guiRegistry);
 	}
@@ -41,7 +42,7 @@ public class MobZComposedGuiRegistryAccess extends ComposedGuiRegistryAccess {
 			(ConfigManager<? extends ConfigData>) AutoConfig.getConfigHolder(cls);
 
 		MobZComposedGuiRegistryAccess guiRegAccess = new MobZComposedGuiRegistryAccess(
-                AutoConfig.getGuiRegistry(cls), GUI_REGISTRY, new DefaultGuiRegistryAccess());
+				AutoConfigClient.getGuiRegistry(cls), GUI_REGISTRY, new DefaultGuiRegistryAccess());
 
 		ConfigScreenProvider<? extends ConfigData> screenProvider =
 			new ConfigScreenProvider<>(configManager, guiRegAccess, parent);

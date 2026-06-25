@@ -1,13 +1,18 @@
 plugins {
+	id 'java'
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.minecraftforge.gradle' version '[6.0.36, 6.2)'
+	id 'net.minecraftforge.gradle' version '[7.0.3,8)'
 	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
 repositories {
+	minecraft.mavenizer(it)
+	maven fg.forgeMaven
+	maven fg.minecraftLibsMaven
 	maven { url "https://maven.shedaniel.me/" }
+	mavenCentral()
 }
 
 apply from: '../common.gradle'
@@ -44,51 +49,36 @@ minecraft {
 	// Simply re-run your setup task after changing the mappings to update your workspace.
 	mappings channel: 'official', version: project.minecraft_version // defined in ../common.properties
 
-	// Tell FG to not automtically create the reobf tasks, as we now use Official mappings at runtime, If you don't use them at dev time then you'll have to fix your reobf yourself.
-	// Since 1.20.5, MinecraftForge uses official mapping during the runtime, reobf is no longer required.
-	reobf = false
-
-	// This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
-	// It is REQUIRED to be set to true for this template to function.
-	// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-	copyIdeResources = true
-
-	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+	accessTransformer.from(file('src/main/resources/META-INF/accesstransformer.cfg'))
 
 	// Default run configurations.
 	// These can be tweaked, removed, or duplicated as needed.
 	runs {
 		configureEach {
-			workingDirectory project.file('run')
+			workingDir = layout.projectDirectory.dir('run')
 
 			// Recommended logging data for a userdev environment
-			property 'forge.logging.markers', 'SCAN,REGISTRIES'
+			systemProperty 'forge.logging.markers', 'SCAN,REGISTRIES'
 
 			// Recommended logging level for the console
-			property 'forge.logging.console.level', 'debug'
-
-			mods {
-				"${mod_id}" {
-					source sourceSets.main
-				}
-			}
+			systemProperty 'forge.logging.console.level', 'debug'
 		}
 
-		client {
+		register('client') {
 			// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-			property 'forge.enabledGameTestNamespaces', mod_id
+			systemProperty 'forge.enabledGameTestNamespaces', mod_id
 		}
 
-		server {
-			property 'forge.enabledGameTestNamespaces', mod_id
+		register('server') {
+			systemProperty 'forge.enabledGameTestNamespaces', mod_id
 			args '--nogui'
 		}
 
-		data {
-			workingDirectory project.file('run-data')
+		register('data') {
+			workingDir = layout.projectDirectory.dir('run-data')
 
 			// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-			args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('../src/main/resources/'), '--existing', file('src/main/resources/')
+			args '--mod', mod_id, '--all', '--output', layout.projectDirectory.dir('src/generated/resources/'), '--existing', layout.projectDirectory.dir('../src/main/resources/'), '--existing', layout.projectDirectory.dir('src/main/resources/')
 		}
 	}
 }
@@ -112,7 +102,7 @@ dependencies {
 	// Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
 	// that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
 	// The userdev artifact is a special name and will get all sorts of transformations applied to it.
-	minecraft 'net.minecraftforge:forge:'+ project.minecraft_version + '-' + project.forge_version
+	implementation minecraft.dependency("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
 
 	// You may put jars on which you depend on in ./libs or you may define them like so..
 	// compile "some.group:artifact:version:classifier"

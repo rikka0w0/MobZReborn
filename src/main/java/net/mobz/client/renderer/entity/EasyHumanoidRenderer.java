@@ -10,13 +10,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Mob;
 
 public class EasyHumanoidRenderer<T extends Mob> extends HumanoidMobRenderer<T, HumanoidRenderState, HumanoidModel<HumanoidRenderState>> {
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
-	public EasyHumanoidRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public EasyHumanoidRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER)), 0.5F);
 		this.addLayer(new HumanoidArmorLayer<>(
 				this,
@@ -27,7 +27,7 @@ public class EasyHumanoidRenderer<T extends Mob> extends HumanoidMobRenderer<T, 
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(HumanoidRenderState renderState) {
+	public Identifier getTextureLocation(HumanoidRenderState renderState) {
 		return this.texture;
 	}
 

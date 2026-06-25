@@ -47,7 +47,7 @@ public class BlockLoot extends BlockLootSubProvider {
 					LootTable.Builder builder = this.map.remove(resourceKey.get());
 					if (builder == null) {
 						throw new IllegalStateException(
-							String.format(Locale.ROOT, "Missing loottable '%s' for '%s'", resourceKey.get().location(), BuiltInRegistries.BLOCK.getKey(block))
+							String.format(Locale.ROOT, "Missing loottable '%s' for '%s'", resourceKey.get().identifier(), BuiltInRegistries.BLOCK.getKey(block))
 						);
 					}
 

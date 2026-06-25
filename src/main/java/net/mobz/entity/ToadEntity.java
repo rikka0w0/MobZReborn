@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -39,7 +39,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
@@ -67,7 +67,7 @@ public class ToadEntity extends Animal {
 	// All toads share this set, only used on the server side
 	private static Set<Entity> targetedEntities = new HashSet<>();
 
-	private static final AttributeModifier JUMP_SPEED_BOOST_MOD = new AttributeModifier(ResourceLocation.withDefaultNamespace("jump"), 0.6F, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier JUMP_SPEED_BOOST_MOD = new AttributeModifier(Identifier.withDefaultNamespace("jump"), 0.6F, AttributeModifier.Operation.ADD_VALUE);
 
 	private static final EntityDataAccessor<Integer> TONGUE_ENTITY = SynchedEntityData.defineId(ToadEntity.class, EntityDataSerializers.INT);
 
@@ -341,7 +341,7 @@ public class ToadEntity extends Animal {
 		this.resetLove();
 		other.resetLove();
 		serverWorld.broadcastEntityEvent(this, (byte) 18);
-		if(serverWorld.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT))
+		if(serverWorld.getGameRules().get(GameRules.MOB_DROPS))
 		{
 			serverWorld.addFreshEntity(new ExperienceOrb(serverWorld, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
 		}

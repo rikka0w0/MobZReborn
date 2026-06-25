@@ -4,11 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.mobz.entity.TinySpider;
 
 public class TinySpiderRenderer extends EasySpiderRenderer<TinySpider> {
-	public TinySpiderRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public TinySpiderRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context, texture, true);
 	}
 

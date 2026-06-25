@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.advancements.critereon.EntityFlagsPredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityFlagsPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -90,14 +90,14 @@ public class EntityLoot implements LootTableSubProvider {
 					if (entitytype.isEnabled(this.required)
 							&& (map == null || !map.containsKey(lootTableResKey.get()))) {
 						throw new IllegalStateException(String.format(Locale.ROOT, "Missing loottable '%s' for '%s'",
-								lootTableResKey.get(), entityTypeRef.key().location()));
+								lootTableResKey.get(), entityTypeRef.key().identifier()));
 					}
 
 					if (map != null) {
 						map.forEach((resKey, builder) -> {
 							if (!processed.add(resKey)) {
 								throw new IllegalStateException(String.format(Locale.ROOT,
-										"Duplicate loottable '%s' for '%s'", resKey, entityTypeRef.key().location()));
+										"Duplicate loottable '%s' for '%s'", resKey, entityTypeRef.key().identifier()));
 							} else {
 								lootTableGenerator.accept(resKey, builder);
 							}
@@ -107,9 +107,9 @@ public class EntityLoot implements LootTableSubProvider {
 					if (map != null) {
 						throw new IllegalStateException(String.format(Locale.ROOT,
 								"Weird loottables '%s' for '%s', not a LivingEntity so should not have loot",
-								map.keySet().stream().map(resKey -> resKey.location().toString())
+								map.keySet().stream().map(resKey -> resKey.identifier().toString())
 										.collect(Collectors.joining(",")),
-								entityTypeRef.key().location()));
+								entityTypeRef.key().identifier()));
 					}
 				}
 			}

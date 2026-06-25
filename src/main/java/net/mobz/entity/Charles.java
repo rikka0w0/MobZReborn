@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -115,7 +115,7 @@ public class Charles extends Vindicator {
 		SpiritOfDeath vexEntity = MobZEntities.SPIRIT_OF_DEATH.get().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 		vexEntity.snapTo(blockPos, 0.0F, 0.0F);
 		vexEntity.finalizeSpawn((ServerLevelAccessor) this.level(),
-				Charles.this.level().getCurrentDifficultyAt(blockPos), EntitySpawnReason.MOB_SUMMONED, null);
+				((ServerLevelAccessor) this.level()).getCurrentDifficultyAt(blockPos), EntitySpawnReason.MOB_SUMMONED, null);
 		Charles.this.level().addFreshEntity(vexEntity);
 	}
 

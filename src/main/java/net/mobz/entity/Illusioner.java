@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.mobz.MobZ;
 import net.mobz.init.MobZSounds;
 
-public class Illusioner extends net.minecraft.world.entity.monster.Illusioner {
-	public Illusioner(EntityType<? extends net.minecraft.world.entity.monster.Illusioner> entityType, Level world) {
+public class Illusioner extends net.minecraft.world.entity.monster.illager.Illusioner {
+	public Illusioner(EntityType<? extends net.minecraft.world.entity.monster.illager.Illusioner> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 20;
 	}

@@ -36,7 +36,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -69,7 +69,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	public <T extends Item> Supplier<T> registerItem(String name, CreativeModeTab tab,
 			Function<Item.Properties, T> constructor, Consumer<T> setter) {
 		ResourceKey<Item> resKey = ResourceKey.create(ITEMS.getRegistryKey(),
-				ResourceLocation.fromNamespaceAndPath(ITEMS.getNamespace(), name));
+				Identifier.fromNamespaceAndPath(ITEMS.getNamespace(), name));
 		DeferredHolder<Item, T> regObj = ITEMS.register(name,
 				() -> constructor.apply(new Item.Properties().setId(resKey))
 			);
@@ -94,7 +94,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 			BiFunction<T, Item.Properties, BlockItem> blockItemConstructor,
 			Consumer<T> setter) {
 		ResourceKey<Block> resKey = ResourceKey.create(BLOCKS.getRegistryKey(),
-				ResourceLocation.fromNamespaceAndPath(BLOCKS.getNamespace(), name));
+				Identifier.fromNamespaceAndPath(BLOCKS.getNamespace(), name));
 		DeferredHolder<Block, T> regObj = BLOCKS.register(name,
 				() -> blockConstructor.apply(BlockBehaviour.Properties.of().setId(resKey))
 			);
@@ -139,7 +139,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public Supplier<Holder<SoundEvent>> registerSound(String name, ResourceLocation resloc, Consumer<SoundEvent> setter) {
+	public Supplier<Holder<SoundEvent>> registerSound(String name, Identifier resloc, Consumer<SoundEvent> setter) {
 		Supplier<SoundEvent> constructor = () -> SoundEvent.createVariableRangeEvent(resloc);
 		DeferredHolder<SoundEvent, SoundEvent> regObj = SOUNDS.register(name, constructor);
 		if (setter != null) {
@@ -165,7 +165,7 @@ public class NeoforgeRegistryWrapper implements IAbstractedAPI {
 	}
 
 	@Override
-	public CreativeModeTab tab(ResourceLocation resLoc, Supplier<ItemStack> iconSupplier) {
+	public CreativeModeTab tab(Identifier resLoc, Supplier<ItemStack> iconSupplier) {
 		String displayNameKey = "itemGroup." + resLoc.getNamespace() + "." + resLoc.getPath();
 
 		List<Supplier<? extends ItemLike>> contents = new LinkedList<>();

@@ -2,7 +2,7 @@ package net.mobz;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.mobz.init.MobZArmors;
 import net.mobz.init.MobZBlocks;
 import net.mobz.init.MobZEntities;
@@ -21,19 +21,19 @@ public class MobZ {
 
 	// Make sure the static initialization is invoked before the registration phase is done
 	public static void invokeStaticFields() {
-    	MobZItems.BOSS_INGOT.getClass();
-    	MobZBlocks.BOSS_BLOCK.getClass();
-    	MobZEntities.BOSS_ZOMBIE.getClass();
-    	MobZArmors.BOSS_BOOTS.getClass();
-    	MobZWeapons.BOSS_SWORD.getClass();
-    	MobZSounds.MEDIVEAL_MUSIC.getClass();
-    	MobZIcons.headNames.getClass();
-    	MobZTabs.MAIN.getClass();
-    	MobZTabs.EGGS.getClass();
+		MobZItems.BOSS_INGOT.getClass();
+		MobZBlocks.BOSS_BLOCK.getClass();
+		MobZEntities.BOSS_ZOMBIE.getClass();
+		MobZArmors.BOSS_BOOTS.getClass();
+		MobZWeapons.BOSS_SWORD.getClass();
+		MobZSounds.MEDIVEAL_MUSIC.getClass();
+		MobZIcons.headNames.getClass();
+		MobZTabs.MAIN.getClass();
+		MobZTabs.EGGS.getClass();
 	}
 
-	public static ResourceLocation resLoc(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MobZ.MODID, path);
+	public static Identifier resLoc(String path) {
+		return Identifier.fromNamespaceAndPath(MobZ.MODID, path);
 	}
 
 	public static <T> ResourceKey<T> resKey(ResourceKey<? extends Registry<T>> registry, String path) {

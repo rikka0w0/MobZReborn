@@ -5,14 +5,14 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.mobz.MobZ;
 import net.mobz.client.renderer.model.TadpoleEntityModel;
 import net.mobz.entity.TadpoleEntity;
 
 public class TadpoleRender extends MobRenderer<TadpoleEntity, LivingEntityRenderState, TadpoleEntityModel> {
-	private static final ResourceLocation TEXTURE = MobZ.resLoc("textures/entity/tadpole.png");
+	private static final Identifier TEXTURE = MobZ.resLoc("textures/entity/tadpole.png");
 
 	public TadpoleRender(EntityRendererProvider.Context context) {
 		super(context, new TadpoleEntityModel(context.bakeLayer(TadpoleEntityModel.MODEL_LAYER_LOC)), 0.15F);
@@ -35,7 +35,7 @@ public class TadpoleRender extends MobRenderer<TadpoleEntity, LivingEntityRender
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(LivingEntityRenderState renderState) {
+	public Identifier getTextureLocation(LivingEntityRenderState renderState) {
 		return TEXTURE;
 	}
 }

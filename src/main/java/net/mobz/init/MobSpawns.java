@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedList;
@@ -17,21 +17,21 @@ import net.mobz.tags.MobZBiomeTags;
 
 public class MobSpawns {
 	private static void addSpawnToBiome(
-			Map<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> map, TagKey<Biome> biomeTag,
+			Map<Identifier, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> map, TagKey<Biome> biomeTag,
 			int weight,
 			MobSpawnSettings.SpawnerData spawnerData) {
 		String fileName = null;
-		ResourceLocation entityKey = EntityType.getKey(spawnerData.type());
+		Identifier entityKey = EntityType.getKey(spawnerData.type());
 		fileName = "spawn_" + entityKey.getPath() + "_in_" + biomeTag.location().getNamespace() + "_"
 			+ biomeTag.location().getPath();
 
 		WeightedList<SpawnerData> weightedList = WeightedList.<SpawnerData>builder().add(spawnerData, weight).build();
 
-		ResourceLocation fileNameResLoc = MobZ.resLoc(fileName);
+		Identifier fileNameResLoc = MobZ.resLoc(fileName);
 		map.put(fileNameResLoc, Pair.of(biomeTag, weightedList));
 	}
 
-	public static void collectAll(Map<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> map) {
+	public static void collectAll(Map<Identifier, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> map) {
 		// Normal spawns
 		addSpawnToBiome(map, MobZBiomeTags.SPAWN_NORMAL_TAG,
 				MobZ.configs.bowman.spawn_rate,

@@ -4,10 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class SmallZombieRenderer extends EasyZombieRenderer {
-	public SmallZombieRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public SmallZombieRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context, texture);
 	}
 

@@ -15,7 +15,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -31,8 +31,8 @@ import net.mobz.init.MobZWeapons;
 public class Recipes extends RecipeProvider {
 	public static class Runner extends RecipeProvider.Runner {
 		public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-	            super(output, registries);
-	      }
+				super(output, registries);
+		  }
 
 		@Override
 		protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
@@ -199,8 +199,8 @@ public class Recipes extends RecipeProvider {
 
 	public void mobZ9BlockStorageRecipes(RecipeCategory pUnpackedCategory,
 			ItemLike pUnpacked, RecipeCategory pPackedCategory, ItemLike pPacked) {
-		ResourceLocation unpackedName = BuiltInRegistries.ITEM.getKey(pUnpacked.asItem());
-		ResourceLocation packedName = BuiltInRegistries.ITEM.getKey(pPacked.asItem());
+		Identifier unpackedName = BuiltInRegistries.ITEM.getKey(pUnpacked.asItem());
+		Identifier packedName = BuiltInRegistries.ITEM.getKey(pPacked.asItem());
 		nineBlockStorageRecipes(pUnpackedCategory, pUnpacked, pPackedCategory, pPacked,
 				packedName.toString() + "_from_unpacked", null, unpackedName.toString() + "_from_packed", null);
 	}

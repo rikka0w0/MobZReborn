@@ -2,7 +2,7 @@ package net.mobz.client.renderer.entity;
 
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.mobz.MobZ;
 import net.mobz.client.renderer.entity.state.WaspRenderState;
@@ -10,7 +10,7 @@ import net.mobz.client.renderer.model.WaspModel;
 import net.mobz.entity.Wasp;
 
 public class WaspRender extends AgeableMobRenderer<Wasp, WaspRenderState, WaspModel> {
-	private static final ResourceLocation TEXTURE = MobZ.resLoc("textures/entity/wasp.png");
+	private static final Identifier TEXTURE = MobZ.resLoc("textures/entity/wasp.png");
 
 	public WaspRender(EntityRendererProvider.Context context) {
 		super(context,
@@ -38,7 +38,7 @@ public class WaspRender extends AgeableMobRenderer<Wasp, WaspRenderState, WaspMo
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(WaspRenderState renderState) {
+	public Identifier getTextureLocation(WaspRenderState renderState) {
 		return TEXTURE;
 	}
 }

@@ -4,11 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.mobz.entity.Dwarf;
 
 public class DwarfEntityRenderer extends EasyHumanoidRenderer<Dwarf> {
-	public DwarfEntityRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public DwarfEntityRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context, texture);
 	}
 

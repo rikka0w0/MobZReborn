@@ -2,10 +2,11 @@ package net.mobz.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.model.SlimeModel;
+import net.minecraft.client.model.monster.slime.SlimeModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -13,14 +14,14 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.SlimeRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.mobz.entity.HoneySlime;
 
 public class HoneySlimeRenderer extends MobRenderer<HoneySlime, SlimeRenderState, SlimeModel> {
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
-	public HoneySlimeRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public HoneySlimeRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context, new SlimeModel(context.bakeLayer(ModelLayers.SLIME)), 0.25F);
 		this.addLayer(new SlimeOuterLayer(this, context.getModelSet()));
 		this.texture = texture;
@@ -42,7 +43,7 @@ public class HoneySlimeRenderer extends MobRenderer<HoneySlime, SlimeRenderState
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(SlimeRenderState renderState) {
+	public Identifier getTextureLocation(SlimeRenderState renderState) {
 		return this.texture;
 	}
 
@@ -71,8 +72,8 @@ public class HoneySlimeRenderer extends MobRenderer<HoneySlime, SlimeRenderState
 			boolean flag = renderState.appearsGlowing() && renderState.isInvisible;
 			if (!renderState.isInvisible || flag) {
 				RenderType renderType = flag
-						? RenderType.outline(HoneySlimeRenderer.this.texture)
-						: RenderType.entityTranslucent(HoneySlimeRenderer.this.texture);
+						? RenderTypes.outline(HoneySlimeRenderer.this.texture)
+						: RenderTypes.entityTranslucent(HoneySlimeRenderer.this.texture);
 				submitNodeCollector.order(1).submitModel(this.model, renderState, poseStack, renderType, packedLight,
 						LivingEntityRenderer.getOverlayCoords(renderState, 0.0F), -1, null, renderState.outlineColor, null);
 			}

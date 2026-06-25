@@ -58,7 +58,7 @@ public class ZombieMage extends EvokerLike {
 			SmallZombie smallZombie = MobZEntities.SMALL_ZOMBIE.get().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 			if (smallZombie != null) {
 				smallZombie.snapTo(blockPos, 0.0F, 0.0F);
-				smallZombie.finalizeSpawn(serverWorld, this.level().getCurrentDifficultyAt(blockPos), EntitySpawnReason.MOB_SUMMONED, null);
+				smallZombie.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(blockPos), EntitySpawnReason.MOB_SUMMONED, null);
 				smallZombie.owner = this;
 				this.level().addFreshEntity(smallZombie);
 				serverWorld.gameEvent(GameEvent.ENTITY_PLACE, blockPos, GameEvent.Context.of(this));

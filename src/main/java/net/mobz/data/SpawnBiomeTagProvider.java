@@ -33,8 +33,8 @@ public class SpawnBiomeTagProvider extends KeyTagProvider<Biome> {
 				.add(Biomes.GROVE).add(Biomes.SNOWY_SLOPES).add(Biomes.FROZEN_PEAKS).add(Biomes.JAGGED_PEAKS);
 	}
 
-    @Override
-    public String getName() {
-        return "Tags for " + this.registryKey.location() + " mod id " + MobZ.MODID;
-    }
+	@Override
+	public String getName() {
+		return "Tags for " + this.registryKey.identifier() + " mod id " + MobZ.MODID;
+	}
 }

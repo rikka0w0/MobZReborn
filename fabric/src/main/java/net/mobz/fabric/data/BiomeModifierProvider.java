@@ -16,7 +16,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.Biome;
@@ -37,11 +37,11 @@ public class BiomeModifierProvider extends FabricDynamicRegistryProvider {
 	}
 
 	public static void biomeModifierPopulator(BootstrapContext<BiomeModifier> context) {
-		Map<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> rawMap = new HashMap<>();
+		Map<Identifier, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> rawMap = new HashMap<>();
 		MobSpawns.collectAll(rawMap);
 
-		for (Entry<ResourceLocation, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> entry : rawMap.entrySet()) {
-			ResourceLocation resloc = entry.getKey();
+		for (Entry<Identifier, Pair<TagKey<Biome>, WeightedList<SpawnerData>>> entry : rawMap.entrySet()) {
+			Identifier resloc = entry.getKey();
 			ResourceKey<BiomeModifier> resKey = ResourceKey.create(BiomeModifierRegistry.REGISTRY_KEY, resloc);
 			Pair<TagKey<Biome>, WeightedList<SpawnerData>> payload = entry.getValue();
 			TagKey<Biome> toBiomeWithTag = payload.getLeft();
@@ -59,6 +59,6 @@ public class BiomeModifierProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	public String getName() {
-		return "BiomeModifiers for " + BiomeModifierRegistry.REGISTRY_KEY.location() + " mod id "  + MobZ.MODID;
+		return "BiomeModifiers for " + BiomeModifierRegistry.REGISTRY_KEY.identifier() + " mod id "  + MobZ.MODID;
 	}
 }

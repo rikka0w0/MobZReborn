@@ -3,7 +3,7 @@ plugins {
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.neoforged.gradle.userdev' version '7.1.38'
+	id 'net.neoforged.moddev' version '2.0.141'
 	id 'me.shedaniel.unified-publishing' version '0.1.+'
 }
 
@@ -42,47 +42,6 @@ base {
 	archivesName = mod_id
 }
 
-// Default run configurations.
-// These can be tweaked, removed, or duplicated as needed.
-runs {
-	configureEach {
-		workingDirectory project.file('run')
-
-		// Recommended logging data for a userdev environment
-		systemProperty 'forge.logging.markers', 'SCAN,REGISTRIES'
-
-		// Recommended logging level for the console
-		systemProperty 'forge.logging.console.level', 'debug'
-
-		modSource project.sourceSets.main
-	}
-
-	client {
-		// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-		systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
-	}
-
-	server {
-		systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
-		argument '--nogui'
-	}
-
-	clientData {
-		workingDirectory project.file('run-data')
-
-		// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-		arguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('../src/main/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-	}
-}
-
-tasks.register("runData") {
-	dependsOn("runClientData")
-	doLast {
-		// This is optional; you can log something if needed.
-		println("Alias task 'runData' executed 'runClientData'")
-	}
-}
-
 // Sets up a dependency configuration called 'localRuntime'.
 // This configuration should be used instead of 'runtimeOnly' to declare
 // a dependency that will be present for runtime testing but that is
@@ -108,15 +67,56 @@ sourceSets {
 }
 
 dependencies {
-	implementation "net.neoforged:neoforge:${neo_version}"
-
 	// defined in ../common.properties
 	implementation "me.shedaniel.cloth:cloth-config-neoforge:${project.cloth_config_version}"
 }
 
-minecraft {
-	accessTransformers {
-		file('src/main/resources/META-INF/accesstransformer.cfg')
+neoForge {
+	version = project.neo_version
+
+	parchment {
+		minecraftVersion = project.parchment_minecraft_version
+		mappingsVersion = project.parchment_mappings_version
+	}
+
+	accessTransformers.from('src/main/resources/META-INF/accesstransformer.cfg')
+
+	runs {
+		configureEach {
+			gameDirectory = project.file('run')
+
+			// Recommended logging data for a userdev environment
+			systemProperty 'forge.logging.markers', 'SCAN,REGISTRIES'
+
+			// Recommended logging level for the console
+			logLevel = org.slf4j.event.Level.DEBUG
+		}
+
+		client {
+			client()
+			// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+			systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+		}
+
+		server {
+			server()
+			systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+			programArgument '--nogui'
+		}
+
+		data {
+			clientData()
+			gameDirectory = project.file('run-data')
+
+			// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+			programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('../src/main/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+		}
+	}
+
+	mods {
+		"${mod_id}" {
+			sourceSet(sourceSets.main)
+		}
 	}
 }
 

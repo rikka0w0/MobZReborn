@@ -4,12 +4,12 @@ import net.minecraft.client.renderer.entity.PiglinRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.PiglinRenderState;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class PigmanRenderer extends PiglinRenderer {
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
-	public PigmanRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+	public PigmanRenderer(EntityRendererProvider.Context context, Identifier texture) {
 		super(context,
 				ModelLayers.PIGLIN,
 				ModelLayers.PIGLIN_BABY,
@@ -21,7 +21,7 @@ public class PigmanRenderer extends PiglinRenderer {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(PiglinRenderState renderState) {
+	public Identifier getTextureLocation(PiglinRenderState renderState) {
 		return this.texture;
 	}
 }

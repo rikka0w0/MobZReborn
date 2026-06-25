@@ -1,7 +1,7 @@
 package net.mobz.entity.attack;
 
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 
 public class GolemAttack extends MeleeAttackGoal {
 	private final IronGolem golem;

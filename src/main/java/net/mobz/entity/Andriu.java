@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -81,8 +81,8 @@ public class Andriu extends Vindicator {
 	}
 
 	@Override
-    public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
-        boolean flag = super.doHurtTarget(serverLevel, victim);
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity victim) {
+		boolean flag = super.doHurtTarget(serverLevel, victim);
 
 		MobEffectInstance slow = new MobEffectInstance(MobEffects.SLOWNESS, 120, 0, false, false);
 		if (flag && victim instanceof LivingEntity bob) {
