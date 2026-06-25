@@ -1,1 +1,1 @@
-Port to 26.1.
+Fix MobZ swords missing vanilla sweep attack behavior.
