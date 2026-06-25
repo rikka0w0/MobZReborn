@@ -37,7 +37,7 @@ public class EntityRenderers {
 		registry.register(MobZEntities.SMALL_ZOMBIE.get(), SmallZombieRenderer::new);
 		registry.register(MobZEntities.IRON_STEVE.get(), EasyHumanoidRenderer::new);
 		registry.register(MobZEntities.FROST_BLAZE.get(), EasyBlazeRenderer::new);
-        registry.register(MobZEntities.FROSTBALL.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+		registry.register(MobZEntities.FROSTBALL.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		registry.register(MobZEntities.NETHER_WOLF.get(), NetherWolfRenderer::new);
 		registry.register(MobZEntities.STONEGOLEM.get(), EasyGolemRenderer::new);
 		registry.register(MobZEntities.ILLUSIONER.get(), EasyEvokerRenderer::new);

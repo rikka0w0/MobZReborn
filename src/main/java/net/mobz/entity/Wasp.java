@@ -38,7 +38,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.AirRandomPos;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -53,7 +52,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
-public class Wasp extends PathfinderMob implements FlyingAnimal {
+public class Wasp extends PathfinderMob {
 	public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
 	protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Wasp.class,
 			EntityDataSerializers.BYTE);
@@ -382,12 +381,10 @@ public class Wasp extends PathfinderMob implements FlyingAnimal {
 			BlockPos p_27757_) {
 	}
 
-	@Override
 	public boolean isFlapping() {
 		return this.isFlying() && this.tickCount % TICKS_PER_FLAP == 0;
 	}
 
-	@Override
 	public boolean isFlying() {
 		return !this.onGround();
 	}

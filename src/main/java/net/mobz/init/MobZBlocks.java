@@ -41,11 +41,11 @@ public class MobZBlocks {
 	}
 
 	public static final Supplier<Block> AMAT_BLOCK = register("amat_block",
-			(props) -> new Block(metal(props).emissiveRendering((blockstate, world, pos) -> true)),
+			(props) -> new Block(metal(props).emissiveRendering(blockState -> true)),
 			(block, props) -> new BlockItemWithTooltip(block, props, MobZRarity.UNCOMMON::addToTooltip));
 
 	public static final Supplier<Block> BOSS_BLOCK = register("boss_block",
-			(props) -> new Block(metal(props).emissiveRendering((blockstate, world, pos) -> true)),
+			(props) -> new Block(metal(props).emissiveRendering(blockState -> true)),
 			(block, props) -> new BlockItemWithTooltip(block, props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true), MobZRarity.LEGENDARY::addToTooltip));
 
 	public static final Supplier<BossTrophy> BOSS_TROPHY = register("boss_trophy",
