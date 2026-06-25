@@ -1,1 +1,1 @@
-Port to 1.21.11.
+Fix MobZ swords missing vanilla sweep attack behavior.
