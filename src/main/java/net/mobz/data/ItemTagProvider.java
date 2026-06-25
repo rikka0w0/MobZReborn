@@ -7,11 +7,13 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import net.mobz.MobZTagsProvider;
 import net.mobz.init.MobZItems;
+import net.mobz.init.MobZWeapons;
 import net.mobz.tags.MobZItemTags;
 
 public class ItemTagProvider extends MobZTagsProvider<Item> {
@@ -22,6 +24,15 @@ public class ItemTagProvider extends MobZTagsProvider<Item> {
 
 	@Override
 	protected void addTags(Provider pProvider) {
+		this.tag(ItemTags.SWORDS).add(
+			key(MobZWeapons.ARMORED_SWORD.get()),
+			key(MobZWeapons.BOSS_SWORD.get()),
+			key(MobZWeapons.FROZEN_SWORD.get()),
+			key(MobZWeapons.POISON_SWORD.get()),
+			key(MobZWeapons.RAINBOW_SWORD.get()),
+			key(MobZWeapons.WITHER_SWORD.get())
+		);
+
 		this.tag(MobZItemTags.FIORA_EQUIP_TAG).add(
 			key(Items.SHIELD),
 			key(MobZItems.SHIELD.get()),

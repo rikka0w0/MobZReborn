@@ -1,0 +1,224 @@
+// Release workflow reminder:
+// 1. Run buildJars first. It invokes each loader's own Gradle wrapper through the Tooling API,
+//    running clean prepareInfo runData, then build for Fabric, Forge, and NeoForge.
+// 2. Run publishMods after the jars are ready. It validates the built jars/changelogs,
+//    publishes each loader jar to CurseForge, and publishes all three jars to one GitHub release.
+// publishMods intentionally does not depend on buildJars, so publishing can be retried without rebuilding.
+
+buildscript {
+	repositories {
+		maven { url = 'https://repo.gradle.org/gradle/libs-releases' }
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.gradle:gradle-tooling-api:${gradle.gradleVersion}"
+	}
+}
+
+plugins {
+	id "me.modmuss50.mod-publish-plugin" version "2.0.1+"
+}
+
+Properties commonProperties = new Properties()
+file("../common.properties").withInputStream { commonProperties.load(it) }
+commonProperties.each { key, value -> project.ext.set(key, value) }
+
+// Load secrete tokens
+def curseforgeApiToken = providers.gradleProperty("curseforgeApiToken").orElse(providers.environmentVariable("CURSEFORGE_TOKEN"))
+def modrinthApiToken = providers.gradleProperty("modrinthApiToken").orElse(providers.environmentVariable("MODRINTH_TOKEN"))
+def githubApiToken = providers.gradleProperty("githubApiToken").orElse(providers.environmentVariable("GITHUB_TOKEN"))
+
+version = project.mod_version
+group = project.dev_group
+
+def declaredMcVersions = project.hasProperty('minecraft_versions_declared') ?
+	project.minecraft_versions_declared.split(',').collect { it.trim() } :
+	[project.minecraft_version]
+def declaredMcVersionText = declaredMcVersions.join(", ")
+
+def fabricJar = file("../fabric/build/libs/${project.archives_base_name}-${project.mod_version}-fabric.jar")
+def forgeJar = file("../forge/build/libs/${project.archives_base_name}-${project.mod_version}-forge.jar")
+def neoforgeJar = file("../neoforge/build/libs/${project.archives_base_name}-${project.mod_version}-neoforge.jar")
+def releaseJars = [fabricJar, forgeJar, neoforgeJar]
+
+def fabricChangelog = file("../fabric/build/info/CHANGELOG_FULL.md")
+def forgeChangelog = file("../forge/build/info/CHANGELOG_FULL.md")
+def neoforgeChangelog = file("../neoforge/build/info/CHANGELOG_FULL.md")
+def releaseChangelogs = [fabricChangelog, forgeChangelog, neoforgeChangelog]
+def githubChangelogFile = layout.buildDirectory.file("info/CHANGELOG_GITHUB.md")
+def modLoaderProjects = ["fabric", "forge", "neoforge"]
+
+def changelogProvider = { changelogFile ->
+	providers.provider {
+		if (changelogFile.exists()) {
+			return changelogFile.text
+		}
+		logger.warn("Missing changelog input: ${changelogFile}")
+		return ''
+	}
+}
+
+tasks.register('mergeGithubChangelog') {
+	def changelogInputs = [
+		file("../CHANGELOG.md"),
+		file("../fabric/build/info/CHANGELOG.md"),
+		file("../neoforge/build/info/CHANGELOG.md"),
+		file("../forge/build/info/CHANGELOG.md"),
+		file("../NOTE.md")
+	]
+
+	inputs.files(changelogInputs)
+	outputs.file(githubChangelogFile)
+
+	doLast {
+		def outputText = new StringBuilder()
+
+		changelogInputs.each { changelogInput ->
+			if (changelogInput.exists()) {
+				outputText.append(changelogInput.text.trim()).append('\n\n')
+			} else {
+				logger.warn("Missing changelog input: ${changelogInput}")
+			}
+		}
+
+		def outputFile = githubChangelogFile.get().asFile
+		outputFile.parentFile.mkdirs()
+		outputFile.text = outputText.toString().trim() + '\n'
+	}
+}
+
+def githubChangelogProvider = providers.provider {
+	def changelogFile = githubChangelogFile.get().asFile
+	if (changelogFile.exists()) {
+		return changelogFile.text
+	}
+	logger.warn('Please run mergeGithubChangelog task first!')
+	return ''
+}
+
+tasks.register('buildJars') {
+	outputs.files(releaseJars)
+	outputs.files(releaseChangelogs)
+	outputs.upToDateWhen { false }
+
+	doLast {
+		def runGradle = { modLoader, gradleTasks ->
+			def modLoaderProjectDir = file("../${modLoader}")
+			logger.lifecycle("Running ${modLoader} Gradle tasks via Tooling API: ${gradleTasks.join(' ')}")
+
+			def connector = org.gradle.tooling.GradleConnector.newConnector()
+				.forProjectDirectory(modLoaderProjectDir)
+				.useBuildDistribution()
+
+			def connection = connector.connect()
+			try {
+				connection.newBuild()
+					.forTasks(gradleTasks as String[])
+					.setStandardOutput(System.out)
+					.setStandardError(System.err)
+					.run()
+			} finally {
+				connection.close()
+			}
+		}
+
+		modLoaderProjects.each { modLoader ->
+			runGradle(modLoader, ["clean", "prepareInfo", "runData"])
+		}
+
+		modLoaderProjects.each { modLoader ->
+			runGradle(modLoader, ["build"])
+		}
+	}
+}
+
+tasks.register('validateReleaseInputs') {
+	inputs.files(releaseJars)
+	inputs.files(releaseChangelogs)
+
+	doLast {
+		(releaseJars + releaseChangelogs).each { releaseInput ->
+			if (!releaseInput.isFile()) {
+				throw new GradleException("Missing release input: ${releaseInput}. The buildJars task should have produced it before publishing.")
+			}
+		}
+	}
+}
+
+publishMods {
+	file = fabricJar
+	version = "${project.mod_version}"
+	dryRun = providers.gradleProperty("modPublishDryRun").map { it.toBoolean() }.orElse(false)
+
+	curseforge("fabricCurseforge") {
+		file = fabricJar
+		displayName = "${project.archives_base_name}-${project.mod_version}-fabric"
+		changelog = changelogProvider(fabricChangelog)
+		type = STABLE
+		modLoaders.add("fabric")
+		accessToken = curseforgeApiToken
+		projectId = "336554"
+		minecraftVersionList(declaredMcVersionText)
+		client = true
+		server = true
+		requires("fabric-api", "cloth-config")
+		optional("modmenu")
+	}
+
+	curseforge("forgeCurseforge") {
+		file = forgeJar
+		displayName = "${project.archives_base_name}-${project.mod_version}-forge"
+		changelog = changelogProvider(forgeChangelog)
+		type = BETA
+		modLoaders.add("forge")
+		accessToken = curseforgeApiToken
+		projectId = "336554"
+		minecraftVersionList(declaredMcVersionText)
+		client = true
+		server = true
+	}
+
+	curseforge("neoforgeCurseforge") {
+		file = neoforgeJar
+		displayName = "${project.archives_base_name}-${project.mod_version}-neoforge"
+		changelog = changelogProvider(neoforgeChangelog)
+		type = BETA
+		modLoaders.add("neoforge")
+		accessToken = curseforgeApiToken
+		projectId = "336554"
+		minecraftVersionList(declaredMcVersionText)
+		client = true
+		server = true
+		requires("cloth-config")
+	}
+
+	github {
+		displayName = "${project.mod_version} for Minecraft ${declaredMcVersions.join(', ')} (Forge, Neoforge and Fabric)"
+		changelog = githubChangelogProvider
+		type = STABLE
+		modLoaders.add("fabric")
+		modLoaders.add("forge")
+		modLoaders.add("neoforge")
+		additionalFiles.from(forgeJar, neoforgeJar)
+		accessToken = githubApiToken
+		repository = "rikka0w0/MobZReborn"
+		commitish = "main"
+		tagName = "${project.mod_version}_${project.minecraft_version}"
+	}
+}
+
+[
+	'publishFabricCurseforge',
+	'publishForgeCurseforge',
+	'publishNeoforgeCurseforge',
+	'publishGithub'
+].each { publishTaskName ->
+	tasks.named(publishTaskName) {
+		dependsOn tasks.named('validateReleaseInputs')
+	}
+}
+
+tasks.named('publishGithub') {
+	dependsOn tasks.named('mergeGithubChangelog')
+	inputs.files(releaseJars)
+}
